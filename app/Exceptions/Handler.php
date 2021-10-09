@@ -93,6 +93,8 @@ class Handler extends ExceptionHandler
             $errors['_response_status']['message'] = "Youth Service API Call Failed.";
         } else if ($e instanceof OrganizationApiCallException) {
             $errors['_response_status']['message'] = "Industry/Organization Service API Call Failed.";
+        } else if ($e instanceof InstituteApiCallException) {
+            $errors['_response_status']['message'] = "Institute Service API Call Failed.";
         } else if ($e instanceof IlluminateRequestException || $e instanceof \GuzzleHttp\Exception\RequestException) {
             $errors['_response_status']['message'] = "External API Call Failed.";
         } elseif ($e instanceof ModelNotFoundException) {
