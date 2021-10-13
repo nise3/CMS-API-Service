@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Helpers\Classes\AuthUserHandler;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
@@ -18,6 +19,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(ResponseFactory::class, function() {
             return new \Laravel\Lumen\Http\ResponseFactory();
         });
+        app()->singleton('authUser', AuthUserHandler::class);
     }
 
 

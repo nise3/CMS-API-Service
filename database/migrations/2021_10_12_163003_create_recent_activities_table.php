@@ -39,8 +39,9 @@ class CreateRecentActivitiesTable extends Migration
             $table->dateTime('activity_date')->nullable();
             $table->dateTime('publish_date')->nullable();
             $table->dateTime('archive_date')->nullable();
-
-
+            $table->tinyInteger('row_status')
+                ->default(1)
+                ->comment('ACTIVE_STATUS = 1; INACTIVE_STATUS = 0;');
             $table->timestamps();
         });
     }

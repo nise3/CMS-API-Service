@@ -25,4 +25,15 @@ $router->get('/', function () use ($router) {
 
 $router->group(['prefix' => 'api/v1', 'as' => 'api.v1'], function () use ($router, $customRouter) {
     $router->get('/', ['uses' => 'ApiInfoController@apiInfo']);
+
+    $customRouter()->resourceRoute('divisions', 'LocDivisionController')->render();
+    $customRouter()->resourceRoute('districts', 'LocDistrictController')->render();
+    $customRouter()->resourceRoute('upazilas', 'LocUpazilaController')->render();
+
+    $customRouter()->resourceRoute('gallery-categories', 'GalleryCategoryController')->render();
+    $customRouter()->resourceRoute('galleries', 'GalleryController')->render();
+    $customRouter()->resourceRoute('video-categories', 'VideoCategoryController')->render();
+    $customRouter()->resourceRoute('videos', 'VideoController')->render();
+    $customRouter()->resourceRoute('sliders', 'SliderController')->render();
+    $customRouter()->resourceRoute('static-pages', 'StaticPageController')->render();
 });

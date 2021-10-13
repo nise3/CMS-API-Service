@@ -87,14 +87,6 @@ class Handler extends ExceptionHandler
             $errors['errors'] = $e->errors();
         } elseif ($e instanceof BindingResolutionException) {
             $errors['_response_status']['message'] = "Binding Resolution Error";
-        } else if ($e instanceof CoreApiCallException) {
-            $errors['_response_status']['message'] = "Core Service API Call Failed.";
-        } else if ($e instanceof YouthApiCallException) {
-            $errors['_response_status']['message'] = "Youth Service API Call Failed.";
-        } else if ($e instanceof OrganizationApiCallException) {
-            $errors['_response_status']['message'] = "Industry/Organization Service API Call Failed.";
-        } else if ($e instanceof InstituteApiCallException) {
-            $errors['_response_status']['message'] = "Institute Service API Call Failed.";
         } else if ($e instanceof IlluminateRequestException || $e instanceof \GuzzleHttp\Exception\RequestException) {
             $errors['_response_status']['message'] = "External API Call Failed.";
         } elseif ($e instanceof ModelNotFoundException) {
