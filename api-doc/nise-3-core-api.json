@@ -2233,6 +2233,7 @@
                                             "institute_id": 2,
                                             "page_id": "2",
                                             "page_contents": "asdbdbnsjdhkjahesldkhewiw",
+                                            "page_contents_en": "asdbdbnsjdhkjahesldkhewiw",
                                             "created_by": null,
                                             "created_at": "2021-09-02T10:03:58.000000Z",
                                             "updated_at": "2021-09-02T12:59:04.000000Z"
@@ -2244,6 +2245,7 @@
                                             "institute_id": 1,
                                             "page_id": "1",
                                             "page_contents": "abclsdks;oe;ooee",
+                                            "page_contents_en": "asdbdbnsjdhkjahesldkhewiw",
                                             "created_by": null,
                                             "created_at": "2021-09-02T10:04:56.000000Z",
                                             "updated_at": "2021-09-02T10:04:56.000000Z"
@@ -2290,6 +2292,7 @@
                                         "institute_id": "1",
                                         "page_id": "1",
                                         "page_contents": "asjkdksjksj;lada';kd,'laad",
+                                        "page_contents_en": "asdbdbnsjdhkjahesldkhewiw",
                                         "updated_at": "2021-09-05T09:03:16.000000Z",
                                         "created_at": "2021-09-05T09:03:16.000000Z",
                                         "id": 3
@@ -2370,6 +2373,7 @@
                                         "institute_id": "1",
                                         "page_id": "1",
                                         "page_contents": "asjkdksjksj;lada';kd,'laad",
+                                        "page_contents_en": "asdbdbnsjdhkjahesldkhewiw",
                                         "updated_at": "2021-09-05T09:03:16.000000Z",
                                         "created_at": "2021-09-05T09:03:16.000000Z"
                                     },
@@ -4783,6 +4787,10 @@
                         "type": "string",
                         "description": "page contents"
                     },
+                    "page_contents_en": {
+                        "type": "string",
+                        "description": "page contents"
+                    },
                     "content_type": {
                         "type": "integer",
                         "description": "1=>Image,2=>Video,3=>Youtube",
@@ -4840,6 +4848,7 @@
                     "title",
                     "title_en",
                     "page_contents",
+                    "page_contents_en",
                     "content_type",
                     "content_path"
                 ]
