@@ -30,6 +30,10 @@ $router->group(['prefix' => 'api/v1', 'as' => 'api.v1'], function () use ($route
     $customRouter()->resourceRoute('districts', 'LocDistrictController')->render();
     $customRouter()->resourceRoute('upazilas', 'LocUpazilaController')->render();
 
+    $customRouter()->resourceRoute('partners', 'PartnerController')->render();
+    $customRouter()->resourceRoute('notice-or-news', 'NoticeOrNewsController')->render();
+    $customRouter()->resourceRoute('recent-activities', 'RecentActivityController')->render();
+
     $customRouter()->resourceRoute('gallery-categories', 'GalleryCategoryController')->render();
     $customRouter()->resourceRoute('galleries', 'GalleryController')->render();
     $customRouter()->resourceRoute('video-categories', 'VideoCategoryController')->render();
