@@ -23,7 +23,7 @@ class VideoCategoryService
     public function getAllVideoCategories(array $request, Carbon $startTime): array
     {
         $titleEn = $request['title_en'] ?? "";
-        $titleBn = $request['title_bn'] ?? "";
+        $titleBn = $request['title'] ?? "";
         $paginate = $request['page'] ?? "";
         $pageSize = $request['page_size'] ?? "";
         $rowStatus = $request['row_status'] ?? "";
@@ -35,10 +35,10 @@ class VideoCategoryService
             'video_categories.institute_id',
             'video_categories.organization_id',
             'video_categories.title_en',
-            'video_categories.title_bn',
+            'video_categories.title',
             'video_categories.parent_id',
             'parent.title_en as parent_category_title_en',
-            'parent.title_bn as parent_category_title_bn',
+            'parent.title as parent_category_title',
             'video_categories.row_status',
             'video_categories.created_at',
             'video_categories.updated_at',
@@ -60,7 +60,7 @@ class VideoCategoryService
             $videoCategoryBuilder->where('video_categories.title_en', 'like', '%' . $titleEn . '%');
         }
         if (!empty($titleBn)) {
-            $videoCategoryBuilder->where('video_categories.title_bn', 'like', '%' . $titleBn . '%');
+            $videoCategoryBuilder->where('video_categories.title', 'like', '%' . $titleBn . '%');
         }
 
         /** @var Collection $videoCategories */
@@ -100,10 +100,10 @@ class VideoCategoryService
             'video_categories.institute_id',
             'video_categories.organization_id',
             'video_categories.title_en',
-            'video_categories.title_bn',
+            'video_categories.title',
             'video_categories.parent_id',
             'parent.title_en as parent_category_title_en',
-            'parent.title_bn as parent_category_title_bn',
+            'parent.title as parent_category_title',
             'video_categories.row_status',
             'video_categories.created_at',
             'video_categories.updated_at',
@@ -184,7 +184,7 @@ class VideoCategoryService
                 'max:191',
                 'min:2'
             ],
-            'title_bn' => [
+            'title' => [
                 'required',
                 'string',
                 'max:500',
@@ -234,7 +234,7 @@ class VideoCategoryService
 
         return Validator::make($request->all(), [
             'title_en' => 'nullable|max:191|min:2',
-            'title_bn' => 'nullable|max:500|min:2',
+            'title' => 'nullable|max:500|min:2',
             'page' => 'numeric|gt:0',
             'page_size' => 'numeric|gt:0',
             'order' => [

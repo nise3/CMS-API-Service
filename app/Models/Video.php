@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int institute_id
  * @property int video_category_id
  * @property string title_en
- * @property string title_bn
+ * @property string title
  * @property string|null description
  * @property int video_type 1 => youtube video 2 => uploaded video
  * @property string|null youtube_video_id

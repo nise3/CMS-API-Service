@@ -15,17 +15,17 @@ class NoticeOrNewsFactory extends Factory
         return [
             'type' => $this->faker->randomElement([1, 2]),
             'title_en' => $title,
-            'title_bn' => $title,
+            'title' => $title,
             'institute_id' => $this->faker->numberBetween(1, 10),
             'organization_id' => $this->faker->numberBetween(1, 10),
             'description_en' => $this->faker->sentence(40),
-            'description_bn' => $this->faker->sentence(40),
+            'description' => $this->faker->sentence(40),
             'image' => $this->faker->sentence(),
             'file' => $this->faker->sentence(),
             'image_alt_title_en' => $this->faker->word(),
-            'image_alt_title_bn' => $this->faker->word(),
+            'image_alt_title' => $this->faker->word(),
             'file_alt_title_en' => $this->faker->word(),
-            'file_alt_title_bn' => $this->faker->word(),
+            'file_alt_title' => $this->faker->word(),
         ];
     }
 }

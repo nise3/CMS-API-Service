@@ -35,7 +35,7 @@ class GalleryService
             'galleries.id',
             'galleries.gallery_category_id',
             'gallery_categories.title_en as gallery_category_title_en',
-            'gallery_categories.title_bn as gallery_category_title_bn',
+            'gallery_categories.title as gallery_category_title',
             'galleries.content_title',
             'galleries.institute_id',
             'galleries.organization_id',
@@ -45,7 +45,7 @@ class GalleryService
             'galleries.you_tube_video_id',
             'galleries.content_properties',
             'galleries.alt_title_en',
-            'galleries.alt_title_bn',
+            'galleries.alt_title',
             'galleries.publish_date',
             'galleries.archive_date',
             'galleries.row_status',
@@ -107,7 +107,7 @@ class GalleryService
             'galleries.id',
             'galleries.gallery_category_id',
             'gallery_categories.title_en as gallery_category_title_en',
-            'gallery_categories.title_bn as gallery_category_title_bn',
+            'gallery_categories.title as gallery_category_title',
             'galleries.content_title',
             'galleries.institute_id',
             'galleries.organization_id',
@@ -117,7 +117,7 @@ class GalleryService
             'galleries.you_tube_video_id',
             'galleries.content_properties',
             'galleries.alt_title_en',
-            'galleries.alt_title_bn',
+            'galleries.alt_title',
             'galleries.publish_date',
             'galleries.archive_date',
             'galleries.row_status',
@@ -242,7 +242,7 @@ class GalleryService
                 'nullable',
                 'string'
             ],
-            'alt_title_bn' => [
+            'alt_title' => [
                 'nullable',
                 'string'
             ],

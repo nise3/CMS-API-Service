@@ -24,7 +24,7 @@ class NoticeOrNewsService
     public function getNoticeOrNewsServiceList(array $request, Carbon $startTime): array
     {
         $titleEn = $request['title_en'] ?? "";
-        $titleBn = $request['title_bn'] ?? "";
+        $titleBn = $request['title'] ?? "";
         $paginate = $request['page'] ?? "";
         $pageSize = $request['page_size'] ?? "";
         $rowStatus = $request['row_status'] ?? "";
@@ -35,17 +35,17 @@ class NoticeOrNewsService
             'notice_or_news.id',
             'notice_or_news.type',
             'notice_or_news.title_en',
-            'notice_or_news.title_bn',
+            'notice_or_news.title',
             'notice_or_news.institute_id',
             'notice_or_news.organization_id',
             'notice_or_news.description_en',
-            'notice_or_news.description_bn',
+            'notice_or_news.description',
             'notice_or_news.image',
             'notice_or_news.file',
             'notice_or_news.image_alt_title_en',
-            'notice_or_news.image_alt_title_bn',
+            'notice_or_news.image_alt_title',
             'notice_or_news.file_alt_title_en',
-            'notice_or_news.file_alt_title_bn',
+            'notice_or_news.file_alt_title',
             'notice_or_news.row_status',
             'notice_or_news.publish_date',
             'notice_or_news.archive_date',
@@ -64,7 +64,7 @@ class NoticeOrNewsService
             $noticeOrNewsBuilder->where('notice_or_news.title_en', 'like', '%' . $titleEn . '%');
         }
         if (!empty($titleBn)) {
-            $noticeOrNewsBuilder->where('notice_or_news.title_bn', 'like', '%' . $titleBn . '%');
+            $noticeOrNewsBuilder->where('notice_or_news.title', 'like', '%' . $titleBn . '%');
         }
 
         /** @var Collection $noticeOrNews */
@@ -104,17 +104,17 @@ class NoticeOrNewsService
             'notice_or_news.id',
             'notice_or_news.type',
             'notice_or_news.title_en',
-            'notice_or_news.title_bn',
+            'notice_or_news.title',
             'notice_or_news.institute_id',
             'notice_or_news.organization_id',
             'notice_or_news.description_en',
-            'notice_or_news.description_bn',
+            'notice_or_news.description',
             'notice_or_news.image',
             'notice_or_news.file',
             'notice_or_news.image_alt_title_en',
-            'notice_or_news.image_alt_title_bn',
+            'notice_or_news.image_alt_title',
             'notice_or_news.file_alt_title_en',
-            'notice_or_news.file_alt_title_bn',
+            'notice_or_news.file_alt_title',
             'notice_or_news.row_status',
             'notice_or_news.publish_date',
             'notice_or_news.archive_date',
@@ -196,7 +196,7 @@ class NoticeOrNewsService
         }
         $rules = [
             "title_en" => "nullable",
-            "title_bn" => "nullable",
+            "title" => "nullable",
             'order' => [
                 'string',
                 Rule::in([BaseModel::ROW_ORDER_ASC, BaseModel::ROW_ORDER_DESC])
@@ -233,7 +233,7 @@ class NoticeOrNewsService
                 'max:191',
                 'min:2'
             ],
-            'title_bn' => [
+            'title' => [
                 'required',
                 'string',
                 'max:500',
@@ -251,7 +251,7 @@ class NoticeOrNewsService
                 'nullable',
                 'string'
             ],
-            'description_bn' => [
+            'description' => [
                 'nullable',
                 'string'
             ],
@@ -267,7 +267,7 @@ class NoticeOrNewsService
                 'nullable',
                 'string'
             ],
-            'image_alt_title_bn' => [
+            'image_alt_title' => [
                 'nullable',
                 'string'
             ],
@@ -275,7 +275,7 @@ class NoticeOrNewsService
                 'nullable',
                 'string'
             ],
-            'file_alt_title_bn' => [
+            'file_alt_title' => [
                 'nullable',
                 'string'
             ],

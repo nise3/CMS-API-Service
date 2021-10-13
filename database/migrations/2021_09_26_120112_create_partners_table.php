@@ -16,11 +16,11 @@ class CreatePartnersTable extends Migration
         Schema::create('partners', function (Blueprint $table) {
             $table->increments("id");
             $table->string('title_en',191);
-            $table->string('title_bn',500);
+            $table->string('title',500);
             $table->string('image');
             $table->string('domain')->nullable();
             $table->string("alt_title_en",191);
-            $table->string("alt_title_bn",191);
+            $table->string("alt_title",191);
             $table->tinyInteger("created_by");
             $table->tinyInteger("updated_by");
             $table->tinyInteger("row_status")->default(1);

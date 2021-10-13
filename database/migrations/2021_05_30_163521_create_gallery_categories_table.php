@@ -16,14 +16,15 @@ class CreateGalleryCategoriesTable extends Migration
         Schema::create('gallery_categories', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title_en', 191);
-            $table->string('title_bn', 500);
+            $table->string('title', 500);
             $table->unsignedInteger('institute_id')->nullable();
             $table->unsignedInteger('organization_id')->nullable();
+            $table->unsignedInteger('organization_association_id')->nullable();
             $table->unsignedInteger('batch_id')->nullable();
             $table->unsignedInteger('programme_id')->nullable();
             $table->string('image', 191)->nullable();
             $table->string("alt_title_en")->nullable();
-            $table->string("alt_title_bn")->nullable();
+            $table->string("alt_title")->nullable();
             $table->boolean('featured')->default(false);
             $table->unsignedTinyInteger('row_status')->default(1);
             $table->unsignedInteger('created_by')->nullable();

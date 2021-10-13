@@ -14,15 +14,15 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int|null institute_id
  * @property int|null organization_id
  * @property string title_en
- * @property string title_bn
+ * @property string title
  * @property string |null description_en
- * @property string |null description_bn
+ * @property string |null description
  * @property string |null $image
  * @property string |null $file
  * @property string |null image_alt_title_en
- * @property string |null image_alt_title_bn
+ * @property string |null image_alt_title
  * @property string |null file_alt_title_en
- * @property string |null file_alt_title_bn
+ * @property string |null file_alt_title
  * @property int row_status
  * @property Carbon|null publish_date
  * @property Carbon|null archive_date

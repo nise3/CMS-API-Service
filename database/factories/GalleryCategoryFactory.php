@@ -14,7 +14,7 @@ class GalleryCategoryFactory extends Factory
         $title = $this->faker->jobTitle();
         return [
             'title_en' => ucfirst($title),
-            'title_bn' => ucfirst($title),
+            'title' => ucfirst($title),
             'institute_id' => $this->faker->numberBetween(1, 10),
             'organization_id' => $this->faker->numberBetween(1, 10),
             'batch_id' => $this->faker->numberBetween(1, 10),

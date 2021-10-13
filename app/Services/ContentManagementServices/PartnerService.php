@@ -25,7 +25,7 @@ class PartnerService
     public function getPartnerList(array $request, Carbon $startTime): array
     {
         $titleEn = $request['title_en'] ?? "";
-        $titleBn = $request['title_bn'] ?? "";
+        $titleBn = $request['title'] ?? "";
         $rowStatus = $request['row_status'] ?? "";
         $order = $request["order"] ?? "ASC";
         $paginate = $request['page'] ?? "";
@@ -35,11 +35,11 @@ class PartnerService
         $partnerBuilder = Partner::select([
             "id",
             "title_en",
-            "title_bn",
+            "title",
             "image",
             "domain",
             "alt_title_en",
-            "alt_title_bn",
+            "alt_title",
             "created_by",
             "updated_by",
             "created_at",
@@ -98,11 +98,11 @@ class PartnerService
         $partnerBuilder = Partner::select([
             "id",
             "title_en",
-            "title_bn",
+            "title",
             "image",
             "domain",
             "alt_title_en",
-            "alt_title_bn",
+            "alt_title",
             "created_by",
             "updated_by",
             "created_at",
@@ -185,7 +185,7 @@ class PartnerService
         ];
         $rules = [
             "title_en" => "required|max:191|min:2",
-            "title_bn" => "required|max:500|min:2",
+            "title" => "required|max:500|min:2",
             "image" => [
                 "required",
                 'regex:/^(http|https):\/\/[a-zA-Z-\-\.0-9]+$/'
@@ -195,7 +195,7 @@ class PartnerService
                 'regex:/^(http|https):\/\/[a-zA-Z-\-\.0-9]+$/'
             ],
             "alt_title_en" => "nullable|min:2|max:191",
-            "alt_title_bn" => "nullable|min:2|max:191",
+            "alt_title" => "nullable|min:2|max:191",
             "created_by" => "nullable|numeric|gt:0",
             "updated_by" => "nullable|numeric|gt:0",
             'row_status' => [
@@ -228,7 +228,7 @@ class PartnerService
 
         $rules = [
             "title_en" => "nullable",
-            "title_bn" => "nullable",
+            "title" => "nullable",
             'page' => 'numeric|gt:0',
             'page_size' => 'numeric|gt:0',
             'order' => [

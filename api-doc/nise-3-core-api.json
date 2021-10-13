@@ -2462,7 +2462,7 @@
                                             "title_en": "abc",
                                             "title": "def",
                                             "description_en": "",
-                                            "description_bn": "",
+                                            "description": "",
                                             "image": "",
                                             "file": "",
                                             "image_alt_title_en": "",
@@ -2519,7 +2519,7 @@
                                         "title_en": "News_title_en",
                                         "title": "News_title",
                                         "description_en": "",
-                                        "description_bn": "",
+                                        "description": "",
                                         "image": "",
                                         "file": "",
                                         "image_alt_title_en": "",
@@ -2573,7 +2573,7 @@
                                         "institute_id": 0,
                                         "organization_id": 0,
                                         "description_en": "",
-                                        "description_bn": "",
+                                        "description": "",
                                         "image": "",
                                         "file": "",
                                         "image_alt_title_en": "",
@@ -2635,7 +2635,7 @@
                                         "institute_id": "",
                                         "organization_id": "2",
                                         "description_en": "",
-                                        "description_bn": "",
+                                        "description": "",
                                         "image": "",
                                         "file": "",
                                         "image_alt_title_en": "",
@@ -2740,7 +2740,7 @@
                                             "title_en": "abc",
                                             "title": "def",
                                             "description_en": "",
-                                            "description_bn": "",
+                                            "description": "",
                                             "image": "",
                                             "file": "",
                                             "image_alt_title_en": "",
@@ -2799,7 +2799,7 @@
                                         "institute_id": 0,
                                         "organization_id": 0,
                                         "description_en": "",
-                                        "description_bn": "",
+                                        "description": "",
                                         "content_type": null,
                                         "content_path": "",
                                         "content_properties": "",
@@ -2853,7 +2853,7 @@
                                         "institute_id": 1,
                                         "organization_id": null,
                                         "description_en": null,
-                                        "description_bn": null,
+                                        "description": null,
                                         "content_type": null,
                                         "content_path": null,
                                         "content_properties": null,
@@ -2913,7 +2913,7 @@
                                         "institute_id": 0,
                                         "organization_id": 0,
                                         "description_en": "",
-                                        "description_bn": "",
+                                        "description": "",
                                         "content_type": null,
                                         "content_path": "",
                                         "content_properties": "",
@@ -3935,26 +3935,6 @@
                     "example": "ডেমো নাম"
                 }
             },
-            "username": {
-                "name": "username",
-                "in": "query",
-                "required": true,
-                "style": "form",
-                "schema": {
-                    "type": "string",
-                    "example": "ডেমো নাম"
-                }
-            },
-            "username_optional": {
-                "name": "username",
-                "in": "query",
-                "required": false,
-                "style": "form",
-                "schema": {
-                    "type": "string",
-                    "example": "ডেমো নাম"
-                }
-            },
             "key": {
                 "name": "key",
                 "in": "query",
@@ -4100,14 +4080,23 @@
                     "type": "integer"
                 }
             },
-            "description": {
-                "name": "description",
+            "address_en": {
+                "name": "address_en",
                 "in": "query",
                 "required": false,
                 "style": "form",
                 "schema": {
                     "type": "string",
-                    "format": "email",
+                    "example": "Lorem Ipsum is simply dummy text of the printing and typesetting industry"
+                }
+            },
+            "address": {
+                "name": "address",
+                "in": "query",
+                "required": false,
+                "style": "form",
+                "schema": {
+                    "type": "string",
                     "example": "Lorem Ipsum is simply dummy text of the printing and typesetting industry"
                 }
             },
@@ -4118,18 +4107,16 @@
                 "style": "form",
                 "schema": {
                     "type": "string",
-                    "format": "email",
                     "example": "Lorem Ipsum is simply dummy text of the printing and typesetting industry"
                 }
             },
-            "description_bn": {
-                "name": "description_bn",
+            "description": {
+                "name": "description",
                 "in": "query",
                 "required": false,
                 "style": "form",
                 "schema": {
                     "type": "string",
-                    "format": "email",
                     "example": "Lorem Ipsum is simply dummy text of the printing and typesetting industry"
                 }
             },
@@ -4683,7 +4670,7 @@
                         "type": "string",
                         "description": "Description_en of video"
                     },
-                    "description_bn": {
+                    "description": {
                         "type": "string",
                         "description": "Description_bn of video"
                     },
@@ -4784,7 +4771,7 @@
                         "type": "string",
                         "description": "description in English"
                     },
-                    "description_bn": {
+                    "description": {
                         "type": "string",
                         "description": "description in Bangla"
                     },
@@ -5051,7 +5038,7 @@
                         "type": "string",
                         "description": "description in English"
                     },
-                    "description_bn": {
+                    "description": {
                         "type": "string",
                         "description": "description in Bengali"
                     },
@@ -5154,7 +5141,7 @@
                         "type": "string",
                         "description": "description in English"
                     },
-                    "description_bn": {
+                    "description": {
                         "type": "string",
                         "description": "description in Bengali"
                     },

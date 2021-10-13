@@ -28,7 +28,7 @@ class GalleryCategoryService
     public function getAllGalleryCategories(array $request, Carbon $startTime): array
     {
         $titleEn = $request['title_en'] ?? "";
-        $titleBn = $request['title_bn'] ?? "";
+        $titleBn = $request['title'] ?? "";
         $paginate = $request['page'] ?? "";
         $pageSize = $request['page_size'] ?? "";
         $rowStatus = $request['row_status'] ?? "";
@@ -38,7 +38,7 @@ class GalleryCategoryService
         $galleryCategoryBuilder = GalleryCategory::select([
             'gallery_categories.id',
             'gallery_categories.title_en',
-            'gallery_categories.title_bn',
+            'gallery_categories.title',
             'gallery_categories.institute_id',
             'gallery_categories.organization_id',
             'gallery_categories.programme_id',
@@ -46,7 +46,7 @@ class GalleryCategoryService
             'gallery_categories.featured',
             'gallery_categories.image',
             'gallery_categories.alt_title_en',
-            'gallery_categories.alt_title_bn',
+            'gallery_categories.alt_title',
             'gallery_categories.featured',
             'gallery_categories.row_status',
             'gallery_categories.created_by',
@@ -65,7 +65,7 @@ class GalleryCategoryService
             $galleryCategoryBuilder->where('gallery_categories.title_en', 'like', '%' . $titleEn . '%');
         }
         if (!empty($titleBn)) {
-            $galleryCategoryBuilder->where('gallery_categories.title_bn', 'like', '%' . $titleBn . '%');
+            $galleryCategoryBuilder->where('gallery_categories.title', 'like', '%' . $titleBn . '%');
         }
 
         /** @var Collection $galleryCategories */
@@ -103,14 +103,14 @@ class GalleryCategoryService
         $galleryCategoryBuilder = GalleryCategory::select([
             'gallery_categories.id',
             'gallery_categories.title_en',
-            'gallery_categories.title_bn',
+            'gallery_categories.title',
             'gallery_categories.institute_id',
             'gallery_categories.organization_id',
             'gallery_categories.programme_id',
             'gallery_categories.batch_id',
             'gallery_categories.image',
             'gallery_categories.alt_title_en',
-            'gallery_categories.alt_title_bn',
+            'gallery_categories.alt_title',
             'gallery_categories.featured',
             'gallery_categories.row_status',
             'gallery_categories.created_by',
@@ -188,7 +188,7 @@ class GalleryCategoryService
                 'max:191',
                 'min:2'
             ],
-            'title_bn' => [
+            'title' => [
                 'required',
                 'string',
                 'max:500',
@@ -226,7 +226,7 @@ class GalleryCategoryService
                 'string',
             ],
 
-            'alt_title_bn' => [
+            'alt_title' => [
                 'nullable',
                 'string',
             ],
@@ -265,7 +265,7 @@ class GalleryCategoryService
 
         return Validator::make($request->all(), [
             'title_en' => 'nullable|max:191|min:2',
-            'title_bn' => 'nullable|min:500|min:2',
+            'title' => 'nullable|min:500|min:2',
             'page' => 'numeric|gt:0',
             'page_size' => 'numeric|gt:0',
             'order' => [

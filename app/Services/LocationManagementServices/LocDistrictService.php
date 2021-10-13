@@ -22,7 +22,7 @@ class LocDistrictService
     public function getAllDistricts(array $request, Carbon $startTime): array
     {
         $titleEn = $request['title_en'] ?? "";
-        $titleBn = $request['title_bn'] ?? "";
+        $titleBn = $request['title'] ?? "";
         $rowStatus = $request['row_status'] ?? "";
         $divisionId = $request['loc_division_id'] ?? "";
         $order = $request['order'] ?? "ASC";
@@ -31,11 +31,11 @@ class LocDistrictService
         $districtsBuilder = LocDistrict::select([
             'loc_districts.id',
             'loc_districts.loc_division_id',
-            'loc_districts.title_bn',
+            'loc_districts.title',
             'loc_districts.title_en',
             'loc_districts.bbs_code',
             'loc_districts.is_sadar_district',
-            'loc_divisions.title_bn as division_title_bn',
+            'loc_divisions.title as division_title',
             'loc_divisions.title_en as division_title_en',
             'loc_districts.row_status',
             'loc_districts.created_at',
@@ -62,7 +62,7 @@ class LocDistrictService
             $districtsBuilder->where('loc_districts.title_en', 'like', '%' . $titleEn . '%');
         }
         if (!empty($titleBn)) {
-            $districtsBuilder->where('loc_districts.title_bn', 'like', '%' . $titleBn . '%');
+            $districtsBuilder->where('loc_districts.title', 'like', '%' . $titleBn . '%');
         }
 
         if (is_numeric($divisionId)) {
@@ -94,11 +94,11 @@ class LocDistrictService
         $districtBuilder = LocDistrict::select([
             'loc_districts.id',
             'loc_districts.loc_division_id',
-            'loc_districts.title_bn',
+            'loc_districts.title',
             'loc_districts.title_en',
             'loc_districts.bbs_code',
             'loc_districts.is_sadar_district',
-            'loc_divisions.title_bn as division_title_bn',
+            'loc_divisions.title as division_title',
             'loc_divisions.title_en as division_title_en',
             'loc_districts.row_status',
             'loc_districts.created_at',
@@ -169,7 +169,7 @@ class LocDistrictService
         return Validator::make($request->all(), [
             'loc_division_id' => 'required|numeric|exists:loc_divisions,id',
             'title_en' => 'required|string|max:191|min:2',
-            'title_bn' => 'required|string|max:500|min:2',
+            'title' => 'required|string|max:500|min:2',
             'bbs_code' => 'nullable|max:5|min:1',
             'division_bbs_code' => 'nullable|min:1|max:4|exists:loc_divisions,bbs_code',
             'row_status' => [
@@ -198,7 +198,7 @@ class LocDistrictService
 
         return Validator::make($request->all(), [
             'title_en' => 'nullable|max:191|min:2',
-            'title_bn' => 'nullable|max:500|min:2',
+            'title' => 'nullable|max:500|min:2',
             'loc_division_id' => 'numeric|exists:loc_divisions,id',
             'order' => [
                 'string',

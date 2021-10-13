@@ -18,17 +18,22 @@ class CreateStaticPagesTable extends Migration
             $table->tinyInteger('type')->comment("1=>Block, 2=>Static Page");
             $table->unsignedInteger('institute_id')->nullable();
             $table->unsignedInteger('organization_id')->nullable();
-            $table->string('page_id', 191);
-            $table->string('title_en', 191);
-            $table->string('title_bn', 500);
+            $table->unsignedInteger('organization_association_id')->nullable();
+            $table->string('page_id', 250);
+            $table->string('title_en', 250);
+            $table->string('title', 500);
+
             $table->text("description_en")->nullable();
-            $table->text("description_bn")->nullable();
+            $table->text("description")->nullable();
+
             $table->text('page_contents')->nullable();
+            $table->text('page_contents_en')->nullable();
+
             $table->tinyInteger('content_type')->comment("1=>Image,2=>Video,3=>Youtube");
             $table->string('content_path');
             $table->string('content_properties')->nullable();
             $table->string('alt_title_en')->nullable();
-            $table->string('alt_title_bn')->nullable();
+            $table->string('alt_title')->nullable();
             $table->unsignedInteger('created_by')->nullable();
             $table->unsignedInteger('updated_by')->nullable();
             $table->tinyInteger('row_status')->default(1);

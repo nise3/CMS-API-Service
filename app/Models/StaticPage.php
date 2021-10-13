@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @package App\Models
  * @property int institute_id
  * @property string title_en
- * @property string title_bn
+ * @property string title
  * @property string page_id
  * @property string page_contents
  * @property int row_status

@@ -23,7 +23,7 @@ class RecentActivityService
     public function getRecentActivityList(array $request, Carbon $startTime): array
     {
         $titleEn = $request['title_en'] ?? "";
-        $titleBn = $request['title_bn'] ?? "";
+        $titleBn = $request['title'] ?? "";
         $paginate = $request['page'] ?? "";
         $pageSize = $request['page_size'] ?? "";
         $rowStatus = $request['row_status'] ?? "";
@@ -34,16 +34,16 @@ class RecentActivityService
         $recentActivityBuilder = RecentActivity::select([
             'recent_activities.id',
             'recent_activities.title_en',
-            'recent_activities.title_bn',
+            'recent_activities.title',
             'recent_activities.institute_id',
             'recent_activities.organization_id',
             'recent_activities.description_en',
-            'recent_activities.description_bn',
+            'recent_activities.description',
             'recent_activities.content_type',
             'recent_activities.content_path',
             'recent_activities.content_properties',
             'recent_activities.alt_title_en',
-            'recent_activities.alt_title_bn',
+            'recent_activities.alt_title',
             'recent_activities.publish_date',
             'recent_activities.archive_date',
             'recent_activities.created_by',
@@ -61,7 +61,7 @@ class RecentActivityService
             $recentActivityBuilder->where('recent_activities.title_en', 'like', '%' . $titleEn . '%');
         }
         if (!empty($titleBn)) {
-            $recentActivityBuilder->where('recent_activities.title_bn', 'like', '%' . $titleBn . '%');
+            $recentActivityBuilder->where('recent_activities.title', 'like', '%' . $titleBn . '%');
         }
 
 
@@ -100,16 +100,16 @@ class RecentActivityService
         $recentActivityBuilder = RecentActivity::select([
             'recent_activities.id',
             'recent_activities.title_en',
-            'recent_activities.title_bn',
+            'recent_activities.title',
             'recent_activities.institute_id',
             'recent_activities.organization_id',
             'recent_activities.description_en',
-            'recent_activities.description_bn',
+            'recent_activities.description',
             'recent_activities.content_type',
             'recent_activities.content_path',
             'recent_activities.content_properties',
             'recent_activities.alt_title_en',
-            'recent_activities.alt_title_bn',
+            'recent_activities.alt_title',
             'recent_activities.publish_date',
             'recent_activities.archive_date',
             'recent_activities.created_by',
@@ -189,7 +189,7 @@ class RecentActivityService
         }
         $rules = [
             "title_en" => "nullable",
-            "title_bn" => "nullable",
+            "title" => "nullable",
             'order' => [
                 'string',
                 Rule::in([BaseModel::ROW_ORDER_ASC, BaseModel::ROW_ORDER_DESC])
@@ -226,7 +226,7 @@ class RecentActivityService
                 'max:191',
                 'min:2'
             ],
-            'title_bn' => [
+            'title' => [
                 'required',
                 'string',
                 'max:500',
@@ -244,7 +244,7 @@ class RecentActivityService
                 'nullable',
                 'string'
             ],
-            'description_bn' => [
+            'description' => [
                 'nullable',
                 'string'
             ],
@@ -260,7 +260,7 @@ class RecentActivityService
                 'nullable',
                 'string'
             ],
-            'alt_title_bn' => [
+            'alt_title' => [
                 'nullable',
                 'string'
             ],

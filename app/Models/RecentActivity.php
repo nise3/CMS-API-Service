@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @package App\Models
  * @property int id
  * @property string|null title_en
- * @property string|null title_bn
+ * @property string|null title
  * @property int|null institute_id
  * @property int|null organization_id
  * @property string|null description_en
@@ -20,7 +20,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string|null content_path
  * @property string|null content_properties
  * @property string|null alt_title_en
- * @property string|null alt_title_bn
+ * @property string|null alt_title
  * @property Carbon publish_date
  * @property Carbon archive_date
  * @property int row_status

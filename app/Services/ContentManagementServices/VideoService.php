@@ -19,7 +19,7 @@ class VideoService
     public function getAllVideos(array $request, Carbon $startTime): array
     {
         $titleEn = $request['title_en'] ?? "";
-        $titleBn = $request['title_bn'] ?? "";
+        $titleBn = $request['title'] ?? "";
         $paginate = $request['page'] ?? "";
         $pageSize = $request['page_size'] ?? "";
         $rowStatus = $request['row_status'] ?? "";
@@ -29,12 +29,12 @@ class VideoService
         $videoBuilder = Video::select([
             'videos.id',
             'videos.title_en',
-            'videos.title_bn',
+            'videos.title',
             'videos.description_en',
-            'videos.description_bn',
+            'videos.description',
             'videos.video_category_id',
             'video_categories.title_en as video_category_title_en',
-            'video_categories.title_bn as video_category_title_bn',
+            'video_categories.title as video_category_title',
             'videos.institute_id',
             'videos.organization_id',
             'videos.uploaded_video_path',
@@ -42,7 +42,7 @@ class VideoService
             'videos.youtube_video_id',
             'videos.youtube_video_url',
             'videos.alt_title_en',
-            'videos.alt_title_bn',
+            'videos.alt_title',
             'videos.row_status',
             'videos.created_by',
             'videos.created_by',
@@ -65,7 +65,7 @@ class VideoService
         if (!empty($titleEn)) {
             $videoBuilder->where('videos.title_en', 'like', '%' . $titleEn . '%');
         } elseif (!empty($titleBn)) {
-            $videoBuilder->where('videos.title_bn', 'like', '%' . $titleBn . '%');
+            $videoBuilder->where('videos.title', 'like', '%' . $titleBn . '%');
         }
 
         /** @var Collection $videos */
@@ -98,12 +98,12 @@ class VideoService
         $videoBuilder = Video::select([
             'videos.id',
             'videos.title_en',
-            'videos.title_bn',
+            'videos.title',
             'videos.description_en',
-            'videos.description_bn',
+            'videos.description',
             'videos.video_category_id',
             'video_categories.title_en as video_category_title_en',
-            'video_categories.title_bn as video_category_title_bn',
+            'video_categories.title as video_category_title',
             'videos.institute_id',
             'videos.organization_id',
             'videos.uploaded_video_path',
@@ -111,7 +111,7 @@ class VideoService
             'videos.youtube_video_id',
             'videos.youtube_video_url',
             'videos.alt_title_en',
-            'videos.alt_title_bn',
+            'videos.alt_title',
             'videos.row_status',
             'videos.created_by',
             'videos.created_by',
@@ -212,7 +212,7 @@ class VideoService
                 'max:191',
                 'min:2'
             ],
-            'title_bn' => [
+            'title' => [
                 'required',
                 'string',
                 'max:500',
@@ -235,7 +235,7 @@ class VideoService
                 'nullable',
                 'string'
             ],
-            'description_bn' => [
+            'description' => [
                 'nullable',
                 'string'
             ],
@@ -258,7 +258,7 @@ class VideoService
                 'nullable',
                 'string'
             ],
-            'alt_title_bn' => [
+            'alt_title' => [
                 'nullable',
                 'string'
             ],
@@ -300,7 +300,7 @@ class VideoService
 
         return Validator::make($request->all(), [
             'title_en' => 'nullable|max:191|min:2',
-            'title_bn' => 'nullable|max:500|min:2',
+            'title' => 'nullable|max:500|min:2',
             'page' => 'numeric|gt:0',
             'page_size' => 'numeric|gt:0',
             'order' => [

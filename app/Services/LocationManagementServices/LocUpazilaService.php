@@ -26,7 +26,7 @@ class LocUpazilaService
     {
 
         $titleEn = $request['title_en'] ?? "";
-        $titleBn = $request['title_bn'] ?? "";
+        $titleBn = $request['title'] ?? "";
         $rowStatus = $request['row_status'] ?? "";
         $districtId = $request['loc_district_id'] ?? "";
         $divisionId = $request['loc_division_id'] ?? "";
@@ -35,14 +35,14 @@ class LocUpazilaService
         /** @var LocUpazila|Builder $upazilasBuilder */
         $upazilasBuilder = LocUpazila::select([
             'loc_upazilas.id',
-            'loc_upazilas.title_bn',
+            'loc_upazilas.title',
             'loc_upazilas.title_en',
             'loc_upazilas.bbs_code',
             'loc_upazilas.loc_district_id',
-            'loc_districts.title_bn as district_title_bn',
+            'loc_districts.title as district_title',
             'loc_districts.title_en as district_title_en',
             'loc_upazilas.loc_division_id',
-            'loc_divisions.title_bn as division_title_bn',
+            'loc_divisions.title as division_title',
             'loc_divisions.title_en as division_title_en',
             'loc_upazilas.row_status',
             'loc_upazilas.created_at',
@@ -75,7 +75,7 @@ class LocUpazilaService
             $upazilasBuilder->where('loc_upazilas.title_en', 'like', '%' . $titleEn . '%');
         }
         if (!empty($titleBn)) {
-            $upazilasBuilder->where('loc_upazilas.title_bn', 'like', '%' . $titleBn . '%');
+            $upazilasBuilder->where('loc_upazilas.title', 'like', '%' . $titleBn . '%');
         }
 
         if (is_numeric($districtId)) {
@@ -111,12 +111,12 @@ class LocUpazilaService
             'loc_upazilas.id',
             'loc_upazilas.loc_district_id',
             'loc_upazilas.loc_division_id',
-            'loc_upazilas.title_bn',
+            'loc_upazilas.title',
             'loc_upazilas.title_en',
             'loc_upazilas.bbs_code',
-            'loc_districts.title_bn as district_title_bn',
+            'loc_districts.title as district_title',
             'loc_districts.title_en as district_title_en',
-            'loc_divisions.title_bn as division_title_bn',
+            'loc_divisions.title as division_title',
             'loc_divisions.title_en as division_title_en',
             'loc_upazilas.row_status',
             'loc_upazilas.created_at',
@@ -202,7 +202,7 @@ class LocUpazilaService
             'division_bbs_code' => 'nullable|min:1|exists:loc_divisions,bbs_code',
             'district_bbs_code' => 'nullable|min:1|exists:loc_districts,bbs_code',
             'title_en' => 'required|string|max:191|min:2',
-            'title_bn' => 'required|string|max:500|min:2',
+            'title' => 'required|string|max:500|min:2',
             'bbs_code' => 'nullable|max:6|min:1',
             'row_status' => [
                 'required_if:' . $id . ',!=,null',
@@ -228,7 +228,7 @@ class LocUpazilaService
         ];
         return Validator::make($request->all(), [
             'title_en' => 'nullable|max:191|min:2',
-            'title_bn' => 'nullable|max:500|min:2',
+            'title' => 'nullable|max:500|min:2',
             'loc_district_id' => 'numeric|exists:loc_districts,id',
             'loc_division_id' => 'numeric|exists:loc_divisions,id',
             'order' => [

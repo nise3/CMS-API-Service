@@ -23,7 +23,7 @@ class StaticPageService
     public function getAllStaticPages(array $request, Carbon $startTime): array
     {
         $titleEn = $request['title_en'] ?? "";
-        $titleBn = $request['title_bn'] ?? "";
+        $titleBn = $request['title'] ?? "";
         $paginate = $request['page'] ?? "";
         $pageSize = $request['page_size'] ?? "";
         $rowStatus = $request['row_status'] ?? "";
@@ -33,19 +33,19 @@ class StaticPageService
         $staticPageBuilder = StaticPage::select([
             'static_pages_and_block.id',
             'static_pages_and_block.title_en',
-            'static_pages_and_block.title_bn',
+            'static_pages_and_block.title',
             'static_pages_and_block.type',
             'static_pages_and_block.institute_id',
             'static_pages_and_block.organization_id',
             'static_pages_and_block.description_en',
-            'static_pages_and_block.description_bn',
+            'static_pages_and_block.description',
             'static_pages_and_block.page_id',
             'static_pages_and_block.page_contents',
             'static_pages_and_block.content_type',
             'static_pages_and_block.content_properties',
             'static_pages_and_block.content_path',
             'static_pages_and_block.alt_title_en',
-            'static_pages_and_block.alt_title_bn',
+            'static_pages_and_block.alt_title',
             'static_pages_and_block.row_status',
             'static_pages_and_block.created_by',
             'static_pages_and_block.updated_by',
@@ -62,7 +62,7 @@ class StaticPageService
             $staticPageBuilder->where('static_pages_and_block.title_en', 'like', '%' . $titleEn . '%');
         }
         if (!empty($titleBn)) {
-            $staticPageBuilder->where('static_pages_and_block.title_bn', 'like', '%' . $titleBn . '%');
+            $staticPageBuilder->where('static_pages_and_block.title', 'like', '%' . $titleBn . '%');
         }
 
         /** @var Collection $staticPages */
@@ -100,19 +100,19 @@ class StaticPageService
         $staticPageBuilder = StaticPage::select([
             'static_pages_and_block.id',
             'static_pages_and_block.title_en',
-            'static_pages_and_block.title_bn',
+            'static_pages_and_block.title',
             'static_pages_and_block.type',
             'static_pages_and_block.institute_id',
             'static_pages_and_block.organization_id',
             'static_pages_and_block.description_en',
-            'static_pages_and_block.description_bn',
+            'static_pages_and_block.description',
             'static_pages_and_block.page_id',
             'static_pages_and_block.page_contents',
             'static_pages_and_block.content_type',
             'static_pages_and_block.content_properties',
             'static_pages_and_block.content_path',
             'static_pages_and_block.alt_title_en',
-            'static_pages_and_block.alt_title_bn',
+            'static_pages_and_block.alt_title',
             'static_pages_and_block.row_status',
             'static_pages_and_block.created_by',
             'static_pages_and_block.updated_by',
@@ -194,7 +194,7 @@ class StaticPageService
                 'max:191',
                 'min:2'
             ],
-            'title_bn' => [
+            'title' => [
                 'required',
                 'string',
                 'max:500',
@@ -212,7 +212,7 @@ class StaticPageService
                 'nullable',
                 'string'
             ],
-            'description_bn' => [
+            'description' => [
                 'nullable',
                 'string'
             ],
@@ -243,7 +243,7 @@ class StaticPageService
                 'nullable',
                 'string'
             ],
-            'alt_title_bn' => [
+            'alt_title' => [
                 'nullable',
                 'string'
             ]
@@ -276,7 +276,7 @@ class StaticPageService
 
         return Validator::make($request->all(), [
             'title_en' => 'nullable|max:191|min:2',
-            'title_bn' => 'nullable|max:500|min:2',
+            'title' => 'nullable|max:500|min:2',
             'page' => 'numeric|gt:0',
             'page_size' => 'numeric|gt:0',
             'order' => [

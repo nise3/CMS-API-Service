@@ -20,8 +20,8 @@ class SliderService
 
         $titleEn = $request['title_en'] ?? "";
         $subTitleEn = $request['sub_title_en'] ?? "";
-        $titleBn = $request['title_bn'] ?? "";
-        $subTitleBn = $request['sub_title_bn'] ?? "";
+        $titleBn = $request['title'] ?? "";
+        $subTitleBn = $request['sub_title'] ?? "";
         $paginate = $request['page'] ?? "";
         $pageSize = $request['page_size'] ?? "";
         $rowStatus = $request['row_status'] ?? "";
@@ -34,15 +34,15 @@ class SliderService
             'sliders.institute_id',
             'sliders.organization_id',
             'sliders.title_en',
-            'sliders.title_bn',
+            'sliders.title',
             'sliders.sub_title_en',
-            'sliders.sub_title_bn',
+            'sliders.sub_title',
             'sliders.is_button_available',
             'sliders.link',
             'sliders.button_text',
             'sliders.slider_images',
             'sliders.alt_title_en',
-            'sliders.alt_title_bn',
+            'sliders.alt_title',
             'sliders.row_status',
             'sliders.created_at',
             'sliders.updated_at',
@@ -58,13 +58,13 @@ class SliderService
             $sliderBuilder->where('sliders.title_en', 'like', '%' . $titleEn . '%');
         }
         if (!empty($titleBn)) {
-            $sliderBuilder->where('sliders.title_bn', 'like', '%' . $titleBn . '%');
+            $sliderBuilder->where('sliders.title', 'like', '%' . $titleBn . '%');
         }
         if (!empty($subTitleEn)) {
             $sliderBuilder->where('sliders.sub_title_en', 'like', '%' . $subTitleEn . '%');
         }
         if (!empty($subTitleBn)) {
-            $sliderBuilder->where('sliders.sub_title_bn', 'like', '%' . $subTitleBn . '%');
+            $sliderBuilder->where('sliders.sub_title', 'like', '%' . $subTitleBn . '%');
         }
 
 
@@ -102,15 +102,15 @@ class SliderService
             'sliders.institute_id',
             'sliders.organization_id',
             'sliders.title_en',
-            'sliders.title_bn',
+            'sliders.title',
             'sliders.sub_title_en',
-            'sliders.sub_title_bn',
+            'sliders.sub_title',
             'sliders.is_button_available',
             'sliders.link',
             'sliders.button_text',
             'sliders.slider_images',
             'sliders.alt_title_en',
-            'sliders.alt_title_bn',
+            'sliders.alt_title',
             'sliders.row_status',
             'sliders.created_at',
             'sliders.updated_at',
@@ -188,7 +188,7 @@ class SliderService
                 'max:191',
                 'min:2'
             ],
-            'title_bn' => [
+            'title' => [
                 'required',
                 'string',
                 'max:500',
@@ -200,7 +200,7 @@ class SliderService
                 'max:191',
                 'min:2'
             ],
-            'sub_title_bn' => [
+            'sub_title' => [
                 'required',
                 'string',
                 'max:191',
@@ -243,7 +243,7 @@ class SliderService
                 'string',
                 'nullable'
             ],
-            'alt_title_bn' => [
+            'alt_title' => [
                 'string',
                 'nullable'
             ],
@@ -278,8 +278,8 @@ class SliderService
         return Validator::make($request->all(), [
             'title_en' => 'nullable|max:191|min:2',
             'sub_title_en' => 'nullable|max:500|min:2',
-            'title_bn' => 'nullable|max:191|min:2',
-            'sub_title_bn' => 'nullable|max:500|min:2',
+            'title' => 'nullable|max:191|min:2',
+            'sub_title' => 'nullable|max:500|min:2',
             'page' => 'numeric|gt:0',
             'page_size' => 'numeric|gt:0',
             'order' => [

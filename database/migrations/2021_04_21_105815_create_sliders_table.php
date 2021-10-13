@@ -18,15 +18,15 @@ class CreateSlidersTable extends Migration
             $table->unsignedInteger('institute_id')->nullable();
             $table->unsignedInteger('organization_id')->nullable();
             $table->string('title_en', 191);
-            $table->string('title_bn', 500);
+            $table->string('title', 500);
             $table->string('sub_title_en', 191);
-            $table->string('sub_title_bn', 500);
+            $table->string('sub_title', 500);
             $table->unsignedTinyInteger('is_button_available')->default(0);
             $table->string('button_text', 20)->nullable();
             $table->string('link', 191)->nullable();
             $table->text('slider_images')->comment("[image_link1,image_link2.........]");
             $table->string('alt_title_en')->nullable();
-            $table->string('alt_title_bn')->nullable();
+            $table->string('alt_title')->nullable();
             $table->unsignedTinyInteger('row_status')->default(1);
             $table->unsignedInteger("created_by")->nullable();
             $table->unsignedInteger("updated_by")->nullable();
