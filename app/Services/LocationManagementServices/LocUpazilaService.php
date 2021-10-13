@@ -199,9 +199,7 @@ class LocUpazilaService
         return Validator::make($request->all(), [
             'loc_district_id' => 'required|numeric|exists:loc_districts,id',
             'loc_division_id' => 'required|numeric|exists:loc_divisions,id',
-            'division_bbs_code' => 'nullable|min:1|exists:loc_divisions,bbs_code',
-            'district_bbs_code' => 'nullable|min:1|exists:loc_districts,bbs_code',
-            'title_en' => 'required|string|max:191|min:2',
+            'title_en' => 'required|string|max:250|min:2',
             'title' => 'required|string|max:500|min:2',
             'bbs_code' => 'nullable|max:6|min:1',
             'row_status' => [
@@ -227,16 +225,16 @@ class LocUpazilaService
             ]
         ];
         return Validator::make($request->all(), [
-            'title_en' => 'nullable|max:191|min:2',
+            'title_en' => 'nullable|max:250|min:2',
             'title' => 'nullable|max:500|min:2',
-            'loc_district_id' => 'numeric|exists:loc_districts,id',
-            'loc_division_id' => 'numeric|exists:loc_divisions,id',
+            'loc_district_id' => 'integer|exists:loc_districts,id',
+            'loc_division_id' => 'integer|exists:loc_divisions,id',
             'order' => [
                 'string',
                 Rule::in([BaseModel::ROW_ORDER_ASC, BaseModel::ROW_ORDER_DESC])
             ],
             'row_status' => [
-                "numeric",
+                "integer",
                 Rule::in([BaseModel::ROW_STATUS_ACTIVE, BaseModel::ROW_STATUS_INACTIVE]),
             ],
         ], $customMessage);

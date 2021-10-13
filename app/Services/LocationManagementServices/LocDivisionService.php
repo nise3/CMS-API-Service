@@ -133,7 +133,7 @@ class LocDivisionService
         ];
 
         return Validator::make($request->all(), [
-            'title_en' => 'required|string|max:191|min:2',
+            'title_en' => 'required|string|max:250|min:2',
             'title' => 'required|string|max:500|min:2',
             'bbs_code' => 'nullable|max:4|min:1',
             'row_status' => [
@@ -159,7 +159,7 @@ class LocDivisionService
             ]
         ];
         return Validator::make($request->all(), [
-            'title_en' => 'nullable|max:191|min:2',
+            'title_en' => 'nullable|max:250|min:2',
             'title' => 'nullable|max:500|min:2',
             'order' => [
                 'string',

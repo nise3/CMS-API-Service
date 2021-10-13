@@ -13,16 +13,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int id
  * @property string|null title_en
  * @property string|null title
- * @property int|null institute_id
- * @property int|null organization_id
- * @property string|null description_en
- * @property int content_type
- * @property string|null content_path
- * @property string|null content_properties
- * @property string|null alt_title_en
- * @property string|null alt_title
- * @property Carbon publish_date
- * @property Carbon archive_date
  * @property int row_status
  * @property int|null $created_by
  * @property int|null $updated_by
@@ -36,7 +26,6 @@ class RecentActivity extends BaseModel
     const CONTENT_TYPE_IMAGE = 1;
     const CONTENT_TYPE_VIDEO = 2;
     const CONTENT_TYPE_YOUTUBE = 3;
-
 
     protected $guarded = BaseModel::COMMON_GUARDED_FIELDS_SIMPLE_SOFT_DELETE;
     protected $table = 'recent_activities';

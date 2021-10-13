@@ -59,7 +59,8 @@ class LocDistrictController extends Controller
      * Display the specified resource.
      *
      * @param int $id
-     * @return Exception|JsonResponse|Throwable
+     * @return JsonResponse
+     * @throws Throwable
      */
     public function read(int $id): JsonResponse
     {
@@ -79,9 +80,10 @@ class LocDistrictController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Request $request
-     * @return Exception|JsonResponse|Throwable
-     * @throws ValidationException
+     * @return JsonResponse
      * @throws AuthorizationException
+     * @throws Throwable
+     * @throws ValidationException
      */
     public function store(Request $request): JsonResponse
     {
@@ -109,9 +111,10 @@ class LocDistrictController extends Controller
      *
      * @param Request $request
      * @param int $id
-     * @return Exception|JsonResponse|Throwable
-     * @throws ValidationException
+     * @return JsonResponse
      * @throws AuthorizationException
+     * @throws Throwable
+     * @throws ValidationException
      */
     public function update(Request $request, int $id): JsonResponse
     {
@@ -138,7 +141,9 @@ class LocDistrictController extends Controller
     /**
      * Remove the specified resource from storage.
      * @param int $id
-     * @return Exception|JsonResponse|Throwable
+     * @return JsonResponse
+     * @throws AuthorizationException
+     * @throws Throwable
      */
     public function destroy(int $id): JsonResponse
     {

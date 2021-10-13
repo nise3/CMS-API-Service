@@ -167,11 +167,10 @@ class LocDistrictService
             ]
         ];
         return Validator::make($request->all(), [
-            'loc_division_id' => 'required|numeric|exists:loc_divisions,id',
-            'title_en' => 'required|string|max:191|min:2',
+            'loc_division_id' => 'required|integer|exists:loc_divisions,id',
+            'title_en' => 'required|string|max:250|min:2',
             'title' => 'required|string|max:500|min:2',
             'bbs_code' => 'nullable|max:5|min:1',
-            'division_bbs_code' => 'nullable|min:1|max:4|exists:loc_divisions,bbs_code',
             'row_status' => [
                 'required_if:' . $id . ',!=,null',
                 Rule::in([BaseModel::ROW_STATUS_ACTIVE, BaseModel::ROW_STATUS_INACTIVE]),
@@ -197,15 +196,15 @@ class LocDistrictService
         ];
 
         return Validator::make($request->all(), [
-            'title_en' => 'nullable|max:191|min:2',
+            'title_en' => 'nullable|max:250|min:2',
             'title' => 'nullable|max:500|min:2',
-            'loc_division_id' => 'numeric|exists:loc_divisions,id',
+            'loc_division_id' => 'integer|exists:loc_divisions,id',
             'order' => [
                 'string',
                 Rule::in([BaseModel::ROW_ORDER_ASC, BaseModel::ROW_ORDER_DESC])
             ],
             'row_status' => [
-                "numeric",
+                "integer",
                 Rule::in([BaseModel::ROW_STATUS_ACTIVE, BaseModel::ROW_STATUS_INACTIVE]),
             ],
         ], $customMessage);

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Models\LocUpazila;
 
 use App\Services\LocationManagementServices\LocUpazilaService;
@@ -39,8 +38,9 @@ class LocUpazilaController extends Controller
     /**
      * Display a listing of the resource.
      * @param Request $request
-     * @return Exception|JsonResponse|Throwable
-     * @throws AuthorizationException|ValidationException
+     * @return JsonResponse
+     * @throws Throwable
+     * @throws ValidationException
      */
     public function getList(Request $request): JsonResponse
     {
@@ -58,7 +58,8 @@ class LocUpazilaController extends Controller
     /**
      * @param Request $request
      * @param int $id
-     * @return Exception|JsonResponse|Throwable
+     * @return JsonResponse
+     * @throws Throwable
      */
     public function read(Request $request, int $id): JsonResponse
     {
@@ -78,9 +79,10 @@ class LocUpazilaController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Request $request
-     * @return Exception|JsonResponse|Throwable
-     * @throws ValidationException
+     * @return JsonResponse
      * @throws AuthorizationException
+     * @throws Throwable
+     * @throws ValidationException
      */
     public function store(Request $request): JsonResponse
     {
@@ -108,9 +110,10 @@ class LocUpazilaController extends Controller
      * Update the specified resource in storage.
      * @param Request $request
      * @param int $id
-     * @return Exception|JsonResponse|Throwable
-     * @throws ValidationException
+     * @return JsonResponse
      * @throws AuthorizationException
+     * @throws Throwable
+     * @throws ValidationException
      */
     public function update(Request $request, int $id): JsonResponse
     {
@@ -139,8 +142,9 @@ class LocUpazilaController extends Controller
     /**
      * Remove the specified resource from storage.
      * @param int $id
-     * @return Exception|JsonResponse|Throwable
+     * @return JsonResponse
      * @throws AuthorizationException
+     * @throws Throwable
      */
     public function destroy(int $id): JsonResponse
     {
