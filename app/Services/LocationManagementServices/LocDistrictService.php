@@ -39,7 +39,7 @@ class LocDistrictService
 
         ]);
 
-        $districtsBuilder->leftJoin('loc_divisions', function ($join) use ($rowStatus) {
+        $districtsBuilder->leftJoin('loc_divisions', function ($join) {
             $join->on('loc_divisions.id', '=', 'loc_districts.loc_division_id')
                 ->whereNull('loc_divisions.deleted_at');
         });
