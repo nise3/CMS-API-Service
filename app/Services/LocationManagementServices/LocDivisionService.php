@@ -7,7 +7,6 @@ use App\Models\LocDivision;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -28,7 +27,6 @@ class LocDivisionService
     {
         $titleEn = $request['title_en'] ?? "";
         $titleBn = $request['title'] ?? "";
-        $rowStatus = $request['row_status'] ?? "";
         $order = $request['order'] ?? "ASC";
 
         /** @var Builder $divisionsBuilder */
@@ -37,15 +35,9 @@ class LocDivisionService
             'title',
             'title_en',
             'bbs_code',
-            'row_status',
-            'created_at',
-            'updated_at'
         ]);
         $divisionsBuilder->orderBy('id', $order);
 
-        if (is_numeric($rowStatus)) {
-            $divisionsBuilder->where('row_status', $rowStatus);
-        }
         if (!empty($titleEn)) {
             $divisionsBuilder->where('title_en', 'like', '%' . $titleEn . '%');
         }
@@ -78,10 +70,7 @@ class LocDivisionService
             'id',
             'title',
             'title_en',
-            'bbs_code',
-            'row_status',
-            'created_at',
-            'updated_at'
+            'bbs_code'
         ]);
         $divisionBuilder->where('id', $id);
 
@@ -125,21 +114,12 @@ class LocDivisionService
      */
     public function validator(Request $request, int $id = null): \Illuminate\Contracts\Validation\Validator
     {
-        $customMessage = [
-            'row_status.in' => [
-                'code' => 30000,
-                'message' => 'Row status must be within 1 or 0'
-            ]
-        ];
+        $customMessage = [];
 
         return Validator::make($request->all(), [
             'title_en' => 'required|string|max:250|min:2',
             'title' => 'required|string|max:500|min:2',
             'bbs_code' => 'nullable|max:4|min:1',
-            'row_status' => [
-                'required_if:' . $id . ',!=,null',
-                Rule::in([BaseModel::ROW_STATUS_ACTIVE, BaseModel::ROW_STATUS_INACTIVE]),
-            ],
         ], $customMessage);
     }
 
@@ -152,10 +132,6 @@ class LocDivisionService
             'order.in' => [
                 'code' => 30000,
                 "message" => 'Order must be within ASC or DESC',
-            ],
-            'row_status.in' => [
-                'code' => 30000,
-                'message' => 'Row status must be within 1 or 0'
             ]
         ];
         return Validator::make($request->all(), [
@@ -164,10 +140,6 @@ class LocDivisionService
             'order' => [
                 'string',
                 Rule::in([(BaseModel::ROW_ORDER_ASC), (BaseModel::ROW_ORDER_DESC)])
-            ],
-            'row_status' => [
-                "numeric",
-                Rule::in([BaseModel::ROW_STATUS_ACTIVE, BaseModel::ROW_STATUS_INACTIVE]),
             ],
         ], $customMessage);
     }

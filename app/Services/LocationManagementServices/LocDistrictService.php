@@ -23,7 +23,6 @@ class LocDistrictService
     {
         $titleEn = $request['title_en'] ?? "";
         $titleBn = $request['title'] ?? "";
-        $rowStatus = $request['row_status'] ?? "";
         $divisionId = $request['loc_division_id'] ?? "";
         $order = $request['order'] ?? "ASC";
 
@@ -37,26 +36,15 @@ class LocDistrictService
             'loc_districts.is_sadar_district',
             'loc_divisions.title as division_title',
             'loc_divisions.title_en as division_title_en',
-            'loc_districts.row_status',
-            'loc_districts.created_at',
-            'loc_districts.updated_at'
 
         ]);
 
         $districtsBuilder->leftJoin('loc_divisions', function ($join) use ($rowStatus) {
             $join->on('loc_divisions.id', '=', 'loc_districts.loc_division_id')
                 ->whereNull('loc_divisions.deleted_at');
-            if (is_numeric($rowStatus)) {
-                $join->where('loc_divisions.row_status', $rowStatus);
-            }
         });
 
         $districtsBuilder->orderBy('loc_districts.id', $order);
-
-        if (is_numeric($rowStatus)) {
-            $districtsBuilder->where('loc_districts.row_status', $rowStatus);
-            $response['row_status'] = $rowStatus;
-        }
 
         if (!empty($titleEn)) {
             $districtsBuilder->where('loc_districts.title_en', 'like', '%' . $titleEn . '%');
@@ -170,11 +158,7 @@ class LocDistrictService
             'loc_division_id' => 'required|integer|exists:loc_divisions,id',
             'title_en' => 'required|string|max:250|min:2',
             'title' => 'required|string|max:500|min:2',
-            'bbs_code' => 'nullable|max:5|min:1',
-            'row_status' => [
-                'required_if:' . $id . ',!=,null',
-                Rule::in([BaseModel::ROW_STATUS_ACTIVE, BaseModel::ROW_STATUS_INACTIVE]),
-            ],
+            'bbs_code' => 'nullable|max:5|min:1'
         ], $customMessage);
     }
 
@@ -188,10 +172,6 @@ class LocDistrictService
             'order.in' => [
                 'code' => 30000,
                 "message" => 'Order must be within ASC or DESC',
-            ],
-            'row_status.in' => [
-                'code' => 30000,
-                'message' => 'Row status must be within 1 or 0'
             ]
         ];
 
@@ -202,11 +182,7 @@ class LocDistrictService
             'order' => [
                 'string',
                 Rule::in([BaseModel::ROW_ORDER_ASC, BaseModel::ROW_ORDER_DESC])
-            ],
-            'row_status' => [
-                "integer",
-                Rule::in([BaseModel::ROW_STATUS_ACTIVE, BaseModel::ROW_STATUS_INACTIVE]),
-            ],
+            ]
         ], $customMessage);
     }
 }
