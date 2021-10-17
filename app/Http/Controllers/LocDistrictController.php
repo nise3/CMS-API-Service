@@ -38,9 +38,9 @@ class LocDistrictController extends Controller
      * Display a listing of the resource.
      *
      * @param Request $request
-     * @return Exception|JsonResponse|Throwable
+     * @return JsonResponse
+     * @throws Throwable
      * @throws ValidationException
-     * @throws AuthorizationException
      */
     public function getList(Request $request): JsonResponse
     {

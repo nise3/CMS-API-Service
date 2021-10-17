@@ -809,6 +809,68 @@
                 ]
             }
         },
+        "/countries": {
+            "get": {
+                "summary": "Get Country List",
+                "description": "Get Country List",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/order"
+                    },
+                    {
+                        "$ref": "#/components/parameters/title_en_optional"
+                    },
+                    {
+                        "$ref": "#/components/parameters/title_optional"
+                    },
+                    {
+                        "$ref": "#/components/parameters/code_optional"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/country"
+                                },
+                                "example": {
+                                    "order": "asc",
+                                    "data": [
+                                        {
+                                            "id": 3,
+                                            "title": "Bangladesh",
+                                            "title_en": "Bangladesh",
+                                            "code": "BD",
+                                            "deleted_at": null
+                                        }
+                                    ],
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "query_time": "1 second before"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Country"
+                ]
+            }
+        },
         "/gallery-categories": {
             "get": {
                 "summary": "get list",
@@ -4090,9 +4152,64 @@
                     "type": "string",
                     "example": "group"
                 }
+            },
+            "code": {
+                "in": "query",
+                "name": "code",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "example": "BD"
+                }
+            },
+            "code_optional": {
+                "in": "query",
+                "name": "code",
+                "required": false,
+                "schema": {
+                    "type": "string",
+                    "example": "BD"
+                }
             }
         },
         "schemas": {
+            "country": {
+                "type": "object",
+                "description": "Provide the Country",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "description": "Primary Key",
+                        "readOnly": true
+                    },
+                    "title_en": {
+                        "type": "string",
+                        "description": "Division Title In English",
+                        "minLength": 1,
+                        "maxLength": 250
+                    },
+                    "title": {
+                        "type": "string",
+                        "description": "Division Title In Bengali",
+                        "minLength": 1,
+                        "maxLength": 500
+                    },
+                    "code": {
+                        "type": "string",
+                        "description": "Country Code",
+                        "minLength": 2,
+                        "maxLength": 2
+                    },
+                    "deleted_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "required": [
+                    "title_en",
+                    "title"
+                ]
+            },
             "division": {
                 "type": "object",
                 "description": "Provide the Loc Division",

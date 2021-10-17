@@ -30,6 +30,8 @@ $router->group(['prefix' => 'api/v1', 'as' => 'api.v1'], function () use ($route
     $customRouter()->resourceRoute('districts', 'LocDistrictController')->render();
     $customRouter()->resourceRoute('upazilas', 'LocUpazilaController')->render();
 
+    $router->get('countries', ['as' => 'countries.get-list', 'uses' => 'CountryController@getList']);
+
     $customRouter()->resourceRoute('partners', 'PartnerController')->render();
     $customRouter()->resourceRoute('notice-or-news', 'NoticeOrNewsController')->render();
     $customRouter()->resourceRoute('recent-activities', 'RecentActivityController')->render();
