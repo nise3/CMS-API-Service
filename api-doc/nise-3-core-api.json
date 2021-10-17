@@ -59,9 +59,6 @@
                         "$ref": "#/components/parameters/order"
                     },
                     {
-                        "$ref": "#/components/parameters/row_status_optional"
-                    },
-                    {
                         "$ref": "#/components/parameters/title_en_optional"
                     },
                     {
@@ -84,9 +81,7 @@
                                             "title": "ঢাকা",
                                             "title_en": "Dhaka",
                                             "bbs_code": "30",
-                                            "row_status": "1",
-                                            "created_at": "2021-09-22T04:08:35.000000Z",
-                                            "updated_at": "2021-09-22T04:08:35.000000Z"
+                                            "deleted_at": null
                                         }
                                     ],
                                     "_response_status": {
@@ -140,8 +135,7 @@
                                         "title_en": "Test Title (EN)",
                                         "title": "Test Title (Native)",
                                         "bbs_code": "1005",
-                                        "updated_at": "2021-08-22T07:58:27.000000Z",
-                                        "created_at": "2021-08-22T07:58:27.000000Z",
+                                        "deleted_at": null,
                                         "id": 11
                                     },
                                     "_response_status": {
@@ -199,7 +193,7 @@
                         }
                     },
                     "default": {
-                        "description": "Unexpected error"
+                        "description": "Unexpected Error"
                     }
                 },
                 "tags": [
@@ -227,9 +221,6 @@
                     },
                     {
                         "$ref": "#/components/parameters/bbs_code"
-                    },
-                    {
-                        "$ref": "#/components/parameters/row_status"
                     }
                 ],
                 "responses": {
@@ -246,11 +237,6 @@
                                         "title_en": "Test Title (EN)",
                                         "title": "Test Title (Native)",
                                         "bbs_code": "1000",
-                                        "row_status": "0",
-                                        "created_by": 0,
-                                        "updated_by": 0,
-                                        "created_at": "2021-08-11T12:23:12.000000Z",
-                                        "updated_at": "2021-08-22T07:55:13.000000Z",
                                         "deleted_at": null
                                     },
                                     "_response_status": {
@@ -316,9 +302,6 @@
                 "description": "Optional extended description in Markdown.",
                 "parameters": [
                     {
-                        "$ref": "#/components/parameters/row_status_optional"
-                    },
-                    {
                         "$ref": "#/components/parameters/order"
                     },
                     {
@@ -364,9 +347,6 @@
                         "$ref": "#/components/parameters/loc_division_id"
                     },
                     {
-                        "$ref": "#/components/parameters/division_bbs_code"
-                    },
-                    {
                         "$ref": "#/components/parameters/title_en"
                     },
                     {
@@ -390,9 +370,7 @@
                                         "title_en": "Test Title (EN)",
                                         "title": "Test Title (Native)",
                                         "bbs_code": "1000",
-                                        "division_bbs_code": "10",
-                                        "updated_at": "2021-08-22T07:07:33.000000Z",
-                                        "created_at": "2021-08-22T07:07:33.000000Z",
+                                        "deleted_at": null,
                                         "id": 66
                                     },
                                     "_response_status": {
@@ -440,7 +418,6 @@
                                         "title": "Test Title (Native)",
                                         "title_en": "Test Title (EN)",
                                         "bbs_code": "1000",
-                                        "division_bbs_code": "10",
                                         "division_title": "বরিশাল",
                                         "division_title_en": "Barisal"
                                     },
@@ -477,9 +454,6 @@
                         "$ref": "#/components/parameters/loc_division_id"
                     },
                     {
-                        "$ref": "#/components/parameters/division_bbs_code"
-                    },
-                    {
                         "$ref": "#/components/parameters/title_en"
                     },
                     {
@@ -487,9 +461,6 @@
                     },
                     {
                         "$ref": "#/components/parameters/bbs_code"
-                    },
-                    {
-                        "$ref": "#/components/parameters/row_status"
                     }
                 ],
                 "responses": {
@@ -504,15 +475,9 @@
                                     "data": {
                                         "id": 1,
                                         "loc_division_id": "1",
-                                        "division_bbs_code": "10",
                                         "title_en": "Test Title (EN)",
                                         "title": "Test Title (Native)",
                                         "bbs_code": "1000",
-                                        "row_status": "1",
-                                        "created_by": 1,
-                                        "updated_by": 1,
-                                        "created_at": "2021-08-11T12:23:12.000000Z",
-                                        "updated_at": "2021-08-22T07:12:02.000000Z",
                                         "deleted_at": null
                                     },
                                     "_response_status": {
@@ -582,9 +547,6 @@
                         "$ref": "#/components/parameters/order"
                     },
                     {
-                        "$ref": "#/components/parameters/row_status_optional"
-                    },
-                    {
                         "$ref": "#/components/parameters/title_en_optional"
                     },
                     {
@@ -617,10 +579,8 @@
                                             "title": "আমতলী ",
                                             "title_en": "AMTALI",
                                             "bbs_code": "09",
-                                            "row_status": "1",
                                             "district_title": "Test Title (Native)",
                                             "district_title_en": "Test Title (EN)",
-                                            "division_bbs_code": "10",
                                             "division_title": "Test Title (Native)",
                                             "division_title_en": "Test Title (EN)"
                                         }
@@ -652,12 +612,6 @@
                         "$ref": "#/components/parameters/loc_district_id"
                     },
                     {
-                        "$ref": "#/components/parameters/division_bbs_code"
-                    },
-                    {
-                        "$ref": "#/components/parameters/district_bbs_code"
-                    },
-                    {
                         "$ref": "#/components/parameters/title_en"
                     },
                     {
@@ -679,13 +633,10 @@
                                     "data": {
                                         "loc_district_id": "1",
                                         "loc_division_id": "1",
-                                        "division_bbs_code": "70",
-                                        "district_bbs_code": "10",
                                         "title_en": "Test Title (EN)",
                                         "title": "Test Title (Native)",
                                         "bbs_code": "1001",
-                                        "updated_at": "2021-08-22T08:55:09.000000Z",
-                                        "created_at": "2021-08-22T08:55:09.000000Z",
+                                        "deleted_at": null,
                                         "id": 496
                                     },
                                     "_response_status": {
@@ -736,7 +687,6 @@
                                         "bbs_code": "09",
                                         "district_title": "Test Title (Native)",
                                         "district_title_en": "Test Title (EN)",
-                                        "division_bbs_code": "10",
                                         "division_title": "Test Title (Native)",
                                         "division_title_en": "Test Title (EN)"
                                     },
@@ -776,12 +726,6 @@
                         "$ref": "#/components/parameters/loc_district_id"
                     },
                     {
-                        "$ref": "#/components/parameters/division_bbs_code"
-                    },
-                    {
-                        "$ref": "#/components/parameters/district_bbs_code"
-                    },
-                    {
                         "$ref": "#/components/parameters/title_en"
                     },
                     {
@@ -789,9 +733,6 @@
                     },
                     {
                         "$ref": "#/components/parameters/bbs_code"
-                    },
-                    {
-                        "$ref": "#/components/parameters/row_status"
                     }
                 ],
                 "responses": {
@@ -807,16 +748,9 @@
                                         "id": 1,
                                         "loc_division_id": "1",
                                         "loc_district_id": "1",
-                                        "division_bbs_code": "70",
-                                        "district_bbs_code": "10",
                                         "title_en": "Test Title (EN)",
                                         "title": "Test Title (Native)",
                                         "bbs_code": "1000",
-                                        "row_status": "0",
-                                        "created_by": 1,
-                                        "updated_by": 1,
-                                        "created_at": "2021-08-11T12:23:12.000000Z",
-                                        "updated_at": "2021-08-22T08:57:43.000000Z",
                                         "deleted_at": null
                                     },
                                     "_response_status": {
@@ -4172,7 +4106,7 @@
                         "type": "string",
                         "description": "Division Title In English",
                         "minLength": 1,
-                        "maxLength": 255
+                        "maxLength": 250
                     },
                     "title": {
                         "type": "string",
@@ -4186,28 +4120,7 @@
                         "minLength": 1,
                         "maxLength": 4
                     },
-                    "row_status": {
-                        "type": "integer",
-                        "description": "Division activation status",
-                        "enum": [
-                            1,
-                            0
-                        ],
-                        "example": 1
-                    },
-                    "create_by": {
-                        "type": "integer",
-                        "description": "Division creater id"
-                    },
-                    "updated_by": {
-                        "type": "integer",
-                        "description": "Division modifier id"
-                    },
-                    "created_at": {
-                        "type": "string",
-                        "format": "date-time"
-                    },
-                    "updated_at": {
+                    "deleted_at": {
                         "type": "string",
                         "format": "date-time"
                     }
@@ -4246,36 +4159,9 @@
                         "type": "string",
                         "description": "District BBS code",
                         "minLength": 1,
-                        "maxLength": 4
+                        "maxLength": 5
                     },
-                    "division_bbs_code": {
-                        "type": "string",
-                        "description": "Division BBS code",
-                        "minLength": 1,
-                        "maxLength": 4
-                    },
-                    "row_status": {
-                        "type": "integer",
-                        "description": "District activation status",
-                        "enum": [
-                            1,
-                            0
-                        ],
-                        "example": 1
-                    },
-                    "create_by": {
-                        "type": "integer",
-                        "description": "District creater id"
-                    },
-                    "updated_by": {
-                        "type": "integer",
-                        "description": "District modifier id"
-                    },
-                    "created_at": {
-                        "type": "string",
-                        "format": "date-time"
-                    },
-                    "updated_at": {
+                    "deleted_at": {
                         "type": "string",
                         "format": "date-time"
                     }
@@ -4307,7 +4193,7 @@
                         "type": "string",
                         "description": "District Title In English",
                         "minLength": 1,
-                        "maxLength": 255
+                        "maxLength": 250
                     },
                     "title": {
                         "type": "string",
@@ -4317,42 +4203,9 @@
                     },
                     "bbs_code": {
                         "type": "string",
-                        "description": "District BBS code",
+                        "description": "Upazila BBS code",
                         "minLength": 1,
-                        "maxLength": 4
-                    },
-                    "division_bbs_code": {
-                        "type": "string",
-                        "description": "Division BBS code",
-                        "minLength": 1,
-                        "maxLength": 4
-                    },
-                    "district_bbs_code": {
-                        "type": "string",
-                        "description": "Division BBS code",
-                        "minLength": 1,
-                        "maxLength": 4
-                    },
-                    "row_status": {
-                        "type": "integer",
-                        "description": "District activation status",
-                        "enum": [
-                            1,
-                            0
-                        ],
-                        "example": 1
-                    },
-                    "create_by": {
-                        "type": "integer",
-                        "description": "District creater id"
-                    },
-                    "updated_by": {
-                        "type": "integer",
-                        "description": "District modifier id"
-                    },
-                    "created_at": {
-                        "type": "string",
-                        "format": "date-time"
+                        "maxLength": 6
                     },
                     "updated_at": {
                         "type": "string",
@@ -4361,6 +4214,7 @@
                 },
                 "required": [
                     "loc_division_id",
+                    "loc_district_id",
                     "title_en",
                     "title"
                 ]

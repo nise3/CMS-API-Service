@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Traits\Scopes\ScopeRowStatusTrait;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -26,6 +25,7 @@ class LocUpazila extends BaseModel
 {
     use SoftDeletes;
 
+    public $timestamps = false;
     protected $table = 'loc_upazilas';
     protected $guarded = BaseModel::COMMON_GUARDED_FIELDS_SOFT_DELETE;
 
