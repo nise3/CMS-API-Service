@@ -14,15 +14,15 @@ class CreatePartnersTable extends Migration
     public function up()
     {
         Schema::create('partners', function (Blueprint $table) {
-            $table->increments("id");
-            $table->string('title_en',191);
+            $table->smallIncrements("id");
+            $table->string('title_en',250);
             $table->string('title',500);
-            $table->string('image');
-            $table->string('domain')->nullable();
-            $table->string("alt_title_en",191);
-            $table->string("alt_title",191);
-            $table->tinyInteger("created_by");
-            $table->tinyInteger("updated_by");
+            $table->string('image_path', 600)->nullable();
+            $table->string('domain', 150)->nullable();
+            $table->string("alt_title_en",250)->nullable();
+            $table->string("alt_title",500)->nullable();
+            $table->unsignedInteger("created_by")->nullable();
+            $table->unsignedInteger("updated_by")->nullable();
             $table->unsignedTinyInteger('row_status')
                 ->default(1)
                 ->comment('ACTIVE_STATUS = 1, INACTIVE_STATUS = 0');

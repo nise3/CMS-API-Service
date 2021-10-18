@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int $id
  * @property string $title_en
  * @property string $title
- * @property string |null $image
+ * @property string |null $image_path
  * @property string |null $domain
  * @property string |null $alt_title_en
  * @property string |null $alt_title
@@ -20,12 +20,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int |null $updated_by
  * @property Carbon |null $created_at
  * @property Carbon |null $updated_at
- * @property-read Permission $permissions
  */
 class Partner extends BaseModel
 {
     use ScopeRowStatusTrait, SoftDeletes, HasFactory;
 
-    protected $guarded=BaseModel::COMMON_GUARDED_FIELDS_SIMPLE_SOFT_DELETE;
+    protected $guarded = BaseModel::COMMON_GUARDED_FIELDS_SOFT_DELETE;
 
 }
