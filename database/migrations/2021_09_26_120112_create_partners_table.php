@@ -23,7 +23,9 @@ class CreatePartnersTable extends Migration
             $table->string("alt_title",191);
             $table->tinyInteger("created_by");
             $table->tinyInteger("updated_by");
-            $table->tinyInteger("row_status")->default(1);
+            $table->unsignedTinyInteger('row_status')
+                ->default(1)
+                ->comment('ACTIVE_STATUS = 1, INACTIVE_STATUS = 0');
             $table->timestamps();
             $table->softDeletes();
         });

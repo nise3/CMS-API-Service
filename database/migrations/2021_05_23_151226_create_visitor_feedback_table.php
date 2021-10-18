@@ -35,9 +35,9 @@ class CreateVisitorFeedbackTable extends Migration
 
             $table->dateTime('read_at')->nullable();
 
-            $table->tinyInteger('row_status')
+            $table->unsignedTinyInteger('row_status')
                 ->default(1)
-                ->comment('ACTIVE_STATUS = 1; INACTIVE_STATUS = 0; DELETED_STATUS = 99;');
+                ->comment('ACTIVE_STATUS = 1, INACTIVE_STATUS = 0');
 
             $table->timestamps();
             $table->softDeletes();

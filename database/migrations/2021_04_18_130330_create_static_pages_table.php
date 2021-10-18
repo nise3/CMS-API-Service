@@ -34,9 +34,14 @@ class CreateStaticPagesTable extends Migration
             $table->string('content_properties')->nullable();
             $table->string('alt_title_en')->nullable();
             $table->string('alt_title')->nullable();
+
             $table->unsignedInteger('created_by')->nullable();
             $table->unsignedInteger('updated_by')->nullable();
-            $table->tinyInteger('row_status')->default(1);
+
+            $table->tinyInteger('row_status')
+                ->default(1)
+                ->comment('ACTIVE_STATUS = 1, INACTIVE_STATUS = 0');
+
             $table->timestamps();
             $table->softDeletes();
         });

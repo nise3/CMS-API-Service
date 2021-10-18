@@ -23,7 +23,9 @@ class CreateVideoCategoriesTable extends Migration
             $table->unsignedInteger('parent_id')->nullable();
             $table->unsignedInteger("created_by")->nullable();
             $table->unsignedInteger("updated_by")->nullable();
-            $table->unsignedTinyInteger('row_status')->default(1);
+            $table->unsignedTinyInteger('row_status')
+                ->default(1)
+                ->comment('ACTIVE_STATUS = 1, INACTIVE_STATUS = 0');
             $table->timestamps();
             $table->softDeletes();
         });

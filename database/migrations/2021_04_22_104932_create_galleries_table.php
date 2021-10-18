@@ -30,7 +30,9 @@ class CreateGalleriesTable extends Migration
             $table->timestamp('publish_date')->nullable();
             $table->timestamp('archive_date')->nullable();
             $table->string('you_tube_video_id', 191)->nullable();
-            $table->unsignedTinyInteger('row_status')->default(1);
+            $table->unsignedTinyInteger('row_status')
+                ->default(1)
+                ->comment('ACTIVE_STATUS = 1, INACTIVE_STATUS = 0');
             $table->unsignedInteger('created_by')->nullable();
             $table->unsignedInteger('updated_by')->nullable();
             $table->timestamps();

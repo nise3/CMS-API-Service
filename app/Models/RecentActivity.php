@@ -21,11 +21,19 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class RecentActivity extends BaseModel
 {
-    use SoftDeletes,HasFactory;
+    use SoftDeletes, HasFactory;
 
-    const CONTENT_TYPE_IMAGE = 1;
-    const CONTENT_TYPE_VIDEO = 2;
-    const CONTENT_TYPE_YOUTUBE = 3;
+    public const CONTENT_TYPE_IMAGE = 1;
+    public const CONTENT_TYPE_VIDEO = 2;
+    public const CONTENT_TYPE_YOUTUBE = 3;
+
+    public const CONTENT_TYPES = [
+        self::CONTENT_TYPE_IMAGE,
+        self::CONTENT_TYPE_VIDEO,
+        self::CONTENT_TYPE_YOUTUBE,
+    ];
+
+    public const AVAILABLE_COLLAGE_POSITIONS = ['1.1', '1.2.1', '1.2.2.1', '1.2.2.2'];
 
     protected $guarded = BaseModel::COMMON_GUARDED_FIELDS_SIMPLE_SOFT_DELETE;
     protected $table = 'recent_activities';

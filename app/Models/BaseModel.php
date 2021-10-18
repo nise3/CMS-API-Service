@@ -2,11 +2,9 @@
 
 namespace App\Models;
 
-use App\Traits\Scopes\ScopeRowStatusTrait;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Carbon;
 
 /**
  * Class BaseModel
@@ -14,7 +12,7 @@ use Illuminate\Support\Carbon;
  */
 abstract class BaseModel extends Model
 {
-    use ScopeRowStatusTrait, HasFactory, SoftDeletes;
+    use HasFactory;
 
     public const COMMON_GUARDED_FIELDS_SIMPLE = ['id', 'created_at', 'updated_at'];
     public const COMMON_GUARDED_FIELDS_SIMPLE_SOFT_DELETE = ['id', 'created_at', 'updated_at', 'deleted_at'];
@@ -25,6 +23,18 @@ abstract class BaseModel extends Model
     public const ROW_STATUS_INACTIVE = 0;
     public const ROW_ORDER_ASC = 'ASC';
     public const ROW_ORDER_DESC = 'DESC';
+
+    public const SHOW_IN_NISE3 = 1;
+    public const SHOW_IN_TSP = 2;
+    public const SHOW_IN_INDUSTRY = 3;
+    public const SHOW_IN_INDUSTRY_ASSOCIATION = 4;
+
+    public const SHOW_INS = [
+        self::SHOW_IN_NISE3,
+        self::SHOW_IN_TSP,
+        self::SHOW_IN_INDUSTRY,
+        self::SHOW_IN_INDUSTRY_ASSOCIATION,
+    ];
 
     public const INSTITUTE_TYPE_GOVT = 1;
     public const INSTITUTE_TYPE_NON_GOVT = 2;
