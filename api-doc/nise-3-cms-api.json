@@ -107,51 +107,6 @@
                 "tags": [
                     "Division"
                 ]
-            },
-            "post": {
-                "summary": "store",
-                "operationId": "store2",
-                "parameters": [
-                    {
-                        "$ref": "#/components/parameters/title_en"
-                    },
-                    {
-                        "$ref": "#/components/parameters/title"
-                    },
-                    {
-                        "$ref": "#/components/parameters/bbs_code"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "success",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/division"
-                                },
-                                "example": {
-                                    "data": {
-                                        "title_en": "Test Title (EN)",
-                                        "title": "Test Title (Native)",
-                                        "bbs_code": "1005",
-                                        "deleted_at": null,
-                                        "id": 11
-                                    },
-                                    "_response_status": {
-                                        "success": true,
-                                        "code": 201,
-                                        "message": "Division added successfully",
-                                        "query_time": 0
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Division"
-                ]
             }
         },
         "/divisions/{divisionId}": {
