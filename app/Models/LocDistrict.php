@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Http\Request;
 
 /**
  * Class LocDistrict
@@ -39,5 +40,15 @@ class LocDistrict extends BaseModel
     public function locUpazilas(): HasMany
     {
         return $this->hasMany(LocUpazila::class, 'loc_district_id');
+    }
+
+    public const LANGUAGE_ATTR_TITLE="title";
+
+    public function toCustomJson()
+    {
+        $array = parent::ToArray();
+        $title=self::LANGUAGE_ATTR_TITLE."_".Request::server('HTTP_ACCEPT_LANGUAGE');
+//        $array[$title] = someFunction($this->attributes->location);
+        return $array;
     }
 }
