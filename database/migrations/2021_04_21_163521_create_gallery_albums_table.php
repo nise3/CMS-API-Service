@@ -21,7 +21,7 @@ class CreateGalleryAlbumsTable extends Migration
                 ->comment('YES => 1, NO => 0');
 
             $table->unsignedTinyInteger('show_in')
-                ->comment('1 => Nise3, 2 => TSP, 3 => Industry, 4 => Industry Association');
+                ->comment('1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry, 5=>Industry Association');
 
             $table->unsignedTinyInteger('album_type')
                 ->comment('1 => Image, 2 => Video, 3 => Mixed');

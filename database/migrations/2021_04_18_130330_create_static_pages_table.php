@@ -20,7 +20,7 @@ class CreateStaticPagesTable extends Migration
                 ->comment("1 => Page Block, 2 => Static Page");
 
             $table->unsignedTinyInteger('show_in')
-                ->comment('1 => Nise3, 2 => TSP, 3 => Industry, 4 => Industry Association');
+                ->comment('1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry, 5=>Industry Association');
 
             $table->string('content_slug_or_id', 300);
 

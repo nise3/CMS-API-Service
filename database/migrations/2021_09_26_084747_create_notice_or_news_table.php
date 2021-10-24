@@ -21,7 +21,7 @@ class CreateNoticeOrNewsTable extends Migration
                 ->comment('1 => Notice,2 => News');
 
             $table->unsignedTinyInteger('show_in')
-                ->comment('1 => Nise3, 2 => TSP, 3 => Industry, 4 => Industry Association');
+                ->comment('1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry, 5=>Industry Association');
 
             $table->dateTime('published_at')->nullable();
             $table->dateTime('archived_at')->nullable();
