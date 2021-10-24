@@ -14,16 +14,19 @@ class CreateRecentActivitiesTable extends Migration
     {
         Schema::create('recent_activities', function (Blueprint $table) {
             $table->increments("id");
-            $table->string("title_en", 250);
-            $table->string("title", 500);
-            $table->string("alt_title_en", 250)->nullable();
-            $table->string("alt_title", 500)->nullable();
-
             $table->unsignedTinyInteger('show_in')
-                ->comment('1=>Nise3, 2=>TSP, 3=>Industry, 4=>Industry Association');
+                ->comment('1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry, 5=>Industry Association');
+
+            $table->date('activity_date')->nullable();
+            $table->dateTime('published_at')->nullable();
+            $table->dateTime('archived_at')->nullable();
+
             $table->unsignedInteger('institute_id')->nullable();
             $table->unsignedInteger('organization_id')->nullable();
             $table->unsignedInteger('industry_association_id')->nullable();
+
+            $table->string("title_en", 300);
+            $table->string("title", 1000);
 
             $table->unsignedTinyInteger('content_type')
                 ->comment("1 => Image, 2 => Video, 3 => Youtube Source")->nullable();
@@ -34,20 +37,26 @@ class CreateRecentActivitiesTable extends Migration
             $table->string('collage_image_path', 600)->nullable()->comment('Main Image');
             $table->unsignedTinyInteger('collage_position')->nullable()
                 ->comment('Available Values: [1.1, 1.2.1, 1.2.2.1, 1.2.2.2]');
-
             $table->string('thumb_image_path', 600)->nullable();
             $table->string('grid_image_path', 600)->nullable()->comment('List or Grid Image');
+
+            $table->string("image_alt_title_en", 250)->nullable();
+            $table->string("image_alt_title", 500)->nullable();
 
             $table->text("description_en")->nullable();
             $table->text("description")->nullable();
 
-            $table->dateTime('activity_date')->nullable();
-            $table->dateTime('publish_date')->nullable();
-            $table->dateTime('archive_date')->nullable();
             $table->unsignedTinyInteger('row_status')
                 ->default(1)
                 ->comment('ACTIVE_STATUS = 1, INACTIVE_STATUS = 0');
+
+            $table->unsignedInteger('published_by')->nullable();
+            $table->unsignedInteger('archived_by')->nullable();
+            $table->unsignedInteger('created_by')->nullable();
+            $table->unsignedInteger('updated_by')->nullable();
+
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
