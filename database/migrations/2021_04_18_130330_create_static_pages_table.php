@@ -15,32 +15,34 @@ class CreateStaticPagesTable extends Migration
     {
         Schema::create('static_pages_and_block', function (Blueprint $table) {
             $table->increments('id');
-            $table->tinyInteger('type')->comment("1=>Block, 2=>Static Page");
+
+            $table->unsignedTinyInteger('content_type')
+                ->comment("1 => Page Block, 2 => Static Page");
+
+            $table->unsignedTinyInteger('show_in')
+                ->comment('1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry, 5=>Industry Association');
+
+            $table->string('content_slug_or_id', 300);
+
             $table->unsignedInteger('institute_id')->nullable();
             $table->unsignedInteger('organization_id')->nullable();
             $table->unsignedInteger('organization_association_id')->nullable();
-            $table->string('page_id', 250);
-            $table->string('title_en', 250);
-            $table->string('title', 500);
 
-            $table->text("description_en")->nullable();
-            $table->text("description")->nullable();
+            $table->string('title', 600);
+            $table->string('title_en', 200);
 
-            $table->text('page_contents')->nullable();
-            $table->text('page_contents_en')->nullable();
+            $table->string('sub_title', 600)->nullable();
+            $table->string('sub_title_en', 200)->nullable();
 
-            $table->tinyInteger('content_type')->comment("1=>Image,2=>Video,3=>Youtube");
-            $table->string('content_path');
-            $table->string('content_properties')->nullable();
-            $table->string('alt_title_en')->nullable();
-            $table->string('alt_title')->nullable();
+            $table->text('contents')->nullable();
+            $table->text('contents_en')->nullable();
 
             $table->unsignedInteger('created_by')->nullable();
             $table->unsignedInteger('updated_by')->nullable();
 
             $table->tinyInteger('row_status')
                 ->default(1)
-                ->comment('ACTIVE_STATUS = 1, INACTIVE_STATUS = 0');
+                ->comment('ACTIVE_STATUS => 1, INACTIVE_STATUS => 0');
 
             $table->timestamps();
             $table->softDeletes();

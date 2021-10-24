@@ -15,11 +15,14 @@ class CreateTagsTable extends Migration
     {
         Schema::create('tags', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('institute_id');
-            $table->string('tag_en', 191);
-            $table->string('tag', 500);
-            $table->string("taggable_type", 191)->index('tags_fk_taggable_type');
-            $table->unsignedInteger("taggable_id")->index('tags_fk_taggable_id');
+
+            $table->unsignedInteger('institute_id')->nullable();
+            $table->unsignedInteger('organization_id')->nullable();
+            $table->unsignedInteger('organization_association_id')->nullable();
+
+            $table->string('tag', 300);
+            $table->string('tag_en', 100)->nullable();
+
             $table->timestamps();
             $table->softDeletes();
         });
