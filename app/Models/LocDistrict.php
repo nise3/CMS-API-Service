@@ -42,13 +42,5 @@ class LocDistrict extends BaseModel
         return $this->hasMany(LocUpazila::class, 'loc_district_id');
     }
 
-    public const LANGUAGE_ATTR_TITLE="title";
 
-    public function toCustomJson()
-    {
-        $array = parent::ToArray();
-        $title=self::LANGUAGE_ATTR_TITLE."_".Request::server('HTTP_ACCEPT_LANGUAGE');
-//        $array[$title] = someFunction($this->attributes->location);
-        return $array;
-    }
 }

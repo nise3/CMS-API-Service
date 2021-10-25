@@ -1,6 +1,12 @@
 <?php
 
-use Illuminate\Support\Carbon;
+
+use App\Services\ContentManagementServices\CmsLanguageService;
+use Carbon\Carbon;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 if (!function_exists("clientUrl")) {
@@ -111,3 +117,62 @@ if (!function_exists("idpUserErrorMessage")) {
         }
     }
 }
+if (!function_exists("getLanguageAttributeKey")) {
+
+    function getLanguageAttributeKey($tableName, $keyId, $language, $columnName): string
+    {
+        return $tableName . "_" . $keyId . "_" . $language . "_" . $columnName;
+    }
+}
+
+if (!function_exists("getLanguageValue")) {
+
+    function getLanguageValue(string $tableName, int $keyId, string $languageColumnName): array
+    {
+        $languageCode = request()->server('HTTP_ACCEPT_LANGUAGE');
+        $response = [];
+        $languageAttributeKey = getLanguageAttributeKey($tableName, $keyId, $languageCode, $languageColumnName);
+        if (Cache::has($languageAttributeKey)) {
+            $response[$languageColumnName . "_" . $languageCode] = Cache::get($languageAttributeKey);
+        } else {
+            $cmsLanguageValue = CmsLanguageService::getLanguageValueByKeyId($tableName, $keyId, $languageCode, $languageColumnName);
+            if ($cmsLanguageValue) {
+                $response[$languageColumnName . "_" . $languageCode] = $cmsLanguageValue;
+                Cache::put($languageAttributeKey, $response[$languageColumnName . "_" . $languageCode]);
+            }
+        }
+        return $response;
+    }
+}
+
+if (!function_exists("getResponse")) {
+
+    /**
+     * @param array $responseData
+     * @param Carbon $startTime
+     * @param bool $responseType
+     * @return array
+     */
+    function getResponse(array $responseData, Carbon $startTime, bool $responseType): array
+    {
+        $response = [];
+        if (!$responseType) {
+            $response['order'] = request('order') ?? "ASC";
+        }
+        if (!empty($responseData['data'])) {
+            $response['current_page'] = $responseData['current_page'];
+            $response['total_page'] = $responseData['last_page'];
+            $response['page_size'] = $responseData['per_page'];
+            $response['total'] = $responseData['total'];
+        }
+        $response['data'] = $responseData['data'] ?? $responseData;
+        $response['response_status'] = [
+            "success" => true,
+            "code" => Response::HTTP_OK,
+            "query_time" => $startTime->diffInSeconds(Carbon::now())
+        ];
+        return $response;
+    }
+}
+
+

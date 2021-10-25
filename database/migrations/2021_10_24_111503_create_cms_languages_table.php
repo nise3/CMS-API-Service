@@ -20,6 +20,7 @@ class CreateCmsLanguagesTable extends Migration
             $table->char('lang_code');
             $table->string('column_name', 250);
             $table->text('column_value');
+            $table->timestamps();
 
         });
     }
