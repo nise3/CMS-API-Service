@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
 
 
 /**
@@ -23,6 +24,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
+ * @property  Collection cmsLanguages
  */
 class Faq extends BaseModel
 {
@@ -36,9 +38,11 @@ class Faq extends BaseModel
         self::LANGUAGE_ATTR_ANSWER
     ];
 
+
     public function cmsLanguages(): HasMany
     {
-        return $this->hasMany(CmsLanguage::class, 'key_id');
+        return $this->hasMany(CmsLanguage::class, 'key_id',"id");
     }
+
 
 }

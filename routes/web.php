@@ -46,6 +46,5 @@ $router->group(['prefix' => 'api/v1', 'as' => 'api.v1'], function () use ($route
 });
 
 $router->get("div-collection",function (){
-
     return \App\Http\Resources\FaqResource::collection(\App\Models\Faq::paginate(10));
 });

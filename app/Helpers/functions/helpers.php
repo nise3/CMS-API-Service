@@ -153,7 +153,7 @@ if (!function_exists("getResponse")) {
      * @param bool $responseType
      * @return array
      */
-    function getResponse(array $responseData, Carbon $startTime, bool $responseType): array
+    function getResponse(array $responseData, Carbon $startTime, bool $responseType,int $statusCode,string $message=null): array
     {
         $response = [];
         if (!$responseType) {
@@ -166,11 +166,12 @@ if (!function_exists("getResponse")) {
             $response['total'] = $responseData['total'];
         }
         $response['data'] = $responseData['data'] ?? $responseData;
-        $response['response_status'] = [
+        $response['_response_status'] = [
             "success" => true,
-            "code" => Response::HTTP_OK,
-            "query_time" => $startTime->diffInSeconds(Carbon::now())
+            "code" => $statusCode,
         ];
+        $response['_response_status']['message']=$message;
+        $response['_response_status']['query_time']=$startTime->diffInSeconds(Carbon::now());
         return $response;
     }
 }

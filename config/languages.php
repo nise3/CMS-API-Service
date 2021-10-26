@@ -1,23 +1,27 @@
 <?php
 return [
-    1 => [
-        'name' => 'বাংলা',
-        'name_en' => 'Bengali',
-        'code' => 'BN'
+    "default"=>[
+        "BN" => [
+            'name' => 'বাংলা',
+            'name_en' => 'Bengali',
+            'code' => 'BN'
+        ],
+        "EN" => [
+            'name' => 'English',
+            'name_en' => 'English',
+            'code' => 'EN'
+        ]
     ],
-    2 => [
-        'name' => 'English',
-        'name_en' => 'English',
-        'code' => 'EN'
-    ],
-    3 => [
-        'name' => 'हिंदी',
-        'name_en' => 'Hindi',
-        'code' => 'HI'
-    ],
-    4 => [
-        'name' => 'الشفرة',
-        'name_en' => 'Arabic',
-        'code' => 'AR'
-    ],
+    "others"=>[
+        "HI" => [
+            'name' => 'हिंदी',
+            'name_en' => 'Hindi',
+            'code' => 'HI'
+        ],
+        "AR" => [
+            'name' => 'الشفرة',
+            'name_en' => 'Arabic',
+            'code' => 'AR'
+        ]
+    ]
 ];

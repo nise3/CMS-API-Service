@@ -33,7 +33,7 @@ class FaqResource extends JsonResource
             'answer_en' => $this->answer_en,
         ];
 
-        if ($languageCode && !in_array($languageCode, config('nise3.default_language_code'))) {
+        if ($languageCode && in_array($languageCode, array_keys(config('languages.others')))) {
             $tableName = $this->getTable();
             $keyId = $this->id;
             $question = getLanguageValue($tableName, $keyId, Faq::LANGUAGE_ATTR_QUESTION);

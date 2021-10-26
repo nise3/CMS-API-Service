@@ -3,6 +3,7 @@
 namespace App\Services\ContentManagementServices;
 
 use App\Models\CmsLanguage;
+use Illuminate\Database\Eloquent\Model;
 
 class CmsLanguageService
 {
@@ -20,5 +21,16 @@ class CmsLanguageService
                 ->where('lang_code', strtoupper($languageCode))
                 ->where('key_id', $keyId)->where('column_name', $languageColumnName)
                 ->first()->column_value ?? "";
+    }
+
+
+    /**
+     * @param array $data
+     * @return bool
+     */
+    public function store(array $data): bool
+    {
+        $cmsLanguage = app(CmsLanguage::class);
+        return CmsLanguage::insert($data);
     }
 }

@@ -4,17 +4,13 @@ namespace App\Services\ContentManagementServices;
 
 use App\Models\BaseModel;
 use App\Models\Faq;
-use App\Models\Gallery;
-use App\Models\GalleryCategory;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
-use Symfony\Component\HttpFoundation\Response;
+
 
 class FaqService
 {
@@ -124,10 +120,115 @@ class FaqService
         $faqBuilder->where('faqs.id', $id);
 
         /** @var Faq $faq */
-        $faq=$faqBuilder->first();
+        $faq = $faqBuilder->first();
 
         return $faq;
     }
+
+    /**
+     * @param array $data
+     * @return Faq
+     */
+    public function store(Faq $faq, array $data): Faq
+    {
+        $faq->fill($data);
+        $faq->save();
+        return $faq;
+    }
+
+    public function update(Faq $faq, array $data): Faq
+    {
+        $faq->fill($data);
+        $faq->save();
+        return $faq;
+    }
+
+    /**
+     * @param Request $request
+     * @param int|null $id
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    public function validator(Request $request, int $id = null): \Illuminate\Contracts\Validation\Validator
+    {
+        $customMessage = [
+            'row_status.in' => 'Row status must be within 1 or 0.[30000]',
+            'show_in.in' => 'Row status must be within (1=>Nise3, 2=>TSP, 3=>Industry, 4=>Industry Association).[30000]'
+        ];
+        $rules = [
+            'show_in' => [
+                "required",
+                "integer",
+                "gt:0",
+                Rule::in(BaseModel::SHOW_INS)
+            ],
+            'institute_id' => [
+                Rule::requiredIf(function () use ($request) {
+                    return $request->show_in == BaseModel::SHOW_IN_TSP;
+                }),
+                "nullable",
+                "integer",
+                "gt:0",
+            ],
+            'industry_association_id' => [
+                Rule::requiredIf(function () use ($request) {
+                    return $request->show_in == BaseModel::SHOW_IN_INDUSTRY_ASSOCIATION;
+                }),
+                "nullable",
+                "integer",
+                "gt:0",
+            ],
+            'organization_id' => [
+                Rule::requiredIf(function () use ($request) {
+                    return $request->show_in == BaseModel::SHOW_IN_INDUSTRY;
+                }),
+                "nullable",
+                "integer",
+                "gt:0",
+            ],
+            'question' => 'required|max:1800|min:2',
+            'answer' => 'required|min:2',
+            'question_en' => 'nullable|max:600|min:2',
+            'answer_en' => 'nullable|min:2',
+            'language_fields' => 'nullable|array|min:1',
+            'language_fields.*' => 'required',
+            'row_status' => [
+                'required_if:' . $id . ',!=,null',
+                Rule::in([BaseModel::ROW_STATUS_ACTIVE, BaseModel::ROW_STATUS_INACTIVE]),
+            ]
+        ];
+        return Validator::make($request->all(), $rules, $customMessage);
+    }
+
+    /**
+     * @param array $request
+     * @param string $languageCode
+     * @param int|null $id
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    public function languageFieldValidator(array $request, string $languageCode): \Illuminate\Contracts\Validation\Validator
+    {
+        $customMessage = [
+            'required' => 'The :attribute ' . ucfirst($languageCode) . ' field is required.[50000]',
+            'max' => 'The :attribute ' . ucfirst($languageCode) . ' must not be greater than :max characters.[39003]',
+            'min' => 'The :attribute ' . ucfirst($languageCode) . ' must be at least :min characters.[42003]'
+        ];
+        $rules = [
+            'question' => [
+                "required",
+                "string",
+                "max:1800",
+                "min:2"
+            ],
+            'answer' => [
+                "required",
+                "nullable",
+                "string",
+                "min:2"
+            ]
+        ];
+        return Validator::make($request, $rules, $customMessage);
+    }
+
 
     /**
      * @param Request $request
