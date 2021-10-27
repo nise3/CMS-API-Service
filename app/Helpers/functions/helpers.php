@@ -133,12 +133,12 @@ if (!function_exists("getLanguageValue")) {
         $response = [];
         $languageAttributeKey = getLanguageAttributeKey($tableName, $keyId, $languageCode, $languageColumnName);
         if (Cache::has($languageAttributeKey)) {
-            $response[$languageColumnName . "_" . $languageCode] = Cache::get($languageAttributeKey);
+            $response[$languageColumnName . "_" . strtolower($languageCode)] = Cache::get($languageAttributeKey);
         } else {
             $cmsLanguageValue = CmsLanguageService::getLanguageValueByKeyId($tableName, $keyId, $languageCode, $languageColumnName);
             if ($cmsLanguageValue) {
-                $response[$languageColumnName . "_" . $languageCode] = $cmsLanguageValue;
-                Cache::put($languageAttributeKey, $response[$languageColumnName . "_" . $languageCode]);
+                $response[$languageColumnName . "_" . strtolower($languageCode)] = $cmsLanguageValue;
+                Cache::put($languageAttributeKey, $response[$languageColumnName . "_" .  strtolower($languageCode)]);
             }
         }
         return $response;
@@ -153,7 +153,7 @@ if (!function_exists("getResponse")) {
      * @param bool $responseType
      * @return array
      */
-    function getResponse(array $responseData, Carbon $startTime, bool $responseType,int $statusCode,string $message=null): array
+    function getResponse(array $responseData, Carbon $startTime, bool $responseType, int $statusCode, string $message = null): array
     {
         $response = [];
         if (!$responseType) {
@@ -165,13 +165,15 @@ if (!function_exists("getResponse")) {
             $response['page_size'] = $responseData['per_page'];
             $response['total'] = $responseData['total'];
         }
-        $response['data'] = $responseData['data'] ?? $responseData;
+        if($responseData){
+            $response['data'] = $responseData['data'] ?? $responseData;
+        }
         $response['_response_status'] = [
             "success" => true,
             "code" => $statusCode,
         ];
-        $response['_response_status']['message']=$message;
-        $response['_response_status']['query_time']=$startTime->diffInSeconds(Carbon::now());
+        $response['_response_status']['message'] = $message;
+        $response['_response_status']['query_time'] = $startTime->diffInSeconds(Carbon::now());
         return $response;
     }
 }

@@ -2,26 +2,31 @@
 return [
     "default"=>[
         "BN" => [
-            'name' => 'বাংলা',
-            'name_en' => 'Bengali',
+            'label' => 'বাংলা',
+            'label_en' => 'Bengali',
             'code' => 'BN'
         ],
         "EN" => [
-            'name' => 'English',
-            'name_en' => 'English',
+            'label' => 'English',
+            'label_en' => 'English',
             'code' => 'EN'
         ]
     ],
     "others"=>[
         "HI" => [
-            'name' => 'हिंदी',
-            'name_en' => 'Hindi',
+            'label' => 'हिंदी',
+            'label_en' => 'Hindi',
             'code' => 'HI'
         ],
         "AR" => [
-            'name' => 'الشفرة',
-            'name_en' => 'Arabic',
+            'label' => 'الشفرة',
+            'label_en' => 'Arabic',
             'code' => 'AR'
+        ],
+        "SO" => [
+            'label' => 'Soomaali',
+            'label_en' => 'Somali',
+            'code' => 'SO'
         ]
     ]
 ];

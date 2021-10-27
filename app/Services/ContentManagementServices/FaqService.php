@@ -120,12 +120,12 @@ class FaqService
         $faqBuilder->where('faqs.id', $id);
 
         /** @var Faq $faq */
-        $faq = $faqBuilder->first();
-
+        $faq = $faqBuilder->firstOrFail();
         return $faq;
     }
 
     /**
+     * @param Faq $faq
      * @param array $data
      * @return Faq
      */
@@ -136,11 +136,25 @@ class FaqService
         return $faq;
     }
 
+    /**
+     * @param Faq $faq
+     * @param array $data
+     * @return Faq
+     */
     public function update(Faq $faq, array $data): Faq
     {
         $faq->fill($data);
         $faq->save();
         return $faq;
+    }
+
+    /**
+     * @param Faq $faq
+     * @return bool
+     */
+    public function destroy(Faq $faq): bool
+    {
+        return $faq->delete();
     }
 
     /**
@@ -189,8 +203,8 @@ class FaqService
             'answer' => 'required|min:2',
             'question_en' => 'nullable|max:600|min:2',
             'answer_en' => 'nullable|min:2',
-            'language_fields' => 'nullable|array|min:1',
-            'language_fields.*' => 'required',
+            'other_language_fields' => 'nullable|array|min:1',
+            'other_language_fields.*' => 'required',
             'row_status' => [
                 'required_if:' . $id . ',!=,null',
                 Rule::in([BaseModel::ROW_STATUS_ACTIVE, BaseModel::ROW_STATUS_INACTIVE]),
@@ -208,11 +222,17 @@ class FaqService
     public function languageFieldValidator(array $request, string $languageCode): \Illuminate\Contracts\Validation\Validator
     {
         $customMessage = [
-            'required' => 'The :attribute ' . ucfirst($languageCode) . ' field is required.[50000]',
-            'max' => 'The :attribute ' . ucfirst($languageCode) . ' must not be greater than :max characters.[39003]',
-            'min' => 'The :attribute ' . ucfirst($languageCode) . ' must be at least :min characters.[42003]'
+            'required' => 'The :attribute_' . strtolower($languageCode) . ' in other language fields is required.[50000]',
+            'max' => 'The :attribute_' . strtolower($languageCode) . ' in other language fields must not be greater than :max characters.[39003]',
+            'min' => 'The :attribute_' . strtolower($languageCode) . ' in other language fields must be at least :min characters.[42003]',
+            'language_code.in' => "The language with code " . $languageCode . " is not allowed"
         ];
+        $request['language_code'] = $languageCode;
         $rules = [
+            "language_code" => [
+                "required",
+                Rule::in(array_keys(config('languages.others')))
+            ],
             'question' => [
                 "required",
                 "string",

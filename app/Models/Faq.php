@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Collection;
 
 
@@ -28,6 +30,8 @@ use Illuminate\Support\Collection;
  */
 class Faq extends BaseModel
 {
+    use SoftDeletes,HasFactory;
+
     protected $guarded = BaseModel::COMMON_GUARDED_FIELDS_SOFT_DELETE;
 
     /** FAQ_LANGUAGE_FILLABLE */
@@ -39,6 +43,9 @@ class Faq extends BaseModel
     ];
 
 
+    /**
+     * @return HasMany
+     */
     public function cmsLanguages(): HasMany
     {
         return $this->hasMany(CmsLanguage::class, 'key_id',"id");

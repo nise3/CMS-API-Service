@@ -3,7 +3,9 @@
 namespace App\Services\ContentManagementServices;
 
 use App\Models\CmsLanguage;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class CmsLanguageService
 {
@@ -32,5 +34,51 @@ class CmsLanguageService
     {
         $cmsLanguage = app(CmsLanguage::class);
         return CmsLanguage::insert($data);
+    }
+
+    /**
+     * @param array $data
+     * @return mixed
+     */
+    public function createOrUpdate(array $data): mixed
+    {
+        return CmsLanguage::updateOrCreate(
+            [
+                "key_id" => $data['key_id'],
+                "lang_code" => $data['lang_code'],
+                "column_name" => $data['column_name']
+            ],
+            $data
+        );
+    }
+
+    /**
+     * @param array $data
+     * @return bool
+     */
+    public function deleteLanguage(array $data): bool
+    {
+        return CmsLanguage::where('key_id', $data['key_id'])->where("lang_code", $data['lang_code'])->delete();
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    public function languageFieldDeleteValidator(Request $request): \Illuminate\Contracts\Validation\Validator
+    {
+        $rules = [
+            'key_id' => [
+                "required",
+                "integer",
+                "exists:cms_languages,key_id"
+            ],
+            "lang_code" => [
+                "required",
+                "string",
+                Rule::in(array_keys(config('languages.others')))
+            ]
+        ];
+        return Validator::make($request->all(), $rules);
     }
 }
