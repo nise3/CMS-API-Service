@@ -25,12 +25,14 @@ abstract class BaseModel extends Model
     public const ROW_ORDER_DESC = 'DESC';
 
     public const SHOW_IN_NISE3 = 1;
-    public const SHOW_IN_TSP = 2;
-    public const SHOW_IN_INDUSTRY = 3;
-    public const SHOW_IN_INDUSTRY_ASSOCIATION = 4;
+    public const SHOW_IN_YOUTH = 2;
+    public const SHOW_IN_TSP = 3;
+    public const SHOW_IN_INDUSTRY = 4;
+    public const SHOW_IN_INDUSTRY_ASSOCIATION = 5;
 
     public const SHOW_INS = [
         self::SHOW_IN_NISE3,
+        self::SHOW_IN_YOUTH,
         self::SHOW_IN_TSP,
         self::SHOW_IN_INDUSTRY,
         self::SHOW_IN_INDUSTRY_ASSOCIATION,

@@ -1,6 +1,6 @@
 <?php
 return [
-    "default"=>[
+    "default" => [
         "BN" => [
             'label' => 'বাংলা',
             'label_en' => 'Bengali',
@@ -12,7 +12,7 @@ return [
             'code' => 'EN'
         ]
     ],
-    "others"=>[
+    "others" => [
         "HI" => [
             'label' => 'हिंदी',
             'label_en' => 'Hindi',

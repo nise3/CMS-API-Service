@@ -132,13 +132,17 @@ if (!function_exists("getLanguageValue")) {
         $languageCode = request()->server('HTTP_ACCEPT_LANGUAGE');
         $response = [];
         $languageAttributeKey = getLanguageAttributeKey($tableName, $keyId, $languageCode, $languageColumnName);
+        /**
+         * TODO: Try to use Cache::remember(.......)
+         *
+         */
         if (Cache::has($languageAttributeKey)) {
             $response[$languageColumnName . "_" . strtolower($languageCode)] = Cache::get($languageAttributeKey);
         } else {
             $cmsLanguageValue = CmsLanguageService::getLanguageValueByKeyId($tableName, $keyId, $languageCode, $languageColumnName);
             if ($cmsLanguageValue) {
                 $response[$languageColumnName . "_" . strtolower($languageCode)] = $cmsLanguageValue;
-                Cache::put($languageAttributeKey, $response[$languageColumnName . "_" .  strtolower($languageCode)]);
+                Cache::put($languageAttributeKey, $response[$languageColumnName . "_" . strtolower($languageCode)]);
             }
         }
         return $response;
@@ -151,6 +155,8 @@ if (!function_exists("getResponse")) {
      * @param array $responseData
      * @param Carbon $startTime
      * @param bool $responseType
+     * @param int $statusCode
+     * @param string|null $message
      * @return array
      */
     function getResponse(array $responseData, Carbon $startTime, bool $responseType, int $statusCode, string $message = null): array
@@ -165,9 +171,11 @@ if (!function_exists("getResponse")) {
             $response['page_size'] = $responseData['per_page'];
             $response['total'] = $responseData['total'];
         }
-        if($responseData){
+
+        if ($responseData) {
             $response['data'] = $responseData['data'] ?? $responseData;
         }
+
         $response['_response_status'] = [
             "success" => true,
             "code" => $statusCode,
