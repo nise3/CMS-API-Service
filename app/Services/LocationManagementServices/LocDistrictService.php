@@ -87,9 +87,7 @@ class LocDistrictService
             'loc_districts.bbs_code',
             'loc_districts.is_sadar_district',
             'loc_divisions.title as division_title',
-            'loc_divisions.title_en as division_title_en',
-            'loc_districts.created_at',
-            'loc_districts.updated_at'
+            'loc_divisions.title_en as division_title_en'
         ]);
 
         $districtBuilder->leftJoin('loc_divisions', function ($join) {
