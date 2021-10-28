@@ -88,7 +88,6 @@ class LocDistrictService
             'loc_districts.is_sadar_district',
             'loc_divisions.title as division_title',
             'loc_divisions.title_en as division_title_en',
-            'loc_districts.row_status',
             'loc_districts.created_at',
             'loc_districts.updated_at'
         ]);

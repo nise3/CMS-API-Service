@@ -7,7 +7,7 @@
     },
     "servers": [
         {
-            "url": "https://core.bus-staging.softbdltd.com/api/v1"
+            "url": "https://cms.bus-staging.softbdltd.com/api/v1"
         },
         {
             "url": "http://localhost:8000/api/v1"
