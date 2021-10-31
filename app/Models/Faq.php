@@ -34,11 +34,6 @@ class Faq extends BaseModel
 
     protected $guarded = BaseModel::COMMON_GUARDED_FIELDS_SOFT_DELETE;
 
-    public array $translatableKeys = [
-        'question',
-        'answer'
-    ];
-
     /** FAQ LANGUAGE FILLABLE */
     public const LANGUAGE_ATTR_QUESTION = "question";
     public const LANGUAGE_ATTR_ANSWER = "answer";
