@@ -40,12 +40,8 @@ class CountryController extends Controller
     public function getList(Request $request): JsonResponse
     {
         $filter = $this->countryService->filterValidator($request)->validate();
-        try {
-            $response = $this->countryService->getAllCountries($filter, $this->startTime);
-            return Response::json($response);
-        } catch (Throwable $e) {
-            throw $e;
-        }
+        $response = $this->countryService->getAllCountries($filter, $this->startTime);
+        return Response::json($response);
 
     }
 }

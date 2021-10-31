@@ -13,6 +13,7 @@
 */
 
 use App\Helpers\Classes\CustomRouter;
+use App\Services\Common\LanguageCodeService;
 
 $customRouter = function (string $as = '') use ($router) {
     $custom = new CustomRouter($router);
@@ -42,4 +43,18 @@ $router->group(['prefix' => 'api/v1', 'as' => 'api.v1'], function () use ($route
     $customRouter()->resourceRoute('videos', 'VideoController')->render();
     $customRouter()->resourceRoute('sliders', 'SliderController')->render();
     $customRouter()->resourceRoute('static-pages', 'StaticPageController')->render();
+    $customRouter()->resourceRoute('faqs', 'FaqController')->render();
+
+    /** Language Field Remove From CsmLanguage Table */
+    $router->post('delete-other-language',
+        [
+            "as"=>"cms.delete-other-language",
+            "uses"=>"CmsLanguageController@deleteLanguageFieldByKeyId"
+        ]
+    );
 });
+$router->get("language-code",function (){
+   $languageCode=new LanguageCodeService();
+   dd(\Illuminate\Support\Facades\Cache::get('language_codes'));
+});
+

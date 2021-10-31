@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Class Gallery
- * @package Module\CourseManagement\App\Models
  * @property int content_type
  * @property int institute_id
  * @property int gallery_category_id
@@ -34,6 +33,12 @@ class Gallery extends BaseModel
 
     const IS_YOUTUBE_VIDEO_YES = 1;
     const IS_YOUTUBE_VIDEO_NO = 0;
+
+    /** GALLERY_LANGUAGE_FILLABLE */
+    public const LANGUAGE_ATTR_CONTENT_TITLE = "content_title";
+    public const GALLERY_LANGUAGE_FILLABLE = [
+        self::LANGUAGE_ATTR_CONTENT_TITLE,
+    ];
 
 
     public function galleryCategory(): BelongsTo
