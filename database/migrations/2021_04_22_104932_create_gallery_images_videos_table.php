@@ -35,14 +35,15 @@ class CreateGalleryImagesVideosTable extends Migration
 
             $table->unsignedTinyInteger('video_type')
                 ->nullable()
-                ->comment('youtube => 1, facebook => 2, twitter => 3, vimeo => 4, html5 => 5');
+                ->comment('youtube => 1, facebook => 2');
 
             $table->string('content_title', 600)->nullable();
             $table->string('content_title_en', 250)->nullable();
             $table->text('content_description')->nullable();
             $table->text('content_description_en')->nullable();
 
-            $table->string('content_url', 600);
+            $table->string('image_url', 600)->nullable()->comment('for content_type=Image required');
+            $table->string('video_url', 100)->nullable()->comment('for content_type=Video required');
             $table->json('content_properties_json')->nullable();
 
             $table->string('content_cover_image_url')->nullable();
@@ -58,7 +59,7 @@ class CreateGalleryImagesVideosTable extends Migration
 
             $table->unsignedInteger('published_by')->nullable();
             $table->unsignedInteger('archived_by')->nullable();
-            $table->unsignedInteger('updated_by')->nullable();
+            $table->unsignedInteger('created_by')->nullable();
             $table->unsignedInteger('updated_by')->nullable();
 
             $table->timestamps();

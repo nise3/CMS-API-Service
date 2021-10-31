@@ -16,7 +16,7 @@ class CreateFaqsTable extends Migration
         Schema::create('faqs', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedTinyInteger('show_in')
-                ->comment('1=>Nise3, 2=>TSP, 3=>Industry, 4=>Industry Association');
+                ->comment('1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry, 5=>Industry Association');
 
             $table->unsignedInteger('institute_id')->nullable()
                 ->comment('For Particular TSP Website');

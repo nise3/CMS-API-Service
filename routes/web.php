@@ -42,4 +42,14 @@ $router->group(['prefix' => 'api/v1', 'as' => 'api.v1'], function () use ($route
     $customRouter()->resourceRoute('videos', 'VideoController')->render();
     $customRouter()->resourceRoute('sliders', 'SliderController')->render();
     $customRouter()->resourceRoute('static-pages', 'StaticPageController')->render();
+    $customRouter()->resourceRoute('faqs', 'FaqController')->render();
+
+    /** Language Field Remove From CsmLanguage Table */
+    $router->post('delete-other-language',
+        [
+            "as"=>"cms.delete-other-language",
+            "uses"=>"CmsLanguageController@deleteLanguageFieldByKeyId"
+        ]
+    );
 });
+
