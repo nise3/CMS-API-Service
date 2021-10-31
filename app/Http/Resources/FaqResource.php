@@ -34,7 +34,7 @@ class FaqResource extends JsonResource
             'answer_en' => $this->answer_en,
         ];
 
-        if (isset($this->translatableKeys) && is_array($this->translatableKeys) && $languageCode && in_array($languageCode, LanguageCodeService::getLanguageCode())) {
+        if (isset($this::FAQ_LANGUAGE_FILLABLE) && is_array($this::FAQ_LANGUAGE_FILLABLE) && $languageCode && in_array($languageCode, LanguageCodeService::getLanguageCode())) {
             $tableName = $this->getTable();
             $keyId = $this->id;
 
