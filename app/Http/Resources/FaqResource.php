@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Models\Faq;
+use App\Services\ContentManagementServices\CmsLanguageService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Log;
@@ -36,9 +37,9 @@ class FaqResource extends JsonResource
         if ($languageCode && in_array($languageCode, array_keys(config('languages.others')))) {
             $tableName = $this->getTable();
             $keyId = $this->id;
-            $question = getLanguageValue($tableName, $keyId, Faq::LANGUAGE_ATTR_QUESTION);
+            $question = app(CmsLanguageService::class)->getLanguageValue($tableName, $keyId, Faq::LANGUAGE_ATTR_QUESTION);
             $response = array_merge($response, $question);
-            $answer = getLanguageValue($tableName, $keyId, Faq::LANGUAGE_ATTR_ANSWER);
+            $answer = app(CmsLanguageService::class)->getLanguageValue($tableName, $keyId, Faq::LANGUAGE_ATTR_ANSWER);
             $response = array_merge($response, $answer);
         }
 

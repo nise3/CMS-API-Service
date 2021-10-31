@@ -4,11 +4,35 @@ namespace App\Services\ContentManagementServices;
 
 use App\Models\CmsLanguage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
 class CmsLanguageService
 {
+
+    /**
+     * @param string $tableName
+     * @param int $keyId
+     * @param string $languageColumnName
+     * @return array
+     */
+    public function getLanguageValue(string $tableName, int $keyId, string $languageColumnName): array
+    {
+        $languageCode = request()->server('HTTP_ACCEPT_LANGUAGE');
+        $response = [];
+        $languageAttributeKey = getLanguageAttributeKey($tableName, $keyId, $languageCode, $languageColumnName);
+        if (Cache::has($languageAttributeKey)) {
+            $response[$languageColumnName . "_" . strtolower($languageCode)] = Cache::get($languageAttributeKey);
+        } else {
+            $cmsLanguageValue = $this->getLanguageValueByKeyId($tableName, $keyId, $languageCode, $languageColumnName);
+            if ($cmsLanguageValue) {
+                $response[$languageColumnName . "_" . strtolower($languageCode)] = $cmsLanguageValue;
+                Cache::put($languageAttributeKey, $response[$languageColumnName . "_" . strtolower($languageCode)]);
+            }
+        }
+        return $response;
+    }
 
     /**
      * @param string $tableName

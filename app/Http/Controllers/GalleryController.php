@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Gallery;
+use App\Services\ContentManagementServices\CmsLanguageService;
 use App\Services\ContentManagementServices\GalleryService;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
@@ -85,17 +87,30 @@ class GalleryController extends Controller
     public function store(Request $request): JsonResponse
     {
         $validated = $this->galleryService->validator($request)->validate();
+        $message = "Faq Update Successfully Done";
+        $otherLanguagePayload = $validatedData['other_language_fields'] ?? [];
+        $isLanguage = (bool)count(array_intersect(array_keys($otherLanguagePayload), array_keys(config('languages.others'))));
+        $response = [];
+        DB::beginTransaction();
+
         try {
             $gallery = $this->galleryService->store($validated);
-            $response = [
-                'data' => $gallery,
-                '_response_status' => [
-                    "success" => true,
-                    "code" => ResponseAlias::HTTP_CREATED,
-                    "message" => "Gallery added successfully",
-                    "query_time" => $this->startTime->diffInSeconds(Carbon::now())
-                ]
-            ];
+            if ($isLanguage) {
+                $languageFillablePayload = [];
+                foreach ($otherLanguagePayload as $key => $value) {
+                    $languageValidatedData = $this->faqService->languageFieldValidator($value, $key)->validate();
+                    $languageFillablePayload[] = [
+                        "table_name" => $gallery->getTable(),
+                        "key_id" => $gallery->id,
+                        "lang_code" => $key,
+                        "column_name" => Gallery::LANGUAGE_ATTR_CONTENT_TITLE,
+                        "column_value" => $languageValidatedData['question']
+                    ];
+                }
+                app(CmsLanguageService::class)->store($languageFillablePayload);
+            }
+            $response = getResponse($gallery->toArray(), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
+            DB::commit();
         } catch (Throwable $e) {
             throw $e;
         }

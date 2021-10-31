@@ -125,25 +125,6 @@ if (!function_exists("getLanguageAttributeKey")) {
     }
 }
 
-if (!function_exists("getLanguageValue")) {
-
-    function getLanguageValue(string $tableName, int $keyId, string $languageColumnName): array
-    {
-        $languageCode = request()->server('HTTP_ACCEPT_LANGUAGE');
-        $response = [];
-        $languageAttributeKey = getLanguageAttributeKey($tableName, $keyId, $languageCode, $languageColumnName);
-        if (Cache::has($languageAttributeKey)) {
-            $response[$languageColumnName . "_" . strtolower($languageCode)] = Cache::get($languageAttributeKey);
-        } else {
-            $cmsLanguageValue = CmsLanguageService::getLanguageValueByKeyId($tableName, $keyId, $languageCode, $languageColumnName);
-            if ($cmsLanguageValue) {
-                $response[$languageColumnName . "_" . strtolower($languageCode)] = $cmsLanguageValue;
-                Cache::put($languageAttributeKey, $response[$languageColumnName . "_" .  strtolower($languageCode)]);
-            }
-        }
-        return $response;
-    }
-}
 
 if (!function_exists("getResponse")) {
 

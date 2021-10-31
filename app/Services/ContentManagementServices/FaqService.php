@@ -129,8 +129,9 @@ class FaqService
      * @param array $data
      * @return Faq
      */
-    public function store(Faq $faq, array $data): Faq
+    public function store(array $data): Faq
     {
+        $faq = app(Faq::class);
         $faq->fill($data);
         $faq->save();
         return $faq;
