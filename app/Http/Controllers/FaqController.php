@@ -6,6 +6,7 @@ use App\Http\CustomInterfaces\Contract\ResourceInterface;
 use App\Http\Resources\FaqResource;
 use App\Models\BaseModel;
 use App\Models\Faq;
+use App\Services\Common\LanguageCodeService;
 use App\Services\ContentManagementServices\CmsLanguageService;
 use App\Services\ContentManagementServices\FaqService;
 use Carbon\Carbon;
@@ -71,7 +72,7 @@ class FaqController extends Controller implements ResourceInterface
         $validatedData = $this->faqService->validator($request)->validate();
         $message = "Faq successfully added";
         $otherLanguagePayload = $validatedData['other_language_fields'] ?? [];
-        $isLanguage = (bool)count(array_intersect(array_keys($otherLanguagePayload), array_keys(config('languages.others'))));
+        $isLanguage = (bool)count(array_intersect(array_keys($otherLanguagePayload), LanguageCodeService::getLanguageCode()));
         $response = [];
         DB::beginTransaction();
         try {
@@ -123,7 +124,7 @@ class FaqController extends Controller implements ResourceInterface
         $validatedData = $this->faqService->validator($request)->validate();
         $message = "Faq Update Successfully Done";
         $otherLanguagePayload = $validatedData['other_language_fields'] ?? [];
-        $isLanguage = (bool)count(array_intersect(array_keys($otherLanguagePayload), array_keys(config('languages.others'))));
+        $isLanguage = (bool)count(array_intersect(array_keys($otherLanguagePayload), LanguageCodeService::getLanguageCode()));
         $response = [];
         DB::beginTransaction();
         try {

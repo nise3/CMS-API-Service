@@ -13,6 +13,7 @@
 */
 
 use App\Helpers\Classes\CustomRouter;
+use App\Services\Common\LanguageCodeService;
 
 $customRouter = function (string $as = '') use ($router) {
     $custom = new CustomRouter($router);
@@ -52,5 +53,8 @@ $router->group(['prefix' => 'api/v1', 'as' => 'api.v1'], function () use ($route
         ]
     );
 });
-
+$router->get("language-code",function (){
+   $languageCode=new LanguageCodeService();
+   dd(\Illuminate\Support\Facades\Cache::get('language_codes'));
+});
 

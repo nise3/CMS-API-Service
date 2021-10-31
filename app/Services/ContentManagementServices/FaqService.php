@@ -4,6 +4,7 @@ namespace App\Services\ContentManagementServices;
 
 use App\Models\BaseModel;
 use App\Models\Faq;
+use App\Services\Common\LanguageCodeService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -231,7 +232,7 @@ class FaqService
         $rules = [
             "language_code" => [
                 "required",
-                Rule::in(array_keys(config('languages.others')))
+                Rule::in(LanguageCodeService::getLanguageCode())
             ],
             'question' => [
                 "required",

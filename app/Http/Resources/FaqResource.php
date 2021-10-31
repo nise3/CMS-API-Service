@@ -3,9 +3,10 @@
 namespace App\Http\Resources;
 
 use App\Models\Faq;
+use App\Services\Common\LanguageCodeService;
+use App\Services\ContentManagementServices\CmsLanguageService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\Log;
 
 class FaqResource extends JsonResource
 {
@@ -17,7 +18,7 @@ class FaqResource extends JsonResource
      */
     public function toArray($request): array
     {
-        $languageCode = strtoupper($request->server('HTTP_ACCEPT_LANGUAGE'));
+        $languageCode = strtolower($request->server('HTTP_ACCEPT_LANGUAGE'));
 
         /** @var Faq $this */
 
@@ -33,12 +34,12 @@ class FaqResource extends JsonResource
             'answer_en' => $this->answer_en,
         ];
 
-        if (isset($this->translatableKeys) && is_array($this->translatableKeys) && $languageCode && in_array($languageCode, array_keys(config('languages.others')))) {
+        if (isset($this->translatableKeys) && is_array($this->translatableKeys) && $languageCode && in_array($languageCode, LanguageCodeService::getLanguageCode())) {
             $tableName = $this->getTable();
             $keyId = $this->id;
 
             foreach ($this->translatableKeys as $translatableKey) {
-                $translatableValue = getLanguageValue($tableName, $keyId, $translatableKey);
+                $translatableValue = app(CmsLanguageService::class)->getLanguageValue($tableName, $keyId, $translatableKey);
                 $response = array_merge($response, $translatableValue);
             }
         }
