@@ -6,6 +6,7 @@ use App\Models\BaseModel;
 use App\Models\Faq;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Validator;
@@ -83,7 +84,6 @@ class FaqService
             $faqBuilder->where('faqs.question_en', 'like', '%' . $answerEn . '%');
         }
 
-        $response = [];
         /** @var Collection $response */
         if (is_numeric($page) || is_numeric($pageSize)) {
             $pageSize = $pageSize ?: BaseModel::DEFAULT_PAGE_SIZE;
@@ -96,9 +96,9 @@ class FaqService
 
     /**
      * @param int $id
-     * @return Faq
+     * @return Model|Builder
      */
-    public function getOneFaq(int $id): Faq
+    public function getOneFaq(int $id): Builder|Model
     {
         /** @var Builder $faqBuilder */
         $faqBuilder = Faq::select([
@@ -120,8 +120,7 @@ class FaqService
         $faqBuilder->where('faqs.id', $id);
 
         /** @var Faq $faq */
-        $faq = $faqBuilder->firstOrFail();
-        return $faq;
+        return $faqBuilder->firstOrFail();
     }
 
     /**
@@ -178,7 +177,7 @@ class FaqService
             ],
             'institute_id' => [
                 Rule::requiredIf(function () use ($request) {
-                    return $request->show_in == BaseModel::SHOW_IN_TSP;
+                    return $request->input('show_in') == BaseModel::SHOW_IN_TSP;
                 }),
                 "nullable",
                 "integer",
@@ -186,7 +185,7 @@ class FaqService
             ],
             'industry_association_id' => [
                 Rule::requiredIf(function () use ($request) {
-                    return $request->show_in == BaseModel::SHOW_IN_INDUSTRY_ASSOCIATION;
+                    return $request->input('show_in') == BaseModel::SHOW_IN_INDUSTRY_ASSOCIATION;
                 }),
                 "nullable",
                 "integer",
@@ -194,7 +193,7 @@ class FaqService
             ],
             'organization_id' => [
                 Rule::requiredIf(function () use ($request) {
-                    return $request->show_in == BaseModel::SHOW_IN_INDUSTRY;
+                    return $request->input('show_in') == BaseModel::SHOW_IN_INDUSTRY;
                 }),
                 "nullable",
                 "integer",
@@ -208,6 +207,7 @@ class FaqService
             'other_language_fields.*' => 'required',
             'row_status' => [
                 'required_if:' . $id . ',!=,null',
+                'nullable',
                 Rule::in([BaseModel::ROW_STATUS_ACTIVE, BaseModel::ROW_STATUS_INACTIVE]),
             ]
         ];
@@ -217,7 +217,6 @@ class FaqService
     /**
      * @param array $request
      * @param string $languageCode
-     * @param int|null $id
      * @return \Illuminate\Contracts\Validation\Validator
      */
     public function languageFieldValidator(array $request, string $languageCode): \Illuminate\Contracts\Validation\Validator
@@ -259,7 +258,8 @@ class FaqService
     {
         $customMessage = [
             'order.in' => 'Order must be within ASC or DESC.[30000]',
-            'row_status.in' => 'Row status must be within 1 or 0.[30000]'
+            'row_status.in' => 'Row status must be within 1 or 0.[30000]',
+            'show_in.in' => 'Row status must be within (1=>Nise3, 2=>TSP, 3=>Industry, 4=>Industry Association).[30000]'
         ];
 
         if (!empty($request['order'])) {

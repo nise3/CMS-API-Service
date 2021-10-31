@@ -30,13 +30,19 @@ use Illuminate\Support\Collection;
  */
 class Faq extends BaseModel
 {
-    use SoftDeletes,HasFactory;
+    use SoftDeletes, HasFactory;
 
     protected $guarded = BaseModel::COMMON_GUARDED_FIELDS_SOFT_DELETE;
 
-    /** FAQ_LANGUAGE_FILLABLE */
+    public array $translatableKeys = [
+        'question',
+        'answer'
+    ];
+
+    /** FAQ LANGUAGE FILLABLE */
     public const LANGUAGE_ATTR_QUESTION = "question";
     public const LANGUAGE_ATTR_ANSWER = "answer";
+
     public const FAQ_LANGUAGE_FILLABLE = [
         self::LANGUAGE_ATTR_QUESTION,
         self::LANGUAGE_ATTR_ANSWER
@@ -48,8 +54,7 @@ class Faq extends BaseModel
      */
     public function cmsLanguages(): HasMany
     {
-        return $this->hasMany(CmsLanguage::class, 'key_id',"id");
+        return $this->hasMany(CmsLanguage::class, 'key_id', "id");
     }
-
 
 }

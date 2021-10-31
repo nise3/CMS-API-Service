@@ -3,7 +3,6 @@
 namespace App\Http\Resources;
 
 use App\Models\Faq;
-use App\Services\ContentManagementServices\CmsLanguageService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Log;
@@ -34,20 +33,21 @@ class FaqResource extends JsonResource
             'answer_en' => $this->answer_en,
         ];
 
-        if ($languageCode && in_array($languageCode, array_keys(config('languages.others')))) {
+        if (isset($this->translatableKeys) && is_array($this->translatableKeys) && $languageCode && in_array($languageCode, array_keys(config('languages.others')))) {
             $tableName = $this->getTable();
             $keyId = $this->id;
-            $question = app(CmsLanguageService::class)->getLanguageValue($tableName, $keyId, Faq::LANGUAGE_ATTR_QUESTION);
-            $response = array_merge($response, $question);
-            $answer = app(CmsLanguageService::class)->getLanguageValue($tableName, $keyId, Faq::LANGUAGE_ATTR_ANSWER);
-            $response = array_merge($response, $answer);
+
+            foreach ($this->translatableKeys as $translatableKey) {
+                $translatableValue = getLanguageValue($tableName, $keyId, $translatableKey);
+                $response = array_merge($response, $translatableValue);
+            }
         }
 
-        $response['row_status']=$this->row_status;
-        $response['created_by']=$this->create_by;
-        $response['updated_by']=$this->updated_by;
-        $response['created_at']=$this->created_at;
-        $response['updated_at']=$this->updated_at;
+        $response['row_status'] = $this->row_status;
+        $response['created_by'] = $this->create_by;
+        $response['updated_by'] = $this->updated_by;
+        $response['created_at'] = $this->created_at;
+        $response['updated_at'] = $this->updated_at;
 
         return $response;
     }
