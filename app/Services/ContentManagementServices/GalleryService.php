@@ -5,10 +5,14 @@ namespace App\Services\ContentManagementServices;
 
 use App\Models\BaseModel;
 use App\Models\Gallery;
+use App\Services\Common\LanguageCodeService;
 use Carbon\Carbon;
+use Faker\Provider\Base;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -18,10 +22,9 @@ class GalleryService
 {
     /**
      * @param array $request
-     * @param Carbon $startTime
-     * @return array
+     * @return Collection|LengthAwarePaginator|array
      */
-    public function getAllGalleries(array $request, Carbon $startTime): array
+    public function getAllGalleries(array $request): Collection|LengthAwarePaginator|array
     {
 
         $contentTitle = $request['content_title'] ?? "";
@@ -71,36 +74,21 @@ class GalleryService
         }
 
         /** @var Collection $galleries */
-
         if (is_numeric($paginate) || is_numeric($pageSize)) {
             $pageSize = $pageSize ?: 10;
             $galleries = $galleryBuilder->paginate($pageSize);
-            $paginateData = (object)$galleries->toArray();
-            $response['current_page'] = $paginateData->current_page;
-            $response['total_page'] = $paginateData->last_page;
-            $response['page_size'] = $paginateData->per_page;
-            $response['total'] = $paginateData->total;
         } else {
             $galleries = $galleryBuilder->get();
         }
-
-        $response['order'] = $order;
-        $response['data'] = $galleries->toArray()['data'] ?? $galleries->toArray();
-        $response['response_status'] = [
-            "success" => true,
-            "code" => Response::HTTP_OK,
-            "query_time" => $startTime->diffInSeconds(Carbon::now())
-        ];
-        return $response;
+        return $galleries;
 
     }
 
     /**
      * @param int $id
-     * @param Carbon $startTime
-     * @return array
+     * @return Gallery
      */
-    public function getOneGallery(int $id, Carbon $startTime): array
+    public function getOneGallery(int $id): Gallery
     {
         /** @var Builder $galleryBuilder */
         $galleryBuilder = Gallery::select([
@@ -134,17 +122,8 @@ class GalleryService
         $galleryBuilder->where('galleries.id', $id);
 
         /** @var Gallery $gallery */
-        $gallery = $galleryBuilder->first();
-
-        return [
-            "data" => $gallery ?: [],
-            "_response_status" => [
-                "success" => true,
-                "code" => Response::HTTP_OK,
-                "query_time" => $startTime->diffInSeconds(Carbon::now())
-            ]
-        ];
-
+        $gallery = $galleryBuilder->firstOrFail();
+        return $gallery;
     }
 
     /**
@@ -189,6 +168,32 @@ class GalleryService
     public function destroy(Gallery $gallery): bool
     {
         return $gallery->delete();
+    }
+
+    public function languageFieldValidator(array $request, string $languageCode): \Illuminate\Contracts\Validation\Validator
+    {
+        $customMessage = [
+            'required' => 'The :attribute_' . strtolower($languageCode) . ' in other language fields is required.[50000]',
+            'max' => 'The :attribute_' . strtolower($languageCode) . ' in other language fields must not be greater than :max characters.[39003]',
+            'min' => 'The :attribute_' . strtolower($languageCode) . ' in other language fields must be at least :min characters.[42003]',
+            'language_code.in' => "The language with code " . $languageCode . " is not allowed",
+            'language_code.regex' => "The language  code " . $languageCode . " must be lowercase"
+        ];
+        $request['language_code'] = $languageCode;
+        $rules = [
+            "language_code" => [
+                "required",
+                "regex:/[a-z]/",
+                Rule::in(LanguageCodeService::getLanguageCode())
+            ],
+            'content_title' => [
+                "required",
+                "string",
+                "max:1800",
+                "min:2"
+            ]
+        ];
+        return Validator::make($request, $rules, $customMessage);
     }
 
     /**
@@ -273,9 +278,11 @@ class GalleryService
             ];
 
         }
+
+        $rules=array_merge($rules,BaseModel::OTHER_LANGUAGE_VALIDATION_RULES);
+
         return Validator::make($request->all(), $rules, $customMessage);
     }
-
 
     /**
      * @param Request $request

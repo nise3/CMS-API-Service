@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\GalleryResource;
+use App\Models\BaseModel;
 use App\Models\Gallery;
+use App\Services\Common\LanguageCodeService;
 use App\Services\ContentManagementServices\CmsLanguageService;
 use App\Services\ContentManagementServices\GalleryService;
 use Illuminate\Http\Request;
@@ -46,50 +49,44 @@ class GalleryController extends Controller
      * Display a listing of the resource.
      *
      * @param Request $request
-     * @return Exception|JsonResponse|Throwable
+     * @return JsonResponse
      * @throws ValidationException
      */
     public function getList(Request $request): JsonResponse
     {
         $filter = $this->galleryService->filterValidator($request)->validate();
-
-        try {
-            $response = $this->galleryService->getAllGalleries($filter, $this->startTime);
-        } catch (Throwable $e) {
-            throw $e;
-        }
-        return Response::json($response);
+        $response = GalleryResource::collection($this->galleryService->getAllGalleries($filter))->resource;
+        $response = getResponse($response->toArray(), $this->startTime, !BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
+        return Response::json($response, ResponseAlias::HTTP_OK);
     }
 
     /**
      * Display the specified resource.
      *
      * @param int $id
-     * @return Exception|JsonResponse|Throwable
+     * @return JsonResponse
      */
     public function read(int $id): JsonResponse
     {
-        try {
-            $response = $this->galleryService->getOneGallery($id, $this->startTime);
-        } catch (Throwable $e) {
-            throw $e;
-        }
-        return Response::json($response);
+        $response = new GalleryResource($this->galleryService->getOneGallery($id));
+        $response = getResponse($response->toArray(request()), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
+        return Response::json($response, ResponseAlias::HTTP_OK);
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param Request $request
-     * @return Exception|JsonResponse|Throwable
+     * @return JsonResponse
+     * @throws Throwable
      * @throws ValidationException
      */
     public function store(Request $request): JsonResponse
     {
         $validated = $this->galleryService->validator($request)->validate();
-        $message = "Faq Update Successfully Done";
+        $message = "Gallery is Successfully added";
         $otherLanguagePayload = $validatedData['other_language_fields'] ?? [];
-        $isLanguage = (bool)count(array_intersect(array_keys($otherLanguagePayload), array_keys(config('languages.others'))));
+        $isLanguage = (bool)count(array_intersect(array_keys($otherLanguagePayload), LanguageCodeService::getLanguageCode()));
         $response = [];
         DB::beginTransaction();
 
@@ -98,13 +95,13 @@ class GalleryController extends Controller
             if ($isLanguage) {
                 $languageFillablePayload = [];
                 foreach ($otherLanguagePayload as $key => $value) {
-                    $languageValidatedData = $this->faqService->languageFieldValidator($value, $key)->validate();
+                    $languageValidatedData = $this->galleryService->languageFieldValidator($value, $key)->validate();
                     $languageFillablePayload[] = [
                         "table_name" => $gallery->getTable(),
                         "key_id" => $gallery->id,
                         "lang_code" => $key,
                         "column_name" => Gallery::LANGUAGE_ATTR_CONTENT_TITLE,
-                        "column_value" => $languageValidatedData['question']
+                        "column_value" => $languageValidatedData['content_title']
                     ];
                 }
                 app(CmsLanguageService::class)->store($languageFillablePayload);
@@ -122,28 +119,42 @@ class GalleryController extends Controller
      *
      * @param Request $request
      * @param int $id
-     * @return Exception|JsonResponse|Throwable
+     * @return JsonResponse
+     * @throws Throwable
      * @throws ValidationException
      */
     public function update(Request $request, int $id): JsonResponse
     {
         $gallery = Gallery::findOrFail($id);
         $validated = $this->galleryService->validator($request, $id)->validate();
+        $message = "Gallery Update is Successfully Done";
+        $otherLanguagePayload = $validatedData['other_language_fields'] ?? [];
+        $isLanguage = (bool)count(array_intersect(array_keys($otherLanguagePayload), LanguageCodeService::getLanguageCode()));
+        $response = [];
+        DB::beginTransaction();
         try {
             $gallery = $this->galleryService->update($gallery, $validated);
-            $response = [
-                'data' => $gallery,
-                '_response_status' => [
-                    "success" => true,
-                    "code" => ResponseAlias::HTTP_OK,
-                    "message" => "Gallery updated successfully",
-                    "query_time" => $this->startTime->diffInSeconds(Carbon::now()),
-                ]
-            ];
+            if ($isLanguage) {
+                $languageFillablePayload = [];
+                foreach ($otherLanguagePayload as $key => $value) {
+                    $languageValidatedData = $this->galleryService->languageFieldValidator($value, $key)->validate();
+                    $languageFillablePayload= [
+                        "table_name" => $gallery->getTable(),
+                        "key_id" => $gallery->id,
+                        "lang_code" => $key,
+                        "column_name" => Gallery::LANGUAGE_ATTR_CONTENT_TITLE,
+                        "column_value" => $languageValidatedData['content_title']
+                    ];
+                }
+                app(CmsLanguageService::class)->createOrUpdate($languageFillablePayload);
+            }
+            $response = getResponse($gallery->toArray(), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK, $message);
+            DB::commit();
         } catch (Throwable $e) {
+            DB::rollBack();
             throw $e;
         }
-        return Response::json($response, ResponseAlias::HTTP_CREATED);
+        return Response::json($response, ResponseAlias::HTTP_OK);
     }
 
     /**

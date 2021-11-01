@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Class Gallery
+ * @property int id
  * @property int content_type
  * @property int institute_id
  * @property int gallery_category_id

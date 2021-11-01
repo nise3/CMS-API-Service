@@ -38,7 +38,7 @@ class FaqResource extends JsonResource
             $tableName = $this->getTable();
             $keyId = $this->id;
 
-            foreach ($this->translatableKeys as $translatableKey) {
+            foreach ($this::FAQ_LANGUAGE_FILLABLE as $translatableKey) {
                 $translatableValue = app(CmsLanguageService::class)->getLanguageValue($tableName, $keyId, $translatableKey);
                 $response = array_merge($response, $translatableValue);
             }

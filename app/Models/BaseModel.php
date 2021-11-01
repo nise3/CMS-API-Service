@@ -57,4 +57,16 @@ abstract class BaseModel extends Model
 
     public const IS_SINGLE_RESPONSE = true;
 
+    public const OTHER_LANGUAGE_VALIDATION_RULES=[
+        'other_language_fields' => [
+            'nullable',
+            'array',
+            'min:1',
+
+        ],
+        'other_language_fields.*' => [
+            "required"
+        ],
+    ];
+
 }

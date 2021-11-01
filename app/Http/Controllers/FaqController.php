@@ -73,6 +73,7 @@ class FaqController extends Controller implements ResourceInterface
         $message = "Faq successfully added";
         $otherLanguagePayload = $validatedData['other_language_fields'] ?? [];
         $isLanguage = (bool)count(array_intersect(array_keys($otherLanguagePayload), LanguageCodeService::getLanguageCode()));
+
         $response = [];
         DB::beginTransaction();
         try {
