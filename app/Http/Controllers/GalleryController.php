@@ -84,6 +84,7 @@ class GalleryController extends Controller
     public function store(Request $request): JsonResponse
     {
         $validated = $this->galleryService->validator($request)->validate();
+        dd($validated);
         $message = "Gallery is Successfully added";
         $otherLanguagePayload = $validatedData['other_language_fields'] ?? [];
         $isLanguage = (bool)count(array_intersect(array_keys($otherLanguagePayload), LanguageCodeService::getLanguageCode()));

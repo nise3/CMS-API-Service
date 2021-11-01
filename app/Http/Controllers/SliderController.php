@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\FaqResource;
+use App\Http\Resources\SliderResource;
+use App\Models\BaseModel;
 use App\Models\Slider;
+use App\Services\Common\LanguageCodeService;
+use App\Services\ContentManagementServices\CmsLanguageService;
 use App\Services\ContentManagementServices\SliderService;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
@@ -47,16 +53,14 @@ class SliderController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param Request $request
      * @param int $id
-     * @return Exception|JsonResponse|Throwable
+     * @return JsonResponse
      */
-    public function read(int $id): JsonResponse
+    public function read(Request $request,int $id): JsonResponse
     {
-        try {
-            $response = $this->sliderService->getOneSlider($id, $this->startTime);
-        } catch (Throwable $e) {
-            throw $e;
-        }
+        $response=new SliderResource($this->sliderService->getOneSlider($id, $this->startTime));
+        $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
         return Response::json($response);
     }
 
@@ -64,24 +68,42 @@ class SliderController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Request $request
-     * @return Exception|JsonResponse|Throwable
+     * @return JsonResponse
+     * @throws Throwable
      * @throws ValidationException
      */
     public function store(Request $request): JsonResponse
     {
-        $validated = $this->sliderService->validator($request)->validate();
+        $validatedData = $this->sliderService->validator($request)->validate();
+        $message = "Slider successfully added";
+        $otherLanguagePayload = $validatedData['other_language_fields'] ?? [];
+        $isLanguage = (bool)count(array_intersect(array_keys($otherLanguagePayload), LanguageCodeService::getLanguageCode()));
+        $response = [];
+        DB::beginTransaction();
         try {
-            $slider = $this->sliderService->store($validated);
-            $response = [
-                'data' => $slider,
-                '_response_status' => [
-                    "success" => true,
-                    "code" => ResponseAlias::HTTP_CREATED,
-                    "message" => "Slider added successfully",
-                    "query_time" => $this->startTime->diffInSeconds(Carbon::now())
-                ]
-            ];
+            $slider = $this->sliderService->store($validatedData);
+            if ($isLanguage) {
+                $languageFillablePayload = [];
+                foreach ($otherLanguagePayload as $key => $value) {
+                    $languageValidatedData = $this->sliderService->languageFieldValidator($value, $key)->validate();
+                    foreach (Slider::SLIDER_LANGUAGE_FIELDS as $fillableColumn)
+                        if (!empty($languageValidatedData[$fillableColumn])) {
+                            $languageFillablePayload[] = [
+                                "table_name" => $slider->getTable(),
+                                "key_id" => $slider->id,
+                                "lang_code" => $key,
+                                "column_name" => $fillableColumn,
+                                "column_value" => $languageValidatedData[$fillableColumn]
+                            ];
+                        }
+
+                }
+                app(CmsLanguageService::class)->store($languageFillablePayload);
+            }
+            $response = getResponse($slider->toArray(), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
+            DB::commit();
         } catch (Throwable $e) {
+            DB::rollBack();
             throw $e;
         }
         return Response::json($response, ResponseAlias::HTTP_CREATED);
@@ -92,24 +114,41 @@ class SliderController extends Controller
      *
      * @param Request $request
      * @param int $id
-     * @return Exception|JsonResponse|Throwable
+     * @return JsonResponse
+     * @throws Throwable
      * @throws ValidationException
      */
     public function update(Request $request, int $id): JsonResponse
     {
         $slider = Slider::findOrFail($id);
-        $validated = $this->sliderService->validator($request, $id)->validate();
+        $validatedData = $this->sliderService->validator($request)->validate();
+        $message = "Slider successfully update";
+        $otherLanguagePayload = $validatedData['other_language_fields'] ?? [];
+        $isLanguage = (bool)count(array_intersect(array_keys($otherLanguagePayload), LanguageCodeService::getLanguageCode()));
+        $response = [];
+        DB::beginTransaction();
         try {
-            $slider = $this->sliderService->update($slider, $validated);
-            $response = [
-                'data' => $slider,
-                '_response_status' => [
-                    "success" => true,
-                    "code" => ResponseAlias::HTTP_OK,
-                    "message" => "Slider updated successfully",
-                    "query_time" => $this->startTime->diffInSeconds(Carbon::now()),
-                ]
-            ];
+            $slider = $this->sliderService->update($slider, $validatedData);
+            if ($isLanguage) {
+                foreach ($otherLanguagePayload as $key => $value) {
+                    $languageValidatedData = $this->sliderService->languageFieldValidator($value, $key)->validate();
+                    foreach (Slider::SLIDER_LANGUAGE_FIELDS as $fillableColumn)
+                        if (!empty($languageValidatedData[$fillableColumn])) {
+                            $languageFillablePayload = [
+                                "table_name" => $slider->getTable(),
+                                "key_id" => $slider->id,
+                                "lang_code" => $key,
+                                "column_name" => $fillableColumn,
+                                "column_value" => $languageValidatedData[$fillableColumn]
+                            ];
+                            app(CmsLanguageService::class)->createOrUpdate($languageFillablePayload);
+                        }
+
+                }
+            }
+            $response = getResponse($slider->toArray(), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
+            DB::commit();
+
         } catch (Throwable $e) {
             throw $e;
         }
@@ -119,24 +158,14 @@ class SliderController extends Controller
     /**
      * Remove the specified resource from storage.
      * @param int $id
-     * @return Exception|JsonResponse|Throwable
+     * @return JsonResponse
      */
     public function destroy(int $id): JsonResponse
     {
         $slider = Slider::findOrFail($id);
-        try {
-            $this->sliderService->destroy($slider);
-            $response = [
-                '_response_status' => [
-                    "success" => true,
-                    "code" => ResponseAlias::HTTP_OK,
-                    "message" => "Slider deleted successfully",
-                    "query_time" => $this->startTime->diffInSeconds(Carbon::now()),
-                ]
-            ];
-        } catch (Throwable $e) {
-            throw $e;
-        }
+        $destroyStatus = $this->sliderService->destroy($slider);
+        $message = $destroyStatus ? "Slider successfully deleted" : "Slider is not deleted";
+        $response = getResponse([], $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
 }

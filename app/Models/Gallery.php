@@ -42,9 +42,9 @@ class Gallery extends BaseModel
     ];
 
 
-    public function galleryCategory(): BelongsTo
-    {
-        return $this->belongsTo(GalleryCategory::class);
-    }
+//    public function galleryCategory(): BelongsTo
+//    {
+//        return $this->belongsTo(GalleryCategory::class);
+//    }
 
 }

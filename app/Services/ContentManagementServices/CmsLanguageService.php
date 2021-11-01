@@ -64,7 +64,7 @@ class CmsLanguageService
      * @param array $data
      * @return mixed
      */
-    public function createOrUpdate(array $data): mixed
+    public function createOrUpdate(array $data): CmsLanguage
     {
         return CmsLanguage::updateOrCreate(
             [

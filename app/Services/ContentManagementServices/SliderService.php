@@ -4,6 +4,7 @@ namespace App\Services\ContentManagementServices;
 
 use App\Models\BaseModel;
 use App\Models\Slider;
+use App\Services\Common\LanguageCodeService;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -165,6 +166,50 @@ class SliderService
         return $slider->delete();
     }
 
+    public function languageFieldValidator(array $request, string $languageCode): \Illuminate\Contracts\Validation\Validator
+    {
+        $customMessage = [
+            'required' => 'The :attribute_' . strtolower($languageCode) . ' in other language fields is required.[50000]',
+            'max' => 'The :attribute_' . strtolower($languageCode) . ' in other language fields must not be greater than :max characters.[39003]',
+            'min' => 'The :attribute_' . strtolower($languageCode) . ' in other language fields must be at least :min characters.[42003]',
+            'language_code.in' => "The language with code " . $languageCode . " is not allowed",
+            'language_code.regex' => "The language  code " . $languageCode . " must be lowercase"
+        ];
+        $request['language_code'] = $languageCode;
+        $rules = [
+            "language_code" => [
+                "required",
+                "regex:/[a-z]/",
+                Rule::in(LanguageCodeService::getLanguageCode())
+            ],
+            'title' => [
+                'required',
+                'string',
+                'max:500',
+                'min:2'
+            ],
+            'sub_title' => [
+                'required',
+                'string',
+                'max:191',
+                'min:2'
+            ],
+            'button_text' => [
+                'nullable',
+                Rule::requiredIf(function () {
+                    return request('is_button_available') == Slider::IS_BUTTON_AVAILABLE_YES;
+                }),
+                'string',
+                'max:20'
+            ],
+            'alt_title' => [
+                'string',
+                'nullable'
+            ]
+        ];
+        return Validator::make($request, $rules, $customMessage);
+    }
+
     /**
      * @param $request
      * @param int|null $id
@@ -182,6 +227,14 @@ class SliderService
             ]
         ];
         $rules = [
+            'institute_id' => [
+                'nullable',
+                'int',
+            ],
+            'organization_id' => [
+                'nullable',
+                'int',
+            ],
             'title_en' => [
                 'required',
                 'string',
@@ -223,15 +276,6 @@ class SliderService
                 'string',
                 'max:20'
             ],
-
-            'institute_id' => [
-                'nullable',
-                'int',
-            ],
-            'organization_id' => [
-                'nullable',
-                'int',
-            ],
             'slider_images' => [
                 'required',
                 'array',
@@ -254,6 +298,8 @@ class SliderService
             ]
 
         ];
+
+        $rules = array_merge($rules, BaseModel::OTHER_LANGUAGE_VALIDATION_RULES);
 
         return Validator::make($request->all(), $rules, $customMessage);
     }
