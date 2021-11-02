@@ -97,9 +97,9 @@ class FaqService
 
     /**
      * @param int $id
-     * @return Model|Builder
+     * @return Builder|Model|null
      */
-    public function getOneFaq(int $id): Builder|Model
+    public function getOneFaq(int $id): Builder|Model|null
     {
         /** @var Builder $faqBuilder */
         $faqBuilder = Faq::select([

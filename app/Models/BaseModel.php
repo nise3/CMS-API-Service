@@ -30,6 +30,14 @@ abstract class BaseModel extends Model
     public const SHOW_IN_INDUSTRY = 4;
     public const SHOW_IN_INDUSTRY_ASSOCIATION = 5;
 
+    public const  FEATURED_YES = 1;
+    public const  FEATURED_NO = 0;
+
+    public const FEATURED = [
+        self::FEATURED_YES,
+        self::FEATURED_NO
+    ];
+
     public const SHOW_INS = [
         self::SHOW_IN_NISE3,
         self::SHOW_IN_YOUTH,
@@ -57,7 +65,7 @@ abstract class BaseModel extends Model
 
     public const IS_SINGLE_RESPONSE = true;
 
-    public const OTHER_LANGUAGE_VALIDATION_RULES=[
+    public const OTHER_LANGUAGE_VALIDATION_RULES = [
         'other_language_fields' => [
             'nullable',
             'array',

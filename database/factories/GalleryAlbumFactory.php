@@ -2,12 +2,12 @@
 
 namespace Database\Factories;
 
-use App\Models\GalleryCategory;
+use App\Models\GalleryAlbum;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class GalleryCategoryFactory extends Factory
+class GalleryAlbumFactory extends Factory
 {
-    protected $model = GalleryCategory::class;
+    protected $model = GalleryAlbum::class;
 
     public function definition(): array
     {
