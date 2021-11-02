@@ -74,16 +74,16 @@ class GalleryAlbumService
             $GalleryAlbumBuilder->where('gallery_albums.title', 'like', '%' . $titleBn . '%');
         }
 
-        /** @var Collection $galleryCategories */
-
+        /** @var Collection $galleryAlbums */
+        $galleryAlbums = [];
         if (is_numeric($paginate) || is_numeric($pageSize)) {
             $pageSize = $pageSize ?: 10;
-            $galleryCategories = $GalleryAlbumBuilder->paginate($pageSize);
+            $galleryAlbums = $GalleryAlbumBuilder->paginate($pageSize);
         } else {
-            $galleryCategories = $GalleryAlbumBuilder->get();
+            $galleryAlbums = $GalleryAlbumBuilder->get();
         }
 
-        return $galleryCategories;
+        return $galleryAlbums;
     }
 
 
@@ -119,7 +119,7 @@ class GalleryAlbumService
         $GalleryAlbumBuilder->where('gallery_albums.id', $id);
 
         /** @var GalleryAlbum $GalleryAlbum */
-        return $GalleryAlbumBuilder->first();
+        return $GalleryAlbumBuilder->firstOrFail();
     }
 
 
