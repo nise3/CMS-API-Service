@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -16,7 +17,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 class SliderService
 {
-    public function getAllSliders(array $request, Carbon $startTime): array
+
+    /**
+     * @param array $request
+     * @param Carbon $startTime
+     * @return Collection|LengthAwarePaginator|array
+     */
+    public function getAllSliders(array $request): Collection|LengthAwarePaginator|array
     {
 
         $titleEn = $request['title_en'] ?? "";
@@ -70,31 +77,19 @@ class SliderService
 
 
         /** @var Collection $sliders */
-
+        $sliders = [];
         if (is_numeric($paginate) || is_numeric($pageSize)) {
             $pageSize = $pageSize ?: 10;
             $sliders = $sliderBuilder->paginate($pageSize);
-            $paginateData = (object)$sliders->toArray();
-            $response['current_page'] = $paginateData->current_page;
-            $response['total_page'] = $paginateData->last_page;
-            $response['page_size'] = $paginateData->per_page;
-            $response['total'] = $paginateData->total;
         } else {
             $sliders = $sliderBuilder->get();
         }
 
-        $response['order'] = $order;
-        $response['data'] = $sliders->toArray()['data'] ?? $sliders->toArray();
-        $response['response_status'] = [
-            "success" => true,
-            "code" => Response::HTTP_OK,
-            "query_time" => $startTime->diffInSeconds(Carbon::now())
-        ];
-        return $response;
+        return $sliders;
 
     }
 
-    public function getOneSlider(int $id, Carbon $startTime): array
+    public function getOneSlider(int $id): Slider
     {
         /** @var Builder $sliderBuilder */
 
@@ -117,19 +112,9 @@ class SliderService
             'sliders.updated_at',
         ]);
         $sliderBuilder->where('sliders.id', $id);
-
-
         /** @var Slider $slider */
-        $slider = $sliderBuilder->first();
-
-        return [
-            "data" => $slider ?: [],
-            "_response_status" => [
-                "success" => true,
-                "code" => Response::HTTP_OK,
-                "query_time" => $startTime->diffInSeconds(Carbon::now())
-            ],
-        ];
+        $slider = $sliderBuilder->firstOrFail();
+        return $slider;
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -23,6 +24,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string alt_title
  * @property string alt_title_en
  * @property int row_status
+ * @property int created_by
+ * @property int updated_by
+ * @property Carbon created_at
+ * @property Carbon updated_at
  */
 class Slider extends BaseModel
 {

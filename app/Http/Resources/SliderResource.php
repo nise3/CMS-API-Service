@@ -35,15 +35,21 @@ class SliderResource extends JsonResource
             "alt_title_en"=>$this->alt_title_en
         ];
 
-        if (!empty($this::SLIDER_LANGUAGE_FIELDS) && is_array($this::SLIDER_LANGUAGE_FIELDS) && $languageCode && in_array($languageCode, LanguageCodeService::getLanguageCode())) {
+        if (!empty(Slider::SLIDER_LANGUAGE_FIELDS) && is_array(Slider::SLIDER_LANGUAGE_FIELDS) && $languageCode && in_array($languageCode, LanguageCodeService::getLanguageCode())) {
             $tableName = $this->getTable();
             $keyId = $this->id;
-
-            foreach ($this::SLIDER_LANGUAGE_FIELDS as $translatableKey) {
+            foreach (Slider::SLIDER_LANGUAGE_FIELDS as $translatableKey) {
                 $translatableValue = app(CmsLanguageService::class)->getLanguageValue($tableName, $keyId, $translatableKey);
                 $response = array_merge($response, $translatableValue);
             }
         }
+
+        $response['row_status'] = $this->row_status;
+        $response['created_by'] = $this->created_by;
+        $response['updated_by'] = $this->updated_by;
+        $response['created_at'] = $this->created_at;
+        $response['updated_at'] = $this->updated_at;
+
         return $response;
     }
 }

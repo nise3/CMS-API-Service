@@ -41,13 +41,10 @@ class SliderController extends Controller
     public function getList(Request $request): JsonResponse
     {
         $filter = $this->sliderService->filterValidator($request)->validate();
-
-        try {
-            $response = $this->sliderService->getAllSliders($filter, $this->startTime);
-        } catch (Throwable $e) {
-            throw $e;
-        }
-        return Response::json($response);
+        $message="Slider list";
+        $response = SliderResource::collection($this->sliderService->getAllSliders($filter))->resource;
+        $response = getResponse($response->toArray(), $this->startTime, !BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK,$message);
+        return Response::json($response, ResponseAlias::HTTP_OK);
     }
 
     /**
@@ -57,11 +54,12 @@ class SliderController extends Controller
      * @param int $id
      * @return JsonResponse
      */
-    public function read(Request $request,int $id): JsonResponse
+    public function read(Request $request, int $id): JsonResponse
     {
-        $response=new SliderResource($this->sliderService->getOneSlider($id, $this->startTime));
-        $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
-        return Response::json($response);
+        $message="Slider details";
+        $response = new SliderResource($this->sliderService->getOneSlider($id));
+        $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK,$message);
+        return Response::json($response, ResponseAlias::HTTP_OK);
     }
 
     /**
