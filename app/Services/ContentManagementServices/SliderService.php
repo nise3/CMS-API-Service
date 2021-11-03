@@ -208,10 +208,8 @@ class SliderService
             $request["slider_images"] = is_array($request['slider_images']) ? $request['slider_images'] : explode(',', $request['slider_images']);
         }
         $customMessage = [
-            'row_status.in' => [
-                'code' => 30000,
-                'message' => 'Row status must be within 1 or 0'
-            ]
+            'row_status.in' => 'The :attribute must be within 1 or 0.[30000]',
+            "banner_template_code.in"=>"The :attribute must be with in ".implode(", ",array_keys(Slider::BANNER_TEMPLATE_TYPES)).".[30000]"
         ];
         $rules = [
             'institute_id' => [

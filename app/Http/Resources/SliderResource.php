@@ -32,8 +32,7 @@ class SliderResource extends JsonResource
             "link"=>$this->link,
             "slider_images"=>$this->slider_images,
             "alt_title"=>$this->alt_title,
-            "alt_title_en"=>$this->alt_title_en,
-            "banner_template"=>config("nise3.banner_template.".$this->banner_template_code)
+            "alt_title_en"=>$this->alt_title_en
         ];
 
         if (!empty(Slider::SLIDER_LANGUAGE_FIELDS) && is_array(Slider::SLIDER_LANGUAGE_FIELDS) && $languageCode && in_array($languageCode, LanguageCodeService::getLanguageCode())) {
@@ -45,10 +44,11 @@ class SliderResource extends JsonResource
             }
         }
 
+        $response["banner_template"] = config("nise3.banner_template.".$this->banner_template_code);
         $response['row_status'] = $this->row_status;
         $response['created_by'] = $this->created_by;
         $response['updated_by'] = $this->updated_by;
-        $response['created_at'] = $this->created_at;
+        $response['created_at'] = $this->created_at; 
         $response['updated_at'] = $this->updated_at;
 
         return $response;

@@ -165,7 +165,7 @@ class SliderController extends Controller
         $slider = Slider::findOrFail($id);
         $destroyStatus = $this->sliderService->destroy($slider);
         $message = $destroyStatus ? "Slider successfully deleted" : "Slider is not deleted";
-        $response = getResponse([], $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
+        $response = getResponse($destroyStatus, $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK, $message);
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
 }
