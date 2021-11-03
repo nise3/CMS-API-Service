@@ -4,10 +4,13 @@ namespace App\Services\ContentManagementServices;
 
 use App\Models\BaseModel;
 use App\Models\StaticPage;
+use App\Services\Common\LanguageCodeService;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,10 +20,9 @@ class StaticPageService
 {
     /**
      * @param array $request
-     * @param Carbon $startTime
-     * @return array
+     * @return Collection|LengthAwarePaginator|array
      */
-    public function getAllStaticPages(array $request, Carbon $startTime): array
+    public function getAllStaticPages(array $request): Collection|LengthAwarePaginator|array
     {
         $titleEn = $request['title_en'] ?? "";
         $titleBn = $request['title'] ?? "";
@@ -32,20 +34,18 @@ class StaticPageService
         /** @var Builder $staticPageBuilder */
         $staticPageBuilder = StaticPage::select([
             'static_pages_and_block.id',
-            'static_pages_and_block.title_en',
-            'static_pages_and_block.title',
-            'static_pages_and_block.type',
+            'static_pages_and_block.content_type',
+            'static_pages_and_block.show_in',
+            'static_pages_and_block.content_slug_or_id',
             'static_pages_and_block.institute_id',
             'static_pages_and_block.organization_id',
-            'static_pages_and_block.description_en',
-            'static_pages_and_block.description',
-            'static_pages_and_block.page_id',
-            'static_pages_and_block.page_contents',
-            'static_pages_and_block.content_type',
-            'static_pages_and_block.content_properties',
-            'static_pages_and_block.content_path',
-            'static_pages_and_block.alt_title_en',
-            'static_pages_and_block.alt_title',
+            'static_pages_and_block.organization_association_id',
+            'static_pages_and_block.title',
+            'static_pages_and_block.title_en',
+            'static_pages_and_block.sub_title',
+            'static_pages_and_block.sub_title_en',
+            'static_pages_and_block.contents',
+            'static_pages_and_block.contents_en',
             'static_pages_and_block.row_status',
             'static_pages_and_block.created_by',
             'static_pages_and_block.updated_by',
@@ -70,49 +70,34 @@ class StaticPageService
         if (is_numeric($paginate) || is_numeric($pageSize)) {
             $pageSize = $pageSize ?: 10;
             $staticPages = $staticPageBuilder->paginate($pageSize);
-            $paginateData = (object)$staticPages->toArray();
-            $response['current_page'] = $paginateData->current_page;
-            $response['total_page'] = $paginateData->last_page;
-            $response['page_size'] = $paginateData->per_page;
-            $response['total'] = $paginateData->total;
         } else {
             $staticPages = $staticPageBuilder->get();
         }
 
-        $response['order'] = $order;
-        $response['data'] = $staticPages->toArray()['data'] ?? $staticPages->toArray();
-        $response['response_status'] = [
-            "success" => true,
-            "code" => Response::HTTP_OK,
-            "query_time" => $startTime->diffInSeconds(Carbon::now())
-        ];
-        return $response;
+        return $staticPages;
     }
 
     /**
      * @param int $id
-     * @param Carbon $startTime
-     * @return array
+     * @return Builder|Model
      */
-    public function getOneStaticPage(int $id, Carbon $startTime): array
+    public function getOneStaticPage(int $id): Builder|Model
     {
         /** @var Builder $staticPageBuilder */
         $staticPageBuilder = StaticPage::select([
             'static_pages_and_block.id',
-            'static_pages_and_block.title_en',
-            'static_pages_and_block.title',
-            'static_pages_and_block.type',
+            'static_pages_and_block.content_type',
+            'static_pages_and_block.show_in',
+            'static_pages_and_block.content_slug_or_id',
             'static_pages_and_block.institute_id',
             'static_pages_and_block.organization_id',
-            'static_pages_and_block.description_en',
-            'static_pages_and_block.description',
-            'static_pages_and_block.page_id',
-            'static_pages_and_block.page_contents',
-            'static_pages_and_block.content_type',
-            'static_pages_and_block.content_properties',
-            'static_pages_and_block.content_path',
-            'static_pages_and_block.alt_title_en',
-            'static_pages_and_block.alt_title',
+            'static_pages_and_block.organization_association_id',
+            'static_pages_and_block.title',
+            'static_pages_and_block.title_en',
+            'static_pages_and_block.sub_title',
+            'static_pages_and_block.sub_title_en',
+            'static_pages_and_block.contents',
+            'static_pages_and_block.contents_en',
             'static_pages_and_block.row_status',
             'static_pages_and_block.created_by',
             'static_pages_and_block.updated_by',
@@ -123,16 +108,7 @@ class StaticPageService
 
 
         /** @var StaticPage $staticPage */
-        $staticPage = $staticPageBuilder->first();
-
-        return [
-            "data" => $staticPage ?: [],
-            "_response_status" => [
-                "success" => true,
-                "code" => Response::HTTP_OK,
-                "query_time" => $startTime->diffInSeconds(Carbon::now())
-            ],
-        ];
+        return $staticPageBuilder->first();
     }
 
     /**
@@ -168,6 +144,42 @@ class StaticPageService
     {
         return $staticPage->delete();
     }
+    /**
+     * @param array $request
+     * @param string $languageCode
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    public function languageFieldValidator(array $request, string $languageCode): \Illuminate\Contracts\Validation\Validator
+    {
+        $customMessage = [
+            'required' => 'The :attribute_' . strtolower($languageCode) . ' in other language fields is required.[50000]',
+            'max' => 'The :attribute_' . strtolower($languageCode) . ' in other language fields must not be greater than :max characters.[39003]',
+            'min' => 'The :attribute_' . strtolower($languageCode) . ' in other language fields must be at least :min characters.[42003]',
+            'language_code.in' => "The language with code " . $languageCode . " is not allowed",
+            'language_code.regex' => "The language  code " . $languageCode . " must be lowercase"
+        ];
+        $request['language_code'] = $languageCode;
+        $rules = [
+            "language_code" => [
+                "required",
+                "regex:/[a-z]/",
+                Rule::in(LanguageCodeService::getLanguageCode())
+            ],
+            'title' => [
+                "required",
+                "string",
+                "max:600",
+                "min:2"
+            ],
+            'image_alt_title' => [
+                "nullable",
+                "string",
+                "max:500",
+                "min:2"
+            ]
+        ];
+        return Validator::make($request, $rules, $customMessage);
+    }
 
     /**
      * @param Request $request
@@ -183,15 +195,49 @@ class StaticPageService
             ]
         ];
         $rules = [
-            'type' => [
+            'content_type' => [
                 'required',
                 'int',
-                Rule::in([StaticPage::TYPE_BLOCK,StaticPage::TYPE_STATIC_PAGE])
+                Rule::in([StaticPage::CONTENT_TYPE_BLOCK, StaticPage::CONTENT_TYPE_STATIC_PAGE])
             ],
-            'title_en' => [
+            'show_in' => [
+                'nullable',
+                'integer',
+                Rule::in(BaseModel::SHOW_INS)
+            ],
+            'content_slug_or_id' => [
                 'required',
                 'string',
-                'max:191',
+                'max:300'
+            ],
+            'institute_id' => [
+                Rule::requiredIf(function () use ($request) {
+                    return $request->input('show_in') == BaseModel::SHOW_IN_TSP;
+                }),
+                "nullable",
+                "integer",
+                "gt:0",
+            ],
+            'industry_association_id' => [
+                Rule::requiredIf(function () use ($request) {
+                    return $request->input('show_in') == BaseModel::SHOW_IN_INDUSTRY_ASSOCIATION;
+                }),
+                "nullable",
+                "integer",
+                "gt:0",
+            ],
+            'organization_id' => [
+                Rule::requiredIf(function () use ($request) {
+                    return $request->input('show_in') == BaseModel::SHOW_IN_INDUSTRY;
+                }),
+                "nullable",
+                "integer",
+                "gt:0",
+            ],
+            'title_en' => [
+                'nullable',
+                'string',
+                'max:200',
                 'min:2'
             ],
             'title' => [
@@ -200,50 +246,19 @@ class StaticPageService
                 'max:500',
                 'min:2'
             ],
-            'institute_id' => [
-                'nullable',
-                'int',
-            ],
-            'organization_id' => [
-                'nullable',
-                'int',
-            ],
-            'description_en' => [
+            'sub_title_en' => [
                 'nullable',
                 'string'
             ],
-            'description' => [
+            'sub_title' => [
                 'nullable',
                 'string'
             ],
-            'page_id' => [
-                'required',
-                'string',
-                'max:191',
-                'regex:/^[a-zA-Z0-9-_]/',
-            ],
-            'page_contents' => [
-                'required',
-                'string'
-            ],
-            'content_type' => [
-                'required',
-                'int',
-                Rule::in([StaticPage::CONTENT_TYPE_IMAGE,StaticPage::CONTENT_TYPE_VIDEO,StaticPage::CONTENT_TYPE_YOUTUBE])
-            ],
-            'content_path' => [
-                'required',
-                'string'
-            ],
-            'content_properties' => [
+            'contents_en' => [
                 'nullable',
                 'string'
             ],
-            'alt_title_en' => [
-                'nullable',
-                'string'
-            ],
-            'alt_title' => [
+            'contents' => [
                 'nullable',
                 'string'
             ]
@@ -277,8 +292,8 @@ class StaticPageService
         return Validator::make($request->all(), [
             'title_en' => 'nullable|max:191|min:2',
             'title' => 'nullable|max:500|min:2',
-            'page' => 'numeric|gt:0',
-            'page_size' => 'numeric|gt:0',
+            'page' => 'integer|gt:0',
+            'page_size' => 'integer|gt:0',
             'order' => [
                 'string',
                 Rule::in([BaseModel::ROW_ORDER_ASC, BaseModel::ROW_ORDER_DESC])
