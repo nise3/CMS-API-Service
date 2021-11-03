@@ -4,7 +4,6 @@ namespace App\Services\LocationManagementServices;
 
 use App\Models\BaseModel;
 use App\Models\Country;
-use App\Models\LocDistrict;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;

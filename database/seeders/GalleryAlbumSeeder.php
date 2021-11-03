@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Gallery;
-use App\Models\GalleryCategory;
+use App\Models\GalleryImageVideo;
+use App\Models\GalleryAlbum;
 use Illuminate\Database\Seeder;
 
-class GalleryCategorySeeder extends Seeder
+class GalleryAlbumSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,8 +15,8 @@ class GalleryCategorySeeder extends Seeder
      */
     public function run()
     {
-        GalleryCategory::factory()
-            ->has(Gallery::factory()->count(2))
+        GalleryAlbum::factory()
+            ->has(GalleryImageVideo::factory()->count(2))
             ->count(10)
             ->create();
     }

@@ -27,7 +27,7 @@ class CreateGalleryImagesVideosTable extends Migration
 
             $table->unsignedInteger('institute_id')->nullable();
             $table->unsignedInteger('organization_id')->nullable();
-            $table->unsignedInteger('organization_association_id')->nullable();
+            $table->unsignedInteger('industry_association_id')->nullable();
 
             $table->unsignedTinyInteger('content_type')
                 ->default(1)
@@ -37,7 +37,7 @@ class CreateGalleryImagesVideosTable extends Migration
                 ->nullable()
                 ->comment('youtube => 1, facebook => 2');
 
-            $table->string('content_title', 600)->nullable();
+            $table->string('content_title', 600);
             $table->string('content_title_en', 250)->nullable();
             $table->text('content_description')->nullable();
             $table->text('content_description_en')->nullable();

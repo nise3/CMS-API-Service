@@ -16,7 +16,7 @@ class CreateGalleryAlbumsTable extends Migration
         Schema::create('gallery_albums', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->unsignedInteger('parent_gallery_category_id')->nullable();
+            $table->unsignedInteger('parent_gallery_album_id')->nullable();
             $table->unsignedTinyInteger('featured')->default(0)
                 ->comment('YES => 1, NO => 0');
 
@@ -31,10 +31,10 @@ class CreateGalleryAlbumsTable extends Migration
 
             $table->unsignedInteger('institute_id')->nullable();
             $table->unsignedInteger('organization_id')->nullable();
-            $table->unsignedInteger('organization_association_id')->nullable();
+            $table->unsignedInteger('industry_association_id')->nullable();
 
             $table->unsignedInteger('batch_id')->nullable();
-            $table->unsignedInteger('programme_id')->nullable();
+            $table->unsignedInteger('program_id')->nullable();
 
             $table->string('title', 600);
             $table->string('title_en', 200)->nullable();
