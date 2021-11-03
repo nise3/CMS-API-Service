@@ -78,14 +78,14 @@ class GalleryImageVideoController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
-        $validated = $this->galleryImageVideoService->validator($request)->validate();
+        $validatedData = $this->galleryImageVideoService->validator($request)->validate();
         $message = "GalleryImageVideo is Successfully added";
         $otherLanguagePayload = $validatedData['other_language_fields'] ?? [];
+
         $isLanguage = (bool)count(array_intersect(array_keys($otherLanguagePayload), LanguageCodeService::getLanguageCode()));
-        $response = [];
         DB::beginTransaction();
         try {
-            $galleryImageVideo = $this->galleryImageVideoService->store($validated);
+            $galleryImageVideo = $this->galleryImageVideoService->store($validatedData);
             if ($isLanguage) {
                 $languageFillablePayload = [];
                 foreach ($otherLanguagePayload as $key => $value) {
@@ -96,6 +96,20 @@ class GalleryImageVideoController extends Controller
                         "lang_code" => $key,
                         "column_name" => GalleryImageVideo::LANGUAGE_ATTR_CONTENT_TITLE,
                         "column_value" => $languageValidatedData['content_title']
+                    ];
+                    $languageFillablePayload[] = [
+                        "table_name" => $galleryImageVideo->getTable(),
+                        "key_id" => $galleryImageVideo->id,
+                        "lang_code" => $key,
+                        "column_name" => GalleryImageVideo::LANGUAGE_ATTR_CONTENT_DESCRIPTION,
+                        "column_value" => $languageValidatedData['content_description']
+                    ];
+                    $languageFillablePayload[] = [
+                        "table_name" => $galleryImageVideo->getTable(),
+                        "key_id" => $galleryImageVideo->id,
+                        "lang_code" => $key,
+                        "column_name" => GalleryImageVideo::LANGUAGE_ATTR_ALT_TITLE,
+                        "column_value" => $languageValidatedData['alt_title']
                     ];
                 }
                 app(CmsLanguageService::class)->store($languageFillablePayload);
@@ -121,14 +135,14 @@ class GalleryImageVideoController extends Controller
     public function update(Request $request, int $id): JsonResponse
     {
         $galleryImageVideo = GalleryImageVideo::findOrFail($id);
-        $validated = $this->galleryImageVideoService->validator($request, $id)->validate();
+        $validatedData = $this->galleryImageVideoService->validator($request, $id)->validate();
         $message = "GalleryImageVideo Update is Successfully Done";
         $otherLanguagePayload = $validatedData['other_language_fields'] ?? [];
         $isLanguage = (bool)count(array_intersect(array_keys($otherLanguagePayload), LanguageCodeService::getLanguageCode()));
         $response = [];
         DB::beginTransaction();
         try {
-            $galleryImageVideo = $this->galleryImageVideoService->update($galleryImageVideo, $validated);
+            $galleryImageVideo = $this->galleryImageVideoService->update($galleryImageVideo, $validatedData);
             if ($isLanguage) {
                 $languageFillablePayload = [];
                 foreach ($otherLanguagePayload as $key => $value) {
@@ -160,19 +174,7 @@ class GalleryImageVideoController extends Controller
     public function destroy(int $id): JsonResponse
     {
         $galleryImageVideo = GalleryImageVideo::findOrFail($id);
-        try {
-            $this->galleryImageVideoService->destroy($galleryImageVideo);
-            $response = [
-                '_response_status' => [
-                    "success" => true,
-                    "code" => ResponseAlias::HTTP_OK,
-                    "message" => "GalleryImageVideo deleted successfully",
-                    "query_time" => $this->startTime->diffInSeconds(Carbon::now()),
-                ]
-            ];
-        } catch (Throwable $e) {
-            throw $e;
-        }
+        $response = getResponse((array)$this->galleryImageVideoService->destroy($galleryImageVideo), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
 }

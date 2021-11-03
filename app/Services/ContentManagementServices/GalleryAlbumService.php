@@ -44,7 +44,7 @@ class GalleryAlbumService
             'gallery_albums.archived_at',
             'gallery_albums.institute_id',
             'gallery_albums.organization_id',
-            'gallery_albums.organization_association_id',
+            'gallery_albums.industry_association_id',
             'gallery_albums.program_id',
             'gallery_albums.batch_id',
             'gallery_albums.title',
@@ -100,7 +100,7 @@ class GalleryAlbumService
             'gallery_albums.archived_at',
             'gallery_albums.institute_id',
             'gallery_albums.organization_id',
-            'gallery_albums.organization_association_id',
+            'gallery_albums.industry_association_id',
             'gallery_albums.program_id',
             'gallery_albums.batch_id',
             'gallery_albums.title',
@@ -181,13 +181,13 @@ class GalleryAlbumService
             'title' => [
                 "required",
                 "string",
-                "max:1800",
+                "max:600",
                 "min:2"
             ],
             'image_alt_title' => [
                 "required",
-                "nullable",
                 "string",
+                "max:500",
                 "min:2"
             ]
         ];
@@ -261,15 +261,6 @@ class GalleryAlbumService
                 'nullable',
                 'int',
             ],
-            'published_at' => [
-                'nullable',
-                'date_format:Y-m-d|H:i'
-            ],
-            'archived_at' => [
-                'nullable',
-                'date'
-            ],
-
             'title_en' => [
                 'nullable',
                 'string',
@@ -304,23 +295,16 @@ class GalleryAlbumService
             'image_alt_title' => [
                 'nullable',
                 'string',
-                'max:600',
+                'max:500',
                 'min:2'
-            ],
-            'other_language_fields' => [
-                'nullable',
-                'array',
-                'min:1',
-
-            ],
-            'other_language_fields.*' => [
-                "required"
             ],
             'row_status' => [
                 'required_if:' . $id . ',!=,null',
                 Rule::in([BaseModel::ROW_STATUS_ACTIVE, BaseModel::ROW_STATUS_INACTIVE]),
             ]
         ];
+        $rules = array_merge($rules, BaseModel::OTHER_LANGUAGE_VALIDATION_RULES);
+
         return Validator::make($request->all(), $rules, $customMessage);
     }
 
@@ -346,16 +330,16 @@ class GalleryAlbumService
         }
 
         return Validator::make($request->all(), [
-            'title_en' => 'nullable|max:191|min:2',
-            'title' => 'nullable|min:500|min:2',
-            'page' => 'numeric|gt:0',
-            'page_size' => 'numeric|gt:0',
+            'title_en' => 'nullable|max:200|min:2',
+            'title' => 'nullable|min:600|min:2',
+            'page' => 'integer|gt:0',
+            'page_size' => 'integer|gt:0',
             'order' => [
                 'string',
                 Rule::in([BaseModel::ROW_ORDER_ASC, BaseModel::ROW_ORDER_DESC])
             ],
             'row_status' => [
-                "numeric",
+                "integer",
                 Rule::in([BaseModel::ROW_STATUS_ACTIVE, BaseModel::ROW_STATUS_INACTIVE]),
             ],
         ], $customMessage);

@@ -47,7 +47,7 @@ class GalleryImageVideo extends BaseModel
     use ScopeRowStatusTrait, SoftDeletes, HasFactory;
 
     protected $guarded = BaseModel::COMMON_GUARDED_FIELDS_SOFT_DELETE;
-    protected $table = ['gallery_images_videos'];
+    protected $table = 'gallery_images_videos';
 
     const CONTENT_TYPE_IMAGE = 1;
     const CONTENT_TYPE_VIDEO = 2;
@@ -58,6 +58,10 @@ class GalleryImageVideo extends BaseModel
         self::CONTENT_TYPE_VIDEO
     ];
 
+    protected $casts = [
+        'content_properties_json' => 'array'
+    ];
+
     const VIDEO_TYPE_YOUTUBE = 1;
     const VIDEO_TYPE_FACEBOOK = 2;
 
@@ -65,7 +69,7 @@ class GalleryImageVideo extends BaseModel
     /** GALLERY_IMAGE_VIDEO_VIDEO_TYPES */
     const VIDEO_TYPES = [
         self::VIDEO_TYPE_YOUTUBE,
-        self::VIDEO_TYPE_YOUTUBE
+        self::VIDEO_TYPE_FACEBOOK
     ];
 
     /** GALLERY_IMAGE_VIDEO_LANGUAGE_FILLABLE */

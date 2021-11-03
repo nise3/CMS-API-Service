@@ -42,7 +42,7 @@ class GalleryAlbum extends BaseModel
     use ScopeRowStatusTrait, SoftDeletes, HasFactory;
 
     protected $guarded = BaseModel::COMMON_GUARDED_FIELDS_SOFT_DELETE;
-    protected $table = ['gallery_albums'];
+    protected $table = 'gallery_albums';
 
     public const GALLERY_ALBUM_TYPE_IMAGE = 1;
     public const GALLERY_ALBUM_TYPE_VIDEO = 2;
