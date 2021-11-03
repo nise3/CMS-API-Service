@@ -1308,6 +1308,77 @@
             }
         },
         "schemas": {
+            "visitor_feedbacks_suggestions": {
+                "type": "object",
+                "description": "Provide Visitor Feedback Suggestions",
+                "properties": {
+                    "form_type": {
+                        "type": "integer",
+                        "required": true,
+                        "description": "1=>Suggestions 2=>Contactus",
+                        "enum": [1,2]
+                    },
+                    "institute_id": {
+                        "type": "integer",
+                        "description": "Institue Id",
+                        "minLength": 1,
+                        "maxLength": 250
+                    },
+                    "organization_id": {
+                        "type": "integer",
+                        "description": "Organisation Id",
+                        "minLength": 1,
+                        "maxLength": 250
+                    },
+                    "organization_association_id": {
+                        "type": "integer",
+                        "description": "Organisation Association Id",
+                        "minLength": 1,
+                        "maxLength": 250
+                    },
+                    "name": {
+                        "type": "string",
+                        "required": true
+                    },
+                    "name_en": {
+                        "type": "string",
+                        "required": true
+                    },
+                    "mobile": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "address": {
+                        "type": "string"
+                    },
+                    "address_en": {
+                        "type": "string"
+                    },
+                    "comment": {
+                        "type": "string"
+                    },
+                    "comment_en": {
+                        "type": "string"
+                    },
+                    "read_at": {
+                        "type": "string"
+                    },
+                    "archived_by": {
+                        "type": "string"
+                    },
+                    "row_status": {
+                        "type": "integer",
+                        "description": "1=>Active 0=>Inactive",
+                        "enum": [
+                            0,
+                            1
+                        ],
+                        "example": 1
+                    }
+                }
+            },
             "country": {
                 "type": "object",
                 "description": "Provide the Country",
@@ -1431,7 +1502,7 @@
                     "title"
                 ]
             },
-            "GalleryCategory": {
+            "GalleryAlbum": {
                 "type": "object",
                 "description": "Provide Gallery Categories",
                 "properties": {
@@ -1451,9 +1522,17 @@
                         "type": "integer",
                         "description": "Institute id"
                     },
+                    "parent_gallery_category_id": {
+                        "type": "integer",
+                        "description": "Institute id"
+                    },
                     "organization_id": {
                         "type": "integer",
                         "description": "organization id"
+                    },
+                    "organization_association_id":{
+                        "type": "integer",
+                        "description": "organization_association_id"
                     },
                     "batch_id": {
                         "type": "integer",
@@ -1468,6 +1547,28 @@
                         "description": "gallery category image",
                         "minLength": 191
                     },
+                    "main_image_path":{
+                        "type": "string",
+                        "description": "gallery category image",
+                        "minLength": 191
+                    },
+                    "thumb_image_path":{
+                        "type": "string",
+                        "minLength": 191
+                    },
+                    "image_alt_title_en":{
+                        "type": "string",
+                        "minLength": 191
+                    },
+                    "image_alt_title":{
+                        "type": "string",
+                        "minLength": 191
+                    },
+                    "grid_image_path":{
+                        "type": "string",
+                        "description": "List or Grid Image",
+                        "minLength": 191
+                    },
                     "alt_title_en": {
                         "type": "string",
                         "description": "alternative title_en for image"
@@ -1478,11 +1579,38 @@
                     },
                     "featured": {
                         "type": "integer",
+                        "description": "1=>YES 0=>NO ",
                         "enum": [
                             0,
                             1
                         ],
                         "example": 1
+                    },
+                    "show_in": {
+                        "type": "integer",
+                        "description": "1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry, 5=>Industry Association",
+                        "enum": [
+                            1,
+                            2,3,4,5
+                        ],
+                        "example": 1
+                    },
+                    "album_type": {
+                        "type": "integer",
+                        "description": "1=>Image, 2=>Video, 3=>Mixed",
+                        "enum": [
+                            1,
+                            2,3
+                        ],
+                        "example": 1
+                    },
+                    "published_at":{
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "archived_at":{
+                        "type": "string",
+                        "format": "date-time"
                     },
                     "row_status": {
                         "type": "integer",
@@ -1496,17 +1624,26 @@
                 },
                 "required": [
                     "title",
-                    "title_en"
+                    "title_en",
+                    "show_in",
+                    "album_type",
+                    "featured",
+                    "row_status"
+
                 ]
             },
-            "Gallery": {
+            "Gallery_Images_Videos":  {
                 "type": "object",
                 "description": "Provide Galleries",
                 "properties": {
-                    "gallery_category_id": {
+                    "gallery_album_id": {
                         "type": "integer",
                         "description": "gallery category id",
                         "example": 1
+                    },
+                    "featured":{
+                        "type" : "integer",
+                        "description": 	"YES => 1, NO => 0"
                     },
                     "content_type": {
                         "type": "integer",
@@ -1514,20 +1651,46 @@
                         "enum": [
                             1,
                             2
-                        ]
+                        ],
+                        "default":1
+                    },
+                    "video_type":{
+                        "type":"integer",
+                        "description":"youtube => 1, facebook => 2",
+                        "enum": [1,2]
+
                     },
                     "content_title": {
                         "type": "string",
-                        "description": "Content title",
-                        "example": "content_title"
+                        "description": "Content title_en"
                     },
-                    "content_path": {
+                    "content_description": {
                         "type": "string",
-                        "description": "content path"
+                        "description": "Content Description"
                     },
-                    "content_properties": {
+                    "content_description_en": {
                         "type": "string",
-                        "description": "content properties"
+                        "description": "Content Description_en"
+                    },
+                    "image_url": {
+                        "type": "string",
+                        "description": "for content_type=Image required"
+                    },
+                    "video_url": {
+                        "type": "string",
+                        "description": "for content_type=Video required"
+                    },
+                    "content_properties_json": {
+                        "type": "string"
+                    },
+                    "content_cover_image_url":{
+                        "type": "string"
+                    },
+                    "content_grid_image_url":{
+                        "type": "string"
+                    },
+                    "content_thumb_image_url":{
+                        "type": "string"
                     },
                     "institute_id": {
                         "type": "integer",
@@ -1539,27 +1702,19 @@
                         "description": "organization id",
                         "example": 1
                     },
-                    "is_youtube_video": {
+                    "organization_association_id":{
                         "type": "integer",
-                        "description": "0=>not youtube vide,1=>youtube vide",
-                        "enum": [
-                            1,
-                            0
-                        ],
+                        "description": "organization_association_id",
                         "example": 1
                     },
-                    "you_tube_video_id": {
-                        "type": "string",
-                        "description": "youtube video id ",
-                        "example": "pQ145X"
-                    },
-                    "publish_date": {
+
+                    "published_at": {
                         "type": "string",
                         "format": "date-time",
                         "description": "publish date",
                         "example": "2021-04-03"
                     },
-                    "archive_date": {
+                    "archived_at": {
                         "type": "string",
                         "format": "date-time",
                         "description": "Archive date",
@@ -1584,140 +1739,10 @@
                     }
                 },
                 "required": [
-                    "gallery_category_id",
-                    "content_title",
+                    "gallery_album_id",
+                    "featured",
                     "content_type",
-                    "content_path"
-                ]
-            },
-            "VideoCategory": {
-                "type": "object",
-                "description": "Provide video Categories",
-                "properties": {
-                    "title_en": {
-                        "type": "string",
-                        "description": " Title In English",
-                        "minLength": 1,
-                        "maxLength": 255
-                    },
-                    "title": {
-                        "type": "string",
-                        "description": " Title In Bengali",
-                        "minLength": 1,
-                        "maxLength": 500
-                    },
-                    "institute_id": {
-                        "type": "integer",
-                        "description": "Institute id",
-                        "example": 1
-                    },
-                    "organization_id": {
-                        "type": "integer",
-                        "description": "organization id",
-                        "example": 1
-                    },
-                    "parent_id": {
-                        "type": "integer",
-                        "description": "VideoCategory Parent id",
-                        "example": 1
-                    },
-                    "row_status": {
-                        "type": "integer",
-                        "description": " activation status",
-                        "enum": [
-                            1,
-                            0
-                        ],
-                        "example": 1
-                    }
-                },
-                "required": [
-                    "title",
-                    "title_en"
-                ]
-            },
-            "video": {
-                "type": "object",
-                "description": "Provide videos",
-                "properties": {
-                    "title_en": {
-                        "type": "string",
-                        "description": " Title In English",
-                        "minLength": 1,
-                        "maxLength": 255
-                    },
-                    "title": {
-                        "type": "string",
-                        "description": " Title In Bengali",
-                        "minLength": 1,
-                        "maxLength": 500
-                    },
-                    "institute_id": {
-                        "type": "integer",
-                        "description": "Institute id"
-                    },
-                    "organization_id": {
-                        "type": "integer",
-                        "description": "organization id"
-                    },
-                    "video_category_id": {
-                        "type": "integer",
-                        "description": "Video Category id"
-                    },
-                    "description_en": {
-                        "type": "string",
-                        "description": "Description_en of video"
-                    },
-                    "description": {
-                        "type": "string",
-                        "description": "Description_bn of video"
-                    },
-                    "video_type": {
-                        "type": "integer",
-                        "enum": [
-                            1,
-                            2
-                        ]
-                    },
-                    "youtube_video_url": {
-                        "type": "string",
-                        "maxLength": 255,
-                        "description": "Youtube video url"
-                    },
-                    "youtube_video_id": {
-                        "type": "string",
-                        "maxLength": 20,
-                        "description": "Youtube video id"
-                    },
-                    "uploaded_video_path": {
-                        "type": "string",
-                        "maxLength": 255,
-                        "description": "Uploaded video path"
-                    },
-                    "alt_title_en": {
-                        "type": "string",
-                        "description": "alternate tittle_en for video"
-                    },
-                    "alt_title": {
-                        "type": "string",
-                        "description": "alternate tittle_bn for video"
-                    },
-                    "row_status": {
-                        "type": "integer",
-                        "description": "activation status",
-                        "enum": [
-                            1,
-                            0
-                        ],
-                        "example": 1
-                    }
-                },
-                "required": [
-                    "title_en",
-                    "title",
-                    "video_type",
-                    "institute_id",
-                    "video_category_id"
+                    "row_status"
                 ]
             },
             "StaticPage": {
@@ -2118,6 +2143,39 @@
                     "title_en",
                     "title"
                 ]
+            },
+            "tags": {
+                "type": "object",
+                "description": "Provide Tags",
+                "properties":{
+                    "institute_id": {
+                        "type": "integer",
+                        "description": "Institue Id",
+                        "minLength": 1,
+                        "maxLength": 250
+                    },
+                    "organization_id": {
+                        "type": "integer",
+                        "description": "Organisation Id",
+                        "minLength": 1,
+                        "maxLength": 250
+                    },
+                    "organization_association_id": {
+                        "type": "integer",
+                        "description": "Organisation Association Id",
+                        "minLength": 1,
+                        "maxLength": 250
+                    },
+                    "tag": {
+                        "type": "string",
+                        "description": "Tag",
+                        "required": true
+                    },
+                    "tag_en": {
+                        "type": "string",
+                        "description": "tag en"
+                    }
+                }
             },
             "ErrorResponse": {
                 "type": "object",
