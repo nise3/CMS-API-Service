@@ -205,21 +205,14 @@ class FaqService
             'answer' => 'required|min:2',
             'question_en' => 'nullable|max:600|min:2',
             'answer_en' => 'nullable|min:2',
-            'other_language_fields' => [
-                'nullable',
-                'array',
-                'min:1',
-
-            ],
-            'other_language_fields.*' => [
-                "required"
-            ],
             'row_status' => [
                 'required_if:' . $id . ',!=,null',
                 'nullable',
                 Rule::in([BaseModel::ROW_STATUS_ACTIVE, BaseModel::ROW_STATUS_INACTIVE]),
             ]
         ];
+        $rules = array_merge($rules, BaseModel::OTHER_LANGUAGE_VALIDATION_RULES);
+
         return Validator::make($request->all(), $rules, $customMessage);
     }
 
