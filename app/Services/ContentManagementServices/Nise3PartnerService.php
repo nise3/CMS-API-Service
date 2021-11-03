@@ -5,6 +5,8 @@ namespace App\Services\ContentManagementServices;
 
 use App\Models\BaseModel;
 use App\Models\Nise3Partner;
+use App\Models\Slider;
+use App\Services\Common\LanguageCodeService;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -81,7 +83,7 @@ class Nise3PartnerService
      * @param Carbon $startTime
      * @return Nise3Partner
      */
-    public function getOnePartner(int $id, Carbon $startTime): Nise3Partner
+    public function getOnePartner(int $id): Nise3Partner
     {
         /** @var Builder $nise3PartnerBuilder */
         $nise3PartnerBuilder = Nise3Partner::select([
@@ -109,12 +111,12 @@ class Nise3PartnerService
     }
 
     /**
-     * @param Nise3Partner $nise3Partner
      * @param array $data
      * @return Nise3Partner
      */
-    public function store(Nise3Partner $nise3Partner, array $data): Nise3Partner
+    public function store(array $data): Nise3Partner
     {
+        $nise3Partner = app(Nise3Partner::class);
         $nise3Partner->fill($data);
         $nise3Partner->save();
         return $nise3Partner;
@@ -141,6 +143,35 @@ class Nise3PartnerService
         return $partner->delete();
     }
 
+    public function languageFieldValidator(array $request, string $languageCode): \Illuminate\Contracts\Validation\Validator
+    {
+        $customMessage = [
+            'required' => 'The :attribute_' . strtolower($languageCode) . ' in other language fields is required.[50000]',
+            'max' => 'The :attribute_' . strtolower($languageCode) . ' in other language fields must not be greater than :max characters.[39003]',
+            'min' => 'The :attribute_' . strtolower($languageCode) . ' in other language fields must be at least :min characters.[42003]',
+            'language_code.regex' => "The language  code " . $languageCode . " must be lowercase.[48000]",
+            'language_code.in' => "The language with code " . $languageCode . " is not allowed.[30000]",
+        ];
+        $request['language_code'] = $languageCode;
+        $rules = [
+            "language_code" => [
+                "required",
+                "regex:/[a-z]$/",
+                Rule::in(LanguageCodeService::getLanguageCode()),
+            ],
+            'title' => [
+                'required',
+                'string',
+                'max:500',
+                'min:2'
+            ],
+            'image_alt_title' => [
+                'string',
+                'nullable'
+            ]
+        ];
+        return Validator::make($request, $rules, $customMessage);
+    }
 
     /**
      * @param Request $request

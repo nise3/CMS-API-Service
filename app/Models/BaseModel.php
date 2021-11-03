@@ -15,7 +15,7 @@ abstract class BaseModel extends Model
     use HasFactory;
 
 
-    public const IMAGE_PATH_VALIDATION_RULE='regex:/^(http|https):\/\/[a-zA-Z-\-\.0-9]+$/';
+    public const IMAGE_PATH_VALIDATION_RULE='url';
     public const HTTP_URL='regex:/^(http|https):\/\/[a-zA-Z-\-\.0-9]+$/';
 
     public const COMMON_GUARDED_FIELDS_SIMPLE = ['id', 'created_at', 'updated_at'];

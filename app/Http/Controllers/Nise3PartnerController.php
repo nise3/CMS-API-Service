@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\Nise3PartnerResource;
+use App\Models\BaseModel;
 use App\Models\Nise3Partner;
+use App\Services\Common\LanguageCodeService;
+use App\Services\ContentManagementServices\CmsLanguageService;
 use App\Services\ContentManagementServices\Nise3PartnerService;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
@@ -28,56 +33,68 @@ class Nise3PartnerController extends Controller
 
     /**
      * @param Request $request
-     * @return Exception|JsonResponse|Throwable
+     * @return JsonResponse
      * @throws ValidationException
      */
     public function getList(Request $request): JsonResponse
     {
         $filter = $this->nise3PartnerService->filterValidation($request)->validate();
-        try {
-            $response = $this->nise3PartnerService->getPartnerList($filter, $this->startTime);
-        } catch (Throwable $e) {
-            throw $e;
-        }
-        return Response::json($response);
+        $response = Nise3PartnerResource::collection($this->nise3PartnerService->getPartnerList($filter))->resource;
+        $response=getResponse($response->toArray(),$this->startTime,!BaseModel::IS_SINGLE_RESPONSE,ResponseAlias::HTTP_OK);
+        return Response::json($response,ResponseAlias::HTTP_OK);
     }
 
     /**
      * @param Request $request
      * @param int $id
-     * @return Exception|JsonResponse|Throwable
+     * @return JsonResponse
      */
-    public function read(Request $request,int $id):JsonResponse
+    public function read(Request $request, int $id): JsonResponse
     {
-        try {
-            $response = $this->nise3PartnerService->getOnePartner($id, $this->startTime);
-        } catch (Throwable $e) {
-            throw $e;
-        }
-        return Response::json($response);
+        $response = new Nise3PartnerResource($this->nise3PartnerService->getOnePartner($id));
+        $response=getResponse($response->toArray($request),$this->startTime,!BaseModel::IS_SINGLE_RESPONSE,ResponseAlias::HTTP_OK);
+        return Response::json($response,ResponseAlias::HTTP_OK);
     }
 
 
     /**
      * @param Request $request
-     * @return Exception|JsonResponse|Throwable
+     * @return JsonResponse
+     * @throws Throwable
      * @throws ValidationException
      */
     public function store(Request $request): JsonResponse
     {
-        $partner = new Nise3Partner();
-        $validated = $this->nise3PartnerService->validator($request)->validate();
+
+        $validatedData = $this->nise3PartnerService->validator($request)->validate();
+        $message = "Faq successfully added";
+        $otherLanguagePayload = $validatedData['other_language_fields'] ?? [];
+        $isLanguage = (bool)count(array_intersect(array_keys($otherLanguagePayload), LanguageCodeService::getLanguageCode()));
+        $response = [];
+        DB::beginTransaction();
         try {
-            $partner = $this->nise3PartnerService->store($partner, $validated);
-            $response = [
-                'data' => $partner,
-                '_response_status' => [
-                    "success" => true,
-                    "code" => ResponseAlias::HTTP_CREATED,
-                    "message" => "Partner is added successfully",
-                    "query_time" => $this->startTime->diffInSeconds(Carbon::now())
-                ]
-            ];
+            $nise3Partner = $this->nise3PartnerService->store($validatedData);
+            if ($isLanguage) {
+                $languageFillablePayload = [];
+                foreach ($otherLanguagePayload as $key => $value) {
+                    $languageValidatedData = $this->nise3PartnerService->languageFieldValidator($value, $key)->validate();
+                    foreach (Nise3Partner::NISE_3_PARTNER_LANGUAGE_FIELDS as $fillableColumn) {
+                        if (!empty($languageValidatedData[$fillableColumn])) {
+                            $languageFillablePayload[] = [
+                                "table_name" => $nise3Partner->getTable(),
+                                "key_id" => $nise3Partner->id,
+                                "lang_code" => $key,
+                                "column_name" => $fillableColumn,
+                                "column_value" => $languageValidatedData[$fillableColumn]
+                            ];
+                        }
+                    }
+
+                }
+                app(CmsLanguageService::class)->store($languageFillablePayload);
+            }
+            $response = getResponse($nise3Partner->toArray(), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
+            DB::commit();
         } catch (Throwable $e) {
             throw $e;
         }
@@ -89,51 +106,57 @@ class Nise3PartnerController extends Controller
      *
      * @param Request $request
      * @param int $id
-     * @return Exception|JsonResponse|Throwable
+     * @return JsonResponse
+     * @throws Throwable
      * @throws ValidationException
      */
     public function update(Request $request, int $id): JsonResponse
     {
-        $partner = Nise3Partner::findOrFail($id);
-        $validated = $this->nise3PartnerService->validator($request, $id)->validate();
+        $nise3Partner = Nise3Partner::findOrFail($id);
+        $validatedData = $this->nise3PartnerService->validator($request)->validate();
+        $message = "Nise3Partner Update Successfully Done";
+        $otherLanguagePayload = $validatedData['other_language_fields'] ?? [];
+        $isLanguage = (bool)count(array_intersect(array_keys($otherLanguagePayload), LanguageCodeService::getLanguageCode()));
+        $response = [];
+        DB::beginTransaction();
         try {
-            $partner = $this->nise3PartnerService->update($partner, $validated);
-            $response = [
-                'data' => $partner,
-                '_response_status' => [
-                    "success" => true,
-                    "code" => ResponseAlias::HTTP_OK,
-                    "message" => "Partner Item is updated successfully",
-                    "query_time" => $this->startTime->diffInSeconds(Carbon::now()),
-                ]
-            ];
+            $nise3Partner = $this->nise3PartnerService->update($nise3Partner, $validatedData);
+            if ($isLanguage) {
+                foreach ($otherLanguagePayload as $key => $value) {
+                    $languageValidatedData = $this->nise3PartnerService->languageFieldValidator($value, $key)->validate();
+                    foreach (Nise3Partner::NISE_3_PARTNER_LANGUAGE_FIELDS as $fillableColumn) {
+                        if (!empty($languageValidatedData[$fillableColumn])) {
+                            $languageFillablePayload = [
+                                "table_name" => $nise3Partner->getTable(),
+                                "key_id" => $nise3Partner->id,
+                                "lang_code" => $key,
+                                "column_name" => $fillableColumn,
+                                "column_value" => $languageValidatedData[$fillableColumn]
+                            ];
+                            app(CmsLanguageService::class)->createOrUpdate($languageFillablePayload);
+                        }
+                    }
+                }
+            }
+            $response = getResponse($nise3Partner->toArray(), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK, $message);
+            DB::commit();
         } catch (Throwable $e) {
             throw $e;
         }
-        return Response::json($response, ResponseAlias::HTTP_CREATED);
+        return Response::json($response, ResponseAlias::HTTP_OK);
     }
 
     /**
      * Remove the specified resource from storage.
      * @param int $id
-     * @return Exception|JsonResponse|Throwable
+     * @return JsonResponse
      */
     public function destroy(int $id): JsonResponse
     {
         $partner = Nise3Partner::findOrFail($id);
-        try {
-            $this->nise3PartnerService->destroy($partner);
-            $response = [
-                '_response_status' => [
-                    "success" => true,
-                    "code" => ResponseAlias::HTTP_OK,
-                    "message" => "Partner deleted successfully",
-                    "query_time" => $this->startTime->diffInSeconds(Carbon::now()),
-                ]
-            ];
-        } catch (Throwable $e) {
-            throw $e;
-        }
+        $deleteStatus = $this->nise3PartnerService->destroy($partner);
+        $message = $deleteStatus ? "Nise3Partner successfully deleted" : "Nise3Partner is not deleted";
+        $response = getResponse($deleteStatus, $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK, $message);
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
 
