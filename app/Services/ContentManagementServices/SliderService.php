@@ -51,6 +51,7 @@ class SliderService
             'sliders.slider_images',
             'sliders.alt_title_en',
             'sliders.alt_title',
+            'sliders.banner_template_code',
             'sliders.row_status',
             'sliders.created_at',
             'sliders.updated_at',
@@ -107,6 +108,7 @@ class SliderService
             'sliders.slider_images',
             'sliders.alt_title_en',
             'sliders.alt_title',
+            'sliders.banner_template_code',
             'sliders.row_status',
             'sliders.created_at',
             'sliders.updated_at',
@@ -276,7 +278,10 @@ class SliderService
                 'string',
                 'nullable'
             ],
-
+            "banner_template_code" => [
+                "nullable",
+                Rule::in(array_keys(Slider::BANNER_TEMPLATE_TYPES))
+            ],
             'row_status' => [
                 'required_if:' . $id . ',!=,null',
                 Rule::in([BaseModel::ROW_STATUS_ACTIVE, BaseModel::ROW_STATUS_INACTIVE]),

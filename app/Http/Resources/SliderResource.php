@@ -32,7 +32,8 @@ class SliderResource extends JsonResource
             "link"=>$this->link,
             "slider_images"=>$this->slider_images,
             "alt_title"=>$this->alt_title,
-            "alt_title_en"=>$this->alt_title_en
+            "alt_title_en"=>$this->alt_title_en,
+            "banner_template"=>config("nise3.banner_template.".$this->banner_template_code)
         ];
 
         if (!empty(Slider::SLIDER_LANGUAGE_FIELDS) && is_array(Slider::SLIDER_LANGUAGE_FIELDS) && $languageCode && in_array($languageCode, LanguageCodeService::getLanguageCode())) {
