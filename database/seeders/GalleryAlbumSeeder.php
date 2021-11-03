@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Gallery;
+use App\Models\GalleryImageVideo;
 use App\Models\GalleryAlbum;
 use Illuminate\Database\Seeder;
 
@@ -16,7 +16,7 @@ class GalleryAlbumSeeder extends Seeder
     public function run()
     {
         GalleryAlbum::factory()
-            ->has(Gallery::factory()->count(2))
+            ->has(GalleryImageVideo::factory()->count(2))
             ->count(10)
             ->create();
     }

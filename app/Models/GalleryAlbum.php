@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *
  * @property int $id
  * @property int|null $parent_gallery_album_id
- * @property bool $featured
+ * @property int $featured
  * @property int $show_in
  * @property int $album_type
  * @property Carbon|null $published_at
@@ -42,6 +42,7 @@ class GalleryAlbum extends BaseModel
     use ScopeRowStatusTrait, SoftDeletes, HasFactory;
 
     protected $guarded = BaseModel::COMMON_GUARDED_FIELDS_SOFT_DELETE;
+    protected $table = ['gallery_albums'];
 
     public const GALLERY_ALBUM_TYPE_IMAGE = 1;
     public const GALLERY_ALBUM_TYPE_VIDEO = 2;
@@ -54,11 +55,11 @@ class GalleryAlbum extends BaseModel
     ];
 
     /** GALLERY ALBUM LANGUAGE FILLABLE */
-    public const LANGUAGE_ATTR_title = "title";
+    public const LANGUAGE_ATTR_TITLE = "title";
     public const LANGUAGE_ATTR_IMAGE_ALT_TITLE = "image_alt_title";
 
     public const FAQ_LANGUAGE_FILLABLE = [
-        self::LANGUAGE_ATTR_title,
+        self::LANGUAGE_ATTR_TITLE,
         self::LANGUAGE_ATTR_IMAGE_ALT_TITLE
     ];
 

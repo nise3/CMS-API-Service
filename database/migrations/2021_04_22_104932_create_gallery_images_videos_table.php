@@ -27,7 +27,7 @@ class CreateGalleryImagesVideosTable extends Migration
 
             $table->unsignedInteger('institute_id')->nullable();
             $table->unsignedInteger('organization_id')->nullable();
-            $table->unsignedInteger('organization_association_id')->nullable();
+            $table->unsignedInteger('industry_association_id')->nullable();
 
             $table->unsignedTinyInteger('content_type')
                 ->default(1)

@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\GalleryResource;
+use App\Http\Resources\GalleryImageVideoResource;
 use App\Models\BaseModel;
-use App\Models\Gallery;
+use App\Models\GalleryImageVideo;
 use App\Services\Common\LanguageCodeService;
 use App\Services\ContentManagementServices\CmsLanguageService;
-use App\Services\ContentManagementServices\GalleryService;
+use App\Services\ContentManagementServices\GalleryImageVideoService;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Exception;
@@ -19,30 +19,25 @@ use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 use Throwable;
 
 /**
- * Class GalleryController
+ * Class GalleryImageVideoController
  * @package App\Http\Controllers
  */
-class GalleryController extends Controller
+class GalleryImageVideoController extends Controller
 {
 
-    /**
-     * @var GalleryService
-     */
-    public GalleryService $galleryService;
-    /**
-     * @var Carbon
-     */
+
+    public GalleryImageVideoService $galleryImageVideoService;
+
     private Carbon $startTime;
 
-
     /**
-     * GalleryController constructor.
-     * @param GalleryService $galleryService
+     * GalleryImageVideoController constructor.
+     * @param GalleryImageVideoService $galleryImageVideoService
      */
-    public function __construct(GalleryService $galleryService)
+    public function __construct(GalleryImageVideoService $galleryImageVideoService)
     {
         $this->startTime = Carbon::now();
-        $this->galleryService = $galleryService;
+        $this->galleryImageVideoService = $galleryImageVideoService;
     }
 
     /**
@@ -54,8 +49,8 @@ class GalleryController extends Controller
      */
     public function getList(Request $request): JsonResponse
     {
-        $filter = $this->galleryService->filterValidator($request)->validate();
-        $response = GalleryResource::collection($this->galleryService->getAllGalleries($filter))->resource;
+        $filter = $this->galleryImageVideoService->filterValidator($request)->validate();
+        $response = GalleryImageVideoResource::collection($this->galleryImageVideoService->getGalleryImageVideoList($filter))->resource;
         $response = getResponse($response->toArray(), $this->startTime, !BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
@@ -68,7 +63,7 @@ class GalleryController extends Controller
      */
     public function read(int $id): JsonResponse
     {
-        $response = new GalleryResource($this->galleryService->getOneGallery($id));
+        $response = new GalleryImageVideoResource($this->galleryImageVideoService->getOneGalleryImageVideo($id));
         $response = getResponse($response->toArray(request()), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
@@ -83,33 +78,32 @@ class GalleryController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
-        $validated = $this->galleryService->validator($request)->validate();
-        dd($validated);
-        $message = "Gallery is Successfully added";
+        $validated = $this->galleryImageVideoService->validator($request)->validate();
+        $message = "GalleryImageVideo is Successfully added";
         $otherLanguagePayload = $validatedData['other_language_fields'] ?? [];
         $isLanguage = (bool)count(array_intersect(array_keys($otherLanguagePayload), LanguageCodeService::getLanguageCode()));
         $response = [];
         DB::beginTransaction();
-
         try {
-            $gallery = $this->galleryService->store($validated);
+            $galleryImageVideo = $this->galleryImageVideoService->store($validated);
             if ($isLanguage) {
                 $languageFillablePayload = [];
                 foreach ($otherLanguagePayload as $key => $value) {
-                    $languageValidatedData = $this->galleryService->languageFieldValidator($value, $key)->validate();
+                    $languageValidatedData = $this->galleryImageVideoService->languageFieldValidator($value, $key)->validate();
                     $languageFillablePayload[] = [
-                        "table_name" => $gallery->getTable(),
-                        "key_id" => $gallery->id,
+                        "table_name" => $galleryImageVideo->getTable(),
+                        "key_id" => $galleryImageVideo->id,
                         "lang_code" => $key,
-                        "column_name" => Gallery::LANGUAGE_ATTR_CONTENT_TITLE,
+                        "column_name" => GalleryImageVideo::LANGUAGE_ATTR_CONTENT_TITLE,
                         "column_value" => $languageValidatedData['content_title']
                     ];
                 }
                 app(CmsLanguageService::class)->store($languageFillablePayload);
             }
-            $response = getResponse($gallery->toArray(), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
+            $response = getResponse($galleryImageVideo->toArray(), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
             DB::commit();
         } catch (Throwable $e) {
+            DB::rollBack();
             throw $e;
         }
         return Response::json($response, ResponseAlias::HTTP_CREATED);
@@ -126,30 +120,30 @@ class GalleryController extends Controller
      */
     public function update(Request $request, int $id): JsonResponse
     {
-        $gallery = Gallery::findOrFail($id);
-        $validated = $this->galleryService->validator($request, $id)->validate();
-        $message = "Gallery Update is Successfully Done";
+        $galleryImageVideo = GalleryImageVideo::findOrFail($id);
+        $validated = $this->galleryImageVideoService->validator($request, $id)->validate();
+        $message = "GalleryImageVideo Update is Successfully Done";
         $otherLanguagePayload = $validatedData['other_language_fields'] ?? [];
         $isLanguage = (bool)count(array_intersect(array_keys($otherLanguagePayload), LanguageCodeService::getLanguageCode()));
         $response = [];
         DB::beginTransaction();
         try {
-            $gallery = $this->galleryService->update($gallery, $validated);
+            $galleryImageVideo = $this->galleryImageVideoService->update($galleryImageVideo, $validated);
             if ($isLanguage) {
                 $languageFillablePayload = [];
                 foreach ($otherLanguagePayload as $key => $value) {
-                    $languageValidatedData = $this->galleryService->languageFieldValidator($value, $key)->validate();
-                    $languageFillablePayload= [
-                        "table_name" => $gallery->getTable(),
-                        "key_id" => $gallery->id,
+                    $languageValidatedData = $this->galleryImageVideoService->languageFieldValidator($value, $key)->validate();
+                    $languageFillablePayload = [
+                        "table_name" => $galleryImageVideo->getTable(),
+                        "key_id" => $galleryImageVideo->id,
                         "lang_code" => $key,
-                        "column_name" => Gallery::LANGUAGE_ATTR_CONTENT_TITLE,
+                        "column_name" => GalleryImageVideo::LANGUAGE_ATTR_CONTENT_TITLE,
                         "column_value" => $languageValidatedData['content_title']
                     ];
                 }
                 app(CmsLanguageService::class)->createOrUpdate($languageFillablePayload);
             }
-            $response = getResponse($gallery->toArray(), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK, $message);
+            $response = getResponse($galleryImageVideo->toArray(), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK, $message);
             DB::commit();
         } catch (Throwable $e) {
             DB::rollBack();
@@ -165,14 +159,14 @@ class GalleryController extends Controller
      */
     public function destroy(int $id): JsonResponse
     {
-        $gallery = Gallery::findOrFail($id);
+        $galleryImageVideo = GalleryImageVideo::findOrFail($id);
         try {
-            $this->galleryService->destroy($gallery);
+            $this->galleryImageVideoService->destroy($galleryImageVideo);
             $response = [
                 '_response_status' => [
                     "success" => true,
                     "code" => ResponseAlias::HTTP_OK,
-                    "message" => "Gallery deleted successfully",
+                    "message" => "GalleryImageVideo deleted successfully",
                     "query_time" => $this->startTime->diffInSeconds(Carbon::now()),
                 ]
             ];

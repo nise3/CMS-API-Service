@@ -4,28 +4,24 @@
 namespace App\Services\ContentManagementServices;
 
 use App\Models\BaseModel;
-use App\Models\Gallery;
+use App\Models\GalleryImageVideo;
 use App\Services\Common\LanguageCodeService;
-use Carbon\Carbon;
-use Faker\Provider\Base;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
-use Symfony\Component\HttpFoundation\Response;
 
-class GalleryService
+class GalleryImageVideoService
 {
     /**
      * @param array $request
      * @return Collection|LengthAwarePaginator|array
      */
-    public function getAllGalleries(array $request): Collection|LengthAwarePaginator|array
+    public function getGalleryImageVideoList(array $request): Collection|LengthAwarePaginator|array
     {
+
 
         $contentTitle = $request['content_title'] ?? "";
         $paginate = $request['page'] ?? "";
@@ -33,104 +29,111 @@ class GalleryService
         $rowStatus = $request['row_status'] ?? "";
         $order = $request['order'] ?? "ASC";
 
-        /** @var Builder $galleryBuilder */
-        $galleryBuilder = Gallery::select([
-            'galleries.id',
-            'galleries.gallery_category_id',
-            'gallery_categories.title_en as gallery_category_title_en',
-            'gallery_categories.title as gallery_category_title',
-            'galleries.content_title',
-            'galleries.institute_id',
-            'galleries.organization_id',
-            'galleries.content_type',
-            'galleries.content_path',
-            'galleries.is_youtube_video',
-            'galleries.you_tube_video_id',
-            'galleries.content_properties',
-            'galleries.alt_title_en',
-            'galleries.alt_title',
-            'galleries.publish_date',
-            'galleries.archive_date',
-            'galleries.row_status',
-            'galleries.created_by',
-            'galleries.updated_by',
-            'galleries.created_at',
-            'galleries.updated_at'
+        /** @var GalleryImageVideo|Builder $galleryImageVideoBuilder */
+        $galleryImageVideoBuilder = GalleryImageVideo::select([
+            'gallery_images_videos.id',
+            'gallery_images_videos.gallery_album_id',
+            'gallery_albums.title_en as gallery_album_title_en',
+            'gallery_albums.title as gallery_album_title',
+            'gallery_images_videos.featured',
+            'gallery_images_videos.published_at',
+            'gallery_images_videos.archived_at',
+            'gallery_images_videos.institute_id',
+            'gallery_images_videos.organization_id',
+            'gallery_images_videos.industry_association_id',
+            'gallery_images_videos.content_type',
+            'gallery_images_videos.video_type',
+            'gallery_images_videos.content_title',
+            'gallery_images_videos.content_title_en',
+            'gallery_images_videos.content_description',
+            'gallery_images_videos.content_description_en',
+            'gallery_images_videos.content_cover_image_url',
+            'gallery_images_videos.content_grid_image_url',
+            'gallery_images_videos.content_thumb_image_url',
+            'gallery_images_videos.alt_title',
+            'gallery_images_videos.alt_title_en',
+            'gallery_images_videos.row_status',
+            'gallery_images_videos.published_by',
+            'gallery_images_videos.archived_by',
+            'gallery_images_videos.created_by',
+            'gallery_images_videos.updated_by',
+            'gallery_images_videos.created_at',
+            'gallery_images_videos.updated_at'
         ]);
-        $galleryBuilder->join('gallery_categories', function ($join) use ($rowStatus) {
-            $join->on('galleries.gallery_category_id', '=', 'gallery_categories.id')
-                ->whereNull('gallery_categories.deleted_at');
-            if (is_numeric($rowStatus)) {
-                $join->where('gallery_categories.row_status', $rowStatus);
-            }
+
+        $galleryImageVideoBuilder->join('gallery_albums', function ($join) {
+            $join->on('gallery_images_videos.gallery_album_id', '=', 'gallery_albums.id')
+                ->whereNull('gallery_albums.deleted_at');
         });
-        $galleryBuilder->orderBy('galleries.id', $order);
+        $galleryImageVideoBuilder->orderBy('gallery_images_videos.id', $order);
 
         if (is_numeric($rowStatus)) {
-            $galleryBuilder->where('galleries.row_status', $rowStatus);
+            $galleryImageVideoBuilder->where('gallery_images_videos.row_status', $rowStatus);
         }
         if (!empty($contentTitle)) {
-            $galleryBuilder->where('galleries.content_title', 'like', '%' . $contentTitle . '%');
+            $galleryImageVideoBuilder->where('gallery_images_videos.content_title', 'like', '%' . $contentTitle . '%');
         }
 
         /** @var Collection $galleries */
         if (is_numeric($paginate) || is_numeric($pageSize)) {
-            $pageSize = $pageSize ?: 10;
-            $galleries = $galleryBuilder->paginate($pageSize);
+            $pageSize = $pageSize ?: BaseModel::DEFAULT_PAGE_SIZE;
+
+            $galleries = $galleryImageVideoBuilder->paginate($pageSize);
         } else {
-            $galleries = $galleryBuilder->get();
+            $galleries = $galleryImageVideoBuilder->get();
         }
+
         return $galleries;
 
     }
 
     /**
      * @param int $id
-     * @return Gallery
+     * @return GalleryImageVideo
      */
-    public function getOneGallery(int $id): Gallery
+    public function getOneGalleryImageVideo(int $id): GalleryImageVideo
     {
-        /** @var Builder $galleryBuilder */
-        $galleryBuilder = Gallery::select([
-            'galleries.id',
-            'galleries.gallery_category_id',
-            'gallery_categories.title_en as gallery_category_title_en',
-            'gallery_categories.title as gallery_category_title',
-            'galleries.content_title',
-            'galleries.institute_id',
-            'galleries.organization_id',
-            'galleries.content_type',
-            'galleries.content_path',
-            'galleries.is_youtube_video',
-            'galleries.you_tube_video_id',
-            'galleries.content_properties',
-            'galleries.alt_title_en',
-            'galleries.alt_title',
-            'galleries.publish_date',
-            'galleries.archive_date',
-            'galleries.row_status',
-            'galleries.created_by',
-            'galleries.updated_by',
-            'galleries.created_at',
-            'galleries.updated_at'
+        /** @var Builder $galleryImageVideoBuilder */
+        $galleryImageVideoBuilder = GalleryImageVideo::select([
+            'gallery_images_videos.id',
+            'gallery_images_videos.gallery_category_id',
+            'gallery_albums.title_en as gallery_category_title_en',
+            'gallery_albums.title as gallery_category_title',
+            'gallery_images_videos.content_title',
+            'gallery_images_videos.institute_id',
+            'gallery_images_videos.organization_id',
+            'gallery_images_videos.content_type',
+            'gallery_images_videos.content_path',
+            'gallery_images_videos.is_youtube_video',
+            'gallery_images_videos.you_tube_video_id',
+            'gallery_images_videos.content_properties',
+            'gallery_images_videos.alt_title_en',
+            'gallery_images_videos.alt_title',
+            'gallery_images_videos.publish_date',
+            'gallery_images_videos.archive_date',
+            'gallery_images_videos.row_status',
+            'gallery_images_videos.created_by',
+            'gallery_images_videos.updated_by',
+            'gallery_images_videos.created_at',
+            'gallery_images_videos.updated_at'
 
         ]);
-        $galleryBuilder->join('gallery_categories', function ($join) {
-            $join->on('galleries.gallery_category_id', '=', 'gallery_categories.id');
+        $galleryImageVideoBuilder->join('gallery_albums', function ($join) {
+            $join->on('gallery_images_videos.gallery_category_id', '=', 'gallery_albums.id');
 
         });
-        $galleryBuilder->where('galleries.id', $id);
+        $galleryImageVideoBuilder->where('gallery_images_videos.id', $id);
 
-        /** @var Gallery $gallery */
-        $gallery = $galleryBuilder->firstOrFail();
-        return $gallery;
+        /** @var GalleryImageVideo $galleryImageVideo */
+        $galleryImageVideo = $galleryImageVideoBuilder->firstOrFail();
+        return $galleryImageVideo;
     }
 
     /**
      * @param array $data
-     * @return Gallery
+     * @return GalleryImageVideo
      */
-    public function store(array $data): Gallery
+    public function store(array $data): GalleryImageVideo
     {
         if (!empty($data['you_tube_video_id'])) {
             preg_match("/^(?:http(?:s)?:\/\/)?(?:www\.)?(?:m\.)?(?:youtu\.be\/|youtube\.com\/(?:(?:watch)?\?(?:.*&)?v(?:i)?=|(?:embed|v|vi|user)\/))([^\?&\"'>]+)/", $data['you_tube_video_id'], $matches);
@@ -138,36 +141,36 @@ class GalleryService
             $data['you_tube_video_id'] = $matches[1];
         }
 
-        $gallery = new Gallery();
-        $gallery->fill($data);
-        $gallery->save();
-        return $gallery;
+        $galleryImageVideo = new GalleryImageVideo();
+        $galleryImageVideo->fill($data);
+        $galleryImageVideo->save();
+        return $galleryImageVideo;
     }
 
     /**
-     * @param Gallery $gallery
+     * @param GalleryImageVideo $galleryImageVideo
      * @param array $data
-     * @return Gallery
+     * @return GalleryImageVideo
      */
-    public function update(Gallery $gallery, array $data): Gallery
+    public function update(GalleryImageVideo $galleryImageVideo, array $data): GalleryImageVideo
     {
         if (!empty($data['you_tube_video_id'])) {
             preg_match("/^(?:http(?:s)?:\/\/)?(?:www\.)?(?:m\.)?(?:youtu\.be\/|youtube\.com\/(?:(?:watch)?\?(?:.*&)?v(?:i)?=|(?:embed|v|vi|user)\/))([^\?&\"'>]+)/", $data['you_tube_video_id'], $matches);
             $data['content_path'] = $data['you_tube_video_id'];
             $data['you_tube_video_id'] = $matches[1];
         }
-        $gallery->fill($data);
-        $gallery->save();
-        return $gallery;
+        $galleryImageVideo->fill($data);
+        $galleryImageVideo->save();
+        return $galleryImageVideo;
     }
 
     /**
-     * @param Gallery $gallery
+     * @param GalleryImageVideo $galleryImageVideo
      * @return bool
      */
-    public function destroy(Gallery $gallery): bool
+    public function destroy(GalleryImageVideo $galleryImageVideo): bool
     {
-        return $gallery->delete();
+        return $galleryImageVideo->delete();
     }
 
     public function languageFieldValidator(array $request, string $languageCode): \Illuminate\Contracts\Validation\Validator
@@ -213,7 +216,7 @@ class GalleryService
             'gallery_category_id' => [
                 'required',
                 'int',
-                'exists:gallery_categories,id'
+                'exists:gallery_albums,id'
             ],
             'content_title' => [
                 'required',
@@ -232,12 +235,12 @@ class GalleryService
             'content_type' => [
                 'required',
                 'int',
-                Rule::in([Gallery::CONTENT_TYPE_IMAGE, Gallery::CONTENT_TYPE_VIDEO])
+                Rule::in([GalleryImageVideo::CONTENT_TYPE_IMAGE, GalleryImageVideo::CONTENT_TYPE_VIDEO])
             ],
             'is_youtube_video' => [
                 'int',
-                'required_if:content_type,' . Gallery::CONTENT_TYPE_VIDEO,
-                Rule::in([Gallery::IS_YOUTUBE_VIDEO_YES, Gallery::IS_YOUTUBE_VIDEO_NO])
+                'required_if:content_type,' . GalleryImageVideo::CONTENT_TYPE_VIDEO,
+                Rule::in([GalleryImageVideo::IS_YOUTUBE_VIDEO_YES, GalleryImageVideo::IS_YOUTUBE_VIDEO_NO])
             ],
             'content_properties' => [
                 'nullable',
@@ -266,9 +269,9 @@ class GalleryService
                 Rule::in([BaseModel::ROW_STATUS_ACTIVE, BaseModel::ROW_STATUS_INACTIVE]),
             ]
         ];
-        if ($request->content_type == Gallery::CONTENT_TYPE_VIDEO && $request->is_youtube_video == Gallery::IS_YOUTUBE_VIDEO_YES) {
+        if ($request->content_type == GalleryImageVideo::CONTENT_TYPE_VIDEO && $request->is_youtube_video == GalleryImageVideo::IS_YOUTUBE_VIDEO_YES) {
             $rules['you_tube_video_id'] = [
-                'required_if:is_youtube_video,' . Gallery::IS_YOUTUBE_VIDEO_YES,
+                'required_if:is_youtube_video,' . GalleryImageVideo::IS_YOUTUBE_VIDEO_YES,
                 'regex:/^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/'
             ];
         } else {
@@ -279,7 +282,7 @@ class GalleryService
 
         }
 
-        $rules=array_merge($rules,BaseModel::OTHER_LANGUAGE_VALIDATION_RULES);
+        $rules = array_merge($rules, BaseModel::OTHER_LANGUAGE_VALIDATION_RULES);
 
         return Validator::make($request->all(), $rules, $customMessage);
     }

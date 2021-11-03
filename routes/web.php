@@ -38,7 +38,7 @@ $router->group(['prefix' => 'api/v1', 'as' => 'api.v1'], function () use ($route
     $customRouter()->resourceRoute('recent-activities', 'RecentActivityController')->render();
 
     $customRouter()->resourceRoute('gallery-albums', 'GalleryAlbumController')->render();
-    $customRouter()->resourceRoute('galleries', 'GalleryController')->render();
+    $customRouter()->resourceRoute('gallery-images-videos', 'GalleryImageVideoController')->render();
     $customRouter()->resourceRoute('video-categories', 'VideoCategoryController')->render();
     $customRouter()->resourceRoute('videos', 'VideoController')->render();
     $customRouter()->resourceRoute('sliders', 'SliderController')->render();
