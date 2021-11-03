@@ -2168,6 +2168,52 @@
                     }
                 }
             },
+            "faq": {
+                "type": "object",
+                "description": "Provide faq",
+                "properties": {
+                   "show_in": {
+                       "type": "integer",
+                       "description": "'1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry, 5=>Industry Association'",
+                       "enum": [1,2,3,4,5]
+                   },
+                    "institute_id": {
+                        "type": "integer",
+                        "description": "For Particular TSP Website"
+                    },
+                    "industry_association_id": {
+                        "type": "integer",
+                        "description": "For Particular Industry Association Website"
+                    },
+                    "organization_id": {
+                        "type": "integer",
+                        "description": "For Particular Industry Website"
+                    },
+                    "question": {
+                        "type": "string"
+                    },
+                    "answer": {
+                        "type": "string"
+                    },
+                    "answer_en": {
+                        "type": "string"
+                    },
+                    "row_status": {
+                        "type": "integer",
+                        "description": "ACTIVE_STATUS => 1, INACTIVE_STATUS => 0",
+                        "enum": [1,0]
+                    }
+                }
+            },
+            "cms_languages_table": {
+                "type": "object",
+                "description": "Provide CMS LANGUAGE TABLE",
+                "properties": {
+                    "table_name": {
+                        "type": "string"
+                    }
+                }
+            },
             "ErrorResponse": {
                 "type": "object",
                 "description": "Recent activities",
