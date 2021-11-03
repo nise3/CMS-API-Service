@@ -29,7 +29,6 @@ class CalenderEventService
         $month = $request['month'] ?? "";
         $year = $request['year'] ?? "";
         $date = $request['date'] ?? "";
-        $week = $request['week'] ?? "";
         $fromDate = $request['from_date'] ?? "";
         $toDate = $request['to_date'] ?? "";
         $youthId = $request['youth_id'] ?? "";
