@@ -75,7 +75,6 @@ class GalleryAlbumService
         }
 
         /** @var Collection $galleryAlbums */
-        $galleryAlbums = [];
         if (is_numeric($paginate) || is_numeric($pageSize)) {
             $pageSize = $pageSize ?: 10;
             $galleryAlbums = $GalleryAlbumBuilder->paginate($pageSize);
@@ -185,7 +184,7 @@ class GalleryAlbumService
                 "min:2"
             ],
             'image_alt_title' => [
-                "required",
+                "nullable",
                 "string",
                 "max:500",
                 "min:2"

@@ -58,7 +58,7 @@ class GalleryAlbum extends BaseModel
     public const LANGUAGE_ATTR_TITLE = "title";
     public const LANGUAGE_ATTR_IMAGE_ALT_TITLE = "image_alt_title";
 
-    public const FAQ_LANGUAGE_FILLABLE = [
+    public const GALLERY_ALBUM_LANGUAGE_FILLABLE = [
         self::LANGUAGE_ATTR_TITLE,
         self::LANGUAGE_ATTR_IMAGE_ALT_TITLE
     ];

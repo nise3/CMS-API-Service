@@ -202,11 +202,11 @@ class GalleryImageVideoService
                 "min:2"
             ],
             'content_description' => [
-                "required",
+                "nullable",
                 "string"
             ],
             'alt_title' => [
-                "required",
+                "nullable",
                 "string",
             ]
         ];

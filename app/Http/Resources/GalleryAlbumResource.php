@@ -44,11 +44,11 @@ class GalleryAlbumResource extends JsonResource
 
         ];
 
-        if (!empty(GalleryAlbum::FAQ_LANGUAGE_FILLABLE) && is_array(GalleryAlbum::FAQ_LANGUAGE_FILLABLE) && $languageCode && in_array($languageCode, LanguageCodeService::getLanguageCode())) {
+        if (!empty(GalleryAlbum::GALLERY_ALBUM_LANGUAGE_FILLABLE) && is_array(GalleryAlbum::GALLERY_ALBUM_LANGUAGE_FILLABLE) && $languageCode && in_array($languageCode, LanguageCodeService::getLanguageCode())) {
             $tableName = $this->getTable();
             $keyId = $this->id;
 
-            foreach (GalleryAlbum::FAQ_LANGUAGE_FILLABLE as $translatableKey) {
+            foreach (GalleryAlbum::GALLERY_ALBUM_LANGUAGE_FILLABLE as $translatableKey) {
                 $translatableValue = app(CmsLanguageService::class)->getLanguageValue($tableName, $keyId, $translatableKey);
                 $response = array_merge($response, $translatableValue);
             }

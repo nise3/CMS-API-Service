@@ -72,7 +72,7 @@ class GalleryAlbumController extends Controller
     {
 
         $validatedData = $this->galleryAlbumService->validator($request)->validate();
-        $message = "Gallery Album successfully added";
+        $message = "Gallery Album is successfully added";
         $otherLanguagePayload = $validatedData['other_language_fields'] ?? [];
         $isLanguage = (bool)count(array_intersect(array_keys($otherLanguagePayload), LanguageCodeService::getLanguageCode()));
 
@@ -80,27 +80,23 @@ class GalleryAlbumController extends Controller
         try {
             $galleryAlbumData = $this->galleryAlbumService->store($validatedData);
             if ($isLanguage) {
-                $languageFillablePayload = [];
                 foreach ($otherLanguagePayload as $key => $value) {
                     $languageValidatedData = $this->galleryAlbumService->languageFieldValidator($value, $key)->validate();
-                    $languageFillablePayload[] = [
-                        "table_name" => $galleryAlbumData->getTable(),
-                        "key_id" => $galleryAlbumData->id,
-                        "lang_code" => $key,
-                        "column_name" => GalleryAlbum::LANGUAGE_ATTR_title,
-                        "column_value" => $languageValidatedData['title']
-                    ];
+                    foreach (GalleryAlbum::GALLERY_ALBUM_LANGUAGE_FILLABLE as $fillableColumn) {
+                        if (!empty($languageValidatedData[$fillableColumn])) {
+                            $languageFillablePayload = [
+                                "table_name" => $galleryAlbumData->getTable(),
+                                "key_id" => $galleryAlbumData->id,
+                                "lang_code" => $key,
+                                "column_name" => $fillableColumn,
+                                "column_value" => $languageValidatedData[$fillableColumn]
+                            ];
+                            app(CmsLanguageService::class)->store($languageFillablePayload);
+                        }
 
-                    $languageFillablePayload[] = [
-                        "table_name" => $galleryAlbumData->getTable(),
-                        "key_id" => $galleryAlbumData->id,
-                        "lang_code" => $key,
-                        "column_name" => GalleryAlbum::LANGUAGE_ATTR_IMAGE_ALT_TITLE,
-                        "column_value" => $languageValidatedData['image_alt_title']
-                    ];
-
+                    }
                 }
-                app(CmsLanguageService::class)->store($languageFillablePayload);
+
             }
             $response = getResponse($galleryAlbumData->toArray(), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
             DB::commit();
@@ -124,35 +120,30 @@ class GalleryAlbumController extends Controller
     {
         $galleryAlbum = GalleryAlbum::findOrFail($id);
         $validatedData = $this->galleryAlbumService->validator($request, $id)->validate();
-        $message = "Gallery Album Update Successfully Done";
+        $message = "Gallery Album Update is Successfully Done";
         $otherLanguagePayload = $validatedData['other_language_fields'] ?? [];
         $isLanguage = (bool)count(array_intersect(array_keys($otherLanguagePayload), LanguageCodeService::getLanguageCode()));
-        $response = [];
         DB::beginTransaction();
         try {
             $galleryAlbum = $this->galleryAlbumService->update($galleryAlbum, $validatedData);
             if ($isLanguage) {
-                $languageFillablePayload = [];
                 foreach ($otherLanguagePayload as $key => $value) {
                     $languageValidatedData = $this->galleryAlbumService->languageFieldValidator($value, $key)->validate();
-                    $languageFillablePayload[] = [
-                        "table_name" => $galleryAlbum->getTable(),
-                        "key_id" => $galleryAlbum->id,
-                        "lang_code" => $key,
-                        "column_name" => GalleryAlbum::LANGUAGE_ATTR_title,
-                        "column_value" => $languageValidatedData['question']
-                    ];
+                    foreach (GalleryAlbum::GALLERY_ALBUM_LANGUAGE_FILLABLE as $fillableColumn) {
+                        if (!empty($languageValidatedData[$fillableColumn])) {
+                            $languageFillablePayload = [
+                                "table_name" => $galleryAlbum->getTable(),
+                                "key_id" => $galleryAlbum->id,
+                                "lang_code" => $key,
+                                "column_name" => $fillableColumn,
+                                "column_value" => $languageValidatedData[$fillableColumn]
+                            ];
+                            app(CmsLanguageService::class)->createOrUpdate($languageFillablePayload);
 
-                    $languageFillablePayload[] = [
-                        "table_name" => $galleryAlbum->getTable(),
-                        "key_id" => $galleryAlbum->id,
-                        "lang_code" => $key,
-                        "column_name" => GalleryAlbum::LANGUAGE_ATTR_IMAGE_ALT_TITLE,
-                        "column_value" => $languageValidatedData['answer']
-                    ];
+                        }
 
+                    }
                 }
-                app(CmsLanguageService::class)->store($languageFillablePayload);
             }
             $response = getResponse($galleryAlbum->toArray(), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
             DB::commit();
@@ -170,18 +161,12 @@ class GalleryAlbumController extends Controller
      */
     public function destroy(int $id): JsonResponse
     {
-        $galleryCategory = GalleryAlbum::findOrFail($id);
+        $galleryAlbum = GalleryAlbum::findOrFail($id);
 
-        $this->galleryAlbumService->destroy($galleryCategory);
-        $response = [
-            '_response_status' => [
-                "success" => true,
-                "code" => ResponseAlias::HTTP_OK,
-                "message" => "GalleryAlbum deleted successfully",
-                "query_time" => $this->startTime->diffInSeconds(Carbon::now()),
-            ]
-        ];
+        $destroyStatus = $this->galleryAlbumService->destroy($galleryAlbum);
 
+        $message = $destroyStatus ? "Gallery Album successfully deleted" : "Gallery Album is not deleted";
+        $response = getResponse($destroyStatus, $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK, $message);
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
 }
