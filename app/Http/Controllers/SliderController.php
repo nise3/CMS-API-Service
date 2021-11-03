@@ -84,7 +84,7 @@ class SliderController extends Controller
                 $languageFillablePayload = [];
                 foreach ($otherLanguagePayload as $key => $value) {
                     $languageValidatedData = $this->sliderService->languageFieldValidator($value, $key)->validate();
-                    foreach (Slider::SLIDER_LANGUAGE_FIELDS as $fillableColumn)
+                    foreach (Slider::SLIDER_LANGUAGE_FIELDS as $fillableColumn){
                         if (!empty($languageValidatedData[$fillableColumn])) {
                             $languageFillablePayload[] = [
                                 "table_name" => $slider->getTable(),
@@ -94,7 +94,7 @@ class SliderController extends Controller
                                 "column_value" => $languageValidatedData[$fillableColumn]
                             ];
                         }
-
+                    }
                 }
                 app(CmsLanguageService::class)->store($languageFillablePayload);
             }
@@ -131,7 +131,7 @@ class SliderController extends Controller
             if ($isLanguage) {
                 foreach ($otherLanguagePayload as $key => $value) {
                     $languageValidatedData = $this->sliderService->languageFieldValidator($value, $key)->validate();
-                    foreach (Slider::SLIDER_LANGUAGE_FIELDS as $fillableColumn)
+                    foreach (Slider::SLIDER_LANGUAGE_FIELDS as $fillableColumn){
                         if (!empty($languageValidatedData[$fillableColumn])) {
                             $languageFillablePayload = [
                                 "table_name" => $slider->getTable(),
@@ -142,7 +142,7 @@ class SliderController extends Controller
                             ];
                             app(CmsLanguageService::class)->createOrUpdate($languageFillablePayload);
                         }
-
+                    }
                 }
             }
             $response=new SliderResource($slider);
