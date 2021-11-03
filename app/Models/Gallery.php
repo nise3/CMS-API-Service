@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Class Gallery
+ * @property int id
  * @property int content_type
  * @property int institute_id
  * @property int gallery_category_id
@@ -41,9 +42,9 @@ class Gallery extends BaseModel
     ];
 
 
-    public function galleryCategory(): BelongsTo
-    {
-        return $this->belongsTo(GalleryCategory::class);
-    }
+//    public function galleryCategory(): BelongsTo
+//    {
+//        return $this->belongsTo(GalleryCategory::class);
+//    }
 
 }

@@ -21,7 +21,7 @@ use Illuminate\Support\Collection;
  * @property string $answer
  * @property string|null $answer_en
  * @property int $row_status
- * @property int|null $create_by
+ * @property int|null $created_by
  * @property int|null $updated_by
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at

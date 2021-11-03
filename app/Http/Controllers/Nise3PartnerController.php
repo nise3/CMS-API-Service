@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Partner;
-use App\Services\ContentManagementServices\PartnerService;
+use App\Models\Nise3Partner;
+use App\Services\ContentManagementServices\Nise3PartnerService;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -13,16 +13,16 @@ use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 use Throwable;
 
-class PartnerController extends Controller
+class Nise3PartnerController extends Controller
 {
-    public PartnerService $partnerService;
+    public Nise3PartnerService $nise3PartnerService;
 
     private Carbon $startTime;
 
-    public function __construct(PartnerService $partnerService)
+    public function __construct(Nise3PartnerService $nise3PartnerService)
     {
         $this->startTime = Carbon::now();
-        $this->partnerService = $partnerService;
+        $this->nise3PartnerService = $nise3PartnerService;
     }
 
 
@@ -33,9 +33,9 @@ class PartnerController extends Controller
      */
     public function getList(Request $request): JsonResponse
     {
-        $filter = $this->partnerService->filterValidation($request)->validate();
+        $filter = $this->nise3PartnerService->filterValidation($request)->validate();
         try {
-            $response = $this->partnerService->getPartnerList($filter, $this->startTime);
+            $response = $this->nise3PartnerService->getPartnerList($filter, $this->startTime);
         } catch (Throwable $e) {
             throw $e;
         }
@@ -50,7 +50,7 @@ class PartnerController extends Controller
     public function read(Request $request,int $id):JsonResponse
     {
         try {
-            $response = $this->partnerService->getOnePartner($id, $this->startTime);
+            $response = $this->nise3PartnerService->getOnePartner($id, $this->startTime);
         } catch (Throwable $e) {
             throw $e;
         }
@@ -65,10 +65,10 @@ class PartnerController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
-        $partner = new Partner();
-        $validated = $this->partnerService->validator($request)->validate();
+        $partner = new Nise3Partner();
+        $validated = $this->nise3PartnerService->validator($request)->validate();
         try {
-            $partner = $this->partnerService->store($partner, $validated);
+            $partner = $this->nise3PartnerService->store($partner, $validated);
             $response = [
                 'data' => $partner,
                 '_response_status' => [
@@ -94,10 +94,10 @@ class PartnerController extends Controller
      */
     public function update(Request $request, int $id): JsonResponse
     {
-        $partner = Partner::findOrFail($id);
-        $validated = $this->partnerService->validator($request, $id)->validate();
+        $partner = Nise3Partner::findOrFail($id);
+        $validated = $this->nise3PartnerService->validator($request, $id)->validate();
         try {
-            $partner = $this->partnerService->update($partner, $validated);
+            $partner = $this->nise3PartnerService->update($partner, $validated);
             $response = [
                 'data' => $partner,
                 '_response_status' => [
@@ -120,9 +120,9 @@ class PartnerController extends Controller
      */
     public function destroy(int $id): JsonResponse
     {
-        $partner = Partner::findOrFail($id);
+        $partner = Nise3Partner::findOrFail($id);
         try {
-            $this->partnerService->destroy($partner);
+            $this->nise3PartnerService->destroy($partner);
             $response = [
                 '_response_status' => [
                     "success" => true,

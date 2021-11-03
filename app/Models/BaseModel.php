@@ -14,6 +14,10 @@ abstract class BaseModel extends Model
 {
     use HasFactory;
 
+
+    public const IMAGE_PATH_VALIDATION_RULE='regex:/^(http|https):\/\/[a-zA-Z-\-\.0-9]+$/';
+    public const HTTP_URL='regex:/^(http|https):\/\/[a-zA-Z-\-\.0-9]+$/';
+
     public const COMMON_GUARDED_FIELDS_SIMPLE = ['id', 'created_at', 'updated_at'];
     public const COMMON_GUARDED_FIELDS_SIMPLE_SOFT_DELETE = ['id', 'created_at', 'updated_at', 'deleted_at'];
     public const COMMON_GUARDED_FIELDS_SOFT_DELETE = ['id', 'created_by', 'updated_by', 'created_at', 'updated_at', 'deleted_at'];
@@ -56,5 +60,18 @@ abstract class BaseModel extends Model
     public const MOBILE_REGEX = 'regex: /^(01[3-9]\d{8})$/';
 
     public const IS_SINGLE_RESPONSE = true;
+
+    public const OTHER_LANGUAGE_VALIDATION_RULES = [
+        'other_language_fields' => [
+            'nullable',
+            'array',
+            'min:1',
+
+        ],
+        'other_language_fields.*' => [
+            "required"
+        ],
+    ];
+
 
 }

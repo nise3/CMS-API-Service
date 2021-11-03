@@ -4,10 +4,12 @@ namespace App\Services\ContentManagementServices;
 
 use App\Models\BaseModel;
 use App\Models\Slider;
+use App\Services\Common\LanguageCodeService;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -15,7 +17,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 class SliderService
 {
-    public function getAllSliders(array $request, Carbon $startTime): array
+
+    /**
+     * @param array $request
+     * @param Carbon $startTime
+     * @return Collection|LengthAwarePaginator|array
+     */
+    public function getAllSliders(array $request): Collection|LengthAwarePaginator|array
     {
 
         $titleEn = $request['title_en'] ?? "";
@@ -43,6 +51,7 @@ class SliderService
             'sliders.slider_images',
             'sliders.alt_title_en',
             'sliders.alt_title',
+            'sliders.banner_template_code',
             'sliders.row_status',
             'sliders.created_at',
             'sliders.updated_at',
@@ -69,31 +78,19 @@ class SliderService
 
 
         /** @var Collection $sliders */
-
+        $sliders = [];
         if (is_numeric($paginate) || is_numeric($pageSize)) {
             $pageSize = $pageSize ?: 10;
             $sliders = $sliderBuilder->paginate($pageSize);
-            $paginateData = (object)$sliders->toArray();
-            $response['current_page'] = $paginateData->current_page;
-            $response['total_page'] = $paginateData->last_page;
-            $response['page_size'] = $paginateData->per_page;
-            $response['total'] = $paginateData->total;
         } else {
             $sliders = $sliderBuilder->get();
         }
 
-        $response['order'] = $order;
-        $response['data'] = $sliders->toArray()['data'] ?? $sliders->toArray();
-        $response['response_status'] = [
-            "success" => true,
-            "code" => Response::HTTP_OK,
-            "query_time" => $startTime->diffInSeconds(Carbon::now())
-        ];
-        return $response;
+        return $sliders;
 
     }
 
-    public function getOneSlider(int $id, Carbon $startTime): array
+    public function getOneSlider(int $id): Slider
     {
         /** @var Builder $sliderBuilder */
 
@@ -111,24 +108,15 @@ class SliderService
             'sliders.slider_images',
             'sliders.alt_title_en',
             'sliders.alt_title',
+            'sliders.banner_template_code',
             'sliders.row_status',
             'sliders.created_at',
             'sliders.updated_at',
         ]);
         $sliderBuilder->where('sliders.id', $id);
-
-
         /** @var Slider $slider */
-        $slider = $sliderBuilder->first();
-
-        return [
-            "data" => $slider ?: [],
-            "_response_status" => [
-                "success" => true,
-                "code" => Response::HTTP_OK,
-                "query_time" => $startTime->diffInSeconds(Carbon::now())
-            ],
-        ];
+        $slider = $sliderBuilder->firstOrFail();
+        return $slider;
     }
 
     /**
@@ -165,6 +153,50 @@ class SliderService
         return $slider->delete();
     }
 
+    public function languageFieldValidator(array $request, string $languageCode): \Illuminate\Contracts\Validation\Validator
+    {
+        $customMessage = [
+            'required' => 'The :attribute_' . strtolower($languageCode) . ' in other language fields is required.[50000]',
+            'max' => 'The :attribute_' . strtolower($languageCode) . ' in other language fields must not be greater than :max characters.[39003]',
+            'min' => 'The :attribute_' . strtolower($languageCode) . ' in other language fields must be at least :min characters.[42003]',
+            'language_code.in' => "The language with code " . $languageCode . " is not allowed",
+            'language_code.regex' => "The language  code " . $languageCode . " must be lowercase"
+        ];
+        $request['language_code'] = $languageCode;
+        $rules = [
+            "language_code" => [
+                "required",
+                "regex:/[a-z]/",
+                Rule::in(LanguageCodeService::getLanguageCode())
+            ],
+            'title' => [
+                'required',
+                'string',
+                'max:500',
+                'min:2'
+            ],
+            'sub_title' => [
+                'required',
+                'string',
+                'max:191',
+                'min:2'
+            ],
+            'button_text' => [
+                'nullable',
+                Rule::requiredIf(function () {
+                    return request('is_button_available') == Slider::IS_BUTTON_AVAILABLE_YES;
+                }),
+                'string',
+                'max:20'
+            ],
+            'alt_title' => [
+                'string',
+                'nullable'
+            ]
+        ];
+        return Validator::make($request, $rules, $customMessage);
+    }
+
     /**
      * @param $request
      * @param int|null $id
@@ -176,12 +208,18 @@ class SliderService
             $request["slider_images"] = is_array($request['slider_images']) ? $request['slider_images'] : explode(',', $request['slider_images']);
         }
         $customMessage = [
-            'row_status.in' => [
-                'code' => 30000,
-                'message' => 'Row status must be within 1 or 0'
-            ]
+            'row_status.in' => 'The :attribute must be within 1 or 0.[30000]',
+            "banner_template_code.in"=>"The :attribute must be with in ".implode(", ",array_keys(Slider::BANNER_TEMPLATE_TYPES)).".[30000]"
         ];
         $rules = [
+            'institute_id' => [
+                'nullable',
+                'int',
+            ],
+            'organization_id' => [
+                'nullable',
+                'int',
+            ],
             'title_en' => [
                 'required',
                 'string',
@@ -223,15 +261,6 @@ class SliderService
                 'string',
                 'max:20'
             ],
-
-            'institute_id' => [
-                'nullable',
-                'int',
-            ],
-            'organization_id' => [
-                'nullable',
-                'int',
-            ],
             'slider_images' => [
                 'required',
                 'array',
@@ -247,13 +276,18 @@ class SliderService
                 'string',
                 'nullable'
             ],
-
+            "banner_template_code" => [
+                "nullable",
+                Rule::in(array_keys(Slider::BANNER_TEMPLATE_TYPES))
+            ],
             'row_status' => [
                 'required_if:' . $id . ',!=,null',
                 Rule::in([BaseModel::ROW_STATUS_ACTIVE, BaseModel::ROW_STATUS_INACTIVE]),
             ]
 
         ];
+
+        $rules = array_merge($rules, BaseModel::OTHER_LANGUAGE_VALIDATION_RULES);
 
         return Validator::make($request->all(), $rules, $customMessage);
     }

@@ -34,18 +34,18 @@ class FaqResource extends JsonResource
             'answer_en' => $this->answer_en,
         ];
 
-        if (isset($this::FAQ_LANGUAGE_FILLABLE) && is_array($this::FAQ_LANGUAGE_FILLABLE) && $languageCode && in_array($languageCode, LanguageCodeService::getLanguageCode())) {
+        if (!empty(Faq::FAQ_LANGUAGE_FILLABLE) && is_array(Faq::FAQ_LANGUAGE_FILLABLE) && $languageCode && in_array($languageCode, LanguageCodeService::getLanguageCode())) {
             $tableName = $this->getTable();
             $keyId = $this->id;
 
-            foreach ($this->translatableKeys as $translatableKey) {
+            foreach (Faq::FAQ_LANGUAGE_FILLABLE as $translatableKey) {
                 $translatableValue = app(CmsLanguageService::class)->getLanguageValue($tableName, $keyId, $translatableKey);
                 $response = array_merge($response, $translatableValue);
             }
         }
 
         $response['row_status'] = $this->row_status;
-        $response['created_by'] = $this->create_by;
+        $response['created_by'] = $this->created_by;
         $response['updated_by'] = $this->updated_by;
         $response['created_at'] = $this->created_at;
         $response['updated_at'] = $this->updated_at;

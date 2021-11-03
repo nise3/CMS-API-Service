@@ -45,7 +45,7 @@ class FaqSeeder extends Seeder
                 )
                 ->count(2)
         )
-            ->count(10)
+            ->count(20)
             ->create();
 
         Schema::enableForeignKeyConstraints();

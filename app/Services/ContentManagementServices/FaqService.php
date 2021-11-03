@@ -167,7 +167,8 @@ class FaqService
     {
         $customMessage = [
             'row_status.in' => 'Row status must be within 1 or 0.[30000]',
-            'show_in.in' => 'Row status must be within (1=>Nise3, 2=>TSP, 3=>Industry, 4=>Industry Association).[30000]'
+            'show_in.in' => 'Row status must be within (1=>Nise3, 2=>TSP, 3=>Industry, 4=>Industry Association).[30000]',
+            'other_language_fields.*.regex' => "The language key must be lowercase.[49000]"
         ];
         $rules = [
             'show_in' => [
@@ -204,14 +205,14 @@ class FaqService
             'answer' => 'required|min:2',
             'question_en' => 'nullable|max:600|min:2',
             'answer_en' => 'nullable|min:2',
-            'other_language_fields' => 'nullable|array|min:1',
-            'other_language_fields.*' => 'required',
             'row_status' => [
                 'required_if:' . $id . ',!=,null',
                 'nullable',
                 Rule::in([BaseModel::ROW_STATUS_ACTIVE, BaseModel::ROW_STATUS_INACTIVE]),
             ]
         ];
+        $rules = array_merge($rules, BaseModel::OTHER_LANGUAGE_VALIDATION_RULES);
+
         return Validator::make($request->all(), $rules, $customMessage);
     }
 
@@ -226,12 +227,14 @@ class FaqService
             'required' => 'The :attribute_' . strtolower($languageCode) . ' in other language fields is required.[50000]',
             'max' => 'The :attribute_' . strtolower($languageCode) . ' in other language fields must not be greater than :max characters.[39003]',
             'min' => 'The :attribute_' . strtolower($languageCode) . ' in other language fields must be at least :min characters.[42003]',
-            'language_code.in' => "The language with code " . $languageCode . " is not allowed"
+            'language_code.in' => "The language with code " . $languageCode . " is not allowed",
+            'language_code.regex' => "The language  code " . $languageCode . " must be lowercase"
         ];
         $request['language_code'] = $languageCode;
         $rules = [
             "language_code" => [
                 "required",
+                "regex:/[a-z]/",
                 Rule::in(LanguageCodeService::getLanguageCode())
             ],
             'question' => [
@@ -260,7 +263,8 @@ class FaqService
         $customMessage = [
             'order.in' => 'Order must be within ASC or DESC.[30000]',
             'row_status.in' => 'Row status must be within 1 or 0.[30000]',
-            'show_in.in' => 'Row status must be within (1=>Nise3, 2=>TSP, 3=>Industry, 4=>Industry Association).[30000]'
+            'show_in.in' => 'Row status must be within (1=>Nise3, 2=>TSP, 3=>Industry, 4=>Industry Association).[30000]',
+
         ];
 
         if (!empty($request['order'])) {
