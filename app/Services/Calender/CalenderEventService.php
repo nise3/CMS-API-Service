@@ -64,19 +64,19 @@ class CalenderEventService
         if ($type) {
             $now = CarbonImmutable::now();
             if ($type == CalenderEvent::CALENDER_TYPE_YEAR) {
-                $year = $year ? $year : $now->year;
+                $year = $year ?: $now->year;
                 $calenderEventsBuilder->whereYear('start_date', $year)->orWhereYear('end_date', $year);
 
             } elseif ($type == CalenderEvent::CALENDER_TYPE_MONTH) {
-                $month = $month ? $month : $now->month;
-                $year = $year ? $year : $now->year;
+                $month = $month ?: $now->month;
+                $year = $year ?: $now->year;
 
                 $startDate = Carbon::createFromDate($year, $month)->startOfMonth();
                 $endDate = Carbon::createFromDate($year, $month)->endOfMonth();
                 $calenderEventsBuilder->whereBetween('start_date', [$startDate, $endDate])->orWhereBetween('end_date', [$startDate, $endDate]);
 
             } elseif ($type == CalenderEvent::CALENDER_TYPE_DAY) {
-                $date = $date ? $date : $now;
+                $date = $date ?: $now;
                 $calenderEventsBuilder->whereDate('start_date', $date)->orWhereDate('end_date', $date);
 
             } elseif ($type == CalenderEvent::CALENDER_TYPE_WEEK) {
@@ -88,40 +88,40 @@ class CalenderEventService
 
             } elseif ($type == CalenderEvent::CALENDER_TYPE_SCHEDULE) {
 
-                $fromDate = $fromDate ? $fromDate : $now->startOfMonth();
-                $toDate = $toDate ? $toDate : $now->endOfMonth();
+                $fromDate = $fromDate ?: $now->startOfMonth();
+                $toDate = $toDate ?: $now->endOfMonth();
                 $calenderEventsBuilder->whereBetween('start_date', [$fromDate, $toDate])->orWhereBetween('end_date', [$fromDate, $toDate]);
             }
 
         }
 
         if (!empty($title)) {
-            $calenderEventsBuilder->orWhere('calender_events.title', 'like', '%' . $title . '%');
+            $calenderEventsBuilder->where('calender_events.title', 'like', '%' . $title . '%');
         }
 
         if (!empty($titleEn)) {
-            $calenderEventsBuilder->orWhere('calender_events.title_en', 'like', '%' . $titleEn . '%');
+            $calenderEventsBuilder->where('calender_events.title_en', 'like', '%' . $titleEn . '%');
         }
 
         if (!empty($youthId)) {
-            $calenderEventsBuilder->orWhere('calender_events.youth_id', $youthId);
+            $calenderEventsBuilder->where('calender_events.youth_id', $youthId);
         }
 
         if (!empty($instituteId)) {
-            $calenderEventsBuilder->orWhere('calender_events.institute_id', $instituteId);
+            $calenderEventsBuilder->where('calender_events.institute_id', $instituteId);
         }
 
         if (!empty($batchId)) {
-            $calenderEventsBuilder->orWhere('calender_events.batch_id', $batchId);
+            $calenderEventsBuilder->where('calender_events.batch_id', $batchId);
         }
 
         if (!empty($organizationId)) {
-            $calenderEventsBuilder->orWhere('calender_events.organization_id', $organizationId);
+            $calenderEventsBuilder->where('calender_events.organization_id', $organizationId);
         }
 
 
         if (!empty($industryAssociationId)) {
-            $calenderEventsBuilder->orWhere('calender_events.industry_association_id', $industryAssociationId);
+            $calenderEventsBuilder->where('calender_events.industry_association_id', $industryAssociationId);
         }
 
 
