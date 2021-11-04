@@ -11,11 +11,10 @@ use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Symfony\Component\HttpFoundation\Response;
+use Throwable;
 
 class CalenderEventService
 {
@@ -194,13 +193,13 @@ class CalenderEventService
     /**
      * @param array $data
      * @return CalenderEvent
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function store(array $data): CalenderEvent
     {
         $calenderEvent = app(CalenderEvent::class);
         $calenderEvent->fill($data);
-        throw_if(!$calenderEvent->save(), 'RuntimeException', 'Calender event has not been Saved to db.', 500);
+        $calenderEvent->saveOrFail();
         return $calenderEvent;
     }
 
@@ -208,23 +207,23 @@ class CalenderEventService
      * @param CalenderEvent $calenderEvent
      * @param array $data
      * @return CalenderEvent
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function update(CalenderEvent $calenderEvent, array $data): CalenderEvent
     {
         $calenderEvent->fill($data);
-        throw_if(!$calenderEvent->save(), 'RuntimeException', 'Calender event has not been deleted.', 500);
+        $calenderEvent->saveOrFail();
         return $calenderEvent;
     }
 
     /**
      * @param CalenderEvent $calenderEvent
      * @return bool
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function destroy(CalenderEvent $calenderEvent): bool
     {
-        throw_if(!$calenderEvent->delete(), 'RuntimeException', 'Calender event has not been deleted.', 500);
+        $calenderEvent->deleteOrFail();
         return true;
     }
 
@@ -246,6 +245,26 @@ class CalenderEventService
                 'string',
                 'max:250'
             ],
+            'youth_id' => [
+                'nullable',
+                'int'
+            ],
+            'institute_id' => [
+                'nullable',
+                'int'
+            ],
+            'organization_id' => [
+                'nullable',
+                'int'
+            ],
+            'batch_id' => [
+                'nullable',
+                'int'
+            ],
+            'industry_association_id' => [
+                'nullable',
+                'int'
+            ],
             'start_date' => [
                 'required',
                 'date'
@@ -264,6 +283,7 @@ class CalenderEventService
                 'date_format:H:i'
             ],
             'color' => [
+                'nullable',
                 'string'
             ]
         ];
