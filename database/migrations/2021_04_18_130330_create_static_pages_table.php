@@ -26,7 +26,7 @@ class CreateStaticPagesTable extends Migration
 
             $table->unsignedInteger('institute_id')->nullable();
             $table->unsignedInteger('organization_id')->nullable();
-            $table->unsignedInteger('organization_association_id')->nullable();
+            $table->unsignedInteger('industry_association_id')->nullable();
 
             $table->string('title', 600);
             $table->string('title_en', 200)->nullable();

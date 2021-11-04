@@ -9,7 +9,6 @@ use App\Services\Common\LanguageCodeService;
 use App\Services\ContentManagementServices\CmsLanguageService;
 use App\Services\ContentManagementServices\StaticPageService;
 use Carbon\Carbon;
-use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -130,18 +129,38 @@ class StaticPageController extends Controller
     public function update(Request $request, int $id): JsonResponse
     {
         $staticPage = StaticPage::findOrFail($id);
-        $validated = $this->staticPageService->validator($request, $id)->validate();
+        $validatedData = $this->staticPageService->validator($request, $id)->validate();
+        $message = "Static Page is successfully updated";
+        $otherLanguagePayload = $validatedData['other_language_fields'] ?? [];
+        $isLanguage = (bool)count(array_intersect(array_keys($otherLanguagePayload), LanguageCodeService::getLanguageCode()));
 
-        $staticPage = $this->staticPageService->update($staticPage, $validated);
-        $response = [
-            'data' => $staticPage,
-            '_response_status' => [
-                "success" => true,
-                "code" => ResponseAlias::HTTP_OK,
-                "message" => "StaticPage updated successfully",
-                "query_time" => $this->startTime->diffInSeconds(Carbon::now()),
-            ]
-        ];
+        DB::beginTransaction();
+        try {
+            $staticPageData = $this->staticPageService->update($staticPage, $validatedData);
+            if ($isLanguage) {
+                foreach ($otherLanguagePayload as $key => $value) {
+                    $languageValidatedData = $this->staticPageService->languageFieldValidator($value, $key)->validate();
+                    foreach (StaticPage::STATIC_PAGE_LANGUAGE_FILLABLE as $fillableColumn) {
+                        if (!empty($languageValidatedData[$fillableColumn])) {
+                            $languageFillablePayload = [
+                                "table_name" => $staticPageData->getTable(),
+                                "key_id" => $staticPageData->id,
+                                "lang_code" => $key,
+                                "column_name" => $fillableColumn,
+                                "column_value" => $languageValidatedData[$fillableColumn]
+                            ];
+                            app(CmsLanguageService::class)->createOrUpdate($languageFillablePayload);
+                        }
+                    }
+                }
+
+            }
+            $response = getResponse($staticPageData->toArray(), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
+            DB::commit();
+        } catch (Throwable $e) {
+            DB::rollBack();
+            throw $e;
+        }
 
         return Response::json($response, ResponseAlias::HTTP_CREATED);
     }
@@ -155,16 +174,12 @@ class StaticPageController extends Controller
     public function destroy(int $id): JsonResponse
     {
         $staticPage = StaticPage::findOrFail($id);
+        $destroyStatus = $this->staticPageService->destroy($staticPage);
+        $message = $destroyStatus ? "Static page successfully deleted" : "Static Page not deleted";
 
-        $this->staticPageService->destroy($staticPage);
-        $response = [
-            '_response_status' => [
-                "success" => true,
-                "code" => ResponseAlias::HTTP_OK,
-                "message" => "StaticPage deleted successfully",
-                "query_time" => $this->startTime->diffInSeconds(Carbon::now()),
-            ]
-        ];
+        $response = getResponse($destroyStatus, $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK, $message);
+
+
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
 }

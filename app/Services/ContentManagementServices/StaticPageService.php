@@ -39,7 +39,7 @@ class StaticPageService
             'static_pages_and_block.content_slug_or_id',
             'static_pages_and_block.institute_id',
             'static_pages_and_block.organization_id',
-            'static_pages_and_block.organization_association_id',
+            'static_pages_and_block.industry_association_id',
             'static_pages_and_block.title',
             'static_pages_and_block.title_en',
             'static_pages_and_block.sub_title',
@@ -91,7 +91,7 @@ class StaticPageService
             'static_pages_and_block.content_slug_or_id',
             'static_pages_and_block.institute_id',
             'static_pages_and_block.organization_id',
-            'static_pages_and_block.organization_association_id',
+            'static_pages_and_block.industry_association_id',
             'static_pages_and_block.title',
             'static_pages_and_block.title_en',
             'static_pages_and_block.sub_title',
@@ -108,7 +108,7 @@ class StaticPageService
 
 
         /** @var StaticPage $staticPage */
-        return $staticPageBuilder->first();
+        return $staticPageBuilder->firstOrFail();
     }
 
     /**
@@ -144,6 +144,7 @@ class StaticPageService
     {
         return $staticPage->delete();
     }
+
     /**
      * @param array $request
      * @param string $languageCode
@@ -198,7 +199,7 @@ class StaticPageService
             'content_type' => [
                 'required',
                 'int',
-                Rule::in([StaticPage::CONTENT_TYPE_BLOCK, StaticPage::CONTENT_TYPE_STATIC_PAGE])
+                Rule::in(StaticPage::CONTENT_TYPES)
             ],
             'show_in' => [
                 'nullable',
@@ -261,9 +262,13 @@ class StaticPageService
             'contents' => [
                 'nullable',
                 'string'
+            ],
+            'row_status' => [
+                'required_if:' . $id . ',!=,null',
+                Rule::in([BaseModel::ROW_STATUS_ACTIVE, BaseModel::ROW_STATUS_INACTIVE]),
             ]
         ];
-
+        $rules = array_merge($rules, BaseModel::OTHER_LANGUAGE_VALIDATION_RULES);
         return Validator::make($request->all(), $rules, $customMessage);
 
     }
