@@ -86,7 +86,7 @@ class GalleryAlbumService
     }
 
 
-    public function getOneGalleryAlbum(int $id): Model|Builder|null
+    public function getOneGalleryAlbum(int $id): Model|Builder
     {
         /** @var Builder $GalleryAlbumBuilder */
         $GalleryAlbumBuilder = GalleryAlbum::select([
