@@ -428,16 +428,16 @@
                 ]
             }
         },
-        "/partners": {
+        "/nise3-partners": {
             "get": {
                 "summary": "Get All Partners",
                 "description": "Get The list of all partners of Nise3",
                 "parameters": [
                     {
-                        "$ref": "#/components/parameters/title"
+                        "$ref": "#/components/parameters/title_optional"
                     },
                     {
-                        "$ref": "#/components/parameters/title_en"
+                        "$ref": "#/components/parameters/title_en_optional"
                     },
                     {
                         "$ref": "#/components/parameters/row_status"
@@ -475,6 +475,191 @@
                                         "success": true,
                                         "code": 200,
                                         "query_time": "1 second before"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": ["nise3_partners"]
+            },
+            "post": {
+                "summary": "Create new partner",
+                "description": "API endpoint to create a Partner.A successful request response will show 200 HTTP status code",
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/nise3_partner"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "data": {
+                                        "title_en": "newtitle",
+                                        "title": "newtitle",
+                                        "main_image_path": "https://en.as.com/en/2021/11/01/soccer/1635749055_402801.html",
+                                        "thumb_image_path": "https://en.as.com/en/2021/11/01/soccer/1635749055_402801.html",
+                                        "grid_image_path": "https://en.as.com/en/2021/11/01/soccer/1635749055_402801.html",
+                                        "domain": null,
+                                        "image_alt_title_en": null,
+                                        "image_alt_title": null,
+                                        "row_status": "1",
+                                        "updated_at": "2021-11-04T10:46:39.000000Z",
+                                        "created_at": "2021-11-04T10:46:39.000000Z",
+                                        "id": 1
+                                    },
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 201,
+                                        "message": "Faq successfully added",
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": ["nise3_partners"]
+            }
+        },
+        "/nise3-partners/{partnerId}": {
+            "get": {
+                "summary": "Get partner by Id",
+                "description": "API endpoint to create a partner.A successful request response will show 200 HTTP status code",
+                "parameters": [{
+                    "name": "partnerId",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "integer"
+                    }
+                }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successfull",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "order": "ASC",
+                                    "data": {
+                                        "id": 1,
+                                        "title_en": "newtitle",
+                                        "title": "newtitle",
+                                        "main_image_path": "https://en.as.com/en/2021/11/01/soccer/1635749055_402801.html",
+                                        "thumb_image_path": "https://en.as.com/en/2021/11/01/soccer/1635749055_402801.html",
+                                        "grid_image_path": "https://en.as.com/en/2021/11/01/soccer/1635749055_402801.html",
+                                        "domain": null,
+                                        "image_alt_title_en": null,
+                                        "image_alt_title": null,
+                                        "row_status": 1,
+                                        "created_by": null,
+                                        "updated_by": null,
+                                        "created_at": "2021-11-04T10:46:39.000000Z",
+                                        "updated_at": "2021-11-04T10:46:39.000000Z"
+                                    },
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "message": null,
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": ["nise3_partners"]
+
+            },
+            "put": {
+                "summary": "Update partner by Id",
+                "description": "API endpoint to update a partner.A successful request response will show 200 HTTP status code",
+                "parameters": [{
+                    "name": "partnerId",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "integer"
+                    }
+                }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/nise3_partner"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successfull",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "data": {
+                                        "id": 1,
+                                        "title_en": "new title444",
+                                        "title": "new title444",
+                                        "main_image_path": null,
+                                        "thumb_image_path": null,
+                                        "grid_image_path": null,
+                                        "domain": null,
+                                        "image_alt_title_en": null,
+                                        "image_alt_title": null,
+                                        "row_status": "1",
+                                        "created_by": null,
+                                        "updated_by": null,
+                                        "created_at": "2021-11-04T10:46:39.000000Z",
+                                        "updated_at": "2021-11-04T10:58:39.000000Z",
+                                        "deleted_at": null
+                                    },
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "message": "Nise3Partner Update Successfully Done",
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": ["nise3_partners"]
+
+            },
+            "delete": {
+                "summary": "Delete a partner",
+                "description": "API endpoint to delete a partner.A successful request response will show 200 HTTP status code",
+                "parameters": [{
+                    "name": "partnerId",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "integer"
+                    }
+                }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "message": "Nise3Partner successfully deleted",
+                                        "query_time": 0
                                     }
                                 }
                             }
@@ -1127,7 +1312,624 @@
                 },
                 "tags": ["faqs"]
             }
+        },
+        "/gallery-albums": {
+            "get": {
+                "summary": "Get All gallery albums",
+                "description": "API endpoint to get all gallery image.A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/title_optional"
+                    },
+                    {
+                        "$ref": "#/components/parameters/title_en_optional"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page_size"
+                    },
+                    {
+                        "$ref": "#/components/parameters/row_status"
+                    },
+                    {
+                        "$ref": "#/components/parameters/order"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get All gallery albums",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "order": "ASC",
+                                    "data": [
+                                        {
+                                            "id": 1,
+                                            "parent_gallery_album_id": null,
+                                            "featured": 1,
+                                            "show_in": 1,
+                                            "album_type": 1,
+                                            "published_at": null,
+                                            "archived_at": null,
+                                            "institute_id": null,
+                                            "organization_id": null,
+                                            "industry_association_id": null,
+                                            "batch_id": null,
+                                            "program_id": null,
+                                            "title": "NewTitle",
+                                            "title_en": "NewTitle",
+                                            "main_image_path": null,
+                                            "thumb_image_path": null,
+                                            "grid_image_path": null,
+                                            "image_alt_title": null,
+                                            "image_alt_title_en": null,
+                                            "row_status": 1,
+                                            "created_by": null,
+                                            "updated_by": null,
+                                            "created_at": "2021-11-04T06:55:37.000000Z",
+                                            "updated_at": "2021-11-04T06:55:37.000000Z"
+                                        }
+                                    ],
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "message": null,
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": ["Gallery-Album"]
+            },
+            "post": {
+                "summary": "Create a gallery album",
+                "description": "API endpoint to create a gallery album.A successful request response will show 200 HTTP status code",
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/GalleryAlbum"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successfully created gallery-album",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "data": {
+                                        "featured": "1",
+                                        "show_in": "1",
+                                        "institute_id": "1",
+                                        "organization_id": "1",
+                                        "album_type": "1",
+                                        "batch_id": "1",
+                                        "title_en": "New title",
+                                        "title": "New title",
+                                        "main_image_path": null,
+                                        "thumb_image_path": null,
+                                        "grid_image_path": null,
+                                        "image_alt_title_en": null,
+                                        "image_alt_title": null,
+                                        "row_status": "1",
+                                        "updated_at": "2021-11-04T06:42:58.000000Z",
+                                        "created_at": "2021-11-04T06:42:58.000000Z",
+                                        "id": 1
+                                    },
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 201,
+                                        "message": "Gallery Album is successfully added",
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": ["Gallery-Album"]
+            }
+        },
+        "/gallery-albums/{galleryAlbumId}": {
+            "put": {
+                "summary": "Update a specific gallery-album",
+                "description": " API endpoint to update a specified gallery-album .A successful request response will show 200 HTTP status code",
+                "parameters": [{
+                    "name": "galleryAlbumId",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "integer"
+                    }
+                }],
+                "requestBody": {
+                    "description": "Update the fields ",
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/GalleryAlbum"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Succesfully updated",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "data": [
+                                        {
+                                            "id": 1,
+                                            "parent_gallery_album_id": null,
+                                            "featured": 1,
+                                            "show_in": 1,
+                                            "album_type": 1,
+                                            "published_at": null,
+                                            "archived_at": null,
+                                            "institute_id": null,
+                                            "organization_id": null,
+                                            "industry_association_id": null,
+                                            "batch_id": null,
+                                            "program_id": null,
+                                            "title": "NewTitle",
+                                            "title_en": "NewTitle",
+                                            "main_image_path": null,
+                                            "thumb_image_path": null,
+                                            "grid_image_path": null,
+                                            "image_alt_title": null,
+                                            "image_alt_title_en": null,
+                                            "row_status": 1,
+                                            "created_by": null,
+                                            "updated_by": null,
+                                            "created_at": "2021-11-04T06:55:37.000000Z",
+                                            "updated_at": "2021-11-04T06:55:37.000000Z"
+                                        }
+                                    ],
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "message": null,
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": ["Gallery-Album"]
+            },
+            "get": {
+                "summary": "Get a gallery album by Id",
+                "description": "API endpoint to get a specific gallery album.A successful request response will show 200 HTTP status code",
+                "parameters": [{
+                    "name": "galleryAlbumId",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "integer"
+                    }
+                }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Succeffull",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "data": {
+                                        "id": 1,
+                                        "parent_gallery_album_id": null,
+                                        "featured": "1",
+                                        "show_in": "1",
+                                        "album_type": "1",
+                                        "published_at": null,
+                                        "archived_at": null,
+                                        "institute_id": null,
+                                        "organization_id": null,
+                                        "industry_association_id": null,
+                                        "batch_id": null,
+                                        "program_id": null,
+                                        "title": "One title",
+                                        "title_en": "One title",
+                                        "main_image_path": null,
+                                        "thumb_image_path": null,
+                                        "grid_image_path": null,
+                                        "image_alt_title": null,
+                                        "image_alt_title_en": null,
+                                        "row_status": "1",
+                                        "created_by": null,
+                                        "updated_by": null,
+                                        "created_at": "2021-11-04T06:55:37.000000Z",
+                                        "updated_at": "2021-11-04T07:20:15.000000Z",
+                                        "deleted_at": null
+                                    },
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 201,
+                                        "message": "Gallery Album Update is Successfully Done",
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": ["Gallery-Album"]
+            },
+            "delete": {
+                "summary": "Delete a gallery Album",
+                "description": "API endpoint to delete the gallery album.A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "name": "galleryAlbumId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfull",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "message": "Gallery Album successfully deleted",
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": ["Gallery-Album"]
+            }
+        },
+        "/gallery-images-videos": {
+            "get": {
+                "summary": "Get all gallery image videos",
+                "description": "API endpoint to get the list of gallery-images-videos.A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "name": "content_title",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/page"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page_size"
+                    },
+                    {
+                        "$ref": "#/components/parameters/row_status"
+                    },
+                    {
+                        "$ref": "#/components/parameters/order"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successfull",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "data":[ {
+                                        "gallery_album_id": "1",
+                                        "featured": "1",
+                                        "institute_id": "1",
+                                        "organization_id": "1",
+                                        "content_type": "2",
+                                        "video_type": "1",
+                                        "content_title": "newtitle",
+                                        "content_description": null,
+                                        "content_description_en": null,
+                                        "content_properties_json": null,
+                                        "image_url": null,
+                                        "video_url": "ddddd",
+                                        "content_cover_image_url": null,
+                                        "content_grid_image_url": null,
+                                        "content_thumb_image_url": null,
+                                        "alt_title": null,
+                                        "alt_title_en": null,
+                                        "row_status": "1",
+                                        "updated_at": "2021-11-04T07:52:27.000000Z",
+                                        "created_at": "2021-11-04T07:52:27.000000Z",
+                                        "id": 1
+                                    }],
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 201,
+                                        "message": "GalleryImageVideo is Successfully added",
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": ["gallery-images-videos"]
+            },
+            "post": {
+                "summary": "Create a gallery-images-videos",
+                "description": "API endpoint to create a gallery-images-videos.A successful request response will show 200 HTTP status code",
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Gallery_Images_Videos"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successfull",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "data": {
+                                        "gallery_album_id": "1",
+                                        "featured": "1",
+                                        "institute_id": "1",
+                                        "organization_id": "1",
+                                        "content_type": "1",
+                                        "video_type": "1",
+                                        "content_title": "Old title",
+                                        "content_description": null,
+                                        "content_description_en": null,
+                                        "content_properties_json": null,
+                                        "image_url": "aaaa",
+                                        "video_url": null,
+                                        "content_cover_image_url": null,
+                                        "content_grid_image_url": null,
+                                        "content_thumb_image_url": null,
+                                        "alt_title": null,
+                                        "alt_title_en": null,
+                                        "row_status": "1",
+                                        "updated_at": "2021-11-04T07:53:49.000000Z",
+                                        "created_at": "2021-11-04T07:53:49.000000Z",
+                                        "id": 2
+                                    },
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 201,
+                                        "message": "GalleryImageVideo is Successfully added",
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": ["gallery-images-videos"]
+            }
+        },
+        "/gallery-images-videos/{galleryImagesVideoId}": {
+            "put": {
+                "summary": "Update a gallery image video",
+                "description": "API endpoint to update a gallery-images-videos.A successful request response will show 200 HTTP status code",
+                "parameters": [{
+                    "name": "galleryImagesVideoId",
+                    "in": "path",
+                    "schema": {
+                        "type": "integer"
+                    }
+                }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Gallery_Images_Videos"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successfull",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "data": {
+                                        "id": 1,
+                                        "gallery_album_id": "1",
+                                        "featured": "1",
+                                        "published_at": null,
+                                        "archived_at": null,
+                                        "institute_id": "1",
+                                        "organization_id": "1",
+                                        "industry_association_id": null,
+                                        "content_type": "1",
+                                        "video_type": "1",
+                                        "content_title": "Trivium",
+                                        "content_title_en": null,
+                                        "content_description": null,
+                                        "content_description_en": null,
+                                        "image_url": "dddddd",
+                                        "video_url": null,
+                                        "content_properties_json": null,
+                                        "content_cover_image_url": null,
+                                        "content_grid_image_url": null,
+                                        "content_thumb_image_url": null,
+                                        "alt_title": null,
+                                        "alt_title_en": null,
+                                        "row_status": "1",
+                                        "published_by": null,
+                                        "archived_by": null,
+                                        "created_by": null,
+                                        "updated_by": null,
+                                        "created_at": "2021-11-04T07:52:27.000000Z",
+                                        "updated_at": "2021-11-04T09:29:39.000000Z",
+                                        "deleted_at": null
+                                    },
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "message": "GalleryImageVideo Update is Successfully Done",
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": ["gallery-images-videos"]
+            },
+            "get": {
+                "summary": "Get gallery image video by Id",
+                "description": "API endpoint to update a gallery image video. A successful request response will show 200 HTTP status code",
+                "parameters": [{
+                    "name": "galleryImagesVideoId",
+                    "in": "path",
+                    "schema": {
+                        "type": "integer"
+                    }
+                }],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Gallery_Images_Videos"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successfull",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "data": {
+                                        "id": 1,
+                                        "gallery_album_id": "1",
+                                        "featured": "1",
+                                        "published_at": null,
+                                        "archived_at": null,
+                                        "institute_id": "1",
+                                        "organization_id": "1",
+                                        "industry_association_id": null,
+                                        "content_type": "1",
+                                        "video_type": "1",
+                                        "content_title": "new title",
+                                        "content_title_en": null,
+                                        "content_description": null,
+                                        "content_description_en": null,
+                                        "image_url": "llklasdasd",
+                                        "video_url": null,
+                                        "content_properties_json": null,
+                                        "content_cover_image_url": null,
+                                        "content_grid_image_url": null,
+                                        "content_thumb_image_url": null,
+                                        "alt_title": null,
+                                        "alt_title_en": null,
+                                        "row_status": "1",
+                                        "published_by": null,
+                                        "archived_by": null,
+                                        "created_by": null,
+                                        "updated_by": null,
+                                        "created_at": "2021-11-04T07:52:27.000000Z",
+                                        "updated_at": "2021-11-04T09:47:37.000000Z",
+                                        "deleted_at": null
+                                    },
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "message": "GalleryImageVideo Update is Successfully Done",
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": ["gallery-images-videos"]
+            },
+            "delete": {
+                "summary": "Delete a gallery Image Video",
+                "description": "API endpoint to delete gallery image video.A successful request response will show 200 HTTP status code",
+                "parameters": [{
+                    "name": "galleryImagesVideoId",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "integer"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "successful",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "message": "Gallery Image Video successfully deleted",
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": ["gallery-images-videos"]
+            }
+        },
+        "/static-pages": {
+            "get": {
+                "summary": "Get all static page",
+                "description": "API endpoint to get all a Static Page.A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/title_optional"
+                    },
+                    {
+                        "$ref": "#/components/parameters/title_en_optional"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page_size"
+                    },
+                    {
+                        "$ref": "#/components/parameters/order"
+                    },
+                    {
+                        "$ref": "#/components/parameters/row_status"
+                    }
+
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successfull",
+                        "content": {
+                            "application/json": {
+
+                            }
+                        }
+                    }
+                }
+            }
         }
+
 
     },
     "components": {
@@ -2224,7 +3026,7 @@
                         "type": "integer",
                         "description": "Institute id"
                     },
-                    "parent_gallery_category_id": {
+                    "parent_gallery_album_id": {
                         "type": "integer",
                         "description": "Institute id"
                     },
@@ -2345,6 +3147,7 @@
                     },
                     "featured":{
                         "type" : "integer",
+                        "enum": [1 , 0],
                         "description": 	"YES => 1, NO => 0"
                     },
                     "content_type": {
@@ -2359,8 +3162,8 @@
                     "video_type":{
                         "type":"integer",
                         "description":"youtube => 1, facebook => 2",
-                        "enum": [1,2]
-
+                        "enum": [1,2],
+                        "example": 1
                     },
                     "content_title": {
                         "type": "string",
@@ -2444,6 +3247,7 @@
                     "gallery_album_id",
                     "featured",
                     "content_type",
+                    "content_title",
                     "row_status"
                 ]
             },

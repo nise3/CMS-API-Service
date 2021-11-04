@@ -330,7 +330,7 @@ class GalleryAlbumService
 
         return Validator::make($request->all(), [
             'title_en' => 'nullable|max:200|min:2',
-            'title' => 'nullable|min:600|min:2',
+            'title' => 'nullable|max:600|min:2',
             'page' => 'integer|gt:0',
             'page_size' => 'integer|gt:0',
             'order' => [
