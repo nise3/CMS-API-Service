@@ -80,7 +80,6 @@ class GalleryImageVideoService
         }
 
         /** @var Collection $galleries */
-        $galleries = [];
         if (is_numeric($paginate) || is_numeric($pageSize)) {
             $pageSize = $pageSize ?: BaseModel::DEFAULT_PAGE_SIZE;
             $galleries = $galleryImageVideoBuilder->paginate($pageSize);
@@ -347,9 +346,9 @@ class GalleryImageVideoService
         }
 
         return Validator::make($request->all(), [
-            'page' => 'numeric|gt:0',
             'content_title' => 'nullable|max:500|min:2',
-            'pageSize' => 'numeric|gt:0',
+            'page_size' => 'nullable|integer|gt:0',
+            'page' => 'nullable|integer|gt:0',
             'order' => [
                 'string',
                 Rule::in([BaseModel::ROW_ORDER_ASC, BaseModel::ROW_ORDER_DESC])

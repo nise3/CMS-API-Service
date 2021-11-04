@@ -25,13 +25,15 @@ class CreateRecentActivitiesTable extends Migration
             $table->unsignedInteger('organization_id')->nullable();
             $table->unsignedInteger('industry_association_id')->nullable();
 
-            $table->string("title_en", 300);
+            $table->string("title_en", 300)->nullable();
             $table->string("title", 1000);
 
             $table->unsignedTinyInteger('content_type')
-                ->comment("1 => Image, 2 => Video, 3 => Youtube Source")->nullable();
+                ->comment("1 => Image, 2 => Facebook source, 3 => Youtube Source")->nullable();
 
             $table->string('content_path', 800)->nullable();
+            $table->string('embedded_url', 800)->nullable();
+            $table->string('embedded_id', 300)->nullable();
             $table->string("content_properties", 300)->nullable();
 
             $table->string('collage_image_path', 600)->nullable()->comment('Main Image');
