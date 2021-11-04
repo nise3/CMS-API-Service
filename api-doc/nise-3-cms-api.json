@@ -427,7 +427,708 @@
                     "Country"
                 ]
             }
+        },
+        "/partners": {
+            "get": {
+                "summary": "Get All Partners",
+                "description": "Get The list of all partners of Nise3",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/title"
+                    },
+                    {
+                        "$ref": "#/components/parameters/title_en"
+                    },
+                    {
+                        "$ref": "#/components/parameters/row_status"
+                    },
+                    {
+                        "$ref": "#/components/parameters/order"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page_size"
+                    }
+                ],
+                "responses": {
+                    "200":  {
+                        "description": "Successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/nise3_partner"
+                                },
+                                "example": {
+                                    "order": "asc",
+                                    "data": [
+                                        {
+                                            "id": 3,
+                                            "title": "Bangladesh",
+                                            "title_en": "Bangladesh",
+                                            "code": "BD",
+                                            "deleted_at": null
+                                        }
+                                    ],
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "query_time": "1 second before"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": ["nise3_partners"]
+            }
+        },
+        "/sliders": {
+            "get": {
+                "summary": "Get All sliders",
+                "description": "Get All the sliders",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/title_optional"
+                    },
+                    {
+                        "$ref": "#/components/parameters/title_en_optional"
+                    },
+                    {
+                        "$ref": "#/components/parameters/sub_title"
+                    },
+                    {
+                        "$ref": "#/components/parameters/sub_title_en_optional"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page_size"
+                    },
+                    {
+                        "$ref": "#/components/parameters/row_status"
+                    },
+                    {
+                        "$ref": "#/components/parameters/order"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Slider"
+                                },
+                                "example": {
+                                    "order": "asc",
+                                    "data": [
+                                    ],
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "query_time": "1 second before"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": ["Sliders"]
+            },
+            "post": {
+                "summary": "create",
+                "description": "API endpoint to create a Slider.A successful request response will show 200 HTTP status code",
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Slider"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Slider Created",
+                        "content": {
+                            "appication/json": {
+                                "example": {
+                                    "data": {
+                                        "id": 1,
+                                        "institute_id": "1",
+                                        "organization_id": "1",
+                                        "title": "New Title",
+                                        "title_en": "New Title",
+                                        "sub_title": "No subtitle",
+                                        "sub_title_en": "No subtitle",
+                                        "is_button_available": "1",
+                                        "button_text": "new field",
+                                        "link": "new link",
+                                        "slider_images": [
+                                            "sssss"
+                                        ],
+                                        "alt_title": null,
+                                        "alt_title_en": null,
+                                        "banner_template": null,
+                                        "row_status": "0",
+                                        "created_by": null,
+                                        "updated_by": null,
+                                        "created_at": "2021-11-04T04:24:01.000000Z",
+                                        "updated_at": "2021-11-04T04:24:01.000000Z"
+                                    },
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 201,
+                                        "message": "Slider successfully added",
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": ["Sliders"]
+            }
+        },
+        "/sliders/{SliderId}": {
+            "get": {
+                "summary": "get_one",
+                "description": "API endpoint to get a specified Slider.A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "SliderId",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "required": true,
+                        "description": "Slider ID"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "get Slider by Id",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Slider"
+                                },
+                                "example":{
+                                    "data": {
+                                        "id": 1,
+                                        "institute_id": 1,
+                                        "organization_id": 1,
+                                        "title": "New Title",
+                                        "title_en": "New Title",
+                                        "sub_title": "No subtitle",
+                                        "sub_title_en": "No subtitle",
+                                        "is_button_available": 1,
+                                        "button_text": "new field",
+                                        "link": "new link",
+                                        "slider_images": [
+                                            "sssss"
+                                        ],
+                                        "alt_title": null,
+                                        "alt_title_en": null,
+                                        "banner_template": null,
+                                        "row_status": 0,
+                                        "created_by": null,
+                                        "updated_by": null,
+                                        "created_at": "2021-11-04T04:24:01.000000Z",
+                                        "updated_at": "2021-11-04T04:24:01.000000Z"
+                                    },
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "message": "Slider details",
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": ["Sliders"]
+            },
+            "put": {
+                "summary": "Update",
+                "description": "API endpoint to update the specified Slider. A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "SliderId",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "required": true,
+                        "description": "Slider ID"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Slider"
+                            },
+                            "example": {
+                                "data": {
+                                    "id": 1,
+                                    "institute_id": "1",
+                                    "organization_id": "1",
+                                    "title": "Abar Title",
+                                    "title_en": "Abar Title",
+                                    "sub_title": "New Subtitle",
+                                    "sub_title_en": "New Subtitle",
+                                    "is_button_available": "0",
+                                    "button_text": null,
+                                    "link": null,
+                                    "slider_images": [
+                                        "No Image"
+                                    ],
+                                    "alt_title": null,
+                                    "alt_title_en": null,
+                                    "banner_template": null,
+                                    "row_status": "0",
+                                    "created_by": null,
+                                    "updated_by": null,
+                                    "created_at": "2021-11-04T04:24:01.000000Z",
+                                    "updated_at": "2021-11-04T04:58:31.000000Z"
+                                },
+                                "_response_status": {
+                                    "success": true,
+                                    "code": 201,
+                                    "message": "Slider successfully update",
+                                    "query_time": 0
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "data": {
+                                        "id": 1,
+                                        "institute_id": "1",
+                                        "organization_id": "1",
+                                        "title": "Abar title",
+                                        "title_en": "Abar title",
+                                        "sub_title": "No subtitle",
+                                        "sub_title_en": "No subtitle",
+                                        "is_button_available": "0",
+                                        "button_text": null,
+                                        "link": null,
+                                        "slider_images": [
+                                            "aaasss"
+                                        ],
+                                        "alt_title": null,
+                                        "alt_title_en": null,
+                                        "banner_template": null,
+                                        "row_status": "0",
+                                        "created_by": null,
+                                        "updated_by": null,
+                                        "created_at": "2021-11-04T04:24:01.000000Z",
+                                        "updated_at": "2021-11-04T04:54:16.000000Z"
+                                    },
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 201,
+                                        "message": "Slider successfully update",
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": ["Sliders"]
+            },
+            "delete":  {
+                "summary": "delete",
+                "description": "API endpoint to delete the specified Slider.A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "SliderId",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "required": true,
+                        "description": "Slider ID"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "delete",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "message": "Slider deleted successfully.",
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Sliders"
+                ]
+            }
+        },
+        "/faqs": {
+            "get": {
+                "summary": "Get All faqs",
+                "description": "API endpoint to get the list of Sliders.A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "name": "question",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "question_en",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "answer",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "answer_en",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "show_in",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "institute_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "industry_association_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "organization_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "page_size",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "order",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": ["ASC","DESC"]
+                        }
+                    },
+                    {
+                        "name": "row_status",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "description": "1=>Active 0=>InActive",
+                            "enum": [1,0]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get list of all faqs",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "order": "ASC",
+                                    "data": [
+                                        {
+                                            "id": 1,
+                                            "show_in": 7,
+                                            "institute_id": 1,
+                                            "industry_association_id": 1,
+                                            "organization_id": 5,
+                                            "question": "I was thinking I should be like then?' And she began fancying the sort of people live about here?'.",
+                                            "question_en": "Hatter, 'you wouldn't talk about her and to hear it say, as it turned round and round the thistle.",
+                                            "answer": "Hatter, 'you wouldn't talk about her and to hear..",
+                                            "answer_en": "March Hare went on",
+                                            "row_status": 1,
+                                            "created_by": null,
+                                            "updated_by": null,
+                                            "created_at": "2021-11-03T12:58:59.000000Z",
+                                            "updated_at": "2021-11-03T12:58:59.000000Z"
+                                        },
+                                        {
+                                            "id": 2,
+                                            "show_in": 1,
+                                            "institute_id": 0,
+                                            "industry_association_id": 0,
+                                            "organization_id": 9,
+                                            "question": "March Hare. 'Then it wasn't trouble enough hatching the eggs.",
+                                            "question_en": "Mouse to Alice for protection.",
+                                            "row_status": 1,
+                                            "created_by": null,
+                                            "updated_by": null,
+                                            "created_at": "2021-11-03T12:58:59.000000Z",
+                                            "updated_at": "2021-11-03T12:58:59.000000Z"
+                                        }
+                                    ],
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "message": null,
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": ["faqs"]
+            },
+            "post": {
+                "summary": "create",
+                "description": "API endpoint to create a faq.A successful request response will show 200 HTTP status code",
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/faq"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "create",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "data": {
+                                        "show_in": "1",
+                                        "institute_id": null,
+                                        "industry_association_id": null,
+                                        "organization_id": null,
+                                        "question": "New Question",
+                                        "answer": "New Answer",
+                                        "answer_en": null,
+                                        "row_status": "0",
+                                        "updated_at": "2021-11-04T06:03:46.000000Z",
+                                        "created_at": "2021-11-04T06:03:46.000000Z",
+                                        "id": 21
+                                    },
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 201,
+                                        "message": "Faq successfully added",
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": ["faqs"]
+            }
+        },
+        "/faqs/{faqId}": {
+            "get": {
+                "summary": "Get All faqs",
+                "description": "API endpoint to get an faq.A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "name": "faqId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Detail of a faq",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "data": {
+                                        "id": 1,
+                                        "show_in": 7,
+                                        "institute_id": 1,
+                                        "industry_association_id": 1,
+                                        "organization_id": 5,
+                                        "question": "I was thinking I should be like then?' And she began fancying the sort of people live about here?'.",
+                                        "question_en": "Hatter, 'you wouldn't talk about her and to hear it say, as it turned round and round the thistle.",
+                                        "answer": "Hatter, 'you wouldn't talk about her and to hear it say, as it turned round and round the thistle.",
+                                        "answer_en": "March Hare went on. 'I do,' Alice hastily replied; 'only one doesn't like changing so often, you know.' He was an old Crab took the watch and looked along the course, here and there she saw in my.",
+                                        "row_status": 1,
+                                        "created_by": null,
+                                        "updated_by": null,
+                                        "created_at": "2021-11-03T12:58:59.000000Z",
+                                        "updated_at": "2021-11-03T12:58:59.000000Z"
+                                    },
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "message": null,
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": ["faqs"]
+            },
+            "put": {
+                "summary": "Update a specific faq",
+                "description": "API endpoint to update a specific faq.A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "name": "faqId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Update the fields of the faq record",
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/faq"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Updated faq",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "data": {
+                                        "id": 1,
+                                        "show_in": "3",
+                                        "institute_id": "1",
+                                        "industry_association_id": null,
+                                        "organization_id": null,
+                                        "question": "No question",
+                                        "question_en": "Hatter, 'you wouldn't talk about her and to hear it say, as it turned round and round the thistle.",
+                                        "answer": "Why need answer?",
+                                        "answer_en": "NO answer",
+                                        "row_status": "0",
+                                        "created_by": null,
+                                        "updated_by": null,
+                                        "created_at": "2021-11-03T12:58:59.000000Z",
+                                        "updated_at": "2021-11-04T06:17:10.000000Z",
+                                        "deleted_at": null
+                                    },
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "message": "Faq Update Successfully Done",
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": ["faqs"]
+            },
+            "delete": {
+                "summary": "Delete a particular faq",
+                "description": "API endpoint to delete the faq.A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "name": "faqId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Deleted the faq successfully",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "message": "Faq successfully deleted",
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": ["faqs"]
+            }
         }
+
     },
     "components": {
         "securitySchemes": {
@@ -613,7 +1314,7 @@
             "sub_title_en_optional": {
                 "name": "sub_title_en",
                 "in": "query",
-                "required": true,
+                "required": false,
                 "schema": {
                     "type": "string"
                 }
@@ -1914,7 +2615,7 @@
                     "is_button_available"
                 ]
             },
-            "partner":  {
+            "nise3_partner":  {
                 "type": "object",
                 "description": "Provide the partner information",
                 "properties": {
@@ -2166,7 +2867,10 @@
                         "type": "string",
                         "description": "tag en"
                     }
-                }
+                },
+                "required": [
+                    "tag"
+                ]
             },
             "faq": {
                 "type": "object",
@@ -2174,7 +2878,7 @@
                 "properties": {
                    "show_in": {
                        "type": "integer",
-                       "description": "'1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry, 5=>Industry Association'",
+                       "description": "1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry, 5=>Industry Association",
                        "enum": [1,2,3,4,5]
                    },
                     "institute_id": {
@@ -2183,7 +2887,7 @@
                     },
                     "industry_association_id": {
                         "type": "integer",
-                        "description": "For Particular Industry Association Website"
+                        "description": "Required For Particular Industry Association Website, ie-5  "
                     },
                     "organization_id": {
                         "type": "integer",
@@ -2203,7 +2907,13 @@
                         "description": "ACTIVE_STATUS => 1, INACTIVE_STATUS => 0",
                         "enum": [1,0]
                     }
-                }
+                },
+                "required": [
+                    "show_in",
+                    "question",
+                    "answer",
+                    "row_status"
+                ]
             },
             "cms_languages_table": {
                 "type": "object",
@@ -2211,9 +2921,43 @@
                 "properties": {
                     "table_name": {
                         "type": "string"
+                    },
+                    "key_id": {
+                        "type": "integer"
+                    },
+                    "lang_code": {
+                        "type": "string"
+                    },
+                    "column_name": {
+                        "type": "string"
+                    },
+                    "column_value": {
+                        "type": "string"
                     }
-                }
+                },
+                "required": [
+                    "table_name","key_id","lang_code","column_name","column_value"
+                ]
             },
+            "language_codes": {
+                "type": "object",
+                "description": "Provide Language Code",
+                "properties": {
+                    "code": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "native_name": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "code","name","native_name"
+                ]
+            },
+
             "ErrorResponse": {
                 "type": "object",
                 "description": "Recent activities",
@@ -2244,3 +2988,4 @@
         }
     }
 }
+
