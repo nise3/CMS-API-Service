@@ -153,6 +153,12 @@ class SliderService
         return $slider->delete();
     }
 
+
+    /**
+     * @param array $request
+     * @param string $languageCode
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
     public function languageFieldValidator(array $request, string $languageCode): \Illuminate\Contracts\Validation\Validator
     {
         $customMessage = [
@@ -175,21 +181,7 @@ class SliderService
                 'max:500',
                 'min:2'
             ],
-            'sub_title' => [
-                'required',
-                'string',
-                'max:191',
-                'min:2'
-            ],
-            'button_text' => [
-                'nullable',
-                Rule::requiredIf(function () {
-                    return request('is_button_available') == Slider::IS_BUTTON_AVAILABLE_YES;
-                }),
-                'string',
-                'max:20'
-            ],
-            'alt_title' => [
+            'image_alt_title' => [
                 'string',
                 'nullable'
             ]

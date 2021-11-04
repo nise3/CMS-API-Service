@@ -33,12 +33,12 @@ $router->group(['prefix' => 'api/v1', 'as' => 'api.v1'], function () use ($route
 
     $router->get('countries', ['as' => 'countries.get-list', 'uses' => 'CountryController@getList']);
 
-    $customRouter()->resourceRoute('partners', 'PartnerController')->render();
+    $customRouter()->resourceRoute('nise3-partners', 'Nise3PartnerController')->render();
     $customRouter()->resourceRoute('notice-or-news', 'NoticeOrNewsController')->render();
     $customRouter()->resourceRoute('recent-activities', 'RecentActivityController')->render();
 
-    $customRouter()->resourceRoute('gallery-categories', 'GalleryCategoryController')->render();
-    $customRouter()->resourceRoute('galleries', 'GalleryController')->render();
+    $customRouter()->resourceRoute('gallery-albums', 'GalleryAlbumController')->render();
+    $customRouter()->resourceRoute('gallery-images-videos', 'GalleryImageVideoController')->render();
     $customRouter()->resourceRoute('video-categories', 'VideoCategoryController')->render();
     $customRouter()->resourceRoute('videos', 'VideoController')->render();
     $customRouter()->resourceRoute('sliders', 'SliderController')->render();

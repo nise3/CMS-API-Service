@@ -15,7 +15,7 @@ abstract class BaseModel extends Model
     use HasFactory;
 
 
-    public const IMAGE_PATH_VALIDATION_RULE='regex:/^(http|https):\/\/[a-zA-Z-\-\.0-9]+$/';
+    public const IMAGE_PATH_VALIDATION_RULE='url';
     public const HTTP_URL='regex:/^(http|https):\/\/[a-zA-Z-\-\.0-9]+$/';
 
     public const COMMON_GUARDED_FIELDS_SIMPLE = ['id', 'created_at', 'updated_at'];
@@ -33,6 +33,14 @@ abstract class BaseModel extends Model
     public const SHOW_IN_TSP = 3;
     public const SHOW_IN_INDUSTRY = 4;
     public const SHOW_IN_INDUSTRY_ASSOCIATION = 5;
+
+    public const  FEATURED_YES = 1;
+    public const  FEATURED_NO = 0;
+
+    public const FEATURED = [
+        self::FEATURED_YES,
+        self::FEATURED_NO
+    ];
 
     public const SHOW_INS = [
         self::SHOW_IN_NISE3,
