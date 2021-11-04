@@ -1926,7 +1926,259 @@
                             }
                         }
                     }
+                },
+                "tags": ["static-pages"]
+            },
+            "post": {
+                "summary": "Create a static page",
+                "description": "API endpoint to create a static page.A successful request response will show 200 HTTP status code",
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StaticPage"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successfull",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "data": {
+                                        "content_type": "1",
+                                        "show_in": "1",
+                                        "content_slug_or_id": "1",
+                                        "institute_id": null,
+                                        "organization_id": null,
+                                        "title_en": "NewTitle",
+                                        "title": "NewTitle",
+                                        "sub_title_en": null,
+                                        "sub_title": null,
+                                        "contents_en": null,
+                                        "contents": null,
+                                        "row_status": "1",
+                                        "updated_at": "2021-11-04T11:29:41.000000Z",
+                                        "created_at": "2021-11-04T11:29:41.000000Z",
+                                        "id": 1
+                                    },
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 201,
+                                        "message": "Static Page is successfully added",
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": ["static-pages"]
+            }
+        },
+        "/static-pages/{staticPagesId}": {
+            "get": {
+                "summary": "Get static Page by Id",
+                "description": "API endpoint to get a Static Page.A successful request response will show 200 HTTP status code",
+                "parameters": [{
+                    "name": "staticPagesId",
+                    "in": "path",
+                    "required": true
                 }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successfull",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "data": {
+                                        "id": 1,
+                                        "content_type": 1,
+                                        "show_in": 1,
+                                        "industry_association_id": null,
+                                        "content_slug_or_id": "1",
+                                        "institute_id": null,
+                                        "organization_id": null,
+                                        "title": "NewTitle",
+                                        "title_en": "NewTitle",
+                                        "sub_title": null,
+                                        "sub_title_en": null,
+                                        "contents": null,
+                                        "contents_en": null,
+                                        "row_status": 1,
+                                        "created_by": null,
+                                        "updated_by": null,
+                                        "created_at": "2021-11-04T11:29:41.000000Z",
+                                        "updated_at": "2021-11-04T11:29:41.000000Z"
+                                    },
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "message": null,
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": ["static-pages"]
+
+            },
+            "put": {
+                "summary": "Update a static page ",
+                "description": "API endpoint to update a Static Page.A successful request response will show 200 HTTP status code",
+                "parameters": [{
+                    "name": "staticPagesId",
+                    "in": "path",
+                    "required": true
+                }],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StaticPage"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successfull",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "data": {
+                                        "id": 1,
+                                        "content_type": "1",
+                                        "show_in": "1",
+                                        "content_slug_or_id": "1",
+                                        "institute_id": "1",
+                                        "organization_id": null,
+                                        "industry_association_id": null,
+                                        "title": "WWWWWWWWWWW",
+                                        "title_en": "WWWWWWWWW",
+                                        "sub_title": null,
+                                        "sub_title_en": null,
+                                        "contents": null,
+                                        "contents_en": null,
+                                        "created_by": null,
+                                        "updated_by": null,
+                                        "row_status": "1",
+                                        "created_at": "2021-11-04T11:29:41.000000Z",
+                                        "updated_at": "2021-11-04T11:39:34.000000Z",
+                                        "deleted_at": null
+                                    },
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 201,
+                                        "message": "Static Page is successfully updated",
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": ["static-pages"]
+
+            },
+            "delete": {
+                "summary": "Delete a static page",
+                "description": "API endpoint to delete a Static Page.A successful request response will show 200 HTTP status code",
+                "parameters": [{
+                    "name": "staticPagesId",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "integer"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successfull",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "message": "Static page successfully deleted",
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": ["static-pages"]
+
+            }
+        },
+        "/recent-activities": {
+            "get": {
+                "summary": "Get All recent activity",
+                "description": "API endpoint to get all recent activities.A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/title_optional"
+                    },
+                    {
+                        "$ref": "#/components/parameters/title_en_optional"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page_size"
+                    },
+                    {
+                        "$ref": "#/components/parameters/order"
+                    },
+                    {
+                        "$ref": "#/components/parameters/row_status"
+                    }
+
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successfull",
+                        "content": {
+                            "application/json": {
+
+                            }
+
+                        }
+                    }
+                },
+                "tags": ["recent-activities"]
+            },
+            "post": {
+                "summary": "Create a new recent activity",
+                "description": "API endpoint to create a Recent Activity.A successful request response will show 200 HTTP status code",
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RecentActivity"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful",
+                        "content": {
+                            "application/json": {
+
+                            }
+                        }
+                    }
+                },
+                "tags": ["recent-activities"]
             }
         }
 
