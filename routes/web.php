@@ -44,17 +44,18 @@ $router->group(['prefix' => 'api/v1', 'as' => 'api.v1'], function () use ($route
     $customRouter()->resourceRoute('sliders', 'SliderController')->render();
     $customRouter()->resourceRoute('static-pages', 'StaticPageController')->render();
     $customRouter()->resourceRoute('faqs', 'FaqController')->render();
+    $customRouter()->resourceRoute('visitor-feedback-suggestions', 'VisitorFeedbackSuggestionController')->render();
 
     /** Language Field Remove From CsmLanguage Table */
     $router->post('delete-other-language',
         [
-            "as"=>"cms.delete-other-language",
-            "uses"=>"CmsLanguageController@deleteLanguageFieldByKeyId"
+            "as" => "cms.delete-other-language",
+            "uses" => "CmsLanguageController@deleteLanguageFieldByKeyId"
         ]
     );
 });
-$router->get("language-code",function (){
-   $languageCode=new LanguageCodeService();
-   dd(\Illuminate\Support\Facades\Cache::get('language_codes'));
+$router->get("language-code", function () {
+    $languageCode = new LanguageCodeService();
+    dd(\Illuminate\Support\Facades\Cache::get('language_codes'));
 });
 
