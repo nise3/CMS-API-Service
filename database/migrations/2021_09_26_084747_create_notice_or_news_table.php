@@ -23,15 +23,12 @@ class CreateNoticeOrNewsTable extends Migration
             $table->unsignedTinyInteger('show_in')
                 ->comment('1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry, 5=>Industry Association');
 
-            $table->dateTime('published_at')->nullable();
-            $table->dateTime('archived_at')->nullable();
-
-            $table->string('title_en', 250);
-            $table->string('title', 500);
-
             $table->unsignedInteger('institute_id')->nullable();
             $table->unsignedInteger('organization_id')->nullable();
-            $table->unsignedInteger('organization_association_id')->nullable();
+            $table->unsignedInteger('industry_association_id')->nullable();
+
+            $table->string('title', 500);
+            $table->string('title_en', 250)->nullable();
 
             $table->text('details')->nullable();
             $table->text('details_en')->nullable();
@@ -46,6 +43,9 @@ class CreateNoticeOrNewsTable extends Migration
             $table->string('file_path')->nullable();
             $table->string("file_alt_title_en")->nullable();
             $table->string("file_alt_title")->nullable();
+
+            $table->dateTime('published_at')->nullable();
+            $table->dateTime('archived_at')->nullable();
 
             $table->unsignedTinyInteger('row_status')
                 ->default(1)

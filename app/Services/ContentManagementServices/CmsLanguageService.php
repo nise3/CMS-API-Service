@@ -3,36 +3,45 @@
 namespace App\Services\ContentManagementServices;
 
 use App\Models\CmsLanguage;
+use App\Services\Common\LanguageCodeService;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+
 
 class CmsLanguageService
 {
 
     /**
-     * @param string $tableName
-     * @param int $keyId
+     * @param JsonResource $model
      * @param string $languageColumnName
-     * @return array
+     * @return string
      */
-    public function getLanguageValue(string $tableName, int $keyId, string $languageColumnName): array
+    public function getLanguageValue(JsonResource $model, string $languageColumnName): string
     {
-        $languageCode = request()->server('HTTP_ACCEPT_LANGUAGE');
-        $response = [];
-        $languageAttributeKey = getLanguageAttributeKey($tableName, $keyId, $languageCode, $languageColumnName);
+        $languageCode = strtolower(request()->server('HTTP_ACCEPT_LANGUAGE'));
+        $response = "";
+
+        if ($languageCode == 'en') {
+            $englishColumnAttribute = $languageColumnName . "_en";
+            return $model->$englishColumnAttribute ?? "";
+        }
+
+        $languageAttributeKey = getLanguageAttributeKey($model->getTable(), $model->id, $languageCode, $languageColumnName);
         if (Cache::has($languageAttributeKey)) {
-            $response[$languageColumnName . "_" . strtolower($languageCode)] = Cache::get($languageAttributeKey);
+            $response = Cache::get($languageAttributeKey);
         } else {
-            $cmsLanguageValue = $this->getLanguageValueByKeyId($tableName, $keyId, $languageCode, $languageColumnName);
+            $cmsLanguageValue = $this->getLanguageValueByKeyId($model->getTable(), $model->id, $languageCode, $languageColumnName);
             if ($cmsLanguageValue) {
-                $response[$languageColumnName . "_" . strtolower($languageCode)] = $cmsLanguageValue;
-                Cache::put($languageAttributeKey, $response[$languageColumnName . "_" . strtolower($languageCode)]);
+                $response = $cmsLanguageValue;
+                Cache::put($languageAttributeKey, $response);
             }
         }
         return $response;
     }
+
 
     /**
      * @param string $tableName
@@ -49,14 +58,12 @@ class CmsLanguageService
                 ->first()->column_value ?? "";
     }
 
-
     /**
      * @param array $data
      * @return bool
      */
     public function store(array $data): bool
     {
-        $cmsLanguage = app(CmsLanguage::class);
         return CmsLanguage::insert($data);
     }
 

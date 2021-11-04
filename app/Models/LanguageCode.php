@@ -18,4 +18,12 @@ class LanguageCode extends BaseModel
 
     public $timestamps = false;
 
+    public static function isNative(string $languageCode): bool
+    {
+        if(!$languageCode){
+            return true;
+        }
+        return strtolower($languageCode)=="bn";
+    }
+
 }

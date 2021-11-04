@@ -6,6 +6,7 @@ use App\Http\CustomInterfaces\Contract\ResourceInterface;
 use App\Http\Resources\FaqResource;
 use App\Models\BaseModel;
 use App\Models\Faq;
+use App\Models\LanguageCode;
 use App\Models\Slider;
 use App\Services\Common\LanguageCodeService;
 use App\Services\ContentManagementServices\CmsLanguageService;
@@ -40,8 +41,9 @@ class FaqController extends Controller implements ResourceInterface
      */
     public function getList(Request $request): JsonResponse
     {
+        $languageCode = strtolower(request()->server('HTTP_ACCEPT_LANGUAGE'));
         $filter = $this->faqService->filterValidator($request)->validate();
-        $response = FaqResource::collection($this->faqService->getFaqList($filter))->resource;
+        $response = LanguageCode::isNative($languageCode) ? $this->faqService->getFaqList($filter):FaqResource::collection($this->faqService->getFaqList($filter))->resource;
         $response = getResponse($response->toArray(), $this->startTime, !BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
@@ -82,7 +84,7 @@ class FaqController extends Controller implements ResourceInterface
                 $languageFillablePayload = [];
                 foreach ($otherLanguagePayload as $key => $value) {
                     $languageValidatedData = $this->faqService->languageFieldValidator($value, $key)->validate();
-                    foreach (Faq::FAQ_LANGUAGE_FILLABLE as $fillableColumn){
+                    foreach (Faq::FAQ_LANGUAGE_FILLABLE as $fillableColumn) {
                         if (!empty($languageValidatedData[$fillableColumn])) {
                             $languageFillablePayload[] = [
                                 "table_name" => $faq->getTable(),
@@ -129,7 +131,7 @@ class FaqController extends Controller implements ResourceInterface
             if ($isLanguage) {
                 foreach ($otherLanguagePayload as $key => $value) {
                     $languageValidatedData = $this->faqService->languageFieldValidator($value, $key)->validate();
-                    foreach (Faq::FAQ_LANGUAGE_FILLABLE as $fillableColumn){
+                    foreach (Faq::FAQ_LANGUAGE_FILLABLE as $fillableColumn) {
                         if (!empty($languageValidatedData[$fillableColumn])) {
                             $languageFillablePayload = [
                                 "table_name" => $faq->getTable(),
