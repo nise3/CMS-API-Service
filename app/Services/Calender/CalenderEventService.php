@@ -11,6 +11,8 @@ use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Symfony\Component\HttpFoundation\Response;
@@ -65,7 +67,9 @@ class CalenderEventService
             $now = CarbonImmutable::now();
             if ($type == CalenderEvent::CALENDER_TYPE_YEAR) {
                 $year = $year ?: $now->year;
-                $calenderEventsBuilder->whereYear('start_date', $year)->orWhereYear('end_date', $year);
+                $calenderEventsBuilder->where(function ($builder) use ($year){
+                    $builder->whereYear('start_date', $year)->orWhereYear('end_date', $year);
+                });
 
             } elseif ($type == CalenderEvent::CALENDER_TYPE_MONTH) {
                 $month = $month ?: $now->month;
@@ -73,26 +77,33 @@ class CalenderEventService
 
                 $startDate = Carbon::createFromDate($year, $month)->startOfMonth();
                 $endDate = Carbon::createFromDate($year, $month)->endOfMonth();
-                $calenderEventsBuilder->whereBetween('start_date', [$startDate, $endDate])->orWhereBetween('end_date', [$startDate, $endDate]);
+                $calenderEventsBuilder->where(function ($builder) use ($startDate,$endDate){
+                    $builder->whereBetween('start_date', [$startDate, $endDate])->orWhereBetween('end_date', [$startDate, $endDate]);
+                });
 
             } elseif ($type == CalenderEvent::CALENDER_TYPE_DAY) {
                 $date = $date ?: $now;
-                $calenderEventsBuilder->whereDate('start_date', $date)->orWhereDate('end_date', $date);
+                $calenderEventsBuilder->where(function ($builder) use ($date){
+                    $builder->whereDate('start_date', $date)->orWhereDate('end_date', $date);
+                });
 
             } elseif ($type == CalenderEvent::CALENDER_TYPE_WEEK) {
                 $date =  $date ? CarbonImmutable::createFromDate($date) : $now;
 
                 $fromDate = $date->startOfWeek();
                 $toDate = $date->endOfWeek();
-                $calenderEventsBuilder->whereBetween('start_date', [$fromDate, $toDate])->orWhereBetween('end_date', [$fromDate, $toDate]);
+                $calenderEventsBuilder->where(function ($builder) use ($fromDate,$toDate){
+                    $builder->whereBetween('start_date', [$fromDate, $toDate])->orWhereBetween('end_date', [$fromDate, $toDate]);
+                });
 
             } elseif ($type == CalenderEvent::CALENDER_TYPE_SCHEDULE) {
 
                 $fromDate = $fromDate ?: $now->startOfMonth();
                 $toDate = $toDate ?: $now->endOfMonth();
-                $calenderEventsBuilder->whereBetween('start_date', [$fromDate, $toDate])->orWhereBetween('end_date', [$fromDate, $toDate]);
+                $calenderEventsBuilder->where(function ($builder) use ($fromDate, $toDate){
+                    $builder->whereBetween('start_date', [$fromDate, $toDate])->orWhereBetween('end_date', [$fromDate, $toDate]);
+                });
             }
-
         }
 
         if (!empty($title)) {
@@ -303,14 +314,42 @@ class CalenderEventService
                 'nullable',
                 'date'
             ],
-            'page_size' => 'numeric|gt:0',
-            'page' => 'numeric|gt:0',
+            'youth_id' => [
+                'nullable',
+                'int'
+            ],
+            'institute_id' => [
+                'nullable',
+                'int'
+            ],
+            'organization_id' => [
+                'nullable',
+                'int'
+            ],
+            'batch_id' => [
+                'nullable',
+                'int'
+            ],
+            'industry_association_id' => [
+                'nullable',
+                'int'
+            ],
+            'title' => [
+                'nullable',
+                'string'
+            ],
+            'title_en' => [
+                'nullable',
+                'string'
+            ],
+            'page_size' => 'int|gt:0',
+            'page' => 'int|gt:0',
             'order' => [
                 'string',
                 Rule::in([BaseModel::ROW_ORDER_ASC, BaseModel::ROW_ORDER_DESC])
             ],
             'row_status' => [
-                "numeric",
+                "int",
                 Rule::in([BaseModel::ROW_STATUS_ACTIVE, BaseModel::ROW_STATUS_INACTIVE]),
             ],
         ], $customMessage);
