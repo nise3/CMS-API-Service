@@ -176,20 +176,22 @@ class RecentActivityService
                 "regex:/[a-z]/",
                 Rule::in(LanguageCodeService::getLanguageCode())
             ],
-            'content_title' => [
-                "required",
-                "string",
-                "max:600",
-                "min:2"
+            'title' => [
+                'required',
+                'string',
+                'max:1000',
+                'min:2'
             ],
-            'content_description' => [
-                "nullable",
-                "string"
+            'description' => [
+                'nullable',
+                'string'
             ],
-            'alt_title' => [
-                "nullable",
-                "string",
-            ]
+            'image_alt_title' => [
+                'nullable',
+                'string',
+                'max:500',
+                'min:2'
+            ],
         ];
         return Validator::make($request, $rules, $customMessage);
     }
@@ -201,17 +203,12 @@ class RecentActivityService
     public function filterValidator(Request $request): \Illuminate\Contracts\Validation\Validator
     {
         $customMessage = [
-            'order.in' => [
-                'code' => 30000,
-                "message" => 'Order must be within ASC or DESC',
-            ],
-            'row_status.in' => [
-                'code' => 30000,
-                'message' => 'Row status must be within 1 or 0'
-            ]
+            'order.in' => 'Order must be within ASC or DESC.[30000]',
+            'row_status.in' => 'Row status must be within 1 or 0. [30000]'
         ];
-        if (!empty($request['order'])) {
-            $request['order'] = strtoupper($request['order']);
+
+        if ($request->filled('order')) {
+            $request->offsetSet('order', strtoupper($request->get('order')));
         }
         $rules = [
             "title_en" => "nullable|string",
@@ -239,14 +236,11 @@ class RecentActivityService
     {
         $requestData = $request->all();
         $customMessage = [
-            'row_status.in' => [
-                'code' => 30000,
-                'message' => 'Row status must be within 1 or 0'
-            ]
+            'row_status.in' => 'Row status must be within 1 or 0. [30000]'
         ];
         $rules = [
             'show_in' => [
-                'nullable',
+                'required',
                 'integer',
                 Rule::in(BaseModel::SHOW_INS)
             ],
@@ -292,6 +286,7 @@ class RecentActivityService
             ],
             'Content_type' => [
                 'required',
+                'integer',
                 Rule::in(RecentActivity::CONTENT_TYPES)
             ],
             'content_path' => [
@@ -313,7 +308,7 @@ class RecentActivityService
             ],
             'collage_position' => [
                 'nullable',
-                'string',
+                'integer',
                 'max:600'
             ],
             'thumb_image_path' => [
@@ -333,6 +328,12 @@ class RecentActivityService
                 'max:500',
                 'min:2'
             ],
+            'image_alt_title_en' => [
+                'nullable',
+                'string',
+                'max:250',
+                'min:2'
+            ],
             'description_en' => [
                 'nullable',
                 'string'
@@ -349,21 +350,21 @@ class RecentActivityService
 
 
         ];
-        if ($requestData['content_type'] == RecentActivity::CONTENT_TYPE_YOUTUBE_VIDEO) {
+        if (!empty($requestData['content_type']) && $requestData['content_type'] == RecentActivity::CONTENT_TYPE_YOUTUBE_VIDEO) {
             $rules['embedded_id'] = [
                 'required',
                 'max:300'
             ];
         }
 
-        if (($requestData['content_type'] == RecentActivity::CONTENT_TYPE_FACEBOOK_VIDEO) or $requestData['content_type'] == RecentActivity::CONTENT_TYPE_YOUTUBE_VIDEO) {
+        if (!empty($requestData['content_type']) && $requestData['content_type'] == RecentActivity::CONTENT_TYPE_FACEBOOK_VIDEO || $requestData['content_type'] == RecentActivity::CONTENT_TYPE_YOUTUBE_VIDEO) {
             $rules['embedded_url'] = [
                 'required',
                 'string',
                 'max:800'
             ];
         }
-
+        $rules = array_merge($rules, BaseModel::OTHER_LANGUAGE_VALIDATION_RULES);
         return Validator::make($request->all(), $rules, $customMessage);
     }
 

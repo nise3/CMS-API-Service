@@ -66,7 +66,7 @@ class StaticPageController extends Controller
 
         $response = new StaticPageResource($this->staticPageService->getOneStaticPage($id));
         $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
-        return Response::json($response);
+        return Response::json($response,ResponseAlias::HTTP_OK);
     }
 
     /**

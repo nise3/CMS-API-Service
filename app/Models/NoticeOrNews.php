@@ -52,7 +52,7 @@ class NoticeOrNews extends BaseModel
     public const LANGUAGE_ATTR_TITLE = "title";
     public const LANGUAGE_ATTR_DETAILS = "details";
     public const LANGUAGE_ATTR_IMAGE_ALT_TITLE = "image_alt_title";
-    public const LANGUAGE_ATTR_FILE_ALT_TITLE = "image_alt_title";
+    public const LANGUAGE_ATTR_FILE_ALT_TITLE = "file_alt_title";
 
     public const NOTICE_OR_NEWS_LANGUAGE_FILLABLE = [
         self::LANGUAGE_ATTR_TITLE,

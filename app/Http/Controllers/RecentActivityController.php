@@ -115,7 +115,7 @@ class RecentActivityController extends Controller
     {
         $recentActivity = RecentActivity::findOrFail($id);
         $validated = $this->recentActivityService->validator($request, $id)->validate();
-        $message = "Recent Activity  Update is Successfully Done";
+        $message = "Recent Activity is Successfully Updated";
         $otherLanguagePayload = $validatedData['other_language_fields'] ?? [];
         $isLanguage = (bool)count(array_intersect(array_keys($otherLanguagePayload), LanguageCodeService::getLanguageCode()));
         DB::beginTransaction();
@@ -145,7 +145,6 @@ class RecentActivityController extends Controller
             DB::rollBack();
             throw $e;
         }
-        $recentActivity = $this->recentActivityService->update($recentActivity, $validated);
 
         return Response::json($response, ResponseAlias::HTTP_CREATED);
     }
