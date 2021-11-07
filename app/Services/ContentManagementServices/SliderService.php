@@ -181,10 +181,21 @@ class SliderService
                 'max:500',
                 'min:2'
             ],
-            'image_alt_title' => [
+            'sub_title' => [
+                'required',
+                'string',
+                'max:191',
+                'min:2'
+            ],
+            'button_text' => [
+                'nullable',
+                'string',
+                'max:20'
+            ],
+            'alt_title' => [
                 'string',
                 'nullable'
-            ]
+            ],
         ];
         return Validator::make($request, $rules, $customMessage);
     }
@@ -212,22 +223,10 @@ class SliderService
                 'nullable',
                 'int',
             ],
-            'title_en' => [
-                'required',
-                'string',
-                'max:191',
-                'min:2'
-            ],
             'title' => [
                 'required',
                 'string',
                 'max:500',
-                'min:2'
-            ],
-            'sub_title_en' => [
-                'required',
-                'string',
-                'max:191',
                 'min:2'
             ],
             'sub_title' => [
@@ -259,10 +258,6 @@ class SliderService
             ],
             'slider_images.*' => [
                 'string',
-            ],
-            'alt_title_en' => [
-                'string',
-                'nullable'
             ],
             'alt_title' => [
                 'string',
