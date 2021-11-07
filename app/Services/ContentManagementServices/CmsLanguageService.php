@@ -4,11 +4,13 @@ namespace App\Services\ContentManagementServices;
 
 use App\Models\CmsLanguage;
 use App\Services\Common\LanguageCodeService;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use JetBrains\PhpStorm\NoReturn;
 
 
 class CmsLanguageService
@@ -23,12 +25,6 @@ class CmsLanguageService
     {
         $languageCode = strtolower(request()->server('HTTP_ACCEPT_LANGUAGE'));
         $response = "";
-
-        if ($languageCode == 'en') {
-            $englishColumnAttribute = $languageColumnName . "_en";
-            return $model->$englishColumnAttribute ?? "";
-        }
-
         $languageAttributeKey = getLanguageAttributeKey($model->getTable(), $model->id, $languageCode, $languageColumnName);
         if (Cache::has($languageAttributeKey)) {
             $response = Cache::get($languageAttributeKey);
@@ -56,6 +52,18 @@ class CmsLanguageService
                 ->where('lang_code', strtoupper($languageCode))
                 ->where('key_id', $keyId)->where('column_name', $languageColumnName)
                 ->first()->column_value ?? "";
+    }
+
+    public static function otherLanguageResponse(Collection $cmsLanguage): array
+    {
+        $otherLanguage = [];
+        /** @var CmsLanguage $language */
+        foreach ($cmsLanguage as $language) {
+            $indexKey = $language->lang_code;
+            $column = $language->column_name;
+            $otherLanguage[$indexKey][$column] = $language->column_value;
+        }
+        return $otherLanguage;
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\BaseModel;
 use App\Models\Faq;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -12,7 +13,7 @@ class FaqFactory extends Factory
     public function definition(): array
     {
     	return [
-            "show_in"=>$this->faker->randomDigit(),
+            "show_in"=>BaseModel::SHOW_IN_NISE3,
             "institute_id"=>$this->faker->randomDigit(),
             "industry_association_id"=>$this->faker->randomDigit(),
             "organization_id"=>$this->faker->randomDigit(),

@@ -46,9 +46,7 @@ class FaqService
             'faqs.industry_association_id',
             'faqs.organization_id',
             'faqs.question',
-            'faqs.question_en',
             'faqs.answer',
-            'faqs.answer_en',
             'faqs.row_status',
             'faqs.created_by',
             'faqs.updated_by',
@@ -57,6 +55,7 @@ class FaqService
         ]);
 
         $faqBuilder->orderBy('faqs.id', $order);
+
         if (is_numeric($showIn)) {
             $faqBuilder->where('faqs.show_in', $showIn);
         }
@@ -109,9 +108,7 @@ class FaqService
             'faqs.industry_association_id',
             'faqs.organization_id',
             'faqs.question',
-            'faqs.question_en',
             'faqs.answer',
-            'faqs.answer_en',
             'faqs.row_status',
             'faqs.created_by',
             'faqs.updated_by',
@@ -175,7 +172,7 @@ class FaqService
                 "required",
                 "integer",
                 "gt:0",
-                Rule::in(BaseModel::SHOW_INS)
+                Rule::in(array_keys(BaseModel::SHOW_INS))
             ],
             'institute_id' => [
                 Rule::requiredIf(function () use ($request) {
@@ -203,8 +200,6 @@ class FaqService
             ],
             'question' => 'required|max:1800|min:2',
             'answer' => 'required|min:2',
-            'question_en' => 'nullable|max:600|min:2',
-            'answer_en' => 'nullable|min:2',
             'row_status' => [
                 'required_if:' . $id . ',!=,null',
                 'nullable',

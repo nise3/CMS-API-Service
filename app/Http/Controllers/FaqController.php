@@ -7,6 +7,7 @@ use App\Http\Resources\FaqResource;
 use App\Models\BaseModel;
 use App\Models\Faq;
 use App\Models\LanguageCode;
+use App\Models\LanguageConfig;
 use App\Models\Slider;
 use App\Services\Common\LanguageCodeService;
 use App\Services\ContentManagementServices\CmsLanguageService;
@@ -41,9 +42,8 @@ class FaqController extends Controller implements ResourceInterface
      */
     public function getList(Request $request): JsonResponse
     {
-        $languageCode = strtolower(request()->server('HTTP_ACCEPT_LANGUAGE'));
         $filter = $this->faqService->filterValidator($request)->validate();
-        $response = LanguageCode::isNative($languageCode) ? $this->faqService->getFaqList($filter):FaqResource::collection($this->faqService->getFaqList($filter))->resource;
+        $response = FaqResource::collection($this->faqService->getFaqList($filter))->resource;
         $response = getResponse($response->toArray(), $this->startTime, !BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
@@ -58,6 +58,21 @@ class FaqController extends Controller implements ResourceInterface
     public function read(Request $request, int $id): JsonResponse
     {
         $response = new FaqResource($this->faqService->getOneFaq($id));
+        $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
+        return Response::json($response, ResponseAlias::HTTP_OK);
+    }
+
+    /**
+     * Display the specified resource from client site.
+     *
+     * @param Request $request
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function clientSiteRead(Request $request, int $id): JsonResponse
+    {
+        $response = new FaqResource($this->faqService->getOneFaq($id));
+        $request->offsetSet(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY, BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG);
         $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
@@ -95,7 +110,6 @@ class FaqController extends Controller implements ResourceInterface
                             ];
                         }
                     }
-
                 }
                 app(CmsLanguageService::class)->store($languageFillablePayload);
             }
@@ -105,7 +119,7 @@ class FaqController extends Controller implements ResourceInterface
             DB::rollBack();
             throw $e;
         }
-        return Response::json($response, ResponseAlias::HTTP_CREATED);
+        return Response::json($request->all(), ResponseAlias::HTTP_CREATED);
     }
 
     /**

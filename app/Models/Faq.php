@@ -44,12 +44,4 @@ class Faq extends BaseModel
     ];
 
 
-    /**
-     * @return HasMany
-     */
-    public function cmsLanguages(): HasMany
-    {
-        return $this->hasMany(CmsLanguage::class, 'key_id', "id");
-    }
-
 }

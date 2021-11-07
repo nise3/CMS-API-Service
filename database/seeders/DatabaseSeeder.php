@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call(GeoLocationDatabaseSeeder::class);
         $this->call(CountryTableSeeder::class);
         $this->call(LanguageCodeSeeder::class);
+        $this->call(LanguageConfigSeeder::class);
         $this->call(FaqSeeder::class);
     }
 }
