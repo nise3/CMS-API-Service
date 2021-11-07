@@ -2,8 +2,8 @@
 
 namespace App\Http\Resources;
 
+use App\Models\BaseModel;
 use App\Models\StaticPage;
-use App\Services\Common\LanguageCodeService;
 use App\Services\ContentManagementServices\CmsLanguageService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -18,8 +18,6 @@ class StaticPageResource extends JsonResource
      */
     public function toArray($request): array
     {
-        $languageCode = strtolower($request->server('HTTP_ACCEPT_LANGUAGE'));
-
         /** @var StaticPage $this */
         $response = [
             "id" => $this->id,
@@ -33,12 +31,23 @@ class StaticPageResource extends JsonResource
             "sub_title" => $this->sub_title,
             "contents" => $this->contents
         ];
-        if (!empty(StaticPage::STATIC_PAGE_LANGUAGE_FILLABLE) && is_array(StaticPage::STATIC_PAGE_LANGUAGE_FILLABLE) && $languageCode && in_array($languageCode, LanguageCodeService::getLanguageCode())) {
-            $tableName = $this->getTable();
-            $keyId = $this->id;
-            foreach (StaticPage::STATIC_PAGE_LANGUAGE_FILLABLE as $translatableKey) {
-                $translatableValue = app(CmsLanguageService::class)->getLanguageValue($tableName, $keyId, $translatableKey);
-                $response = array_merge($response, $translatableValue);
+
+        if ($request->offsetExists(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY) && $request->get(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY)) {
+            $response['title'] = app(CmsLanguageService::class)->getLanguageValue($this, StaticPage::LANGUAGE_ATTR_TITLE);
+            $response['sub_title'] = app(CmsLanguageService::class)->getLanguageValue($this, StaticPage::LANGUAGE_ATTR_SUB_TITLE);
+            $response['contents'] = app(CmsLanguageService::class)->getLanguageValue($this, StaticPage::LANGUAGE_ATTR_CONTENTS);
+        } else {
+            $response['institute_title'] = "";
+            $response['institute_title_en'] = "";
+            $response['industry_association_title'] = "";
+            $response['industry_association_title_en'] = "";
+            $response['organization_title'] = "";
+            $response['organization_title_en'] = "";
+            $response['title'] = $this->title;
+            $response['sub_title'] = $this->sub_title;
+            $response['contents'] = $this->contents;
+            if (!$request->get(BaseModel::IS_COLLECTION_KEY)) {
+                $response[BaseModel::OTHER_LANGUAGE_FIELDS_KEY] = CmsLanguageService::otherLanguageResponse($this->cmsLanguages);
             }
         }
         $response['row_status'] = $this->row_status;

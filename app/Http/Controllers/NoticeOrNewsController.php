@@ -38,11 +38,10 @@ class NoticeOrNewsController extends Controller
      */
     public function getList(Request $request): JsonResponse
     {
+        $request->offsetSet(BaseModel::IS_COLLECTION_KEY, BaseModel::IS_COLLECTION_FLAG);
         $filter = $this->noticeOrNewsService->filterValidator($request)->validate();
         $response = NoticeOrNewsResource::collection($this->noticeOrNewsService->getNoticeOrNewsServiceList($filter))->resource;
         $response = getResponse($response->toArray(), $this->startTime, !BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
-
-
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
 
@@ -55,7 +54,6 @@ class NoticeOrNewsController extends Controller
     {
         $response = new  NoticeOrNewsResource($this->noticeOrNewsService->getOneNoticeOrNewsService($id));
         $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
-
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
 
@@ -130,8 +128,6 @@ class NoticeOrNewsController extends Controller
      */
     public function update(Request $request, int $id): JsonResponse
     {
-        Log::info("ffffffffffffffffff");
-
         $noticeOrNews = NoticeOrNews::findOrFail($id);
         $validatedData = $this->noticeOrNewsService->validator($request, $id)->validate();
         $message = "NoticeOrNews Update Successfully Done";

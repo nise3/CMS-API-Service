@@ -47,6 +47,7 @@ class StaticPageController extends Controller
      */
     public function getList(Request $request): JsonResponse
     {
+        $request->offsetSet(BaseModel::IS_COLLECTION_KEY, BaseModel::IS_COLLECTION_FLAG);
         $filter = $this->staticPageService->filterValidator($request)->validate();
         $response = StaticPageResource::collection($this->staticPageService->getAllStaticPages($filter))->resource;
         $response = getResponse($response->toArray(), $this->startTime, !BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);

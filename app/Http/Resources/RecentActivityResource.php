@@ -2,11 +2,12 @@
 
 namespace App\Http\Resources;
 
+use App\Models\BaseModel;
 use App\Models\RecentActivity;
-use App\Services\Common\LanguageCodeService;
 use App\Services\ContentManagementServices\CmsLanguageService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Log;
 
 class RecentActivityResource extends JsonResource
 {
@@ -18,8 +19,6 @@ class RecentActivityResource extends JsonResource
      */
     public function toArray($request): array
     {
-        $languageCode = strtolower($request->server('HTTP_ACCEPT_LANGUAGE'));
-
         /** @var RecentActivity $this */
         $response = [
             "id" => $this->id,
@@ -45,13 +44,23 @@ class RecentActivityResource extends JsonResource
             "image_alt_title" => $this->image_alt_title,
             "description" => $this->description,
         ];
-        if (!empty(RecentActivity::RECENT_ACTIVITY_LANGUAGE_FILLABLE) && is_array(RecentActivity::RECENT_ACTIVITY_LANGUAGE_FILLABLE) && $languageCode && in_array($languageCode, LanguageCodeService::getLanguageCode())) {
-            $tableName = $this->getTable();
-            $keyId = $this->id;
 
-            foreach (RecentActivity::RECENT_ACTIVITY_LANGUAGE_FILLABLE as $translatableKey) {
-                $translatableValue = app(CmsLanguageService::class)->getLanguageValue($tableName, $keyId, $translatableKey);
-                $response = array_merge($response, $translatableValue);
+        if ($request->offsetExists(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY) && $request->get(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY)) {
+            $response['title'] = app(CmsLanguageService::class)->getLanguageValue($this, RecentActivity::LANGUAGE_ATTR_TITLE);
+            $response['image_alt_title'] = app(CmsLanguageService::class)->getLanguageValue($this, RecentActivity::LANGUAGE_ATTR_IMAGE_ALT_TITLE);
+            $response['description'] = app(CmsLanguageService::class)->getLanguageValue($this, RecentActivity::LANGUAGE_ATTR_DESCRIPTION);
+        } else {
+            $response['institute_title'] = "";
+            $response['institute_title_en'] = "";
+            $response['industry_association_title'] = "";
+            $response['industry_association_title_en'] = "";
+            $response['organization_title'] = "";
+            $response['organization_title_en'] = "";
+            $response['title'] = $this->title;
+            $response['image_alt_title'] = $this->image_alt_title;
+            $response['description'] = $this->description;
+            if (!$request->get(BaseModel::IS_COLLECTION_KEY)) {
+                $response[BaseModel::OTHER_LANGUAGE_FIELDS_KEY] = CmsLanguageService::otherLanguageResponse($this->cmsLanguages);
             }
         }
 
