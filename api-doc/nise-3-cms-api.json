@@ -434,12 +434,7 @@
                 "description": "Get The list of all partners of Nise3",
                 "parameters": [
                     {
-                        "name": "Accept-Language",
-                        "in": "header",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
+                        "$ref": "#/components/parameters/Accept-Language"
                     },
                     {
                         "$ref": "#/components/parameters/title_optional"
@@ -691,12 +686,7 @@
                 "description": "Get All the sliders",
                 "parameters": [
                     {
-                        "name": "Accept-Language",
-                        "in": "header",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
+                        "$ref": "#/components/parameters/Accept-Language"
                     },
                     {
                         "$ref": "#/components/parameters/title_optional"
@@ -1008,12 +998,7 @@
                 "description": "API endpoint to get the list of Sliders.A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
-                        "name": "Accept-Language",
-                        "in": "header",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
+                        "$ref": "#/components/parameters/Accept-Language"
                     },
                     {
                         "name": "question",
@@ -1367,12 +1352,7 @@
                 "description": "API endpoint to get all gallery image.A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
-                        "name": "Accept-Language",
-                        "in": "header",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
+                        "$ref": "#/components/parameters/Accept-Language"
                     },
                     {
                         "$ref": "#/components/parameters/title_optional"
@@ -1666,20 +1646,7 @@
                 "description": "API endpoint to get the list of gallery-images-videos.A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
-                        "name": "Accept-Language",
-                        "in": "header",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                    ,{
-                        "name": "content_title",
-                        "in": "query",
-                        "required": false,
-                        "schema": {
-                            "type": "string"
-                        }
+                        "$ref": "#/components/parameters/Accept-Language"
                     },
                     {
                         "$ref": "#/components/parameters/page"
@@ -1979,12 +1946,7 @@
                 "description": "API endpoint to get all a Static Page.A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
-                        "name": "Accept-Language",
-                        "in": "header",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
+                        "$ref": "#/components/parameters/Accept-Language"
                     },
                     {
                         "$ref": "#/components/parameters/title_optional"
@@ -2221,12 +2183,7 @@
                 "description": "API endpoint to get all recent activities.A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
-                        "name": "Accept-Language",
-                        "in": "header",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
+                        "$ref": "#/components/parameters/Accept-Language"
                     },
                     {
                         "$ref": "#/components/parameters/title_optional"
@@ -2493,8 +2450,726 @@
 
             }
         },
+
+
+
+        "/calender-events": {
+            "get": {
+                "summary": "Get list of Calender Events",
+                "description": "API endpoint to get the list of Calender Events. A successful request response will show 200 HTTP status code ",
+                "parameters": [
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "day",
+                                "month",
+                                "week",
+                                "year",
+                                "schedule"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "month",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "year",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "date",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "YYYY-MM-DD"
+                        }
+                    },
+                    {
+                        "name": "from_date",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "YYYY-MM-DD"
+                        }
+                    },
+                    {
+                        "name": "to_date",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "YYYY-MM-DD"
+                        }
+                    },
+                    {
+                        "name": "youth_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "institute_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "organization_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "batch_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "industry_association_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "title",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "title_en",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "page_size",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "order",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "ASC",
+                                "DESC"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "row_status",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "enum": [1,0]
+                        },
+                        "description": "1=>Active,0=>Inactive"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of Calendar Events",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "data": [
+                                        {
+                                            "id": 300,
+                                            "title": "Ex saepe et non est et et. Est et ut minus explicabo. Magni magni dolor et ut. Repudiandae commodi asperiores cupiditate accusamus.",
+                                            "title_en": "Veritatis et at sunt. Molestiae est nobis sit earum assumenda tenetur enim.",
+                                            "youth_id": null,
+                                            "batch_id": null,
+                                            "institute_id": null,
+                                            "organization_id": null,
+                                            "start_date": "2021-11-03",
+                                            "end_date": "2022-03-25",
+                                            "start_time": null,
+                                            "end_time": null,
+                                            "color": "#fd6f99",
+                                            "created_at": "2021-11-03T09:31:21.000000Z",
+                                            "updated_at": "2021-11-03T09:31:21.000000Z"
+                                        }
+                                    ],
+                                    "order": "DESC",
+                                    "response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "query_time": 0
+                                    }
+                                }
+
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Calendar"
+                ]
+            },
+            "post": {
+                "summary": "Create a new Calendar Event",
+                "description": "API endpoint to create a Calender Event.A successful request response will show 200 HTTP status code.",
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CalendarEvent"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "A new Calender Event",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "data": {
+                                        "title": "wefv",
+                                        "title_en": null,
+                                        "youth_id": null,
+                                        "institute_id": null,
+                                        "organization_id": null,
+                                        "batch_id": null,
+                                        "industry_association_id": null,
+                                        "start_date": "1990-10-12",
+                                        "end_date": "1990-12-12",
+                                        "start_time": null,
+                                        "end_time": null,
+                                        "color": null,
+                                        "updated_at": "2021-11-07T05:46:48.000000Z",
+                                        "created_at": "2021-11-07T05:46:48.000000Z",
+                                        "id": 306
+                                    },
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 201,
+                                        "message": "Calender event added successfully",
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Calendar"
+                ]
+            }
+        },
+        "/calender-events/{calendarEventId}": {
+            "get": {
+                "summary": "Get Calendar details by ID",
+                "description": "API endpoint to get the calender event. A successful request response will show 200 HTTP status code ",
+                "parameters": [
+                    {
+                        "name": "calendarEventId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Calender Event",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "data": {
+                                        "id": 300,
+                                        "title": "Ex saepe et non est et et. Est et ut minus explicabo. Magni magni dolor et ut. Repudiandae commodi asperiores cupiditate accusamus.",
+                                        "title_en": "Veritatis et at sunt. Molestiae est nobis sit earum assumenda tenetur enim.",
+                                        "youth_id": null,
+                                        "batch_id": null,
+                                        "institute_id": null,
+                                        "organization_id": null,
+                                        "start_date": "2021-11-03",
+                                        "end_date": "2022-03-25",
+                                        "start_time": null,
+                                        "end_time": null,
+                                        "color": "#fd6f99",
+                                        "created_at": "2021-11-03T09:31:21.000000Z",
+                                        "updated_at": "2021-11-03T09:31:21.000000Z"
+                                    },
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Calendar"
+                ]
+            },
+            "put": {
+                "summary": "Update Calendar info",
+                "description": "API endpoint to update the specified Calender Event. A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "name": "calendarEventId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CalendarEvent"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "A new Calendar Event",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "data": {
+                                        "id": 300,
+                                        "title": "anis title",
+                                        "title_en": null,
+                                        "youth_id": null,
+                                        "batch_id": null,
+                                        "institute_id": null,
+                                        "organization_id": null,
+                                        "industry_association_id": null,
+                                        "start_date": "2010-10-12",
+                                        "end_date": "2010-12-12",
+                                        "start_time": null,
+                                        "end_time": null,
+                                        "color": null,
+                                        "row_status": 1,
+                                        "created_at": "2021-11-03T09:31:21.000000Z",
+                                        "updated_at": "2021-11-07T05:48:35.000000Z"
+                                    },
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "message": "Calender event updated successfully",
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Calendar"
+                ]
+            },
+            "delete": {
+                "summary": "Delete Calendar Event",
+                "description": "API endpoint to delete the specified Calendar Event. A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "name": "calendarEventId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "message": "Calendar Event deleted successfully.",
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Calendar"
+                ]
+            }
+        },
+
+
+
+
+
         "/notice-or-news": {
             "get": {
+                "summary": "Get all notice or news",
+                "description": "API endpoint to all all notice or news.A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/Accept-Language"
+                    },{
+                        "$ref": "#/components/parameters/title_optional"
+                    },
+                    {
+                        "$ref": "#/components/parameters/title_en_optional"
+
+                    },
+                    {
+                        "$ref": "#/components/parameters/page"
+
+                    },
+                    {
+                        "$ref": "#/components/parameters/page_size"
+
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successfull",
+                        "content": {
+                            "application/json": {
+
+                            }
+                        }
+                    }
+                },
+                "tags": ["notice-or-news"]
+            },
+            "post": {
+                "summary": "Create a new notice/news",
+                "description": "API endpoint to create a notice or news.A successful request response will show 200 HTTP status code",
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/NoticeOrNews"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "succefull",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "data": {
+                                        "type": "1",
+                                        "show_in": "3",
+                                        "title_en": "আমাদের ইংরেজি থেকে বাংলা অনুবাদ টুলটি দ্বারা চালিত",
+                                        "title": "Our English to Bangla Translation Tool is powered by Google Translation API",
+                                        "institute_id": "1",
+                                        "industry_association_id": "1",
+                                        "organization_id": "1",
+                                        "updated_at": "2021-11-07T06:29:09.000000Z",
+                                        "created_at": "2021-11-07T06:29:09.000000Z",
+                                        "id": 1
+                                    },
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 201,
+                                        "message": "NoticeOrNews successfully added",
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": ["notice-or-news"]
+
+            }
+        },
+        "/notice-or-news/{noticeId}": {
+            "get": {
+                "summary": "Get notice by Id",
+                "description": "API endpoint to get a notice .A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "name": "noticeId",
+                        "in": "path",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/x-www-form-urlencoded": {
+                                "schema": {
+                                    "example": {
+                                        "data": {
+                                            "id": 1,
+                                            "type": 1,
+                                            "show_in": 3,
+                                            "published_at": null,
+                                            "archived_at": null,
+                                            "title": "Our English to Bangla Translation Tool is powered by Google Translation API",
+                                            "title_en": "আমাদের ইংরেজি থেকে বাংলা অনুবাদ টুলটি দ্বারা চালিত",
+                                            "institute_id": 1,
+                                            "organization_id": 1,
+                                            "industry_association_id": 1,
+                                            "details": null,
+                                            "details_en": null,
+                                            "main_image_path": null,
+                                            "grid_image_path": null,
+                                            "thumb_image_path": null,
+                                            "image_alt_title_en": null,
+                                            "image_alt_title": null,
+                                            "file_path": null,
+                                            "file_alt_title_en": null,
+                                            "file_alt_title": null,
+                                            "row_status": 1,
+                                            "created_by": null,
+                                            "updated_by": null,
+                                            "created_at": "2021-11-07T06:29:09.000000Z",
+                                            "updated_at": null
+                                        },
+                                        "_response_status": {
+                                            "success": true,
+                                            "code": 200,
+                                            "message": null,
+                                            "query_time": 0
+                                        }
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                },
+                "tags": ["notice-or-news"]
+
+            },
+            "put": {
+                "summary": "Update a notice",
+                "description": "API endpoint to update a notice .A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "name": "noticeId",
+                        "in": "path",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/NoticeOrNews"
+                            }
+                        }
+                    }
+                },
+                "tags": ["notice-or-news"],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "data": {
+                                        "id": 1,
+                                        "type": "1",
+                                        "show_in": "1",
+                                        "published_at": null,
+                                        "archived_at": null,
+                                        "title_en": "NewKKK",
+                                        "title": "NewKKK",
+                                        "institute_id": null,
+                                        "organization_id": null,
+                                        "industry_association_id": 1,
+                                        "details": null,
+                                        "details_en": null,
+                                        "main_image_path": null,
+                                        "grid_image_path": null,
+                                        "thumb_image_path": null,
+                                        "image_alt_title_en": null,
+                                        "image_alt_title": null,
+                                        "file_path": null,
+                                        "file_alt_title_en": null,
+                                        "file_alt_title": null,
+                                        "row_status": "1",
+                                        "created_by": null,
+                                        "updated_by": null,
+                                        "created_at": "2021-11-07T06:29:09.000000Z",
+                                        "updated_at": "2021-11-07T06:48:18.000000Z",
+                                        "deleted_at": null
+                                    },
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "message": "NoticeOrNews Update Successfully Done",
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete a notice",
+                "description": "API endpoint to update a notice.A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "name": "noticeId",
+                        "in": "path",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "message": "NoticeOrNews successfully deleted",
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": ["notice-or-news"]
+
+            }
+        },
+
+
+        "/visitor-feedback-suggestions": {
+            "get": {
+                "summary": "Get aAll visitor-feedback-suggestion",
+                "description": "API endpoint to create a visitor-feedback-suggestion.A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/name_optional"
+                    },
+                    {
+                        "$ref": "#/components/parameters/name_en_optional"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page_size"
+                    },
+                    {
+                        "$ref": "#/components/parameters/order"
+                    },
+                    {
+                        "$ref": "#/components/parameters/row_status"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "order": "ASC",
+                                    "data": [],
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "message": null,
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": ["visitor-feedback-suggestions"]
+            },
+            "post": {
+                "summary": "Create a new visitor-feedback-suggesstion",
+                "description": "API endpoint to create a visitor-feedback-suggesstion. A successful request response will show 200 HTTP status code",
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/visitor_feedbacks_suggestions"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successfull",
+                        "content": {
+                            "application/json": {
+                                "example": {}
+                            }
+                        }
+                    }
+                },
+                "tags": ["visitor-feedback-suggestions"]
 
             }
         }
@@ -2510,6 +3185,14 @@
             }
         },
         "parameters": {
+            "Accept-Language":   {
+                "name": "Accept-Language",
+                "in": "header",
+                "required": false,
+                "schema": {
+                    "type": "string"
+                }
+            },
             "recentActivityId": {
                 "name": "recentActivityId",
                 "in": "path",
@@ -3380,6 +4063,58 @@
             }
         },
         "schemas": {
+            "CalendarEvent": {
+                "type": "object",
+                "description": "Provide Calendar Events data",
+                "properties": {
+                    "title": {
+                        "type": "string"
+                    },
+                    "title_en": {
+                        "type": "string"
+                    },
+                    "youth_id": {
+                        "type": "integer"
+                    },
+                    "institute_id": {
+                        "type": "integer"
+                    },
+                    "organization_id": {
+                        "type": "integer"
+                    },
+                    "batch_id": {
+                        "type": "integer"
+                    },
+                    "industry_association_id": {
+                        "type": "integer"
+                    },
+
+                    "start_date": {
+                        "type": "string",
+                        "format": "YYYY-MM-DD"
+                    },
+                    "end_date": {
+                        "type": "string",
+                        "format": "YYYY-MM-DD"
+                    },
+                    "start_time": {
+                        "type": "string",
+                        "format": "HH:mm"
+                    },
+                    "end_time": {
+                        "type": "string",
+                        "format": "HH:mm"
+                    },
+                    "color": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "title",
+                    "start_date",
+                    "end_date"
+                ]
+            },
             "visitor_feedbacks_suggestions": {
                 "type": "object",
                 "description": "Provide Visitor Feedback Suggestions",
@@ -3448,17 +4183,6 @@
                             1
                         ],
                         "example": 1
-                    },
-                    "other_language_fields": {
-                        "type": "array",
-                        "description": "[language_code][column_name]",
-                        "items": {
-                            "type": "array",
-                            "description": "column_name",
-                            "items": {
-                                "type": "string"
-                            }
-                        }
                     }
                 }
             },
@@ -3706,14 +4430,8 @@
                         "example": 1
                     },
                     "other_language_fields": {
-                        "type": "array",
-                        "description": "[language_code][column_name]",
-                        "items": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            }
-                        }
+                        "type": "object",
+                        "example": "  [\n\n\"hi\"=>[\n\"title\"=>\"सामूहिक बाढ़\",\n\"image_alt_title\"=>\"सामूहिक बाढ़\"]\n\n]"
                     }
                 },
                 "required": [
@@ -3833,14 +4551,8 @@
                         "example": 1
                     },
                     "other_language_fields": {
-                        "type": "array",
-                        "description": "[language_code][column_name]",
-                        "items": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            }
-                        }
+                        "type": "object",
+                        "example": "  [\n\n\"hi\"=>[\n\"content_title\"=>\"सामूहिक बाढ़\",\n\"content_description\"=>\"सामूहिक बाढ़\",\n\"alt_title\"=>\"सामूहिक बाढ़\",\n\t]\n\n]"
                     }
                 },
                 "required": [
@@ -3925,13 +4637,7 @@
                     },
                     "other_language_fields": {
                         "type": "object",
-                        "description": "[language_code][column_name]",
-                        "items": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            }
-                        }
+                        "example": "  [\n\n\"hi\"=>[\n\"title\"=>\"सामूहिक बाढ़\",\n\"sub_title\"=>\"सामूहिक बाढ़\",\n\"contents\"=>\"सामूहिक बाढ़\",\n\t]\n\n]"
                     }
                 },
                 "required": [
@@ -4019,14 +4725,8 @@
                         "example": 1
                     },
                     "other_language_fields": {
-                        "type": "array",
-                        "description": "[language_code][column_name]",
-                        "items": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            }
-                        }
+                        "type": "object",
+                        "example": " [\n\n\"hi\"=>[\n\"title\"=>\"सामूहिक बाढ़\",\n\"image_alt_title\"=>\"सामूहिक बाढ़\",\n\n\t]\n\n]"
                     }
                 },
                 "required": [
@@ -4077,14 +4777,8 @@
                         "example": 1
                     },
                     "other_language_fields": {
-                        "type": "array",
-                        "description": "[language_code][column_name]",
-                        "items": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            }
-                        }
+                        "type": "object",
+                        "example": "  [\n\n\"hi\"=>[\n\"title\"=>\"सामूहिक बाढ़\",\n\"image_alt_title\"=>\"सामूहिक बाढ़\",\n\"\t]\n\n]"
                     }
                 },
                 "required": [
@@ -4099,6 +4793,7 @@
                 "properties":  {
                     "type": {
                         "type": "integer",
+                        "required": true,
                         "description": "1=>Notice,2=>News",
                         "enum": [
                             1,
@@ -4151,6 +4846,12 @@
                         "type": "string",
                         "description": "alt image title in Bengali"
                     },
+                    "show_in": {
+                        "required": true,
+                        "type": "integer",
+                        "enum": [1,2,3,4,5],
+                        "description": "SHOW_IN_NISE3 = 1;\n     SHOW_IN_YOUTH = 2;\n     SHOW_IN_TSP = 3;\n     SHOW_IN_INDUSTRY = 4;\n     SHOW_IN_INDUSTRY_ASSOCIATION = 5"
+                    },
                     "file_alt_title_en": {
                         "type": "string",
                         "description": "alt file title in english"
@@ -4167,6 +4868,10 @@
                             0
                         ],
                         "example": 1
+                    },
+                    "other_language_fields": {
+                        "type": "object",
+                        "example": "[\n\n\t\"hi\"=>[\n\t\"title\"=>\"सामूहिक बाढ़\",\n\t\"details\"=>\"सामूहिक बाढ़\",\n\t\"image_alt_title\"=>\"सामूहिक बाढ़\",\n\t\"file_alt_title\"=>\"सामूहिक बाढ़\"\n\t]\t\n\n]"
                     }
                 },
                 "required": [
@@ -4227,8 +4932,11 @@
                         "description": "content_image path"
                     },
                     "collage_position":{
-                        "type": "integer",
-                        "description": "[1.1, 1.2.1, 1.2.2.1, 1.2.2.2]"
+                        "type": "string",
+                        "enum": [
+                            "1.1" , "1.2.1" , "1.2.2.1" , "1.2.2.2"
+                        ],
+                        "description": "collage row column position"
                     },
                     "thumb_image_path":{
                         "type": "string",
@@ -4269,6 +4977,10 @@
                             0
                         ],
                         "example": 1
+                    },
+                    "other_language_fields": {
+                        "type": "object",
+                        "example": " [\n\n\t\"hi\"=>[\n\t\"title\"=>\"सामूहिक बाढ़\",\n\t\"description\"=>\"सामूहिक बाढ़\",\n\t\"image_alt_title\"=>\"सामूहिक बाढ़\"\n\t]\t\n\n]"
                     }
                 },
                 "required": [
@@ -4350,14 +5062,8 @@
                         "enum": [1,0]
                     },
                     "other_language_fields": {
-                        "type": "array",
-                        "description": "[language_code][column_name]",
-                        "items": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            }
-                        }
+                        "type": "object",
+                        "example": "  [\n\n\"hi\"=>[\n\"question\"=>\"सामूहिक बाढ़\",\n\"answer\"=>\"सामूहिक बाढ़\"]\n\n]"
                     }
                 },
                 "required": [

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\BaseModel;
-use App\Models\Occupation;
 use App\Models\VisitorFeedbackSuggestion;
 use App\Services\ContentManagementServices\VisitorFeedbackSuggestionService;
 use Carbon\Carbon;
@@ -27,7 +26,7 @@ class VisitorFeedbackSuggestionController extends Controller
     {
         $this->startTime = Carbon::now();
 
-        $this->$visitorFeedbackSuggestionService = $visitorFeedbackSuggestionService;
+        $this->visitorFeedbackSuggestionService = $visitorFeedbackSuggestionService;
     }
 
     /**
@@ -42,7 +41,7 @@ class VisitorFeedbackSuggestionController extends Controller
     {
         $filter = $this->visitorFeedbackSuggestionService->filterValidator($request)->validate();
         $response = $this->visitorFeedbackSuggestionService->getVisitorFeedbackSuggestionList($filter);
-        $response = getResponse($response, $this->startTime, !BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
+        $response = getResponse($response->toArray(), $this->startTime, !BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
         return Response::json($response, ResponseAlias::HTTP_OK);
 
     }
@@ -60,12 +59,15 @@ class VisitorFeedbackSuggestionController extends Controller
     }
 
 
-
+    /**
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws ValidationException
+     */
     function store(Request $request): JsonResponse
     {
         $this->authorize('create', VisitorFeedbackSuggestion::class);
 
-        $validated = $this->visitorFeedbackSuggestionService->filterValidator($request)->validate();
+        $validated = $this->visitorFeedbackSuggestionService->validator($request)->validate();
         $data = $this->visitorFeedbackSuggestionService->store($validated);
         $response = [
             'data' => $data ?: null,

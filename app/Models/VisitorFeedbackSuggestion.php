@@ -33,4 +33,15 @@ class VisitorFeedbackSuggestion extends BaseModel
     protected $guarded = BaseModel::COMMON_GUARDED_FIELDS_SIMPLE_SOFT_DELETE;
     protected $table = "visitor_feedbacks_suggestions";
 
+    public const Form_Type_Suggestion = 1 ;
+    public const Form_Type_Contactus = 2 ;
+
+    public const Form_Type = [
+        self::Form_Type_Suggestion,
+        self::Form_Type_Contactus,
+    ];
+
+
+
+
 }

@@ -18,8 +18,8 @@ class VisitorFeedbackSuggestionService
 {
     public function getVisitorFeedbackSuggestionList(array $request): Collection|LengthAwarePaginator|array
     {
-        $titleEn = $request['title_en'] ?? "";
-        $title = $request['title'] ?? "";
+        $name = $request['name'] ?? "";
+        $nameEn = $request['name_en'] ?? "";
         $paginate = $request['page'] ?? "";
         $pageSize = $request['page_size'] ?? "";
         $rowStatus = $request['row_status'] ?? "";
@@ -28,14 +28,14 @@ class VisitorFeedbackSuggestionService
         /** @var Builder $visitorFeedbackSuggestionBuilder */
         $visitorFeedbackSuggestionBuilder = VisitorFeedbackSuggestion::select([
             'visitor_feedbacks_suggestions.id',
-            'visitor_feedbacks_suggestions.show_in',
+            'visitor_feedbacks_suggestions.form_type',
             'visitor_feedbacks_suggestions.institute_id',
             'visitor_feedbacks_suggestions.organization_id',
-            'visitor_feedbacks_suggestions.industry_association_id',
-            'visitor_feedbacks_suggestions.mobile',
-            'visitor_feedbacks_suggestions.email',
+            'visitor_feedbacks_suggestions.organization_association_id',
             'visitor_feedbacks_suggestions.name',
             'visitor_feedbacks_suggestions.name_en',
+            'visitor_feedbacks_suggestions.mobile',
+            'visitor_feedbacks_suggestions.email',
             'visitor_feedbacks_suggestions.address',
             'visitor_feedbacks_suggestions.address_en',
             'visitor_feedbacks_suggestions.comment_en',
@@ -51,10 +51,10 @@ class VisitorFeedbackSuggestionService
         if (is_numeric($rowStatus)) {
             $visitorFeedbackSuggestionBuilder->where('visitor_feedbacks_suggestions.row_status', $rowStatus);
         }
-        if (!empty($titleEn)) {
-            $visitorFeedbackSuggestionBuilder->where('visitor_feedbacks_suggestions.title_en', 'like', '%' . $titleEn . '%');
-        } elseif (!empty($title)) {
-            $visitorFeedbackSuggestionBuilder->where('visitor_feedbacks_suggestions.title', 'like', '%' . $title . '%');
+        if (!empty($nameEn)) {
+            $visitorFeedbackSuggestionBuilder->where('visitor_feedbacks_suggestions.name_en', 'like', '%' . $nameEn . '%');
+        } elseif (!empty($name)) {
+            $visitorFeedbackSuggestionBuilder->where('visitor_feedbacks_suggestions.name', 'like', '%' . $name . '%');
         }
 
 
@@ -75,14 +75,14 @@ class VisitorFeedbackSuggestionService
         /** @var Builder $visitorFeedbackSuggestionBuilder */
         $visitorFeedbackSuggestionBuilder = VisitorFeedbackSuggestion::select([
             'visitor_feedbacks_suggestions.id',
-            'visitor_feedbacks_suggestions.show_in',
+            'visitor_feedbacks_suggestions.form_type',
             'visitor_feedbacks_suggestions.institute_id',
             'visitor_feedbacks_suggestions.organization_id',
-            'visitor_feedbacks_suggestions.industry_association_id',
-            'visitor_feedbacks_suggestions.mobile',
-            'visitor_feedbacks_suggestions.email',
+            'visitor_feedbacks_suggestions.organization_association_id',
             'visitor_feedbacks_suggestions.name',
             'visitor_feedbacks_suggestions.name_en',
+            'visitor_feedbacks_suggestions.mobile',
+            'visitor_feedbacks_suggestions.email',
             'visitor_feedbacks_suggestions.address',
             'visitor_feedbacks_suggestions.address_en',
             'visitor_feedbacks_suggestions.comment_en',
@@ -134,5 +134,102 @@ class VisitorFeedbackSuggestionService
                 Rule::in([BaseModel::ROW_STATUS_ACTIVE, BaseModel::ROW_STATUS_INACTIVE]),
             ],
         ], $customMessage);
+    }
+
+
+
+
+    public function validator($request, int $id = null): \Illuminate\Contracts\Validation\Validator
+    {
+        $customMessage = [
+            'row_status.in' => 'Row status must be within 1 or 0. [30000]'
+        ];
+        $rules = [
+            'form_type' => [
+                'required',
+                Rule::in(VisitorFeedbackSuggestion::Form_Type)
+            ],
+            'institute_id' => [
+                "nullable",
+                "integer",
+                "gt:0",
+            ],
+            'title_en' => [
+                'nullable',
+                'string',
+                'max:250',
+                'min:2'
+            ],
+            'title' => [
+                'required',
+                'string',
+                'max:500',
+                'min:2'
+            ],
+
+            'industry_association_id' => [
+                "nullable",
+                "integer",
+                "gt:0",
+            ],
+            'organization_id' => [
+                "nullable",
+                "integer",
+                "gt:0",
+            ],
+            'organization_association_id' => [
+                "nullable",
+                "integer",
+                "gt:0",
+            ],
+
+            'name' => [
+                'required',
+                'min:2',
+                'max:200',
+                'string'
+            ],
+            'name_en' => [
+                'required',
+                'min:2',
+                'max:200',
+                'string'
+            ],
+            'mobile' => [
+                'nullable',
+                'string',
+                BaseModel::MOBILE_REGEX
+            ],
+            'email' => [
+                'nullable',
+                'string',
+                'email'
+
+            ],
+            'address' => [
+                'nullable',
+                'string'
+            ],
+            'address_en' => [
+                'nullable',
+                'string'
+            ],
+            'comment' => [
+                'nullable',
+                'string'
+            ],
+            'comment_en' => [
+                'nullable',
+                'string'
+            ],
+            'row_status' => [
+                'required_if:' . $id . ',!=,null',
+                Rule::in([BaseModel::ROW_STATUS_ACTIVE, BaseModel::ROW_STATUS_INACTIVE]),
+            ]
+
+        ];
+        $rules = array_merge($rules, BaseModel::OTHER_LANGUAGE_VALIDATION_RULES);
+
+        return Validator::make($request->all(), $rules, $customMessage);
     }
 }
