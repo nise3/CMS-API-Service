@@ -2,63 +2,68 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\FaqResource;
-use App\Http\Resources\SliderResource;
+use App\Http\Resources\GalleryImageVideoResource;
 use App\Models\BaseModel;
-use App\Models\Slider;
+use App\Models\GalleryImageVideo;
 use App\Services\Common\LanguageCodeService;
 use App\Services\ContentManagementServices\CmsLanguageService;
-use App\Services\ContentManagementServices\SliderService;
+use App\Services\ContentManagementServices\GalleryImageVideoService;
+use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 use Throwable;
-use Exception;
 
-class SliderController extends Controller
+/**
+ * Class GalleryImageVideoController
+ * @package App\Http\Controllers
+ */
+class GalleryImageVideoController extends Controller
 {
-    public SliderService $sliderService;
+
+
+    public GalleryImageVideoService $galleryImageVideoService;
+
     private Carbon $startTime;
 
-
-    public function __construct(SliderService $sliderService)
+    /**
+     * GalleryImageVideoController constructor.
+     * @param GalleryImageVideoService $galleryImageVideoService
+     */
+    public function __construct(GalleryImageVideoService $galleryImageVideoService)
     {
         $this->startTime = Carbon::now();
-        $this->sliderService = $sliderService;
+        $this->galleryImageVideoService = $galleryImageVideoService;
     }
 
     /**
      * Display a listing of the resource.
      *
      * @param Request $request
-     * @return Exception|JsonResponse|Throwable
+     * @return JsonResponse
      * @throws ValidationException
      */
     public function getList(Request $request): JsonResponse
     {
-        $filter = $this->sliderService->filterValidator($request)->validate();
-        $message="Slider list";
-        $response = SliderResource::collection($this->sliderService->getAllSliders($filter))->resource;
-        $response = getResponse($response->toArray(), $this->startTime, !BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK,$message);
+        $filter = $this->galleryImageVideoService->filterValidator($request)->validate();
+        $response = GalleryImageVideoResource::collection($this->galleryImageVideoService->getGalleryImageVideoList($filter))->resource;
+        $response = getResponse($response->toArray(), $this->startTime, !BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param Request $request
      * @param int $id
      * @return JsonResponse
      */
-    public function read(Request $request, int $id): JsonResponse
+    public function read(int $id): JsonResponse
     {
-        $message="Slider details";
-        $response = new SliderResource($this->sliderService->getOneSlider($id));
-        $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK,$message);
+        $response = new GalleryImageVideoResource($this->galleryImageVideoService->getOneGalleryImageVideo($id));
+        $response = getResponse($response->toArray(request()), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
 
@@ -72,34 +77,35 @@ class SliderController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
-        $validatedData = $this->sliderService->validator($request)->validate();
-        $message = "Slider successfully added";
+        $validatedData = $this->galleryImageVideoService->validator($request)->validate();
+        $message = "GalleryImageVideo is Successfully added";
         $otherLanguagePayload = $validatedData['other_language_fields'] ?? [];
+
         $isLanguage = (bool)count(array_intersect(array_keys($otherLanguagePayload), LanguageCodeService::getLanguageCode()));
-        $response = [];
         DB::beginTransaction();
         try {
-            $slider = $this->sliderService->store($validatedData);
+            $galleryImageVideo = $this->galleryImageVideoService->store($validatedData);
             if ($isLanguage) {
-                $languageFillablePayload = [];
                 foreach ($otherLanguagePayload as $key => $value) {
-                    $languageValidatedData = $this->sliderService->languageFieldValidator($value, $key)->validate();
-                    foreach (Slider::SLIDER_LANGUAGE_FIELDS as $fillableColumn){
+                    $languageValidatedData = $this->galleryImageVideoService->languageFieldValidator($value, $key)->validate();
+                    foreach (GalleryImageVideo::GALLERY_IMAGE_VIDEO_LANGUAGE_FILLABLE as $fillableColumn) {
                         if (!empty($languageValidatedData[$fillableColumn])) {
-                            $languageFillablePayload[] = [
-                                "table_name" => $slider->getTable(),
-                                "key_id" => $slider->id,
+                            $languageFillablePayload = [
+                                "table_name" => $galleryImageVideo->getTable(),
+                                "key_id" => $galleryImageVideo->id,
                                 "lang_code" => $key,
                                 "column_name" => $fillableColumn,
                                 "column_value" => $languageValidatedData[$fillableColumn]
                             ];
+                            app(CmsLanguageService::class)->store($languageFillablePayload);
                         }
+
                     }
+
                 }
-                app(CmsLanguageService::class)->store($languageFillablePayload);
+
             }
-            $response=new SliderResource($slider);
-            $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
+            $response = getResponse($galleryImageVideo->toArray(), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
             DB::commit();
         } catch (Throwable $e) {
             DB::rollBack();
@@ -119,40 +125,39 @@ class SliderController extends Controller
      */
     public function update(Request $request, int $id): JsonResponse
     {
-        $slider = Slider::findOrFail($id);
-        $validatedData = $this->sliderService->validator($request)->validate();
-        $message = "Slider successfully update";
+        $galleryImageVideo = GalleryImageVideo::findOrFail($id);
+        $validatedData = $this->galleryImageVideoService->validator($request, $id)->validate();
+        $message = "GalleryImageVideo Update is Successfully Done";
         $otherLanguagePayload = $validatedData['other_language_fields'] ?? [];
         $isLanguage = (bool)count(array_intersect(array_keys($otherLanguagePayload), LanguageCodeService::getLanguageCode()));
-        $response = [];
         DB::beginTransaction();
         try {
-            $slider = $this->sliderService->update($slider, $validatedData);
+            $galleryImageVideo = $this->galleryImageVideoService->update($galleryImageVideo, $validatedData);
             if ($isLanguage) {
                 foreach ($otherLanguagePayload as $key => $value) {
-                    $languageValidatedData = $this->sliderService->languageFieldValidator($value, $key)->validate();
-                    foreach (Slider::SLIDER_LANGUAGE_FIELDS as $fillableColumn){
+                    $languageValidatedData = $this->galleryImageVideoService->languageFieldValidator($value, $key)->validate();
+                    foreach (GalleryImageVideo::GALLERY_IMAGE_VIDEO_LANGUAGE_FILLABLE as $fillableColumn) {
                         if (!empty($languageValidatedData[$fillableColumn])) {
                             $languageFillablePayload = [
-                                "table_name" => $slider->getTable(),
-                                "key_id" => $slider->id,
+                                "table_name" => $galleryImageVideo->getTable(),
+                                "key_id" => $galleryImageVideo->id,
                                 "lang_code" => $key,
                                 "column_name" => $fillableColumn,
                                 "column_value" => $languageValidatedData[$fillableColumn]
                             ];
                             app(CmsLanguageService::class)->createOrUpdate($languageFillablePayload);
                         }
+
                     }
                 }
             }
-            $response=new SliderResource($slider);
-            $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
+            $response = getResponse($galleryImageVideo->toArray(), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK, $message);
             DB::commit();
-
         } catch (Throwable $e) {
+            DB::rollBack();
             throw $e;
         }
-        return Response::json($response, ResponseAlias::HTTP_CREATED);
+        return Response::json($response, ResponseAlias::HTTP_OK);
     }
 
     /**
@@ -162,9 +167,9 @@ class SliderController extends Controller
      */
     public function destroy(int $id): JsonResponse
     {
-        $slider = Slider::findOrFail($id);
-        $destroyStatus = $this->sliderService->destroy($slider);
-        $message = $destroyStatus ? "Slider successfully deleted" : "Slider is not deleted";
+        $galleryImageVideo = GalleryImageVideo::findOrFail($id);
+        $destroyStatus = $this->galleryImageVideoService->destroy($galleryImageVideo);
+        $message = $destroyStatus ? "Gallery Image Video successfully deleted" : "Gallery Image Video not deleted";
         $response = getResponse($destroyStatus, $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK, $message);
         return Response::json($response, ResponseAlias::HTTP_OK);
     }

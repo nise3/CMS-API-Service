@@ -16,14 +16,14 @@ class CreateFaqsTable extends Migration
         Schema::create('faqs', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedTinyInteger('show_in')
-                ->comment('1=>Nise3, 2=>TSP, 3=>Industry, 4=>Industry Association');
+                ->comment('1=>Nise3, 2=> Youth, 3=>TSP, 4=>organization, 5=>Industry Association');
 
             $table->unsignedInteger('institute_id')->nullable()
                 ->comment('For Particular TSP Website');
             $table->unsignedInteger('industry_association_id')
                 ->nullable()->comment('For Particular Industry Association Website');
             $table->unsignedInteger('organization_id')
-                ->nullable()->comment('For Particular Industry Website');
+                ->nullable()->comment('For Particular organization Website');
 
             $table->string('question', 1800);
             $table->string('question_en', 600)->nullable();

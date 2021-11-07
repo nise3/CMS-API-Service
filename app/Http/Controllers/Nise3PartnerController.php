@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\FaqResource;
-use App\Http\Resources\SliderResource;
+use App\Http\Resources\Nise3PartnerResource;
 use App\Models\BaseModel;
-use App\Models\Slider;
+use App\Models\Nise3Partner;
 use App\Services\Common\LanguageCodeService;
 use App\Services\ContentManagementServices\CmsLanguageService;
-use App\Services\ContentManagementServices\SliderService;
+use App\Services\ContentManagementServices\Nise3PartnerService;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -17,54 +17,47 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 use Throwable;
-use Exception;
 
-class SliderController extends Controller
+class Nise3PartnerController extends Controller
 {
-    public SliderService $sliderService;
+    public Nise3PartnerService $nise3PartnerService;
+
     private Carbon $startTime;
 
-
-    public function __construct(SliderService $sliderService)
+    public function __construct(Nise3PartnerService $nise3PartnerService)
     {
         $this->startTime = Carbon::now();
-        $this->sliderService = $sliderService;
+        $this->nise3PartnerService = $nise3PartnerService;
     }
 
+
     /**
-     * Display a listing of the resource.
-     *
      * @param Request $request
-     * @return Exception|JsonResponse|Throwable
+     * @return JsonResponse
      * @throws ValidationException
      */
     public function getList(Request $request): JsonResponse
     {
-        $filter = $this->sliderService->filterValidator($request)->validate();
-        $message="Slider list";
-        $response = SliderResource::collection($this->sliderService->getAllSliders($filter))->resource;
-        $response = getResponse($response->toArray(), $this->startTime, !BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK,$message);
-        return Response::json($response, ResponseAlias::HTTP_OK);
+        $filter = $this->nise3PartnerService->filterValidation($request)->validate();
+        $response = Nise3PartnerResource::collection($this->nise3PartnerService->getPartnerList($filter))->resource;
+        $response=getResponse($response->toArray(),$this->startTime,!BaseModel::IS_SINGLE_RESPONSE,ResponseAlias::HTTP_OK);
+        return Response::json($response,ResponseAlias::HTTP_OK);
     }
 
     /**
-     * Display the specified resource.
-     *
      * @param Request $request
      * @param int $id
      * @return JsonResponse
      */
     public function read(Request $request, int $id): JsonResponse
     {
-        $message="Slider details";
-        $response = new SliderResource($this->sliderService->getOneSlider($id));
-        $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK,$message);
-        return Response::json($response, ResponseAlias::HTTP_OK);
+        $response = new Nise3PartnerResource($this->nise3PartnerService->getOnePartner($id));
+        $response=getResponse($response->toArray($request),$this->startTime,!BaseModel::IS_SINGLE_RESPONSE,ResponseAlias::HTTP_OK);
+        return Response::json($response,ResponseAlias::HTTP_OK);
     }
 
+
     /**
-     * Store a newly created resource in storage.
-     *
      * @param Request $request
      * @return JsonResponse
      * @throws Throwable
@@ -72,37 +65,37 @@ class SliderController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
-        $validatedData = $this->sliderService->validator($request)->validate();
-        $message = "Slider successfully added";
+
+        $validatedData = $this->nise3PartnerService->validator($request)->validate();
+        $message = "Faq successfully added";
         $otherLanguagePayload = $validatedData['other_language_fields'] ?? [];
         $isLanguage = (bool)count(array_intersect(array_keys($otherLanguagePayload), LanguageCodeService::getLanguageCode()));
         $response = [];
         DB::beginTransaction();
         try {
-            $slider = $this->sliderService->store($validatedData);
+            $nise3Partner = $this->nise3PartnerService->store($validatedData);
             if ($isLanguage) {
                 $languageFillablePayload = [];
                 foreach ($otherLanguagePayload as $key => $value) {
-                    $languageValidatedData = $this->sliderService->languageFieldValidator($value, $key)->validate();
-                    foreach (Slider::SLIDER_LANGUAGE_FIELDS as $fillableColumn){
+                    $languageValidatedData = $this->nise3PartnerService->languageFieldValidator($value, $key)->validate();
+                    foreach (Nise3Partner::NISE_3_PARTNER_LANGUAGE_FIELDS as $fillableColumn) {
                         if (!empty($languageValidatedData[$fillableColumn])) {
                             $languageFillablePayload[] = [
-                                "table_name" => $slider->getTable(),
-                                "key_id" => $slider->id,
+                                "table_name" => $nise3Partner->getTable(),
+                                "key_id" => $nise3Partner->id,
                                 "lang_code" => $key,
                                 "column_name" => $fillableColumn,
                                 "column_value" => $languageValidatedData[$fillableColumn]
                             ];
                         }
                     }
+
                 }
                 app(CmsLanguageService::class)->store($languageFillablePayload);
             }
-            $response=new SliderResource($slider);
-            $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
+            $response = getResponse($nise3Partner->toArray(), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
             DB::commit();
         } catch (Throwable $e) {
-            DB::rollBack();
             throw $e;
         }
         return Response::json($response, ResponseAlias::HTTP_CREATED);
@@ -119,23 +112,23 @@ class SliderController extends Controller
      */
     public function update(Request $request, int $id): JsonResponse
     {
-        $slider = Slider::findOrFail($id);
-        $validatedData = $this->sliderService->validator($request)->validate();
-        $message = "Slider successfully update";
+        $nise3Partner = Nise3Partner::findOrFail($id);
+        $validatedData = $this->nise3PartnerService->validator($request)->validate();
+        $message = "Nise3Partner Update Successfully Done";
         $otherLanguagePayload = $validatedData['other_language_fields'] ?? [];
         $isLanguage = (bool)count(array_intersect(array_keys($otherLanguagePayload), LanguageCodeService::getLanguageCode()));
         $response = [];
         DB::beginTransaction();
         try {
-            $slider = $this->sliderService->update($slider, $validatedData);
+            $nise3Partner = $this->nise3PartnerService->update($nise3Partner, $validatedData);
             if ($isLanguage) {
                 foreach ($otherLanguagePayload as $key => $value) {
-                    $languageValidatedData = $this->sliderService->languageFieldValidator($value, $key)->validate();
-                    foreach (Slider::SLIDER_LANGUAGE_FIELDS as $fillableColumn){
+                    $languageValidatedData = $this->nise3PartnerService->languageFieldValidator($value, $key)->validate();
+                    foreach (Nise3Partner::NISE_3_PARTNER_LANGUAGE_FIELDS as $fillableColumn) {
                         if (!empty($languageValidatedData[$fillableColumn])) {
                             $languageFillablePayload = [
-                                "table_name" => $slider->getTable(),
-                                "key_id" => $slider->id,
+                                "table_name" => $nise3Partner->getTable(),
+                                "key_id" => $nise3Partner->id,
                                 "lang_code" => $key,
                                 "column_name" => $fillableColumn,
                                 "column_value" => $languageValidatedData[$fillableColumn]
@@ -145,14 +138,12 @@ class SliderController extends Controller
                     }
                 }
             }
-            $response=new SliderResource($slider);
-            $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
+            $response = getResponse($nise3Partner->toArray(), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK, $message);
             DB::commit();
-
         } catch (Throwable $e) {
             throw $e;
         }
-        return Response::json($response, ResponseAlias::HTTP_CREATED);
+        return Response::json($response, ResponseAlias::HTTP_OK);
     }
 
     /**
@@ -162,10 +153,11 @@ class SliderController extends Controller
      */
     public function destroy(int $id): JsonResponse
     {
-        $slider = Slider::findOrFail($id);
-        $destroyStatus = $this->sliderService->destroy($slider);
-        $message = $destroyStatus ? "Slider successfully deleted" : "Slider is not deleted";
-        $response = getResponse($destroyStatus, $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK, $message);
+        $partner = Nise3Partner::findOrFail($id);
+        $deleteStatus = $this->nise3PartnerService->destroy($partner);
+        $message = $deleteStatus ? "Nise3Partner successfully deleted" : "Nise3Partner is not deleted";
+        $response = getResponse($deleteStatus, $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK, $message);
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
+
 }
