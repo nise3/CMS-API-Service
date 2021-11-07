@@ -49,7 +49,7 @@ class SliderResource extends JsonResource
                 $response[BaseModel::OTHER_LANGUAGE_FIELDS_KEY] = CmsLanguageService::otherLanguageResponse($this->cmsLanguages);
             }
         }
-
+        $response["banner_template_code"] = $this->banner_template_code;
         $response["banner_template"] = config("nise3.banner_template." . $this->banner_template_code);
         $response['row_status'] = $this->row_status;
         $response['created_by'] = $this->created_by;
