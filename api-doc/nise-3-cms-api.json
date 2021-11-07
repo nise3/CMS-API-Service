@@ -59,9 +59,6 @@
                         "$ref": "#/components/parameters/order"
                     },
                     {
-                        "$ref": "#/components/parameters/title_en_optional"
-                    },
-                    {
                         "$ref": "#/components/parameters/title_optional"
                     }
                 ],
@@ -79,7 +76,6 @@
                                         {
                                             "id": 3,
                                             "title": "ঢাকা",
-                                            "title_en": "Dhaka",
                                             "bbs_code": "30",
                                             "deleted_at": null
                                         }
@@ -134,7 +130,6 @@
                                     "data": {
                                         "id": 4,
                                         "title": "খুলনা",
-                                        "title_en": "Khulna",
                                         "bbs_code": "40"
                                     },
                                     "_response_status": {
@@ -162,9 +157,6 @@
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/order"
-                    },
-                    {
-                        "$ref": "#/components/parameters/title_en_optional"
                     },
                     {
                         "$ref": "#/components/parameters/title_optional"
@@ -226,10 +218,8 @@
                                         "id": 1,
                                         "loc_division_id": 1,
                                         "title": "Test Title (Native)",
-                                        "title_en": "Test Title (EN)",
                                         "bbs_code": "1000",
-                                        "division_title": "বরিশাল",
-                                        "division_title_en": "Barisal"
+                                        "division_title": "বরিশাল"
                                     },
                                     "_response_status": {
                                         "success": true,
@@ -256,9 +246,6 @@
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/order"
-                    },
-                    {
-                        "$ref": "#/components/parameters/title_en_optional"
                     },
                     {
                         "$ref": "#/components/parameters/title_optional"
@@ -288,12 +275,9 @@
                                             "loc_district_id": 1,
                                             "loc_division_id": 1,
                                             "title": "আমতলী ",
-                                            "title_en": "AMTALI",
                                             "bbs_code": "09",
                                             "district_title": "Test Title (Native)",
-                                            "district_title_en": "Test Title (EN)",
-                                            "division_title": "Test Title (Native)",
-                                            "division_title_en": "Test Title (EN)"
+                                            "division_title": "Test Title (Native)"
                                         }
                                     ],
                                     "_response_status": {
@@ -341,12 +325,9 @@
                                         "loc_district_id": 1,
                                         "loc_division_id": 1,
                                         "title": "আমতলী ",
-                                        "title_en": "AMTALI",
                                         "bbs_code": "09",
                                         "district_title": "Test Title (Native)",
-                                        "district_title_en": "Test Title (EN)",
-                                        "division_title": "Test Title (Native)",
-                                        "division_title_en": "Test Title (EN)"
+                                        "division_title": "Test Title (Native)"
                                     },
                                     "_response_status": {
                                         "success": true,
@@ -375,9 +356,6 @@
                         "$ref": "#/components/parameters/order"
                     },
                     {
-                        "$ref": "#/components/parameters/title_en_optional"
-                    },
-                    {
                         "$ref": "#/components/parameters/title_optional"
                     },
                     {
@@ -398,7 +376,6 @@
                                         {
                                             "id": 3,
                                             "title": "Bangladesh",
-                                            "title_en": "Bangladesh",
                                             "code": "BD",
                                             "deleted_at": null
                                         }
@@ -440,9 +417,6 @@
                         "$ref": "#/components/parameters/title_optional"
                     },
                     {
-                        "$ref": "#/components/parameters/title_en_optional"
-                    },
-                    {
                         "$ref": "#/components/parameters/row_status"
                     },
                     {
@@ -469,7 +443,6 @@
                                         {
                                             "id": 3,
                                             "title": "Bangladesh",
-                                            "title_en": "Bangladesh",
                                             "code": "BD",
                                             "deleted_at": null
                                         }
@@ -507,13 +480,11 @@
                             "application/json": {
                                 "example": {
                                     "data": {
-                                        "title_en": "newtitle",
                                         "title": "newtitle",
                                         "main_image_path": "https://en.as.com/en/2021/11/01/soccer/1635749055_402801.html",
                                         "thumb_image_path": "https://en.as.com/en/2021/11/01/soccer/1635749055_402801.html",
                                         "grid_image_path": "https://en.as.com/en/2021/11/01/soccer/1635749055_402801.html",
                                         "domain": null,
-                                        "image_alt_title_en": null,
                                         "image_alt_title": null,
                                         "row_status": "1",
                                         "updated_at": "2021-11-04T10:46:39.000000Z",
@@ -567,13 +538,11 @@
                                     "order": "ASC",
                                     "data": {
                                         "id": 1,
-                                        "title_en": "newtitle",
                                         "title": "newtitle",
                                         "main_image_path": "https://en.as.com/en/2021/11/01/soccer/1635749055_402801.html",
                                         "thumb_image_path": "https://en.as.com/en/2021/11/01/soccer/1635749055_402801.html",
                                         "grid_image_path": "https://en.as.com/en/2021/11/01/soccer/1635749055_402801.html",
                                         "domain": null,
-                                        "image_alt_title_en": null,
                                         "image_alt_title": null,
                                         "row_status": 1,
                                         "created_by": null,
@@ -626,13 +595,11 @@
                                 "example": {
                                     "data": {
                                         "id": 1,
-                                        "title_en": "new title444",
                                         "title": "new title444",
                                         "main_image_path": null,
                                         "thumb_image_path": null,
                                         "grid_image_path": null,
                                         "domain": null,
-                                        "image_alt_title_en": null,
                                         "image_alt_title": null,
                                         "row_status": "1",
                                         "created_by": null,
@@ -703,13 +670,7 @@
                         "$ref": "#/components/parameters/title_optional"
                     },
                     {
-                        "$ref": "#/components/parameters/title_en_optional"
-                    },
-                    {
                         "$ref": "#/components/parameters/sub_title"
-                    },
-                    {
-                        "$ref": "#/components/parameters/sub_title_en_optional"
                     },
                     {
                         "$ref": "#/components/parameters/page"
@@ -772,9 +733,7 @@
                                         "institute_id": "1",
                                         "organization_id": "1",
                                         "title": "New Title",
-                                        "title_en": "New Title",
                                         "sub_title": "No subtitle",
-                                        "sub_title_en": "No subtitle",
                                         "is_button_available": "1",
                                         "button_text": "new field",
                                         "link": "new link",
@@ -782,7 +741,6 @@
                                             "sssss"
                                         ],
                                         "alt_title": null,
-                                        "alt_title_en": null,
                                         "banner_template": null,
                                         "row_status": "0",
                                         "created_by": null,
@@ -843,9 +801,7 @@
                                         "institute_id": 1,
                                         "organization_id": 1,
                                         "title": "New Title",
-                                        "title_en": "New Title",
                                         "sub_title": "No subtitle",
-                                        "sub_title_en": "No subtitle",
                                         "is_button_available": 1,
                                         "button_text": "new field",
                                         "link": "new link",
@@ -853,7 +809,6 @@
                                             "sssss"
                                         ],
                                         "alt_title": null,
-                                        "alt_title_en": null,
                                         "banner_template": null,
                                         "row_status": 0,
                                         "created_by": null,
@@ -902,9 +857,7 @@
                                     "institute_id": "1",
                                     "organization_id": "1",
                                     "title": "Abar Title",
-                                    "title_en": "Abar Title",
                                     "sub_title": "New Subtitle",
-                                    "sub_title_en": "New Subtitle",
                                     "is_button_available": "0",
                                     "button_text": null,
                                     "link": null,
@@ -912,7 +865,6 @@
                                         "No Image"
                                     ],
                                     "alt_title": null,
-                                    "alt_title_en": null,
                                     "banner_template": null,
                                     "row_status": "0",
                                     "created_by": null,
@@ -941,9 +893,7 @@
                                         "institute_id": "1",
                                         "organization_id": "1",
                                         "title": "Abar title",
-                                        "title_en": "Abar title",
                                         "sub_title": "No subtitle",
-                                        "sub_title_en": "No subtitle",
                                         "is_button_available": "0",
                                         "button_text": null,
                                         "link": null,
@@ -951,7 +901,6 @@
                                             "aaasss"
                                         ],
                                         "alt_title": null,
-                                        "alt_title_en": null,
                                         "banner_template": null,
                                         "row_status": "0",
                                         "created_by": null,
@@ -1015,9 +964,7 @@
                 "summary": "Get All faqs",
                 "description": "API endpoint to get the list of Sliders.A successful request response will show 200 HTTP status code",
                 "parameters": [
-                    {
-                        "$ref": "#/components/parameters/Accept-Language"
-                    },
+
                     {
                         "name": "question",
                         "in": "query",
@@ -1027,23 +974,7 @@
                         }
                     },
                     {
-                        "name": "question_en",
-                        "in": "query",
-                        "required": false,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
                         "name": "answer",
-                        "in": "query",
-                        "required": false,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "answer_en",
                         "in": "query",
                         "required": false,
                         "schema": {
@@ -1139,9 +1070,7 @@
                                             "industry_association_id": 1,
                                             "organization_id": 5,
                                             "question": "I was thinking I should be like then?' And she began fancying the sort of people live about here?'.",
-                                            "question_en": "Hatter, 'you wouldn't talk about her and to hear it say, as it turned round and round the thistle.",
                                             "answer": "Hatter, 'you wouldn't talk about her and to hear..",
-                                            "answer_en": "March Hare went on",
                                             "row_status": 1,
                                             "created_by": null,
                                             "updated_by": null,
@@ -1155,7 +1084,6 @@
                                             "industry_association_id": 0,
                                             "organization_id": 9,
                                             "question": "March Hare. 'Then it wasn't trouble enough hatching the eggs.",
-                                            "question_en": "Mouse to Alice for protection.",
                                             "row_status": 1,
                                             "created_by": null,
                                             "updated_by": null,
@@ -1203,7 +1131,6 @@
                                         "organization_id": null,
                                         "question": "New Question",
                                         "answer": "New Answer",
-                                        "answer_en": null,
                                         "row_status": "0",
                                         "updated_at": "2021-11-04T06:03:46.000000Z",
                                         "created_at": "2021-11-04T06:03:46.000000Z",
@@ -1260,9 +1187,7 @@
                                         "industry_association_id": 1,
                                         "organization_id": 5,
                                         "question": "I was thinking I should be like then?' And she began fancying the sort of people live about here?'.",
-                                        "question_en": "Hatter, 'you wouldn't talk about her and to hear it say, as it turned round and round the thistle.",
                                         "answer": "Hatter, 'you wouldn't talk about her and to hear it say, as it turned round and round the thistle.",
-                                        "answer_en": "March Hare went on. 'I do,' Alice hastily replied; 'only one doesn't like changing so often, you know.' He was an old Crab took the watch and looked along the course, here and there she saw in my.",
                                         "row_status": 1,
                                         "created_by": null,
                                         "updated_by": null,
@@ -1320,9 +1245,7 @@
                                         "industry_association_id": null,
                                         "organization_id": null,
                                         "question": "No question",
-                                        "question_en": "Hatter, 'you wouldn't talk about her and to hear it say, as it turned round and round the thistle.",
                                         "answer": "Why need answer?",
-                                        "answer_en": "NO answer",
                                         "row_status": "0",
                                         "created_by": null,
                                         "updated_by": null,
@@ -1380,6 +1303,201 @@
                 ]
             }
         },
+        "/public/faqs/{faqId}": {
+            "get": {
+                "summary": "Get All faqs",
+                "description": "API endpoint to get the list of Sliders.A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/Accept-Language"
+                    },
+                    {
+                        "name": "question",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "answer",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "show_in",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "institute_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "industry_association_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "organization_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "page_size",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "order",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "ASC",
+                                "DESC"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "row_status",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "description": "1=>Active 0=>InActive",
+                            "enum": [
+                                1,
+                                0
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get list of all faqs",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "order": "ASC",
+                                    "data": [
+                                        {
+                                            "id": 1,
+                                            "show_in": 7,
+                                            "institute_id": 1,
+                                            "industry_association_id": 1,
+                                            "organization_id": 5,
+                                            "question": "I was thinking I should be like then?' And she began fancying the sort of people live about here?'.",
+                                            "answer": "Hatter, 'you wouldn't talk about her and to hear..",
+                                            "row_status": 1,
+                                            "created_by": null,
+                                            "updated_by": null,
+                                            "created_at": "2021-11-03T12:58:59.000000Z",
+                                            "updated_at": "2021-11-03T12:58:59.000000Z"
+                                        },
+                                        {
+                                            "id": 2,
+                                            "show_in": 1,
+                                            "institute_id": 0,
+                                            "industry_association_id": 0,
+                                            "organization_id": 9,
+                                            "question": "March Hare. 'Then it wasn't trouble enough hatching the eggs.",
+                                            "row_status": 1,
+                                            "created_by": null,
+                                            "updated_by": null,
+                                            "created_at": "2021-11-03T12:58:59.000000Z",
+                                            "updated_at": "2021-11-03T12:58:59.000000Z"
+                                        }
+                                    ],
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "message": null,
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "faqs"
+                ]
+            },
+            "post": {
+                "summary": "create",
+                "description": "API endpoint to create a faq.A successful request response will show 200 HTTP status code",
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/faq"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "create",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "data": {
+                                        "show_in": "1",
+                                        "institute_id": null,
+                                        "industry_association_id": null,
+                                        "organization_id": null,
+                                        "question": "New Question",
+                                        "answer": "New Answer",
+                                        "row_status": "0",
+                                        "updated_at": "2021-11-04T06:03:46.000000Z",
+                                        "created_at": "2021-11-04T06:03:46.000000Z",
+                                        "id": 21
+                                    },
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 201,
+                                        "message": "Faq successfully added",
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "faqs"
+                ]
+            }
+        },
         "/gallery-albums": {
             "get": {
                 "summary": "Get All gallery albums",
@@ -1390,9 +1508,6 @@
                     },
                     {
                         "$ref": "#/components/parameters/title_optional"
-                    },
-                    {
-                        "$ref": "#/components/parameters/title_en_optional"
                     },
                     {
                         "$ref": "#/components/parameters/page"
@@ -1429,12 +1544,10 @@
                                             "batch_id": null,
                                             "program_id": null,
                                             "title": "NewTitle",
-                                            "title_en": "NewTitle",
                                             "main_image_path": null,
                                             "thumb_image_path": null,
                                             "grid_image_path": null,
                                             "image_alt_title": null,
-                                            "image_alt_title_en": null,
                                             "row_status": 1,
                                             "created_by": null,
                                             "updated_by": null,
@@ -1482,12 +1595,10 @@
                                         "organization_id": "1",
                                         "album_type": "1",
                                         "batch_id": "1",
-                                        "title_en": "New title",
                                         "title": "New title",
                                         "main_image_path": null,
                                         "thumb_image_path": null,
                                         "grid_image_path": null,
-                                        "image_alt_title_en": null,
                                         "image_alt_title": null,
                                         "row_status": "1",
                                         "updated_at": "2021-11-04T06:42:58.000000Z",
@@ -1555,12 +1666,10 @@
                                             "batch_id": null,
                                             "program_id": null,
                                             "title": "NewTitle",
-                                            "title_en": "NewTitle",
                                             "main_image_path": null,
                                             "thumb_image_path": null,
                                             "grid_image_path": null,
                                             "image_alt_title": null,
-                                            "image_alt_title_en": null,
                                             "row_status": 1,
                                             "created_by": null,
                                             "updated_by": null,
@@ -1624,12 +1733,10 @@
                                         "batch_id": null,
                                         "program_id": null,
                                         "title": "One title",
-                                        "title_en": "One title",
                                         "main_image_path": null,
                                         "thumb_image_path": null,
                                         "grid_image_path": null,
                                         "image_alt_title": null,
-                                        "image_alt_title_en": null,
                                         "row_status": "1",
                                         "created_by": null,
                                         "updated_by": null,
@@ -1724,7 +1831,6 @@
                                             "video_type": "1",
                                             "content_title": "newtitle",
                                             "content_description": null,
-                                            "content_description_en": null,
                                             "content_properties_json": null,
                                             "image_url": null,
                                             "video_url": "ddddd",
@@ -1732,7 +1838,6 @@
                                             "content_grid_image_url": null,
                                             "content_thumb_image_url": null,
                                             "alt_title": null,
-                                            "alt_title_en": null,
                                             "row_status": "1",
                                             "updated_at": "2021-11-04T07:52:27.000000Z",
                                             "created_at": "2021-11-04T07:52:27.000000Z",
@@ -1781,7 +1886,6 @@
                                         "video_type": "1",
                                         "content_title": "Old title",
                                         "content_description": null,
-                                        "content_description_en": null,
                                         "content_properties_json": null,
                                         "image_url": "aaaa",
                                         "video_url": null,
@@ -1789,7 +1893,6 @@
                                         "content_grid_image_url": null,
                                         "content_thumb_image_url": null,
                                         "alt_title": null,
-                                        "alt_title_en": null,
                                         "row_status": "1",
                                         "updated_at": "2021-11-04T07:53:49.000000Z",
                                         "created_at": "2021-11-04T07:53:49.000000Z",
@@ -1852,9 +1955,7 @@
                                         "content_type": "1",
                                         "video_type": "1",
                                         "content_title": "Trivium",
-                                        "content_title_en": null,
                                         "content_description": null,
-                                        "content_description_en": null,
                                         "image_url": "dddddd",
                                         "video_url": null,
                                         "content_properties_json": null,
@@ -1862,7 +1963,6 @@
                                         "content_grid_image_url": null,
                                         "content_thumb_image_url": null,
                                         "alt_title": null,
-                                        "alt_title_en": null,
                                         "row_status": "1",
                                         "published_by": null,
                                         "archived_by": null,
@@ -1926,9 +2026,7 @@
                                         "content_type": "1",
                                         "video_type": "1",
                                         "content_title": "new title",
-                                        "content_title_en": null,
                                         "content_description": null,
-                                        "content_description_en": null,
                                         "image_url": "llklasdasd",
                                         "video_url": null,
                                         "content_properties_json": null,
@@ -1936,7 +2034,6 @@
                                         "content_grid_image_url": null,
                                         "content_thumb_image_url": null,
                                         "alt_title": null,
-                                        "alt_title_en": null,
                                         "row_status": "1",
                                         "published_by": null,
                                         "archived_by": null,
@@ -2008,9 +2105,6 @@
                         "$ref": "#/components/parameters/title_optional"
                     },
                     {
-                        "$ref": "#/components/parameters/title_en_optional"
-                    },
-                    {
                         "$ref": "#/components/parameters/page"
                     },
                     {
@@ -2059,11 +2153,8 @@
                                         "content_slug_or_id": "1",
                                         "institute_id": null,
                                         "organization_id": null,
-                                        "title_en": "NewTitle",
                                         "title": "NewTitle",
-                                        "sub_title_en": null,
                                         "sub_title": null,
-                                        "contents_en": null,
                                         "contents": null,
                                         "row_status": "1",
                                         "updated_at": "2021-11-04T11:29:41.000000Z",
@@ -2123,11 +2214,8 @@
                                         "institute_id": null,
                                         "organization_id": null,
                                         "title": "NewTitle",
-                                        "title_en": "NewTitle",
                                         "sub_title": null,
-                                        "sub_title_en": null,
                                         "contents": null,
-                                        "contents_en": null,
                                         "row_status": 1,
                                         "created_by": null,
                                         "updated_by": null,
@@ -2186,11 +2274,8 @@
                                         "organization_id": null,
                                         "industry_association_id": null,
                                         "title": "WWWWWWWWWWW",
-                                        "title_en": "WWWWWWWWW",
                                         "sub_title": null,
-                                        "sub_title_en": null,
                                         "contents": null,
-                                        "contents_en": null,
                                         "created_by": null,
                                         "updated_by": null,
                                         "row_status": "1",
@@ -2260,9 +2345,6 @@
                         "$ref": "#/components/parameters/title_optional"
                     },
                     {
-                        "$ref": "#/components/parameters/title_en_optional"
-                    },
-                    {
                         "$ref": "#/components/parameters/page"
                     },
                     {
@@ -2308,7 +2390,6 @@
                                     "data": {
                                         "institute_id": null,
                                         "organization_id": null,
-                                        "title_en": "aaa",
                                         "title": "aaa",
                                         "content_type": "2",
                                         "content_path": null,
@@ -2318,7 +2399,6 @@
                                         "thumb_image_path": null,
                                         "grid_image_path": null,
                                         "image_alt_title": null,
-                                        "description_en": null,
                                         "description": null,
                                         "row_status": "1",
                                         "embedded_url": "aaaa",
@@ -2380,7 +2460,6 @@
                                         "organization_id": null,
                                         "industry_association_id": null,
                                         "title": "aaa",
-                                        "title_en": "aaa",
                                         "content_type": 2,
                                         "content_path": null,
                                         "embedded_url": null,
@@ -2391,8 +2470,6 @@
                                         "thumb_image_path": null,
                                         "grid_image_path": null,
                                         "image_alt_title": null,
-                                        "image_alt_title_en": null,
-                                        "description_en": null,
                                         "description": null,
                                         "row_status": null,
                                         "published_by": null,
@@ -2453,7 +2530,6 @@
                                         "institute_id": null,
                                         "organization_id": null,
                                         "industry_association_id": null,
-                                        "title_en": "SasaSAs",
                                         "title": "aSasAS",
                                         "content_type": "1",
                                         "content_path": null,
@@ -2464,9 +2540,7 @@
                                         "collage_position": null,
                                         "thumb_image_path": null,
                                         "grid_image_path": null,
-                                        "image_alt_title_en": null,
                                         "image_alt_title": null,
-                                        "description_en": null,
                                         "description": null,
                                         "row_status": "1",
                                         "published_by": null,
@@ -2639,14 +2713,6 @@
                         }
                     },
                     {
-                        "name": "title_en",
-                        "in": "query",
-                        "required": false,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
                         "name": "page_size",
                         "in": "query",
                         "required": false,
@@ -2698,7 +2764,6 @@
                                         {
                                             "id": 300,
                                             "title": "Ex saepe et non est et et. Est et ut minus explicabo. Magni magni dolor et ut. Repudiandae commodi asperiores cupiditate accusamus.",
-                                            "title_en": "Veritatis et at sunt. Molestiae est nobis sit earum assumenda tenetur enim.",
                                             "youth_id": null,
                                             "batch_id": null,
                                             "institute_id": null,
@@ -2747,7 +2812,6 @@
                                 "example": {
                                     "data": {
                                         "title": "wefv",
-                                        "title_en": null,
                                         "youth_id": null,
                                         "institute_id": null,
                                         "organization_id": null,
@@ -2801,7 +2865,6 @@
                                     "data": {
                                         "id": 300,
                                         "title": "Ex saepe et non est et et. Est et ut minus explicabo. Magni magni dolor et ut. Repudiandae commodi asperiores cupiditate accusamus.",
-                                        "title_en": "Veritatis et at sunt. Molestiae est nobis sit earum assumenda tenetur enim.",
                                         "youth_id": null,
                                         "batch_id": null,
                                         "institute_id": null,
@@ -2859,7 +2922,6 @@
                                     "data": {
                                         "id": 300,
                                         "title": "anis title",
-                                        "title_en": null,
                                         "youth_id": null,
                                         "batch_id": null,
                                         "institute_id": null,
@@ -2936,9 +2998,6 @@
                         "$ref": "#/components/parameters/title_optional"
                     },
                     {
-                        "$ref": "#/components/parameters/title_en_optional"
-                    },
-                    {
                         "$ref": "#/components/parameters/page"
                     },
                     {
@@ -2978,7 +3037,6 @@
                                     "data": {
                                         "type": "1",
                                         "show_in": "3",
-                                        "title_en": "আমাদের ইংরেজি থেকে বাংলা অনুবাদ টুলটি দ্বারা চালিত",
                                         "title": "Our English to Bangla Translation Tool is powered by Google Translation API",
                                         "institute_id": "1",
                                         "industry_association_id": "1",
@@ -3031,19 +3089,15 @@
                                             "published_at": null,
                                             "archived_at": null,
                                             "title": "Our English to Bangla Translation Tool is powered by Google Translation API",
-                                            "title_en": "আমাদের ইংরেজি থেকে বাংলা অনুবাদ টুলটি দ্বারা চালিত",
                                             "institute_id": 1,
                                             "organization_id": 1,
                                             "industry_association_id": 1,
                                             "details": null,
-                                            "details_en": null,
                                             "main_image_path": null,
                                             "grid_image_path": null,
                                             "thumb_image_path": null,
-                                            "image_alt_title_en": null,
                                             "image_alt_title": null,
                                             "file_path": null,
-                                            "file_alt_title_en": null,
                                             "file_alt_title": null,
                                             "row_status": 1,
                                             "created_by": null,
@@ -3104,20 +3158,16 @@
                                         "show_in": "1",
                                         "published_at": null,
                                         "archived_at": null,
-                                        "title_en": "NewKKK",
                                         "title": "NewKKK",
                                         "institute_id": null,
                                         "organization_id": null,
                                         "industry_association_id": 1,
                                         "details": null,
-                                        "details_en": null,
                                         "main_image_path": null,
                                         "grid_image_path": null,
                                         "thumb_image_path": null,
-                                        "image_alt_title_en": null,
                                         "image_alt_title": null,
                                         "file_path": null,
-                                        "file_alt_title_en": null,
                                         "file_alt_title": null,
                                         "row_status": "1",
                                         "created_by": null,
@@ -3180,9 +3230,6 @@
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/name_optional"
-                    },
-                    {
-                        "$ref": "#/components/parameters/name_en_optional"
                     },
                     {
                         "$ref": "#/components/parameters/page"
@@ -3427,22 +3474,6 @@
                 "schema": {
                     "type": "string",
                     "example": "subtitle"
-                }
-            },
-            "sub_title_en": {
-                "name": "sub_title_en",
-                "in": "query",
-                "required": true,
-                "schema": {
-                    "type": "string"
-                }
-            },
-            "sub_title_en_optional": {
-                "name": "sub_title_en",
-                "in": "query",
-                "required": false,
-                "schema": {
-                    "type": "string"
                 }
             },
             "sub_title_optional": {
@@ -3714,35 +3745,8 @@
                     "type": "string"
                 }
             },
-            "title_en": {
-                "name": "title_en",
-                "in": "query",
-                "required": true,
-                "style": "form",
-                "schema": {
-                    "type": "string"
-                }
-            },
-            "alt_title_en": {
-                "name": "alt_title_en",
-                "in": "query",
-                "required": false,
-                "style": "form",
-                "schema": {
-                    "type": "string"
-                }
-            },
             "alt_title": {
                 "name": "alt_title",
-                "in": "query",
-                "required": false,
-                "style": "form",
-                "schema": {
-                    "type": "string"
-                }
-            },
-            "title_en_optional": {
-                "name": "title_en",
                 "in": "query",
                 "required": false,
                 "style": "form",
@@ -3864,24 +3868,6 @@
             },
             "uri_optional": {
                 "name": "uri",
-                "in": "query",
-                "required": false,
-                "style": "form",
-                "schema": {
-                    "type": "string"
-                }
-            },
-            "name_en": {
-                "name": "name_en",
-                "in": "query",
-                "required": true,
-                "style": "form",
-                "schema": {
-                    "type": "string"
-                }
-            },
-            "name_en_optional": {
-                "name": "name_en",
                 "in": "query",
                 "required": false,
                 "style": "form",
@@ -4045,28 +4031,8 @@
                     "type": "integer"
                 }
             },
-            "address_en": {
-                "name": "address_en",
-                "in": "query",
-                "required": false,
-                "style": "form",
-                "schema": {
-                    "type": "string",
-                    "example": "Lorem Ipsum is simply dummy text of the printing and typesetting industry"
-                }
-            },
             "address": {
                 "name": "address",
-                "in": "query",
-                "required": false,
-                "style": "form",
-                "schema": {
-                    "type": "string",
-                    "example": "Lorem Ipsum is simply dummy text of the printing and typesetting industry"
-                }
-            },
-            "description_en": {
-                "name": "description_en",
                 "in": "query",
                 "required": false,
                 "style": "form",
@@ -4140,9 +4106,6 @@
                 "description": "Provide Calendar Events data",
                 "properties": {
                     "title": {
-                        "type": "string"
-                    },
-                    "title_en": {
                         "type": "string"
                     },
                     "youth_id": {
@@ -4219,9 +4182,6 @@
                     "name": {
                         "type": "string"
                     },
-                    "name_en": {
-                        "type": "string"
-                    },
                     "mobile": {
                         "type": "string"
                     },
@@ -4231,13 +4191,7 @@
                     "address": {
                         "type": "string"
                     },
-                    "address_en": {
-                        "type": "string"
-                    },
                     "comment": {
-                        "type": "string"
-                    },
-                    "comment_en": {
                         "type": "string"
                     },
                     "read_at": {
@@ -4261,12 +4215,6 @@
                 "type": "object",
                 "description": "Provide the Country",
                 "properties": {
-                    "title_en": {
-                        "type": "string",
-                        "description": "Division Title In English",
-                        "minLength": 1,
-                        "maxLength": 250
-                    },
                     "title": {
                         "type": "string",
                         "description": "Division Title In Bengali",
@@ -4281,7 +4229,6 @@
                     }
                 },
                 "required": [
-                    "title_en",
                     "title",
                     "code"
                 ]
@@ -4290,12 +4237,7 @@
                 "type": "object",
                 "description": "Provide the Loc Division",
                 "properties": {
-                    "title_en": {
-                        "type": "string",
-                        "description": "Division Title In English",
-                        "minLength": 1,
-                        "maxLength": 250
-                    },
+
                     "title": {
                         "type": "string",
                         "description": "Division Title In Bengali",
@@ -4310,7 +4252,6 @@
                     }
                 },
                 "required": [
-                    "title_en",
                     "title"
                 ]
             },
@@ -4321,12 +4262,6 @@
                     "loc_division_id": {
                         "type": "integer",
                         "description": "Division Id"
-                    },
-                    "title_en": {
-                        "type": "string",
-                        "description": "District Title In English",
-                        "minLength": 1,
-                        "maxLength": 255
                     },
                     "title": {
                         "type": "string",
@@ -4343,7 +4278,6 @@
                 },
                 "required": [
                     "loc_division_id",
-                    "title_en",
                     "title"
                 ]
             },
@@ -4359,10 +4293,6 @@
                         "type": "integer",
                         "description": "District Id"
                     },
-                    "title_en": {
-                        "type": "string",
-                        "description": "upazila Title In English"
-                    },
                     "title": {
                         "type": "string",
                         "description": "upazila Title In Bengali"
@@ -4377,7 +4307,6 @@
                 "required": [
                     "loc_division_id",
                     "loc_district_id",
-                    "title_en",
                     "title"
                 ]
             },
@@ -4385,12 +4314,6 @@
                 "type": "object",
                 "description": "Provide Gallery Categories",
                 "properties": {
-                    "title_en": {
-                        "type": "string",
-                        "description": " Title In English",
-                        "minLength": 1,
-                        "maxLength": 255
-                    },
                     "title": {
                         "type": "string",
                         "description": " Title In Bengali",
@@ -4435,10 +4358,6 @@
                         "type": "string",
                         "minLength": 191
                     },
-                    "image_alt_title_en": {
-                        "type": "string",
-                        "minLength": 191
-                    },
                     "image_alt_title": {
                         "type": "string",
                         "minLength": 191
@@ -4447,10 +4366,6 @@
                         "type": "string",
                         "description": "List or Grid Image",
                         "minLength": 191
-                    },
-                    "alt_title_en": {
-                        "type": "string",
-                        "description": "alternative title_en for image"
                     },
                     "alt_title": {
                         "type": "string",
@@ -4511,7 +4426,6 @@
                 },
                 "required": [
                     "title",
-                    "title_en",
                     "show_in",
                     "album_type",
                     "featured",
@@ -4555,15 +4469,11 @@
                     },
                     "content_title": {
                         "type": "string",
-                        "description": "Content title_en"
+                        "description": "Content title"
                     },
                     "content_description": {
                         "type": "string",
                         "description": "Content Description"
-                    },
-                    "content_description_en": {
-                        "type": "string",
-                        "description": "Content Description_en"
                     },
                     "image_url": {
                         "type": "string",
@@ -4612,10 +4522,6 @@
                         "description": "Archive date",
                         "example": "2021-06-03"
                     },
-                    "alt_title_en": {
-                        "type": "string",
-                        "description": "alternate title_en for content"
-                    },
                     "alt_title": {
                         "type": "string",
                         "description": "alternate title for content"
@@ -4660,12 +4566,6 @@
                     "content_slug_or_id": {
                         "type": "integer"
                     },
-                    "title_en": {
-                        "type": "string",
-                        "description": " Title In English",
-                        "minLength": 1,
-                        "maxLength": 255
-                    },
                     "title": {
                         "type": "string",
                         "description": " Title In Bengali",
@@ -4697,15 +4597,7 @@
                         "type": "string",
                         "description": "contents"
                     },
-                    "contents_en": {
-                        "type": "string",
-                        "description": "contents_en"
-                    },
                     "sub_title": {
-                        "type": "string",
-                        "description": "sub_title"
-                    },
-                    "sub_title_en": {
                         "type": "string",
                         "description": "sub_title"
                     },
@@ -4725,7 +4617,6 @@
                 },
                 "required": [
                     "title",
-                    "title_en",
                     "content_type",
                     "show_in",
                     "content_slug_or_id",
@@ -4736,21 +4627,9 @@
                 "type": "object",
                 "description": "Provide sliders",
                 "properties": {
-                    "title_en": {
-                        "type": "string",
-                        "description": " Title In English",
-                        "minLength": 1,
-                        "maxLength": 500
-                    },
                     "title": {
                         "type": "string",
                         "description": " Title In Bangla",
-                        "minLength": 1,
-                        "maxLength": 500
-                    },
-                    "sub_title_en": {
-                        "type": "string",
-                        "description": " Subtitle in English",
                         "minLength": 1,
                         "maxLength": 500
                     },
@@ -4790,10 +4669,6 @@
                         "type": "string",
                         "description": "slider images"
                     },
-                    "alt_title_en": {
-                        "type": "string",
-                        "description": "image alt title en"
-                    },
                     "alt_title": {
                         "type": "string",
                         "description": "image alt title bn"
@@ -4813,9 +4688,7 @@
                     }
                 },
                 "required": [
-                    "title_en",
                     "title",
-                    "sub_title_en",
                     "sub_title",
                     "slider_images",
                     "row_status",
@@ -4826,9 +4699,7 @@
                 "type": "object",
                 "description": "Provide the partner information",
                 "properties": {
-                    "title_en": {
-                        "type": "string"
-                    },
+
                     "title": {
                         "type": "string"
                     },
@@ -4842,9 +4713,6 @@
                         "type": "string"
                     },
                     "domain": {
-                        "type": "string"
-                    },
-                    "image_alt_title_en": {
                         "type": "string"
                     },
                     "image_alt_title": {
@@ -4866,7 +4734,6 @@
                 },
                 "required": [
                     "title",
-                    "title_en",
                     "row_status"
                 ]
             },
@@ -4882,12 +4749,6 @@
                             2
                         ]
                     },
-                    "title_en": {
-                        "type": "string",
-                        "description": " Title In English",
-                        "minLength": 1,
-                        "maxLength": 255
-                    },
                     "title": {
                         "type": "string",
                         "description": " Title In Bengali",
@@ -4902,14 +4763,7 @@
                         "type": "integer",
                         "description": "Institute id"
                     },
-                    "image_alt_title_en": {
-                        "type": "string",
-                        "description": "alt image title in english"
-                    },
                     "details": {
-                        "type": "string"
-                    },
-                    "details_en": {
                         "type": "string"
                     },
                     "main_image_path": {
@@ -4939,10 +4793,6 @@
                         ],
                         "description": "SHOW_IN_NISE3 = 1;\n     SHOW_IN_YOUTH = 2;\n     SHOW_IN_TSP = 3;\n     SHOW_IN_INDUSTRY = 4;\n     SHOW_IN_INDUSTRY_ASSOCIATION = 5"
                     },
-                    "file_alt_title_en": {
-                        "type": "string",
-                        "description": "alt file title in english"
-                    },
                     "file_alt_title": {
                         "type": "string",
                         "description": "alt file title in Bengali"
@@ -4962,7 +4812,6 @@
                     }
                 },
                 "required": [
-                    "title_en",
                     "title",
                     "type"
                 ]
@@ -4971,19 +4820,7 @@
                 "type": "object",
                 "description": "Recent activities",
                 "properties": {
-                    "title_en": {
-                        "type": "string",
-                        "description": " Title In English",
-                        "minLength": 1,
-                        "maxLength": 255
-                    },
                     "title": {
-                        "type": "string",
-                        "description": " Title In Bengali",
-                        "minLength": 1,
-                        "maxLength": 500
-                    },
-                    "alt_title_en": {
                         "type": "string",
                         "description": " Title In Bengali",
                         "minLength": 1,
@@ -4996,10 +4833,6 @@
                     "organization_id": {
                         "type": "integer",
                         "description": "Institute id"
-                    },
-                    "description_en": {
-                        "type": "string",
-                        "description": "description in English"
                     },
                     "description": {
                         "type": "string",
@@ -5033,10 +4866,6 @@
                         "description": "content_image path"
                     },
                     "grid_image_path": {
-                        "type": "string",
-                        "description": "content_image path"
-                    },
-                    "image_alt_title_en": {
                         "type": "string",
                         "description": "content_image path"
                     },
@@ -5074,7 +4903,6 @@
                     }
                 },
                 "required": [
-                    "title_en",
                     "title",
                     "content_type"
                 ]
@@ -5104,10 +4932,6 @@
                     "tag": {
                         "type": "string",
                         "description": "Tag"
-                    },
-                    "tag_en": {
-                        "type": "string",
-                        "description": "tag en"
                     }
                 },
                 "required": [
@@ -5145,9 +4969,6 @@
                         "type": "string"
                     },
                     "answer": {
-                        "type": "string"
-                    },
-                    "answer_en": {
                         "type": "string"
                     },
                     "row_status": {
