@@ -29,7 +29,7 @@ class FaqResource extends JsonResource
             "organization_id" => $this->organization_id,
         ];
         if ($request->offsetExists(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY) && $request->get(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY)) {
-            $response['question'] = app(CmsLanguageService::class)->getLanguageValue($this, Slider::SLIDER_LANGUAGE_ATTR_TITLE );
+            $response['question'] = app(CmsLanguageService::class)->getLanguageValue($this, Slider::SLIDER_LANGUAGE_ATTR_TITLE);
             $response['answer'] = app(CmsLanguageService::class)->getLanguageValue($this, Faq::LANGUAGE_ATTR_ANSWER);
         } else {
             $response['institute_title'] = "";
@@ -40,10 +40,11 @@ class FaqResource extends JsonResource
             $response['organization_title_en'] = "";
             $response['question'] = $this->question;
             $response['answer'] = $this->answer;
-            if($request->offsetExists(BaseModel::IS_NOT_COLLECTION_KEY) && $request->get(BaseModel::IS_NOT_COLLECTION_KEY)){
+            if ($request->offsetExists(BaseModel::IS_NOT_COLLECTION_KEY) && $request->get(BaseModel::IS_NOT_COLLECTION_KEY)) {
                 $response[BaseModel::OTHER_LANGUAGE_FIELDS_KEY] = CmsLanguageService::otherLanguageResponse($this->cmsLanguages);
             }
         }
+
 
         $response['row_status'] = $this->row_status;
         $response['created_by'] = $this->created_by;
