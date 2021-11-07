@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
@@ -60,6 +61,22 @@ class NoticeOrNewsController extends Controller
 
 
     /**
+     * Display the specified resource from client site.
+     *
+     * @param Request $request
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function clientSiteRead(Request $request, int $id): JsonResponse
+    {
+        $response = new NoticeOrNewsResource($this->noticeOrNewsService->getOneNoticeOrNewsService($id));
+        $request->offsetSet(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY, BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG);
+        $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
+        return Response::json($response, ResponseAlias::HTTP_OK);
+    }
+
+
+    /**
      * @param Request $request
      * @return JsonResponse
      * @throws ValidationException|Throwable
@@ -78,7 +95,7 @@ class NoticeOrNewsController extends Controller
                 foreach ($otherLanguagePayload as $key => $value) {
                     $languageValidatedData = $this->noticeOrNewsService->languageFieldValidator($value, $key)->validate();
                     foreach (NoticeOrNews::NOTICE_OR_NEWS_LANGUAGE_FILLABLE as $fillableColumn) {
-                        if (!empty($languageValidatedData[$fillableColumn])) {
+                        if (isset($languageValidatedData[$fillableColumn])) {
                             $languageFillablePayload = [
                                 "table_name" => $noticeOrNews->getTable(),
                                 "key_id" => $noticeOrNews->id,
@@ -113,6 +130,8 @@ class NoticeOrNewsController extends Controller
      */
     public function update(Request $request, int $id): JsonResponse
     {
+        Log::info("ffffffffffffffffff");
+
         $noticeOrNews = NoticeOrNews::findOrFail($id);
         $validatedData = $this->noticeOrNewsService->validator($request, $id)->validate();
         $message = "NoticeOrNews Update Successfully Done";
@@ -122,10 +141,11 @@ class NoticeOrNewsController extends Controller
         try {
             $noticeOrNews = $this->noticeOrNewsService->update($noticeOrNews, $validatedData);
             if ($isLanguage) {
+
                 foreach ($otherLanguagePayload as $key => $value) {
                     $languageValidatedData = $this->noticeOrNewsService->languageFieldValidator($value, $key)->validate();
                     foreach (NoticeOrNews::NOTICE_OR_NEWS_LANGUAGE_FILLABLE as $fillableColumn) {
-                        if (!empty($languageValidatedData[$fillableColumn])) {
+                        if (isset($languageValidatedData[$fillableColumn])) {
                             $languageFillablePayload = [
                                 "table_name" => $noticeOrNews->getTable(),
                                 "key_id" => $noticeOrNews->id,
@@ -134,6 +154,7 @@ class NoticeOrNewsController extends Controller
                                 "column_value" => $languageValidatedData[$fillableColumn]
                             ];
                             app(CmsLanguageService::class)->createOrUpdate($languageFillablePayload);
+                            CmsLanguageService::languageCacheClearByKey($noticeOrNews->getTable(), $noticeOrNews->id, $key, $fillableColumn);
                         }
                     }
                 }

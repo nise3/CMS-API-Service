@@ -251,7 +251,7 @@ class NoticeOrNewsService
             'show_in' => [
                 "required",
                 "integer",
-                Rule::in(BaseModel::SHOW_INS)
+                Rule::in(array_keys(BaseModel::SHOW_INS))
             ],
             'title_en' => [
                 'nullable',
