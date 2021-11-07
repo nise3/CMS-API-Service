@@ -42,6 +42,7 @@ class SliderController extends Controller
     {
         $filter = $this->sliderService->filterValidator($request)->validate();
         $message = "Slider list";
+        $request->offsetSet(BaseModel::IS_COLLECTION_KEY, BaseModel::IS_COLLECTION_FLAG);
         $response = SliderResource::collection($this->sliderService->getAllSliders($filter))->resource;
         $response = getResponse($response->toArray(), $this->startTime, !BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK, $message);
         return Response::json($response, ResponseAlias::HTTP_OK);
@@ -57,7 +58,6 @@ class SliderController extends Controller
     public function read(Request $request, int $id): JsonResponse
     {
         $message = "Slider details";
-        $request->offsetSet(BaseModel::IS_COLLECTION_KEY, BaseModel::IS_COLLECTION_FLAG);
         $response = new SliderResource($this->sliderService->getOneSlider($id));
         $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK, $message);
         return Response::json($response, ResponseAlias::HTTP_OK);
