@@ -73,7 +73,7 @@ class NoticeOrNewsService
 
         /** @var Collection $noticeOrNews */
         if (is_numeric($paginate) || is_numeric($pageSize)) {
-            $pageSize = $pageSize ?: 10;
+            $pageSize = $pageSize ?: BaseModel::DEFAULT_PAGE_SIZE;
             $noticeOrNews = $noticeOrNewsBuilder->paginate($pageSize);
         } else {
             $noticeOrNews = $noticeOrNewsBuilder->get();
@@ -177,18 +177,25 @@ class NoticeOrNewsService
                 "regex:/[a-z]/",
                 Rule::in(LanguageCodeService::getLanguageCode())
             ],
-            'question' => [
-                "required",
-                "string",
-                "max:1800",
-                "min:2"
+            'title' => [
+                'required',
+                'string',
+                'max:500',
+                'min:2'
             ],
-            'answer' => [
-                "required",
-                "nullable",
-                "string",
-                "min:2"
-            ]
+            'details' => [
+                'nullable',
+                'string'
+            ],
+            'image_alt_title' => [
+                'nullable',
+                'string'
+            ],
+            'file_alt_title' => [
+                'nullable',
+                'string'
+            ],
+
         ];
         return Validator::make($request, $rules, $customMessage);
     }
@@ -234,10 +241,7 @@ class NoticeOrNewsService
     public function validator($request, int $id = null): \Illuminate\Contracts\Validation\Validator
     {
         $customMessage = [
-            'row_status.in' => [
-                'code' => 30000,
-                'message' => 'Row status must be within 1 or 0'
-            ]
+            'row_status.in' => 'Row status must be within 1 or 0. [30000]'
         ];
         $rules = [
             'type' => [
@@ -252,7 +256,7 @@ class NoticeOrNewsService
             'title_en' => [
                 'nullable',
                 'string',
-                'max:191',
+                'max:250',
                 'min:2'
             ],
             'title' => [
@@ -332,6 +336,8 @@ class NoticeOrNewsService
             ]
 
         ];
+        $rules = array_merge($rules, BaseModel::OTHER_LANGUAGE_VALIDATION_RULES);
+
         return Validator::make($request->all(), $rules, $customMessage);
     }
 

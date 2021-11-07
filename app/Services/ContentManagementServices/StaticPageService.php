@@ -5,7 +5,6 @@ namespace App\Services\ContentManagementServices;
 use App\Models\BaseModel;
 use App\Models\StaticPage;
 use App\Services\Common\LanguageCodeService;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -13,7 +12,6 @@ use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
-use Symfony\Component\HttpFoundation\Response;
 
 
 class StaticPageService
@@ -167,17 +165,19 @@ class StaticPageService
                 Rule::in(LanguageCodeService::getLanguageCode())
             ],
             'title' => [
-                "required",
-                "string",
-                "max:600",
-                "min:2"
+                'required',
+                'string',
+                'max:500',
+                'min:2'
             ],
-            'image_alt_title' => [
-                "nullable",
-                "string",
-                "max:500",
-                "min:2"
-            ]
+            'sub_title' => [
+                'nullable',
+                'string'
+            ],
+            'contents' => [
+                'nullable',
+                'string'
+            ],
         ];
         return Validator::make($request, $rules, $customMessage);
     }
@@ -190,10 +190,7 @@ class StaticPageService
     public function validator(Request $request, $id = null): \Illuminate\Contracts\Validation\Validator
     {
         $customMessage = [
-            'row_status.in' => [
-                'code' => 30000,
-                'message' => 'Row status must be within 1 or 0'
-            ]
+            'row_status.in' => 'Row status must be within 1 or 0. [30000]'
         ];
         $rules = [
             'content_type' => [
@@ -202,7 +199,7 @@ class StaticPageService
                 Rule::in(StaticPage::CONTENT_TYPES)
             ],
             'show_in' => [
-                'nullable',
+                'required',
                 'integer',
                 Rule::in(BaseModel::SHOW_INS)
             ],
@@ -280,22 +277,16 @@ class StaticPageService
     public function filterValidator(Request $request): \Illuminate\Contracts\Validation\Validator
     {
         $customMessage = [
-            'order.in' => [
-                'code' => 30000,
-                "message" => 'Order must be within ASC or DESC',
-            ],
-            'row_status.in' => [
-                'code' => 30000,
-                'message' => 'Row status must be within 1 or 0'
-            ]
+            'order.in' => 'Order must be within ASC or DESC.[30000]',
+            'row_status.in' => 'Row status must be within 1 or 0. [30000]'
         ];
 
-        if (!empty($request['order'])) {
-            $request['order'] = strtoupper($request['order']);
+        if ($request->filled('order')) {
+            $request->offsetSet('order', strtoupper($request->get('order')));
         }
 
         return Validator::make($request->all(), [
-            'title_en' => 'nullable|max:191|min:2',
+            'title_en' => 'nullable|max:200|min:2',
             'title' => 'nullable|max:500|min:2',
             'page' => 'nullable|integer|gt:0',
             'page_size' => 'nullable|integer|gt:0',
