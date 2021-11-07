@@ -48,12 +48,10 @@ class GalleryAlbumService
             'gallery_albums.program_id',
             'gallery_albums.batch_id',
             'gallery_albums.title',
-            'gallery_albums.title_en',
             'gallery_albums.main_image_path',
             'gallery_albums.thumb_image_path',
             'gallery_albums.grid_image_path',
             'gallery_albums.image_alt_title',
-            'gallery_albums.image_alt_title_en',
             'gallery_albums.row_status',
             'gallery_albums.created_by',
             'gallery_albums.updated_by',
@@ -103,12 +101,10 @@ class GalleryAlbumService
             'gallery_albums.program_id',
             'gallery_albums.batch_id',
             'gallery_albums.title',
-            'gallery_albums.title_en',
             'gallery_albums.main_image_path',
             'gallery_albums.thumb_image_path',
             'gallery_albums.grid_image_path',
             'gallery_albums.image_alt_title',
-            'gallery_albums.image_alt_title_en',
             'gallery_albums.row_status',
             'gallery_albums.created_by',
             'gallery_albums.updated_by',
@@ -218,7 +214,7 @@ class GalleryAlbumService
             'show_in' => [
                 "required",
                 "integer",
-                Rule::in(BaseModel::SHOW_INS)
+                Rule::in(array_keys(BaseModel::SHOW_INS))
             ],
             'institute_id' => [
                 Rule::requiredIf(function () use ($request) {
