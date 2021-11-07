@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Collection;
 
 /**
  * Class GalleryCategory
@@ -36,6 +37,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int|null updated_by
  * @property Carbon|null created_at
  * @property Carbon|null updated_at
+ * @property  Collection cmsLanguages
  */
 class GalleryAlbum extends BaseModel
 {

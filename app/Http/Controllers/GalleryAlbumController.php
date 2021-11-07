@@ -57,7 +57,7 @@ class GalleryAlbumController extends Controller
     {
         $response = new GalleryAlbumResource($this->galleryAlbumService->getOneGalleryAlbum($id));
         $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
-        return Response::json($response);
+        return Response::json($response,ResponseAlias::HTTP_OK);
     }
 
     /**
@@ -151,7 +151,8 @@ class GalleryAlbumController extends Controller
             DB::rollBack();
             throw $e;
         }
-        return Response::json($response, ResponseAlias::HTTP_CREATED);
+        return Response::json($response, ResponseAlias::HTTP_OK);
+
     }
 
     /**
