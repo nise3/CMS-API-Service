@@ -157,7 +157,7 @@ class GalleryImageVideoController extends Controller
             DB::rollBack();
             throw $e;
         }
-        return Response::json($response, ResponseAlias::HTTP_CREATED);
+        return Response::json($response, ResponseAlias::HTTP_OK);
     }
 
     /**
