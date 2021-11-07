@@ -56,8 +56,25 @@ class GalleryAlbumController extends Controller
     public function read(Request $request, int $id): JsonResponse
     {
         $response = new GalleryAlbumResource($this->galleryAlbumService->getOneGalleryAlbum($id));
+        $request->offsetSet(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY, BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG);
         $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
-        return Response::json($response,ResponseAlias::HTTP_OK);
+        return Response::json($response, ResponseAlias::HTTP_OK);
+    }
+
+
+    /**
+     * Display the specified resource from client site.
+     *
+     * @param Request $request
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function clientSiteRead(Request $request, int $id): JsonResponse
+    {
+        $response = new GalleryAlbumResource($this->galleryAlbumService->getOneGalleryAlbum($id));
+        $request->offsetSet(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY, BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG);
+        $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
+        return Response::json($response, ResponseAlias::HTTP_OK);
     }
 
     /**
@@ -83,7 +100,7 @@ class GalleryAlbumController extends Controller
                 foreach ($otherLanguagePayload as $key => $value) {
                     $languageValidatedData = $this->galleryAlbumService->languageFieldValidator($value, $key)->validate();
                     foreach (GalleryAlbum::GALLERY_ALBUM_LANGUAGE_FILLABLE as $fillableColumn) {
-                        if (!empty($languageValidatedData[$fillableColumn])) {
+                        if (isset($languageValidatedData[$fillableColumn])) {
                             $languageFillablePayload = [
                                 "table_name" => $galleryAlbumData->getTable(),
                                 "key_id" => $galleryAlbumData->id,
@@ -139,6 +156,7 @@ class GalleryAlbumController extends Controller
                                 "column_value" => $languageValidatedData[$fillableColumn]
                             ];
                             app(CmsLanguageService::class)->createOrUpdate($languageFillablePayload);
+                            CmsLanguageService::languageCacheClearByKey($galleryAlbum->getTable(), $galleryAlbum->id, $key, $fillableColumn);
 
                         }
 
