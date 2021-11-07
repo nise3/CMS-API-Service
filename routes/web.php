@@ -46,9 +46,11 @@ $router->group(['prefix' => 'api/v1', 'as' => 'api.v1'], function () use ($route
     $customRouter()->resourceRoute('faqs', 'FaqController')->render();
     $customRouter()->resourceRoute('visitor-feedback-suggestions', 'VisitorFeedbackSuggestionController')->render();
 
-    /** calender */
-    $customRouter()->resourceRoute('calender-events', 'CalenderEventsController')->render();
-    //$router->get('calender-events/[/{type}]', 'CalenderEventsController');
+    /** Client Site Read Detail */
+    $router->get('faqs/{id}/client-site-read',[
+        "as"=>"client.client-site-read",
+        "uses"=>"FaqController@clientSiteRead"
+    ]);
 
     /** Language Field Remove From CsmLanguage Table */
     $router->post('delete-other-language',

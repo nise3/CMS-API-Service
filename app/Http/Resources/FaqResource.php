@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use App\Models\BaseModel;
 use App\Models\Faq;
+use App\Models\Slider;
 use App\Services\ContentManagementServices\CmsLanguageService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -28,20 +29,22 @@ class FaqResource extends JsonResource
             "organization_id" => $this->organization_id,
         ];
         if ($request->offsetExists(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY) && $request->get(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY)) {
-            $response['question'] = app(CmsLanguageService::class)->getLanguageValue($this, Faq::LANGUAGE_ATTR_QUESTION);
+            $response['question'] = app(CmsLanguageService::class)->getLanguageValue($this, Slider::SLIDER_LANGUAGE_ATTR_TITLE);
             $response['answer'] = app(CmsLanguageService::class)->getLanguageValue($this, Faq::LANGUAGE_ATTR_ANSWER);
         } else {
             $response['institute_title'] = "";
+            $response['institute_title_en'] = "";
             $response['industry_association_title'] = "";
             $response['industry_association_title_en'] = "";
             $response['organization_title'] = "";
             $response['organization_title_en'] = "";
             $response['question'] = $this->question;
             $response['answer'] = $this->answer;
-            if(isset($this->cmsLanguages)){
+            if ($request->offsetExists(BaseModel::IS_NOT_COLLECTION_KEY) && $request->get(BaseModel::IS_NOT_COLLECTION_KEY)) {
                 $response[BaseModel::OTHER_LANGUAGE_FIELDS_KEY] = CmsLanguageService::otherLanguageResponse($this->cmsLanguages);
             }
         }
+
 
         $response['row_status'] = $this->row_status;
         $response['created_by'] = $this->created_by;

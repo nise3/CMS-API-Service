@@ -5,6 +5,7 @@ namespace App\Services\ContentManagementServices;
 use App\Models\CmsLanguage;
 use App\Services\Common\LanguageCodeService;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Cache;
@@ -97,7 +98,24 @@ class CmsLanguageService
      */
     public function deleteLanguage(array $data): bool
     {
+        $cmsLanguage = CmsLanguage::where('key_id', $data['key_id'])->where("lang_code", $data['lang_code'])->first();
+        $columnName = $cmsLanguage->column_name ?? "";
+        $tableName = $cmsLanguage->table_name ?? "";
+        self::languageCacheClearByKey($tableName, $data['key_id'], $data['lang_code'], $columnName);
         return CmsLanguage::where('key_id', $data['key_id'])->where("lang_code", $data['lang_code'])->delete();
+
+    }
+
+    /**
+     * @param Model $model
+     * @param string $languageCode
+     * @param string $columnName
+     * @return bool
+     */
+    public static function languageCacheClearByKey(string $tableName, int $keyId, string $languageCode, string $columnName): bool
+    {
+        $key = getLanguageAttributeKey($tableName, $keyId, $languageCode, $columnName);
+        return Cache::forget($key);
     }
 
     /**
@@ -115,7 +133,7 @@ class CmsLanguageService
             "lang_code" => [
                 "required",
                 "string",
-                Rule::in(array_keys(config('languages.others')))
+                Rule::in(LanguageCodeService::getLanguageCode())
             ]
         ];
         return Validator::make($request->all(), $rules);

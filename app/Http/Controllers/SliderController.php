@@ -35,7 +35,7 @@ class SliderController extends Controller
      * Display a listing of the resource.
      *
      * @param Request $request
-     * @return Exception|JsonResponse|Throwable
+     * @return JsonResponse
      * @throws ValidationException
      */
     public function getList(Request $request): JsonResponse
