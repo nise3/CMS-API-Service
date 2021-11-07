@@ -31,7 +31,6 @@ class RecentActivityResource extends JsonResource
             "organization_id" => $this->organization_id,
             "industry_association_id" => $this->industry_association_id,
             "title" => $this->title,
-            "title_en" => $this->title_en,
             "content_type" => $this->content_type,
             "content_path" => $this->content_path,
             "embedded_url" => $this->embedded_url,
@@ -44,8 +43,6 @@ class RecentActivityResource extends JsonResource
             "grid_image_path" => $this->grid_image_path,
 
             "image_alt_title" => $this->image_alt_title,
-            "image_alt_title_en" => $this->image_alt_title_en,
-            "description_en" => $this->description_en,
             "description" => $this->description,
         ];
         if (!empty(RecentActivity::RECENT_ACTIVITY_LANGUAGE_FILLABLE) && is_array(RecentActivity::RECENT_ACTIVITY_LANGUAGE_FILLABLE) && $languageCode && in_array($languageCode, LanguageCodeService::getLanguageCode())) {

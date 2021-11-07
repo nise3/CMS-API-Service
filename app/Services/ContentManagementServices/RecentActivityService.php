@@ -242,7 +242,7 @@ class RecentActivityService
             'show_in' => [
                 'required',
                 'integer',
-                Rule::in(BaseModel::SHOW_INS)
+                Rule::in(array_keys(BaseModel::SHOW_INS))
             ],
             'activity_date' => [
                 'nullable',
@@ -358,7 +358,8 @@ class RecentActivityService
             ];
         }
 
-        if (!empty($requestData['content_type']) && $requestData['content_type'] == RecentActivity::CONTENT_TYPE_FACEBOOK_VIDEO || $requestData['content_type'] == RecentActivity::CONTENT_TYPE_YOUTUBE_VIDEO) {
+        if (!empty($requestData['content_type']) &&
+            ($requestData['content_type'] == RecentActivity::CONTENT_TYPE_FACEBOOK_VIDEO || $requestData['content_type'] == RecentActivity::CONTENT_TYPE_YOUTUBE_VIDEO)) {
             $rules['embedded_url'] = [
                 'required',
                 'string',

@@ -57,6 +57,22 @@ class RecentActivityController extends Controller
 
 
     /**
+     * Display the specified resource from client site.
+     *
+     * @param Request $request
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function clientSiteRead(Request $request, int $id): JsonResponse
+    {
+        $response = new RecentActivityResource($this->recentActivityService->getOneRecentActivity($id));
+        $request->offsetSet(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY, BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG);
+        $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
+        return Response::json($response, ResponseAlias::HTTP_OK);
+    }
+
+
+    /**
      * @param Request $request
      * @return JsonResponse
      * @throws Throwable
@@ -67,7 +83,7 @@ class RecentActivityController extends Controller
 
         $validated = $this->recentActivityService->validator($request)->validate();
         $message = "Recent Activity is Successfully added";
-        $otherLanguagePayload = $validatedData['other_language_fields'] ?? [];
+        $otherLanguagePayload = $validated['other_language_fields'] ?? [];
 
         $isLanguage = (bool)count(array_intersect(array_keys($otherLanguagePayload), LanguageCodeService::getLanguageCode()));
         DB::beginTransaction();
@@ -77,7 +93,7 @@ class RecentActivityController extends Controller
                 foreach ($otherLanguagePayload as $key => $value) {
                     $languageValidatedData = $this->recentActivityService->languageFieldValidator($value, $key)->validate();
                     foreach (RecentActivity::RECENT_ACTIVITY_LANGUAGE_FILLABLE as $fillableColumn) {
-                        if (!empty($languageValidatedData[$fillableColumn])) {
+                        if (isset($languageValidatedData[$fillableColumn])) {
                             $languageFillablePayload = [
                                 "table_name" => $recentActivity->getTable(),
                                 "key_id" => $recentActivity->id,
@@ -116,7 +132,7 @@ class RecentActivityController extends Controller
         $recentActivity = RecentActivity::findOrFail($id);
         $validated = $this->recentActivityService->validator($request, $id)->validate();
         $message = "Recent Activity is Successfully Updated";
-        $otherLanguagePayload = $validatedData['other_language_fields'] ?? [];
+        $otherLanguagePayload = $validated['other_language_fields'] ?? [];
         $isLanguage = (bool)count(array_intersect(array_keys($otherLanguagePayload), LanguageCodeService::getLanguageCode()));
         DB::beginTransaction();
         try {
@@ -125,7 +141,7 @@ class RecentActivityController extends Controller
                 foreach ($otherLanguagePayload as $key => $value) {
                     $languageValidatedData = $this->recentActivityService->languageFieldValidator($value, $key)->validate();
                     foreach (RecentActivity::RECENT_ACTIVITY_LANGUAGE_FILLABLE as $fillableColumn) {
-                        if (!empty($languageValidatedData[$fillableColumn])) {
+                        if (isset($languageValidatedData[$fillableColumn])) {
                             $languageFillablePayload = [
                                 "table_name" => $recentActivity->getTable(),
                                 "key_id" => $recentActivity->id,
@@ -134,6 +150,7 @@ class RecentActivityController extends Controller
                                 "column_value" => $languageValidatedData[$fillableColumn]
                             ];
                             app(CmsLanguageService::class)->store($languageFillablePayload);
+                            CmsLanguageService::languageCacheClearByKey($recentActivity->getTable(), $recentActivity->id, $key, $fillableColumn);
                         }
                     }
 
