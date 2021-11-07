@@ -18,5 +18,6 @@ class DatabaseSeeder extends Seeder
         $this->call(LanguageCodeSeeder::class);
         $this->call(LanguageConfigSeeder::class);
         $this->call(FaqSeeder::class);
+        $this->call(CalenderEventSeeder::class);
     }
 }

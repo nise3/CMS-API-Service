@@ -44,25 +44,23 @@ $router->group(['prefix' => 'api/v1', 'as' => 'api.v1'], function () use ($route
     $customRouter()->resourceRoute('sliders', 'SliderController')->render();
     $customRouter()->resourceRoute('static-pages', 'StaticPageController')->render();
     $customRouter()->resourceRoute('faqs', 'FaqController')->render();
+    $customRouter()->resourceRoute('visitor-feedback-suggestions', 'VisitorFeedbackSuggestionController')->render();
 
-    /** Client Site Read Detail */
-    $router->get('faqs/{id}/client-site-read',[
-        "as"=>"client.client-site-read",
-        "uses"=>"FaqController@clientSiteRead"
-    ]);
-
+    /** calender */
+    $customRouter()->resourceRoute('calender-events', 'CalenderEventsController')->render();
+    //$router->get('calender-events/[/{type}]', 'CalenderEventsController');
 
     /** Language Field Remove From CsmLanguage Table */
     $router->post('delete-other-language',
         [
-            "as"=>"cms.delete-other-language",
-            "uses"=>"CmsLanguageController@deleteLanguageFieldByKeyId"
+            "as" => "cms.delete-other-language",
+            "uses" => "CmsLanguageController@deleteLanguageFieldByKeyId"
         ]
     );
 
 });
-$router->get("language-code",function (){
-   $languageCode=new LanguageCodeService();
-   dd(\Illuminate\Support\Facades\Cache::get('language_codes'));
+$router->get("language-code", function () {
+    $languageCode = new LanguageCodeService();
+    dd(\Illuminate\Support\Facades\Cache::get('language_codes'));
 });
 

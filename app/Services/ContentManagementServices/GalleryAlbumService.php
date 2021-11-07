@@ -76,7 +76,7 @@ class GalleryAlbumService
 
         /** @var Collection $galleryAlbums */
         if (is_numeric($paginate) || is_numeric($pageSize)) {
-            $pageSize = $pageSize ?: 10;
+            $pageSize = $pageSize ?: BaseModel::DEFAULT_PAGE_SIZE;
             $galleryAlbums = $GalleryAlbumBuilder->paginate($pageSize);
         } else {
             $galleryAlbums = $GalleryAlbumBuilder->get();
@@ -86,7 +86,7 @@ class GalleryAlbumService
     }
 
 
-    public function getOneGalleryAlbum(int $id): Model|Builder|null
+    public function getOneGalleryAlbum(int $id): Model|Builder
     {
         /** @var Builder $GalleryAlbumBuilder */
         $GalleryAlbumBuilder = GalleryAlbum::select([
@@ -202,10 +202,7 @@ class GalleryAlbumService
     public function validator(Request $request, int $id = null): \Illuminate\Contracts\Validation\Validator
     {
         $customMessage = [
-            'row_status.in' => [
-                'code' => 30000,
-                'message' => 'Row status must be within 1 or 0'
-            ]
+            'row_status.in' => 'Row status must be within 1 or 0. [30000]'
         ];
         $rules = [
             'parent_gallery_album_id' => [
@@ -214,7 +211,7 @@ class GalleryAlbumService
                 'exists:gallery_albums,deleted_at,NULL'
             ],
             'featured' => [
-                'nullable',
+                'required',
                 'int',
                 Rule::in(BaseModel::FEATURED)
             ],
@@ -330,7 +327,7 @@ class GalleryAlbumService
 
         return Validator::make($request->all(), [
             'title_en' => 'nullable|max:200|min:2',
-            'title' => 'nullable|min:600|min:2',
+            'title' => 'nullable|max:600|min:2',
             'page' => 'integer|gt:0',
             'page_size' => 'integer|gt:0',
             'order' => [

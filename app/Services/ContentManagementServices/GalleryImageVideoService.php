@@ -24,6 +24,7 @@ class GalleryImageVideoService
     {
 
         $contentTitle = $request['content_title'] ?? "";
+        $contentTitleEN = $request['content_title_en'] ?? "";
         $paginate = $request['page'] ?? "";
         $pageSize = $request['page_size'] ?? "";
         $rowStatus = $request['row_status'] ?? "";
@@ -78,9 +79,11 @@ class GalleryImageVideoService
         if (!empty($contentTitle)) {
             $galleryImageVideoBuilder->where('gallery_images_videos.content_title', 'like', '%' . $contentTitle . '%');
         }
+        if (!empty($contentTitleEN)) {
+            $galleryImageVideoBuilder->where('gallery_images_videos.content_title_en', 'like', '%' . $contentTitleEN . '%');
+        }
 
         /** @var Collection $galleries */
-        $galleries = [];
         if (is_numeric($paginate) || is_numeric($pageSize)) {
             $pageSize = $pageSize ?: BaseModel::DEFAULT_PAGE_SIZE;
             $galleries = $galleryImageVideoBuilder->paginate($pageSize);
@@ -221,10 +224,7 @@ class GalleryImageVideoService
     public function validator(Request $request, int $id = null): \Illuminate\Contracts\Validation\Validator
     {
         $customMessage = [
-            'row_status.in' => [
-                'code' => 30000,
-                'message' => 'Row status must be within 1 or 0'
-            ]
+            'row_status.in' => 'Row status must be within 1 or 0. [30000]'
         ];
         $rules = [
             'gallery_album_id' => [
@@ -291,10 +291,6 @@ class GalleryImageVideoService
                 'nullable',
                 'required_if:content_type,' . GalleryImageVideo::CONTENT_TYPE_VIDEO
             ],
-            'content_properties_json.*' => [
-                'nullable',
-                'string'
-            ],
             'content_cover_image_url' => [
                 'nullable',
                 'string'
@@ -331,15 +327,10 @@ class GalleryImageVideoService
      */
     public function filterValidator(Request $request): \Illuminate\Contracts\Validation\Validator
     {
+
         $customMessage = [
-            'order.in' => [
-                'code' => 30000,
-                "message" => 'Order must be within ASC or DESC',
-            ],
-            'row_status.in' => [
-                'code' => 30000,
-                'message' => 'Row status must be within 1 or 0'
-            ]
+            'order.in' => 'Order must be within ASC or DESC.[30000]',
+            'row_status.in' => 'Row status must be within 1 or 0. [30000]'
         ];
 
         if (!empty($request['order'])) {
@@ -347,9 +338,10 @@ class GalleryImageVideoService
         }
 
         return Validator::make($request->all(), [
-            'page' => 'numeric|gt:0',
             'content_title' => 'nullable|max:500|min:2',
-            'pageSize' => 'numeric|gt:0',
+            'content_title_en' => 'nullable|max:250|min:2',
+            'page_size' => 'nullable|integer|gt:0',
+            'page' => 'nullable|integer|gt:0',
             'order' => [
                 'string',
                 Rule::in([BaseModel::ROW_ORDER_ASC, BaseModel::ROW_ORDER_DESC])
