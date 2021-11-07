@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\BaseModel;
+use App\Models\Occupation;
+use App\Models\VisitorFeedbackSuggestion;
 use App\Services\ContentManagementServices\VisitorFeedbackSuggestionService;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
@@ -56,4 +58,44 @@ class VisitorFeedbackSuggestionController extends Controller
 
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
+
+
+
+    function store(Request $request): JsonResponse
+    {
+        $this->authorize('create', VisitorFeedbackSuggestion::class);
+
+        $validated = $this->visitorFeedbackSuggestionService->filterValidator($request)->validate();
+        $data = $this->visitorFeedbackSuggestionService->store($validated);
+        $response = [
+            'data' => $data ?: null,
+            '_response_status' => [
+                "success" => true,
+                "code" => ResponseAlias::HTTP_CREATED,
+                "message" => "Occupation added successfully.",
+                "query_time" => $this->startTime->diffInSeconds(Carbon::now())
+            ]
+        ];
+        return Response::json($response, ResponseAlias::HTTP_CREATED);
+    }
+
+
+
+    public function destroy(int $id): JsonResponse
+    {
+        $occupation = VisitorFeedbackSuggestion::findOrFail($id);
+        $this->authorize('delete', $occupation);
+        $this->visitorFeedbackSuggestionService->destroy($occupation);
+        $response = [
+            '_response_status' => [
+                "success" => true,
+                "code" => ResponseAlias::HTTP_OK,
+                "message" => "Occupation deleted successfully.",
+                "query_time" => $this->startTime->diffInSeconds(Carbon::now())
+            ]
+        ];
+        return Response::json($response, ResponseAlias::HTTP_OK);
+    }
+
+
 }

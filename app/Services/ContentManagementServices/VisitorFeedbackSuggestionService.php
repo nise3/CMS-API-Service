@@ -3,6 +3,7 @@
 namespace App\Services\ContentManagementServices;
 
 use App\Models\BaseModel;
+use App\Models\Occupation;
 use App\Models\VisitorFeedbackSuggestion;
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -97,6 +98,13 @@ class VisitorFeedbackSuggestionService
 
 
         return $visitorFeedbackSuggestionBuilder->firstOrFail();
+    }
+    public function store(array $data): VisitorFeedbackSuggestion
+    {
+        $VisitorFeedbackSuggestion = new VisitorFeedbackSuggestion();
+        $VisitorFeedbackSuggestion->fill($data);
+        $VisitorFeedbackSuggestion->save();
+        return $VisitorFeedbackSuggestion;
     }
 
     public function filterValidator(Request $request): \Illuminate\Contracts\Validation\Validator

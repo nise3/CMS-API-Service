@@ -290,7 +290,7 @@ class RecentActivityService
                 'max:1000',
                 'min:2'
             ],
-            'Content_type' => [
+            'content_type' => [
                 'required',
                 Rule::in(RecentActivity::CONTENT_TYPES)
             ],

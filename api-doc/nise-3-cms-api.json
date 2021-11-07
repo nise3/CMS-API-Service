@@ -434,6 +434,14 @@
                 "description": "Get The list of all partners of Nise3",
                 "parameters": [
                     {
+                        "name": "Accept-Language",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
                         "$ref": "#/components/parameters/title_optional"
                     },
                     {
@@ -540,7 +548,15 @@
                     "schema": {
                         "type": "integer"
                     }
-                }
+                },
+                    {
+                        "name": "Accept-Language",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
                 ],
                 "responses": {
                     "200": {
@@ -675,6 +691,14 @@
                 "description": "Get All the sliders",
                 "parameters": [
                     {
+                        "name": "Accept-Language",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
                         "$ref": "#/components/parameters/title_optional"
                     },
                     {
@@ -783,6 +807,14 @@
                 "summary": "get_one",
                 "description": "API endpoint to get a specified Slider.A successful request response will show 200 HTTP status code",
                 "parameters": [
+                    {
+                        "name": "Accept-Language",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
                     {
                         "in": "path",
                         "name": "SliderId",
@@ -975,6 +1007,14 @@
                 "summary": "Get All faqs",
                 "description": "API endpoint to get the list of Sliders.A successful request response will show 200 HTTP status code",
                 "parameters": [
+                    {
+                        "name": "Accept-Language",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
                     {
                         "name": "question",
                         "in": "query",
@@ -1178,6 +1218,14 @@
                 "description": "API endpoint to get an faq.A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
+                        "name": "Accept-Language",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
                         "name": "faqId",
                         "in": "path",
                         "required": true,
@@ -1318,6 +1366,14 @@
                 "summary": "Get All gallery albums",
                 "description": "API endpoint to get all gallery image.A successful request response will show 200 HTTP status code",
                 "parameters": [
+                    {
+                        "name": "Accept-Language",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
                     {
                         "$ref": "#/components/parameters/title_optional"
                     },
@@ -1510,12 +1566,20 @@
                 "description": "API endpoint to get a specific gallery album.A successful request response will show 200 HTTP status code",
                 "parameters": [{
                     "name": "galleryAlbumId",
-                    "in": "path",
+                    "in": "header",
                     "required": true,
                     "schema": {
                         "type": "integer"
                     }
-                }
+                },
+                    {
+                        "name": "Accept-Language",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
                 ],
                 "responses": {
                     "200": {
@@ -1602,6 +1666,14 @@
                 "description": "API endpoint to get the list of gallery-images-videos.A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
+                        "name": "Accept-Language",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                    ,{
                         "name": "content_title",
                         "in": "query",
                         "required": false,
@@ -1800,7 +1872,16 @@
                     "schema": {
                         "type": "integer"
                     }
-                }],
+                },  {
+                    "name": "Accept-Language",
+                    "in": "header",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+
+                ],
                 "requestBody": {
                     "content": {
                         "application/x-www-form-urlencoded": {
@@ -1898,6 +1979,14 @@
                 "description": "API endpoint to get all a Static Page.A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
+                        "name": "Accept-Language",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
                         "$ref": "#/components/parameters/title_optional"
                     },
                     {
@@ -1986,7 +2075,15 @@
                     "name": "staticPagesId",
                     "in": "path",
                     "required": true
-                }
+                },
+                    {
+                        "name": "Accept-Language",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
                 ],
                 "responses": {
                     "200": {
@@ -2124,6 +2221,14 @@
                 "description": "API endpoint to get all recent activities.A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
+                        "name": "Accept-Language",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
                         "$ref": "#/components/parameters/title_optional"
                     },
                     {
@@ -2173,12 +2278,224 @@
                         "description": "successful",
                         "content": {
                             "application/json": {
-
+                                "example": {
+                                    "data": {
+                                        "institute_id": null,
+                                        "organization_id": null,
+                                        "title_en": "aaa",
+                                        "title": "aaa",
+                                        "content_type": "2",
+                                        "content_path": null,
+                                        "content_properties": null,
+                                        "collage_image_path": null,
+                                        "collage_position": null,
+                                        "thumb_image_path": null,
+                                        "grid_image_path": null,
+                                        "image_alt_title": null,
+                                        "description_en": null,
+                                        "description": null,
+                                        "row_status": "1",
+                                        "embedded_url": "aaaa",
+                                        "updated_at": "2021-11-04T12:31:57.000000Z",
+                                        "created_at": "2021-11-04T12:31:57.000000Z",
+                                        "id": 1
+                                    },
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 201,
+                                        "message": "Recent Activity is Successfully added",
+                                        "query_time": 0
+                                    }
+                                }
                             }
                         }
                     }
                 },
                 "tags": ["recent-activities"]
+            }
+
+        },
+        "/recent-activities/{recentActivityId}": {
+            "get": {
+                "summary": "Get recentActivity by Id",
+                "description": "API endpoint to create a Recent Activity Id.A successful request response will show 200 HTTP status code",
+                "parameters": [{
+                    "name": "recentActivityId",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "integer"
+                    }
+                },
+                    {
+                        "name": "Accept-Language",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successfull",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "data": {
+                                        "id": 1,
+                                        "show_in": 0,
+                                        "activity_date": null,
+                                        "published_at": null,
+                                        "archived_at": null,
+                                        "institute_id": null,
+                                        "organization_id": null,
+                                        "industry_association_id": null,
+                                        "title": "aaa",
+                                        "title_en": "aaa",
+                                        "content_type": 2,
+                                        "content_path": null,
+                                        "embedded_url": null,
+                                        "embedded_id": null,
+                                        "content_properties": null,
+                                        "collage_image_path": null,
+                                        "collage_position": null,
+                                        "thumb_image_path": null,
+                                        "grid_image_path": null,
+                                        "image_alt_title": null,
+                                        "image_alt_title_en": null,
+                                        "description_en": null,
+                                        "description": null,
+                                        "row_status": null,
+                                        "published_by": null,
+                                        "archived_by": null,
+                                        "updated_by": null,
+                                        "created_at": "2021-11-04T12:31:57.000000Z",
+                                        "updated_at": "2021-11-04T12:31:57.000000Z"
+                                    },
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "message": null,
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": ["recent-activities"]
+
+            },
+            "put": {
+                "summary": "Update a recent activity",
+                "description": "API endpoint to update a recent activities.A successful request response will show 200 HTTP status code",
+                "parameters": [{
+                    "name": "recentActivityId",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "integer"
+                    }
+                }],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RecentActivity"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "data": {
+                                        "id": 1,
+                                        "show_in": 0,
+                                        "activity_date": null,
+                                        "published_at": null,
+                                        "archived_at": null,
+                                        "institute_id": null,
+                                        "organization_id": null,
+                                        "industry_association_id": null,
+                                        "title_en": "SasaSAs",
+                                        "title": "aSasAS",
+                                        "content_type": "1",
+                                        "content_path": null,
+                                        "embedded_url": "aaaa",
+                                        "embedded_id": null,
+                                        "content_properties": null,
+                                        "collage_image_path": null,
+                                        "collage_position": null,
+                                        "thumb_image_path": null,
+                                        "grid_image_path": null,
+                                        "image_alt_title_en": null,
+                                        "image_alt_title": null,
+                                        "description_en": null,
+                                        "description": null,
+                                        "row_status": "1",
+                                        "published_by": null,
+                                        "archived_by": null,
+                                        "created_by": null,
+                                        "updated_by": null,
+                                        "created_at": "2021-11-04T12:31:57.000000Z",
+                                        "updated_at": "2021-11-04T12:42:36.000000Z",
+                                        "deleted_at": null
+                                    },
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 201,
+                                        "message": "Recent Activity  Update is Successfully Done",
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": ["recent-activities"]
+
+            },
+            "delete": {
+                "summary": "Delete a recent Activity",
+                "description": "Delete a recent activity",
+                "parameters": [{
+                    "name": "recentActivityId",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "integer"
+                    }
+                }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "message": "RecentActivity successfully deleted",
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": ["recent-activities"]
+
+            }
+        },
+        "/notice-or-news": {
+            "get": {
+
             }
         }
 
@@ -3131,6 +3448,17 @@
                             1
                         ],
                         "example": 1
+                    },
+                    "other_language_fields": {
+                        "type": "array",
+                        "description": "[language_code][column_name]",
+                        "items": {
+                            "type": "array",
+                            "description": "column_name",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
                     }
                 }
             },
@@ -3376,6 +3704,16 @@
                             0
                         ],
                         "example": 1
+                    },
+                    "other_language_fields": {
+                        "type": "array",
+                        "description": "[language_code][column_name]",
+                        "items": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
                     }
                 },
                 "required": [
@@ -3493,6 +3831,16 @@
                             0
                         ],
                         "example": 1
+                    },
+                    "other_language_fields": {
+                        "type": "array",
+                        "description": "[language_code][column_name]",
+                        "items": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
                     }
                 },
                 "required": [
@@ -3574,6 +3922,16 @@
                             0
                         ],
                         "example": 1
+                    },
+                    "other_language_fields": {
+                        "type": "object",
+                        "description": "[language_code][column_name]",
+                        "items": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
                     }
                 },
                 "required": [
@@ -3659,6 +4017,16 @@
                             0
                         ],
                         "example": 1
+                    },
+                    "other_language_fields": {
+                        "type": "array",
+                        "description": "[language_code][column_name]",
+                        "items": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
                     }
                 },
                 "required": [
@@ -3707,6 +4075,16 @@
                             1
                         ],
                         "example": 1
+                    },
+                    "other_language_fields": {
+                        "type": "array",
+                        "description": "[language_code][column_name]",
+                        "items": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
                     }
                 },
                 "required": [
@@ -3876,6 +4254,13 @@
                         "type": "string",
                         "description": "content_properties"
                     },
+                    "embedded_id": {
+                        "type": "integer",
+                        "description": "Required. When content type ==3 "
+                    },
+                    "embedded_url": {
+                        "type": "string"
+                    },
                     "row_status": {
                         "type": "integer",
                         "description": "activation status",
@@ -3889,7 +4274,8 @@
                 "required": [
                     "title_en",
                     "title",
-                    "show_in"
+                    "content_type"
+
                 ]
             },
             "tags": {
@@ -3962,6 +4348,16 @@
                         "type": "integer",
                         "description": "ACTIVE_STATUS => 1, INACTIVE_STATUS => 0",
                         "enum": [1,0]
+                    },
+                    "other_language_fields": {
+                        "type": "array",
+                        "description": "[language_code][column_name]",
+                        "items": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
                     }
                 },
                 "required": [
