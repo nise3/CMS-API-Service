@@ -228,7 +228,7 @@ class GalleryImageVideoService
         ];
         $rules = [
             'gallery_album_id' => [
-                'nullable',
+                'required',
                 'int',
                 'exists:gallery_albums,id'
             ],
