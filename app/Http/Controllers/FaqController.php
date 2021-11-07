@@ -57,6 +57,7 @@ class FaqController extends Controller implements ResourceInterface
      */
     public function read(Request $request, int $id): JsonResponse
     {
+        $request->offsetSet(BaseModel::IS_NOT_COLLECTION_KEY, BaseModel::IS_NOT_COLLECTION_FLAG);
         $response = new FaqResource($this->faqService->getOneFaq($id));
         $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
         return Response::json($response, ResponseAlias::HTTP_OK);

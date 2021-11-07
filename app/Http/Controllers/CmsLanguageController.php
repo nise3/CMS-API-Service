@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\CustomInterfaces\Contract\ResourceInterface;
 use App\Models\BaseModel;
 use App\Services\ContentManagementServices\CmsLanguageService;
 use Carbon\Carbon;
@@ -36,7 +35,7 @@ class CmsLanguageController extends Controller
         $validatedData = $this->cmsLanguageService->languageFieldDeleteValidator($request)->validate();
         $cmsLanguageDestroyStatus = $this->cmsLanguageService->deleteLanguage($validatedData);
         $message = $cmsLanguageDestroyStatus ? "The language field  is  successfully deleted" : "The language field is  not deleted";
-        $response = getResponse([], $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK, $message);
+        $response = getResponse($cmsLanguageDestroyStatus, $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK, $message);
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
 

@@ -133,7 +133,7 @@ class CmsLanguageService
             "lang_code" => [
                 "required",
                 "string",
-                Rule::in(array_keys(config('languages.others')))
+                Rule::in(LanguageCodeService::getLanguageCode())
             ]
         ];
         return Validator::make($request->all(), $rules);
