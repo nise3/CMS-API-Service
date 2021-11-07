@@ -85,7 +85,7 @@ class NoticeOrNewsController extends Controller
     {
         $validated = $this->noticeOrNewsService->validator($request)->validate();
         $message = "NoticeOrNews successfully added";
-        $otherLanguagePayload = $validatedData['other_language_fields'] ?? [];
+        $otherLanguagePayload = $validated['other_language_fields'] ?? [];
         $isLanguage = (bool)count(array_intersect(array_keys($otherLanguagePayload), LanguageCodeService::getLanguageCode()));
 
         DB::beginTransaction();

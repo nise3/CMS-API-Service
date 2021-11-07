@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\FaqResource;
 use App\Http\Resources\StaticPageResource;
 use App\Models\BaseModel;
 use App\Models\StaticPage;
