@@ -155,6 +155,7 @@ class FaqController extends Controller implements ResourceInterface
                                 "column_value" => $languageValidatedData[$fillableColumn]
                             ];
                             app(CmsLanguageService::class)->createOrUpdate($languageFillablePayload);
+                            CmsLanguageService::languageCacheClearByKey($faq->getTable(), $faq->id, $key, $fillableColumn);
                         }
                     }
                 }
