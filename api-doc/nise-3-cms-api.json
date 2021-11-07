@@ -456,7 +456,7 @@
                     }
                 ],
                 "responses": {
-                    "200":  {
+                    "200": {
                         "description": "Successful",
                         "content": {
                             "application/json": {
@@ -484,7 +484,9 @@
                         }
                     }
                 },
-                "tags": ["nise3_partners"]
+                "tags": [
+                    "nise3_partners"
+                ]
             },
             "post": {
                 "summary": "Create new partner",
@@ -529,21 +531,24 @@
                         }
                     }
                 },
-                "tags": ["nise3_partners"]
+                "tags": [
+                    "nise3_partners"
+                ]
             }
         },
         "/nise3-partners/{partnerId}": {
             "get": {
                 "summary": "Get partner by Id",
                 "description": "API endpoint to create a partner.A successful request response will show 200 HTTP status code",
-                "parameters": [{
-                    "name": "partnerId",
-                    "in": "path",
-                    "required": true,
-                    "schema": {
-                        "type": "integer"
-                    }
-                },
+                "parameters": [
+                    {
+                        "name": "partnerId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
                     {
                         "name": "Accept-Language",
                         "in": "header",
@@ -587,20 +592,22 @@
                         }
                     }
                 },
-                "tags": ["nise3_partners"]
-
+                "tags": [
+                    "nise3_partners"
+                ]
             },
             "put": {
                 "summary": "Update partner by Id",
                 "description": "API endpoint to update a partner.A successful request response will show 200 HTTP status code",
-                "parameters": [{
-                    "name": "partnerId",
-                    "in": "path",
-                    "required": true,
-                    "schema": {
-                        "type": "integer"
+                "parameters": [
+                    {
+                        "name": "partnerId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
                     }
-                }
                 ],
                 "requestBody": {
                     "content": {
@@ -645,20 +652,22 @@
                         }
                     }
                 },
-                "tags": ["nise3_partners"]
-
+                "tags": [
+                    "nise3_partners"
+                ]
             },
             "delete": {
                 "summary": "Delete a partner",
                 "description": "API endpoint to delete a partner.A successful request response will show 200 HTTP status code",
-                "parameters": [{
-                    "name": "partnerId",
-                    "in": "path",
-                    "required": true,
-                    "schema": {
-                        "type": "integer"
+                "parameters": [
+                    {
+                        "name": "partnerId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
                     }
-                }
                 ],
                 "responses": {
                     "200": {
@@ -677,7 +686,9 @@
                         }
                     }
                 },
-                "tags": ["nise3_partners"]
+                "tags": [
+                    "nise3_partners"
+                ]
             }
         },
         "/sliders": {
@@ -723,8 +734,7 @@
                                 },
                                 "example": {
                                     "order": "asc",
-                                    "data": [
-                                    ],
+                                    "data": [],
                                     "_response_status": {
                                         "success": true,
                                         "code": 200,
@@ -735,7 +745,9 @@
                         }
                     }
                 },
-                "tags": ["Sliders"]
+                "tags": [
+                    "Sliders"
+                ]
             },
             "post": {
                 "summary": "create",
@@ -789,7 +801,9 @@
                         }
                     }
                 },
-                "tags": ["Sliders"]
+                "tags": [
+                    "Sliders"
+                ]
             }
         },
         "/sliders/{SliderId}": {
@@ -823,7 +837,7 @@
                                 "schema": {
                                     "$ref": "#/components/schemas/Slider"
                                 },
-                                "example":{
+                                "example": {
                                     "data": {
                                         "id": 1,
                                         "institute_id": 1,
@@ -858,7 +872,9 @@
                         }
                     }
                 },
-                "tags": ["Sliders"]
+                "tags": [
+                    "Sliders"
+                ]
             },
             "put": {
                 "summary": "Update",
@@ -954,9 +970,11 @@
                         }
                     }
                 },
-                "tags": ["Sliders"]
+                "tags": [
+                    "Sliders"
+                ]
             },
-            "delete":  {
+            "delete": {
                 "summary": "delete",
                 "description": "API endpoint to delete the specified Slider.A successful request response will show 200 HTTP status code",
                 "parameters": [
@@ -1086,7 +1104,10 @@
                         "required": false,
                         "schema": {
                             "type": "string",
-                            "enum": ["ASC","DESC"]
+                            "enum": [
+                                "ASC",
+                                "DESC"
+                            ]
                         }
                     },
                     {
@@ -1096,7 +1117,10 @@
                         "schema": {
                             "type": "integer",
                             "description": "1=>Active 0=>InActive",
-                            "enum": [1,0]
+                            "enum": [
+                                1,
+                                0
+                            ]
                         }
                     }
                 ],
@@ -1150,7 +1174,9 @@
                         }
                     }
                 },
-                "tags": ["faqs"]
+                "tags": [
+                    "faqs"
+                ]
             },
             "post": {
                 "summary": "create",
@@ -1194,7 +1220,9 @@
                         }
                     }
                 },
-                "tags": ["faqs"]
+                "tags": [
+                    "faqs"
+                ]
             }
         },
         "/faqs/{faqId}": {
@@ -1252,7 +1280,9 @@
                         }
                     }
                 },
-                "tags": ["faqs"]
+                "tags": [
+                    "faqs"
+                ]
             },
             "put": {
                 "summary": "Update a specific faq",
@@ -1311,7 +1341,9 @@
                         }
                     }
                 },
-                "tags": ["faqs"]
+                "tags": [
+                    "faqs"
+                ]
             },
             "delete": {
                 "summary": "Delete a particular faq",
@@ -1343,7 +1375,9 @@
                         }
                     }
                 },
-                "tags": ["faqs"]
+                "tags": [
+                    "faqs"
+                ]
             }
         },
         "/gallery-albums": {
@@ -1419,7 +1453,9 @@
                         }
                     }
                 },
-                "tags": ["Gallery-Album"]
+                "tags": [
+                    "Gallery-Album"
+                ]
             },
             "post": {
                 "summary": "Create a gallery album",
@@ -1469,21 +1505,25 @@
                         }
                     }
                 },
-                "tags": ["Gallery-Album"]
+                "tags": [
+                    "Gallery-Album"
+                ]
             }
         },
         "/gallery-albums/{galleryAlbumId}": {
             "put": {
                 "summary": "Update a specific gallery-album",
                 "description": " API endpoint to update a specified gallery-album .A successful request response will show 200 HTTP status code",
-                "parameters": [{
-                    "name": "galleryAlbumId",
-                    "in": "path",
-                    "required": true,
-                    "schema": {
-                        "type": "integer"
+                "parameters": [
+                    {
+                        "name": "galleryAlbumId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
                     }
-                }],
+                ],
                 "requestBody": {
                     "description": "Update the fields ",
                     "content": {
@@ -1539,22 +1579,25 @@
                         }
                     }
                 },
-                "tags": ["Gallery-Album"]
+                "tags": [
+                    "Gallery-Album"
+                ]
             },
             "get": {
                 "summary": "Get a gallery album by Id",
                 "description": "API endpoint to get a specific gallery album.A successful request response will show 200 HTTP status code",
-                "parameters": [{
-                    "name": "galleryAlbumId",
-                    "in": "header",
-                    "required": true,
-                    "schema": {
-                        "type": "integer"
-                    }
-                },
+                "parameters": [
+                    {
+                        "name": "galleryAlbumId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
                     {
                         "name": "Accept-Language",
-                        "in": "path",
+                        "in": "header",
                         "required": true,
                         "schema": {
                             "type": "string"
@@ -1605,7 +1648,9 @@
                         }
                     }
                 },
-                "tags": ["Gallery-Album"]
+                "tags": [
+                    "Gallery-Album"
+                ]
             },
             "delete": {
                 "summary": "Delete a gallery Album",
@@ -1637,7 +1682,9 @@
                         }
                     }
                 },
-                "tags": ["Gallery-Album"]
+                "tags": [
+                    "Gallery-Album"
+                ]
             }
         },
         "/gallery-images-videos": {
@@ -1667,29 +1714,31 @@
                         "content": {
                             "application/json": {
                                 "example": {
-                                    "data":[ {
-                                        "gallery_album_id": "1",
-                                        "featured": "1",
-                                        "institute_id": "1",
-                                        "organization_id": "1",
-                                        "content_type": "2",
-                                        "video_type": "1",
-                                        "content_title": "newtitle",
-                                        "content_description": null,
-                                        "content_description_en": null,
-                                        "content_properties_json": null,
-                                        "image_url": null,
-                                        "video_url": "ddddd",
-                                        "content_cover_image_url": null,
-                                        "content_grid_image_url": null,
-                                        "content_thumb_image_url": null,
-                                        "alt_title": null,
-                                        "alt_title_en": null,
-                                        "row_status": "1",
-                                        "updated_at": "2021-11-04T07:52:27.000000Z",
-                                        "created_at": "2021-11-04T07:52:27.000000Z",
-                                        "id": 1
-                                    }],
+                                    "data": [
+                                        {
+                                            "gallery_album_id": "1",
+                                            "featured": "1",
+                                            "institute_id": "1",
+                                            "organization_id": "1",
+                                            "content_type": "2",
+                                            "video_type": "1",
+                                            "content_title": "newtitle",
+                                            "content_description": null,
+                                            "content_description_en": null,
+                                            "content_properties_json": null,
+                                            "image_url": null,
+                                            "video_url": "ddddd",
+                                            "content_cover_image_url": null,
+                                            "content_grid_image_url": null,
+                                            "content_thumb_image_url": null,
+                                            "alt_title": null,
+                                            "alt_title_en": null,
+                                            "row_status": "1",
+                                            "updated_at": "2021-11-04T07:52:27.000000Z",
+                                            "created_at": "2021-11-04T07:52:27.000000Z",
+                                            "id": 1
+                                        }
+                                    ],
                                     "_response_status": {
                                         "success": true,
                                         "code": 201,
@@ -1701,7 +1750,9 @@
                         }
                     }
                 },
-                "tags": ["gallery-images-videos"]
+                "tags": [
+                    "gallery-images-videos"
+                ]
             },
             "post": {
                 "summary": "Create a gallery-images-videos",
@@ -1755,20 +1806,24 @@
                         }
                     }
                 },
-                "tags": ["gallery-images-videos"]
+                "tags": [
+                    "gallery-images-videos"
+                ]
             }
         },
         "/gallery-images-videos/{galleryImagesVideoId}": {
             "put": {
                 "summary": "Update a gallery image video",
                 "description": "API endpoint to update a gallery-images-videos.A successful request response will show 200 HTTP status code",
-                "parameters": [{
-                    "name": "galleryImagesVideoId",
-                    "in": "path",
-                    "schema": {
-                        "type": "integer"
+                "parameters": [
+                    {
+                        "name": "galleryImagesVideoId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
                     }
-                }
                 ],
                 "requestBody": {
                     "content": {
@@ -1828,36 +1883,31 @@
                         }
                     }
                 },
-                "tags": ["gallery-images-videos"]
+                "tags": [
+                    "gallery-images-videos"
+                ]
             },
             "get": {
                 "summary": "Get gallery image video by Id",
                 "description": "API endpoint to update a gallery image video. A successful request response will show 200 HTTP status code",
-                "parameters": [{
-                    "name": "galleryImagesVideoId",
-                    "in": "path",
-                    "schema": {
-                        "type": "integer"
-                    }
-                },  {
-                    "name": "Accept-Language",
-                    "in": "header",
-                    "required": true,
-                    "schema": {
-                        "type": "string"
-                    }
-                }
-
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/x-www-form-urlencoded": {
-                            "schema": {
-                                "$ref": "#/components/schemas/Gallery_Images_Videos"
-                            }
+                "parameters": [
+                    {
+                        "name": "galleryImagesVideoId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "Accept-Language",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
                         }
                     }
-                },
+                ],
                 "responses": {
                     "200": {
                         "description": "successfull",
@@ -1907,19 +1957,23 @@
                         }
                     }
                 },
-                "tags": ["gallery-images-videos"]
+                "tags": [
+                    "gallery-images-videos"
+                ]
             },
             "delete": {
                 "summary": "Delete a gallery Image Video",
                 "description": "API endpoint to delete gallery image video.A successful request response will show 200 HTTP status code",
-                "parameters": [{
-                    "name": "galleryImagesVideoId",
-                    "in": "path",
-                    "required": true,
-                    "schema": {
-                        "type": "integer"
+                "parameters": [
+                    {
+                        "name": "galleryImagesVideoId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
                     }
-                }],
+                ],
                 "responses": {
                     "200": {
                         "description": "successful",
@@ -1937,7 +1991,9 @@
                         }
                     }
                 },
-                "tags": ["gallery-images-videos"]
+                "tags": [
+                    "gallery-images-videos"
+                ]
             }
         },
         "/static-pages": {
@@ -1966,19 +2022,18 @@
                     {
                         "$ref": "#/components/parameters/row_status"
                     }
-
                 ],
                 "responses": {
                     "200": {
                         "description": "successfull",
                         "content": {
-                            "application/json": {
-
-                            }
+                            "application/json": {}
                         }
                     }
                 },
-                "tags": ["static-pages"]
+                "tags": [
+                    "static-pages"
+                ]
             },
             "post": {
                 "summary": "Create a static page",
@@ -2026,18 +2081,24 @@
                         }
                     }
                 },
-                "tags": ["static-pages"]
+                "tags": [
+                    "static-pages"
+                ]
             }
         },
         "/static-pages/{staticPagesId}": {
             "get": {
                 "summary": "Get static Page by Id",
                 "description": "API endpoint to get a Static Page.A successful request response will show 200 HTTP status code",
-                "parameters": [{
-                    "name": "staticPagesId",
-                    "in": "path",
-                    "required": true
-                },
+                "parameters": [
+                    {
+                        "name": "staticPagesId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
                     {
                         "name": "Accept-Language",
                         "in": "header",
@@ -2084,17 +2145,23 @@
                         }
                     }
                 },
-                "tags": ["static-pages"]
-
+                "tags": [
+                    "static-pages"
+                ]
             },
             "put": {
                 "summary": "Update a static page ",
                 "description": "API endpoint to update a Static Page.A successful request response will show 200 HTTP status code",
-                "parameters": [{
-                    "name": "staticPagesId",
-                    "in": "path",
-                    "required": true
-                }],
+                "parameters": [
+                    {
+                        "name": "staticPagesId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "content": {
                         "application/x-www-form-urlencoded": {
@@ -2142,20 +2209,23 @@
                         }
                     }
                 },
-                "tags": ["static-pages"]
-
+                "tags": [
+                    "static-pages"
+                ]
             },
             "delete": {
                 "summary": "Delete a static page",
                 "description": "API endpoint to delete a Static Page.A successful request response will show 200 HTTP status code",
-                "parameters": [{
-                    "name": "staticPagesId",
-                    "in": "path",
-                    "required": true,
-                    "schema": {
-                        "type": "integer"
+                "parameters": [
+                    {
+                        "name": "staticPagesId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
                     }
-                }],
+                ],
                 "responses": {
                     "200": {
                         "description": "Successfull",
@@ -2173,8 +2243,9 @@
                         }
                     }
                 },
-                "tags": ["static-pages"]
-
+                "tags": [
+                    "static-pages"
+                ]
             }
         },
         "/recent-activities": {
@@ -2203,20 +2274,18 @@
                     {
                         "$ref": "#/components/parameters/row_status"
                     }
-
                 ],
                 "responses": {
                     "200": {
                         "description": "successfull",
                         "content": {
-                            "application/json": {
-
-                            }
-
+                            "application/json": {}
                         }
                     }
                 },
-                "tags": ["recent-activities"]
+                "tags": [
+                    "recent-activities"
+                ]
             },
             "post": {
                 "summary": "Create a new recent activity",
@@ -2268,22 +2337,24 @@
                         }
                     }
                 },
-                "tags": ["recent-activities"]
+                "tags": [
+                    "recent-activities"
+                ]
             }
-
         },
         "/recent-activities/{recentActivityId}": {
             "get": {
                 "summary": "Get recentActivity by Id",
                 "description": "API endpoint to create a Recent Activity Id.A successful request response will show 200 HTTP status code",
-                "parameters": [{
-                    "name": "recentActivityId",
-                    "in": "path",
-                    "required": true,
-                    "schema": {
-                        "type": "integer"
-                    }
-                },
+                "parameters": [
+                    {
+                        "name": "recentActivityId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
                     {
                         "name": "Accept-Language",
                         "in": "header",
@@ -2341,20 +2412,23 @@
                         }
                     }
                 },
-                "tags": ["recent-activities"]
-
+                "tags": [
+                    "recent-activities"
+                ]
             },
             "put": {
                 "summary": "Update a recent activity",
                 "description": "API endpoint to update a recent activities.A successful request response will show 200 HTTP status code",
-                "parameters": [{
-                    "name": "recentActivityId",
-                    "in": "path",
-                    "required": true,
-                    "schema": {
-                        "type": "integer"
+                "parameters": [
+                    {
+                        "name": "recentActivityId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
                     }
-                }],
+                ],
                 "requestBody": {
                     "content": {
                         "application/x-www-form-urlencoded": {
@@ -2414,20 +2488,22 @@
                         }
                     }
                 },
-                "tags": ["recent-activities"]
-
+                "tags": [
+                    "recent-activities"
+                ]
             },
             "delete": {
                 "summary": "Delete a recent Activity",
                 "description": "Delete a recent activity",
-                "parameters": [{
-                    "name": "recentActivityId",
-                    "in": "path",
-                    "required": true,
-                    "schema": {
-                        "type": "integer"
+                "parameters": [
+                    {
+                        "name": "recentActivityId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
                     }
-                }
                 ],
                 "responses": {
                     "200": {
@@ -2446,13 +2522,11 @@
                         }
                     }
                 },
-                "tags": ["recent-activities"]
-
+                "tags": [
+                    "recent-activities"
+                ]
             }
         },
-
-
-
         "/calender-events": {
             "get": {
                 "summary": "Get list of Calender Events",
@@ -2606,7 +2680,10 @@
                         "required": false,
                         "schema": {
                             "type": "integer",
-                            "enum": [1,0]
+                            "enum": [
+                                1,
+                                0
+                            ]
                         },
                         "description": "1=>Active,0=>Inactive"
                     }
@@ -2642,7 +2719,6 @@
                                         "query_time": 0
                                     }
                                 }
-
                             }
                         }
                     }
@@ -2848,11 +2924,6 @@
                 ]
             }
         },
-
-
-
-
-
         "/notice-or-news": {
             "get": {
                 "summary": "Get all notice or news",
@@ -2860,33 +2931,31 @@
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/Accept-Language"
-                    },{
+                    },
+                    {
                         "$ref": "#/components/parameters/title_optional"
                     },
                     {
                         "$ref": "#/components/parameters/title_en_optional"
-
                     },
                     {
                         "$ref": "#/components/parameters/page"
-
                     },
                     {
                         "$ref": "#/components/parameters/page_size"
-
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "successfull",
                         "content": {
-                            "application/json": {
-
-                            }
+                            "application/json": {}
                         }
                     }
                 },
-                "tags": ["notice-or-news"]
+                "tags": [
+                    "notice-or-news"
+                ]
             },
             "post": {
                 "summary": "Create a new notice/news",
@@ -2929,8 +2998,9 @@
                         }
                     }
                 },
-                "tags": ["notice-or-news"]
-
+                "tags": [
+                    "notice-or-news"
+                ]
             }
         },
         "/notice-or-news/{noticeId}": {
@@ -2990,12 +3060,12 @@
                                     }
                                 }
                             }
-
                         }
                     }
                 },
-                "tags": ["notice-or-news"]
-
+                "tags": [
+                    "notice-or-news"
+                ]
             },
             "put": {
                 "summary": "Update a notice",
@@ -3019,7 +3089,9 @@
                         }
                     }
                 },
-                "tags": ["notice-or-news"],
+                "tags": [
+                    "notice-or-news"
+                ],
                 "responses": {
                     "200": {
                         "description": "success",
@@ -3096,12 +3168,11 @@
                         }
                     }
                 },
-                "tags": ["notice-or-news"]
-
+                "tags": [
+                    "notice-or-news"
+                ]
             }
         },
-
-
         "/visitor-feedback-suggestions": {
             "get": {
                 "summary": "Get aAll visitor-feedback-suggestion",
@@ -3145,7 +3216,9 @@
                         }
                     }
                 },
-                "tags": ["visitor-feedback-suggestions"]
+                "tags": [
+                    "visitor-feedback-suggestions"
+                ]
             },
             "post": {
                 "summary": "Create a new visitor-feedback-suggesstion",
@@ -3169,12 +3242,11 @@
                         }
                     }
                 },
-                "tags": ["visitor-feedback-suggestions"]
-
+                "tags": [
+                    "visitor-feedback-suggestions"
+                ]
             }
         }
-
-
     },
     "components": {
         "securitySchemes": {
@@ -3185,7 +3257,7 @@
             }
         },
         "parameters": {
-            "Accept-Language":   {
+            "Accept-Language": {
                 "name": "Accept-Language",
                 "in": "header",
                 "required": false,
@@ -4088,7 +4160,6 @@
                     "industry_association_id": {
                         "type": "integer"
                     },
-
                     "start_date": {
                         "type": "string",
                         "format": "YYYY-MM-DD"
@@ -4121,9 +4192,11 @@
                 "properties": {
                     "form_type": {
                         "type": "integer",
-                        "required": true,
                         "description": "1=>Suggestions 2=>Contactus",
-                        "enum": [1,2]
+                        "enum": [
+                            1,
+                            2
+                        ]
                     },
                     "institute_id": {
                         "type": "integer",
@@ -4144,12 +4217,10 @@
                         "maxLength": 250
                     },
                     "name": {
-                        "type": "string",
-                        "required": true
+                        "type": "string"
                     },
                     "name_en": {
-                        "type": "string",
-                        "required": true
+                        "type": "string"
                     },
                     "mobile": {
                         "type": "string"
@@ -4338,7 +4409,7 @@
                         "type": "integer",
                         "description": "organization id"
                     },
-                    "organization_association_id":{
+                    "organization_association_id": {
                         "type": "integer",
                         "description": "organization_association_id"
                     },
@@ -4355,24 +4426,24 @@
                         "description": "gallery category image",
                         "minLength": 191
                     },
-                    "main_image_path":{
+                    "main_image_path": {
                         "type": "string",
                         "description": "gallery category image",
                         "minLength": 191
                     },
-                    "thumb_image_path":{
+                    "thumb_image_path": {
                         "type": "string",
                         "minLength": 191
                     },
-                    "image_alt_title_en":{
+                    "image_alt_title_en": {
                         "type": "string",
                         "minLength": 191
                     },
-                    "image_alt_title":{
+                    "image_alt_title": {
                         "type": "string",
                         "minLength": 191
                     },
-                    "grid_image_path":{
+                    "grid_image_path": {
                         "type": "string",
                         "description": "List or Grid Image",
                         "minLength": 191
@@ -4399,7 +4470,10 @@
                         "description": "1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry, 5=>Industry Association",
                         "enum": [
                             1,
-                            2,3,4,5
+                            2,
+                            3,
+                            4,
+                            5
                         ],
                         "example": 1
                     },
@@ -4408,15 +4482,16 @@
                         "description": "1=>Image, 2=>Video, 3=>Mixed",
                         "enum": [
                             1,
-                            2,3
+                            2,
+                            3
                         ],
                         "example": 1
                     },
-                    "published_at":{
+                    "published_at": {
                         "type": "string",
                         "format": "date-time"
                     },
-                    "archived_at":{
+                    "archived_at": {
                         "type": "string",
                         "format": "date-time"
                     },
@@ -4441,10 +4516,9 @@
                     "album_type",
                     "featured",
                     "row_status"
-
                 ]
             },
-            "Gallery_Images_Videos":  {
+            "Gallery_Images_Videos": {
                 "type": "object",
                 "description": "Provide Galleries",
                 "properties": {
@@ -4453,10 +4527,13 @@
                         "description": "gallery category id",
                         "example": 1
                     },
-                    "featured":{
-                        "type" : "integer",
-                        "enum": [1 , 0],
-                        "description": 	"YES => 1, NO => 0"
+                    "featured": {
+                        "type": "integer",
+                        "enum": [
+                            1,
+                            0
+                        ],
+                        "description": "YES => 1, NO => 0"
                     },
                     "content_type": {
                         "type": "integer",
@@ -4465,12 +4542,15 @@
                             1,
                             2
                         ],
-                        "default":1
+                        "default": 1
                     },
-                    "video_type":{
-                        "type":"integer",
-                        "description":"youtube => 1, facebook => 2",
-                        "enum": [1,2],
+                    "video_type": {
+                        "type": "integer",
+                        "description": "youtube => 1, facebook => 2",
+                        "enum": [
+                            1,
+                            2
+                        ],
                         "example": 1
                     },
                     "content_title": {
@@ -4496,13 +4576,13 @@
                     "content_properties_json": {
                         "type": "string"
                     },
-                    "content_cover_image_url":{
+                    "content_cover_image_url": {
                         "type": "string"
                     },
-                    "content_grid_image_url":{
+                    "content_grid_image_url": {
                         "type": "string"
                     },
-                    "content_thumb_image_url":{
+                    "content_thumb_image_url": {
                         "type": "string"
                     },
                     "institute_id": {
@@ -4515,12 +4595,11 @@
                         "description": "organization id",
                         "example": 1
                     },
-                    "organization_association_id":{
+                    "organization_association_id": {
                         "type": "integer",
                         "description": "organization_association_id",
                         "example": 1
                     },
-
                     "published_at": {
                         "type": "string",
                         "format": "date-time",
@@ -4570,12 +4649,17 @@
                     "show_in": {
                         "type": "integer",
                         "description": "1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry, 5=>Industry Association",
-                        "enum": [1,2,3,4,5]
+                        "enum": [
+                            1,
+                            2,
+                            3,
+                            4,
+                            5
+                        ]
                     },
                     "content_slug_or_id": {
                         "type": "integer"
                     },
-
                     "title_en": {
                         "type": "string",
                         "description": " Title In English",
@@ -4600,7 +4684,6 @@
                         "type": "integer",
                         "description": "organization_association id"
                     },
-
                     "content_type": {
                         "type": "integer",
                         "description": "1=>Image,2=>Video,3=>Youtube",
@@ -4739,7 +4822,7 @@
                     "is_button_available"
                 ]
             },
-            "nise3_partner":  {
+            "nise3_partner": {
                 "type": "object",
                 "description": "Provide the partner information",
                 "properties": {
@@ -4790,10 +4873,9 @@
             "NoticeOrNews": {
                 "type": "object",
                 "description": "Notice or News",
-                "properties":  {
+                "properties": {
                     "type": {
                         "type": "integer",
-                        "required": true,
                         "description": "1=>Notice,2=>News",
                         "enum": [
                             1,
@@ -4847,9 +4929,14 @@
                         "description": "alt image title in Bengali"
                     },
                     "show_in": {
-                        "required": true,
                         "type": "integer",
-                        "enum": [1,2,3,4,5],
+                        "enum": [
+                            1,
+                            2,
+                            3,
+                            4,
+                            5
+                        ],
                         "description": "SHOW_IN_NISE3 = 1;\n     SHOW_IN_YOUTH = 2;\n     SHOW_IN_TSP = 3;\n     SHOW_IN_INDUSTRY = 4;\n     SHOW_IN_INDUSTRY_ASSOCIATION = 5"
                     },
                     "file_alt_title_en": {
@@ -4927,30 +5014,33 @@
                             3
                         ]
                     },
-                    "collage_image_path":{
+                    "collage_image_path": {
                         "type": "string",
                         "description": "content_image path"
                     },
-                    "collage_position":{
+                    "collage_position": {
                         "type": "string",
                         "enum": [
-                            "1.1" , "1.2.1" , "1.2.2.1" , "1.2.2.2"
+                            "1.1",
+                            "1.2.1",
+                            "1.2.2.1",
+                            "1.2.2.2"
                         ],
                         "description": "collage row column position"
                     },
-                    "thumb_image_path":{
+                    "thumb_image_path": {
                         "type": "string",
                         "description": "content_image path"
                     },
-                    "grid_image_path":{
+                    "grid_image_path": {
                         "type": "string",
                         "description": "content_image path"
                     },
-                    "image_alt_title_en":{
+                    "image_alt_title_en": {
                         "type": "string",
                         "description": "content_image path"
                     },
-                    "image_alt_title":{
+                    "image_alt_title": {
                         "type": "string",
                         "description": "content_image path"
                     },
@@ -4987,13 +5077,12 @@
                     "title_en",
                     "title",
                     "content_type"
-
                 ]
             },
             "tags": {
                 "type": "object",
                 "description": "Provide Tags",
-                "properties":{
+                "properties": {
                     "institute_id": {
                         "type": "integer",
                         "description": "Institue Id",
@@ -5014,8 +5103,7 @@
                     },
                     "tag": {
                         "type": "string",
-                        "description": "Tag",
-                        "required": true
+                        "description": "Tag"
                     },
                     "tag_en": {
                         "type": "string",
@@ -5030,11 +5118,17 @@
                 "type": "object",
                 "description": "Provide faq",
                 "properties": {
-                   "show_in": {
-                       "type": "integer",
-                       "description": "1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry, 5=>Industry Association",
-                       "enum": [1,2,3,4,5]
-                   },
+                    "show_in": {
+                        "type": "integer",
+                        "description": "1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry, 5=>Industry Association",
+                        "enum": [
+                            1,
+                            2,
+                            3,
+                            4,
+                            5
+                        ]
+                    },
                     "institute_id": {
                         "type": "integer",
                         "description": "For Particular TSP Website"
@@ -5059,7 +5153,10 @@
                     "row_status": {
                         "type": "integer",
                         "description": "ACTIVE_STATUS => 1, INACTIVE_STATUS => 0",
-                        "enum": [1,0]
+                        "enum": [
+                            1,
+                            0
+                        ]
                     },
                     "other_language_fields": {
                         "type": "object",
@@ -5094,7 +5191,11 @@
                     }
                 },
                 "required": [
-                    "table_name","key_id","lang_code","column_name","column_value"
+                    "table_name",
+                    "key_id",
+                    "lang_code",
+                    "column_name",
+                    "column_value"
                 ]
             },
             "language_codes": {
@@ -5112,10 +5213,11 @@
                     }
                 },
                 "required": [
-                    "code","name","native_name"
+                    "code",
+                    "name",
+                    "native_name"
                 ]
             },
-
             "ErrorResponse": {
                 "type": "object",
                 "description": "Recent activities",
@@ -5146,4 +5248,3 @@
         }
     }
 }
-
