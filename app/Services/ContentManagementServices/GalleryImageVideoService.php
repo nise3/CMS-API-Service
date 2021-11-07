@@ -283,10 +283,6 @@ class GalleryImageVideoService
                 'nullable',
                 'array'
             ],
-            'content_properties_json.*' => [
-                'required',
-                'string'
-            ],
             'image_url' => [
                 'nullable',
                 'required_if:content_type,' . GalleryImageVideo::CONTENT_TYPE_IMAGE
