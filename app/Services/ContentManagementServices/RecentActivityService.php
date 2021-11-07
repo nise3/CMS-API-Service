@@ -308,8 +308,9 @@ class RecentActivityService
             ],
             'collage_position' => [
                 'nullable',
-                'integer',
-                'max:600'
+                'string',
+                'max:600',
+                Rule::in(RecentActivity::AVAILABLE_COLLAGE_POSITIONS)
             ],
             'thumb_image_path' => [
                 'nullable',

@@ -162,7 +162,7 @@ class StaticPageController extends Controller
             throw $e;
         }
 
-        return Response::json($response, ResponseAlias::HTTP_CREATED);
+        return Response::json($response, ResponseAlias::HTTP_OK);
     }
 
     /**

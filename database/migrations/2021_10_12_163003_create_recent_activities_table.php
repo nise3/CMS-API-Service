@@ -37,7 +37,7 @@ class CreateRecentActivitiesTable extends Migration
             $table->string("content_properties", 300)->nullable();
 
             $table->string('collage_image_path', 600)->nullable()->comment('Main Image');
-            $table->unsignedTinyInteger('collage_position')->nullable()
+            $table->string('collage_position')->nullable()
                 ->comment('Available Values: [1.1, 1.2.1, 1.2.2.1, 1.2.2.2]');
             $table->string('thumb_image_path', 600)->nullable();
             $table->string('grid_image_path', 600)->nullable()->comment('List or Grid Image');
