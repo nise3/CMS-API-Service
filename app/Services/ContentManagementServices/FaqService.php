@@ -4,6 +4,7 @@ namespace App\Services\ContentManagementServices;
 
 use App\Models\BaseModel;
 use App\Models\Faq;
+use App\Services\Common\LanguageCodeService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -45,9 +46,7 @@ class FaqService
             'faqs.industry_association_id',
             'faqs.organization_id',
             'faqs.question',
-            'faqs.question_en',
             'faqs.answer',
-            'faqs.answer_en',
             'faqs.row_status',
             'faqs.created_by',
             'faqs.updated_by',
@@ -56,6 +55,7 @@ class FaqService
         ]);
 
         $faqBuilder->orderBy('faqs.id', $order);
+
         if (is_numeric($showIn)) {
             $faqBuilder->where('faqs.show_in', $showIn);
         }
@@ -96,9 +96,9 @@ class FaqService
 
     /**
      * @param int $id
-     * @return Model|Builder
+     * @return Builder|Model|null
      */
-    public function getOneFaq(int $id): Builder|Model
+    public function getOneFaq(int $id): Builder|Model|null
     {
         /** @var Builder $faqBuilder */
         $faqBuilder = Faq::select([
@@ -108,9 +108,7 @@ class FaqService
             'faqs.industry_association_id',
             'faqs.organization_id',
             'faqs.question',
-            'faqs.question_en',
             'faqs.answer',
-            'faqs.answer_en',
             'faqs.row_status',
             'faqs.created_by',
             'faqs.updated_by',
@@ -128,8 +126,9 @@ class FaqService
      * @param array $data
      * @return Faq
      */
-    public function store(Faq $faq, array $data): Faq
+    public function store(array $data): Faq
     {
+        $faq = app(Faq::class);
         $faq->fill($data);
         $faq->save();
         return $faq;
@@ -165,14 +164,15 @@ class FaqService
     {
         $customMessage = [
             'row_status.in' => 'Row status must be within 1 or 0.[30000]',
-            'show_in.in' => 'Row status must be within (1=>Nise3, 2=>TSP, 3=>Industry, 4=>Industry Association).[30000]'
+            'show_in.in' => 'Row status must be within (1=>Nise3, 2=>TSP, 3=>Industry, 4=>Industry Association).[30000]',
+            'other_language_fields.*.regex' => "The language key must be lowercase.[49000]"
         ];
         $rules = [
             'show_in' => [
                 "required",
                 "integer",
                 "gt:0",
-                Rule::in(BaseModel::SHOW_INS)
+                Rule::in(array_keys(BaseModel::SHOW_INS))
             ],
             'institute_id' => [
                 Rule::requiredIf(function () use ($request) {
@@ -200,16 +200,14 @@ class FaqService
             ],
             'question' => 'required|max:1800|min:2',
             'answer' => 'required|min:2',
-            'question_en' => 'nullable|max:600|min:2',
-            'answer_en' => 'nullable|min:2',
-            'other_language_fields' => 'nullable|array|min:1',
-            'other_language_fields.*' => 'required',
             'row_status' => [
                 'required_if:' . $id . ',!=,null',
                 'nullable',
                 Rule::in([BaseModel::ROW_STATUS_ACTIVE, BaseModel::ROW_STATUS_INACTIVE]),
             ]
         ];
+        $rules = array_merge($rules, BaseModel::OTHER_LANGUAGE_VALIDATION_RULES);
+
         return Validator::make($request->all(), $rules, $customMessage);
     }
 
@@ -224,13 +222,15 @@ class FaqService
             'required' => 'The :attribute_' . strtolower($languageCode) . ' in other language fields is required.[50000]',
             'max' => 'The :attribute_' . strtolower($languageCode) . ' in other language fields must not be greater than :max characters.[39003]',
             'min' => 'The :attribute_' . strtolower($languageCode) . ' in other language fields must be at least :min characters.[42003]',
-            'language_code.in' => "The language with code " . $languageCode . " is not allowed"
+            'language_code.in' => "The language with code " . $languageCode . " is not allowed",
+            'language_code.regex' => "The language  code " . $languageCode . " must be lowercase"
         ];
         $request['language_code'] = $languageCode;
         $rules = [
             "language_code" => [
                 "required",
-                Rule::in(array_keys(config('languages.others')))
+                "regex:/[a-z]/",
+                Rule::in(LanguageCodeService::getLanguageCode())
             ],
             'question' => [
                 "required",
@@ -258,7 +258,8 @@ class FaqService
         $customMessage = [
             'order.in' => 'Order must be within ASC or DESC.[30000]',
             'row_status.in' => 'Row status must be within 1 or 0.[30000]',
-            'show_in.in' => 'Row status must be within (1=>Nise3, 2=>TSP, 3=>Industry, 4=>Industry Association).[30000]'
+            'show_in.in' => 'Row status must be within (1=>Nise3, 2=>TSP, 3=>Industry, 4=>Industry Association).[30000]',
+
         ];
 
         if (!empty($request['order'])) {

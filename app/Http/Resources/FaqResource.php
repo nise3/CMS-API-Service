@@ -2,10 +2,11 @@
 
 namespace App\Http\Resources;
 
+use App\Models\BaseModel;
 use App\Models\Faq;
+use App\Services\ContentManagementServices\CmsLanguageService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\Log;
 
 class FaqResource extends JsonResource
 {
@@ -17,38 +18,38 @@ class FaqResource extends JsonResource
      */
     public function toArray($request): array
     {
-        $languageCode = strtoupper($request->server('HTTP_ACCEPT_LANGUAGE'));
-
         /** @var Faq $this */
-
         $response = [
             "id" => $this->id,
             "show_in" => $this->show_in,
+            "show_in_label" => BaseModel::SHOW_INS[$this->show_in],
             "institute_id" => $this->institute_id,
             "industry_association_id" => $this->industry_association_id,
             "organization_id" => $this->organization_id,
-            'question' => $this->question,
-            'question_en' => $this->question_en,
-            'answer' => $this->question_en,
-            'answer_en' => $this->answer_en,
         ];
-
-        if (isset($this->translatableKeys) && is_array($this->translatableKeys) && $languageCode && in_array($languageCode, array_keys(config('languages.others')))) {
-            $tableName = $this->getTable();
-            $keyId = $this->id;
-
-            foreach ($this->translatableKeys as $translatableKey) {
-                $translatableValue = getLanguageValue($tableName, $keyId, $translatableKey);
-                $response = array_merge($response, $translatableValue);
+        if ($request->offsetExists(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY) && $request->get(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY)) {
+            $response['question'] = app(CmsLanguageService::class)->getLanguageValue($this, Faq::LANGUAGE_ATTR_QUESTION);
+            $response['answer'] = app(CmsLanguageService::class)->getLanguageValue($this, Faq::LANGUAGE_ATTR_ANSWER);
+        } else {
+            $response['institute_title'] = "";
+            $response['industry_association_title'] = "";
+            $response['industry_association_title_en'] = "";
+            $response['organization_title'] = "";
+            $response['organization_title_en'] = "";
+            $response['question'] = $this->question;
+            $response['answer'] = $this->answer;
+            if(isset($this->cmsLanguages)){
+                $response[BaseModel::OTHER_LANGUAGE_FIELDS_KEY] = CmsLanguageService::otherLanguageResponse($this->cmsLanguages);
             }
         }
 
         $response['row_status'] = $this->row_status;
-        $response['created_by'] = $this->create_by;
+        $response['created_by'] = $this->created_by;
         $response['updated_by'] = $this->updated_by;
         $response['created_at'] = $this->created_at;
         $response['updated_at'] = $this->updated_at;
 
         return $response;
+
     }
 }

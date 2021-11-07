@@ -18,4 +18,5 @@ class LanguageCode extends BaseModel
 
     public $timestamps = false;
 
+
 }

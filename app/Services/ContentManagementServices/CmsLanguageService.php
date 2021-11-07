@@ -3,12 +3,41 @@
 namespace App\Services\ContentManagementServices;
 
 use App\Models\CmsLanguage;
+use App\Services\Common\LanguageCodeService;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use JetBrains\PhpStorm\NoReturn;
+
 
 class CmsLanguageService
 {
+
+    /**
+     * @param JsonResource $model
+     * @param string $languageColumnName
+     * @return string
+     */
+    public function getLanguageValue(JsonResource $model, string $languageColumnName): string
+    {
+        $languageCode = strtolower(request()->server('HTTP_ACCEPT_LANGUAGE'));
+        $response = "";
+        $languageAttributeKey = getLanguageAttributeKey($model->getTable(), $model->id, $languageCode, $languageColumnName);
+        if (Cache::has($languageAttributeKey)) {
+            $response = Cache::get($languageAttributeKey);
+        } else {
+            $cmsLanguageValue = $this->getLanguageValueByKeyId($model->getTable(), $model->id, $languageCode, $languageColumnName);
+            if ($cmsLanguageValue) {
+                $response = $cmsLanguageValue;
+                Cache::put($languageAttributeKey, $response);
+            }
+        }
+        return $response;
+    }
+
 
     /**
      * @param string $tableName
@@ -25,6 +54,17 @@ class CmsLanguageService
                 ->first()->column_value ?? "";
     }
 
+    public static function otherLanguageResponse(Collection $cmsLanguage): array
+    {
+        $otherLanguage = [];
+        /** @var CmsLanguage $language */
+        foreach ($cmsLanguage as $language) {
+            $indexKey = $language->lang_code;
+            $column = $language->column_name;
+            $otherLanguage[$indexKey][$column] = $language->column_value;
+        }
+        return $otherLanguage;
+    }
 
     /**
      * @param array $data
@@ -32,7 +72,6 @@ class CmsLanguageService
      */
     public function store(array $data): bool
     {
-        $cmsLanguage = app(CmsLanguage::class);
         return CmsLanguage::insert($data);
     }
 
@@ -40,7 +79,7 @@ class CmsLanguageService
      * @param array $data
      * @return mixed
      */
-    public function createOrUpdate(array $data): mixed
+    public function createOrUpdate(array $data): CmsLanguage
     {
         return CmsLanguage::updateOrCreate(
             [

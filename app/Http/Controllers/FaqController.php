@@ -6,6 +6,10 @@ use App\Http\CustomInterfaces\Contract\ResourceInterface;
 use App\Http\Resources\FaqResource;
 use App\Models\BaseModel;
 use App\Models\Faq;
+use App\Models\LanguageCode;
+use App\Models\LanguageConfig;
+use App\Models\Slider;
+use App\Services\Common\LanguageCodeService;
 use App\Services\ContentManagementServices\CmsLanguageService;
 use App\Services\ContentManagementServices\FaqService;
 use Carbon\Carbon;
@@ -59,6 +63,21 @@ class FaqController extends Controller implements ResourceInterface
     }
 
     /**
+     * Display the specified resource from client site.
+     *
+     * @param Request $request
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function clientSiteRead(Request $request, int $id): JsonResponse
+    {
+        $response = new FaqResource($this->faqService->getOneFaq($id));
+        $request->offsetSet(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY, BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG);
+        $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
+        return Response::json($response, ResponseAlias::HTTP_OK);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param Request $request
@@ -68,47 +87,39 @@ class FaqController extends Controller implements ResourceInterface
      */
     public function store(Request $request): JsonResponse
     {
-        $faq = app(Faq::class);
         $validatedData = $this->faqService->validator($request)->validate();
         $message = "Faq successfully added";
         $otherLanguagePayload = $validatedData['other_language_fields'] ?? [];
-        $isLanguage = (bool)count(array_intersect(array_keys($otherLanguagePayload), array_keys(config('languages.others'))));
-
+        $isLanguage = (bool)count(array_intersect(array_keys($otherLanguagePayload), LanguageCodeService::getLanguageCode()));
         $response = [];
         DB::beginTransaction();
         try {
-            $faqData = $this->faqService->store($faq, $validatedData);
+            $faq = $this->faqService->store($validatedData);
             if ($isLanguage) {
-
                 $languageFillablePayload = [];
                 foreach ($otherLanguagePayload as $key => $value) {
                     $languageValidatedData = $this->faqService->languageFieldValidator($value, $key)->validate();
-                    $languageFillablePayload[] = [
-                        "table_name" => $faq->getTable(),
-                        "key_id" => $faqData->id,
-                        "lang_code" => $key,
-                        "column_name" => Faq::LANGUAGE_ATTR_QUESTION,
-                        "column_value" => $languageValidatedData['question']
-                    ];
-
-                    $languageFillablePayload[] = [
-                        "table_name" => $faq->getTable(),
-                        "key_id" => $faqData->id,
-                        "lang_code" => $key,
-                        "column_name" => Faq::LANGUAGE_ATTR_ANSWER,
-                        "column_value" => $languageValidatedData['answer']
-                    ];
-
+                    foreach (Faq::FAQ_LANGUAGE_FILLABLE as $fillableColumn) {
+                        if (!empty($languageValidatedData[$fillableColumn])) {
+                            $languageFillablePayload[] = [
+                                "table_name" => $faq->getTable(),
+                                "key_id" => $faq->id,
+                                "lang_code" => $key,
+                                "column_name" => $fillableColumn,
+                                "column_value" => $languageValidatedData[$fillableColumn]
+                            ];
+                        }
+                    }
                 }
                 app(CmsLanguageService::class)->store($languageFillablePayload);
             }
-            $response = getResponse($faqData->toArray(), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
+            $response = getResponse($faq->toArray(), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
             DB::commit();
         } catch (Throwable $e) {
             DB::rollBack();
             throw $e;
         }
-        return Response::json($response, ResponseAlias::HTTP_CREATED);
+        return Response::json($request->all(), ResponseAlias::HTTP_CREATED);
     }
 
     /**
@@ -126,35 +137,30 @@ class FaqController extends Controller implements ResourceInterface
         $validatedData = $this->faqService->validator($request)->validate();
         $message = "Faq Update Successfully Done";
         $otherLanguagePayload = $validatedData['other_language_fields'] ?? [];
-        $isLanguage = (bool)count(array_intersect(array_keys($otherLanguagePayload), array_keys(config('languages.others'))));
+        $isLanguage = (bool)count(array_intersect(array_keys($otherLanguagePayload), LanguageCodeService::getLanguageCode()));
         $response = [];
         DB::beginTransaction();
         try {
-            $faqData = $this->faqService->update($faq, $validatedData);
+            $faq = $this->faqService->update($faq, $validatedData);
             if ($isLanguage) {
                 foreach ($otherLanguagePayload as $key => $value) {
                     $languageValidatedData = $this->faqService->languageFieldValidator($value, $key)->validate();
-                    $questionPayload = [
-                        "table_name" => $faq->getTable(),
-                        "key_id" => $faqData->id,
-                        "lang_code" => $key,
-                        "column_name" => Faq::LANGUAGE_ATTR_QUESTION,
-                        "column_value" => $languageValidatedData['question']
-                    ];
-                    $answerPayload = [
-                        "table_name" => $faq->getTable(),
-                        "key_id" => $faqData->id,
-                        "lang_code" => $key,
-                        "column_name" => Faq::LANGUAGE_ATTR_ANSWER,
-                        "column_value" => $languageValidatedData['answer']
-                    ];
-                    app(CmsLanguageService::class)->createOrUpdate($questionPayload);
-                    app(CmsLanguageService::class)->createOrUpdate($answerPayload);
+                    foreach (Faq::FAQ_LANGUAGE_FILLABLE as $fillableColumn) {
+                        if (!empty($languageValidatedData[$fillableColumn])) {
+                            $languageFillablePayload = [
+                                "table_name" => $faq->getTable(),
+                                "key_id" => $faq->id,
+                                "lang_code" => $key,
+                                "column_name" => $fillableColumn,
+                                "column_value" => $languageValidatedData[$fillableColumn]
+                            ];
+                            app(CmsLanguageService::class)->createOrUpdate($languageFillablePayload);
+                        }
+                    }
                 }
 
-
             }
-            $response = getResponse($faqData->toArray(), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK, $message);
+            $response = getResponse($faq->toArray(), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK, $message);
             DB::commit();
         } catch (Throwable $e) {
             DB::rollBack();
@@ -168,7 +174,7 @@ class FaqController extends Controller implements ResourceInterface
         $faq = Faq::findOrFail($id);
         $faqDestroyStatus = $this->faqService->destroy($faq);
         $message = $faqDestroyStatus ? "Faq successfully deleted" : "Faq is not deleted";
-        $response = getResponse([], $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK, $message);
+        $response = getResponse($faqDestroyStatus, $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK, $message);
         return Response::json($response, ResponseAlias::HTTP_OK);
 
     }

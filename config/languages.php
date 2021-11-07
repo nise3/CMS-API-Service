@@ -1,32 +1,27 @@
 <?php
 return [
-    "default" => [
-        "BN" => [
-            'label' => 'বাংলা',
-            'label_en' => 'Bengali',
-            'code' => 'BN'
-        ],
-        "EN" => [
-            'label' => 'English',
-            'label_en' => 'English',
-            'code' => 'EN'
-        ]
+    [
+        "code" => "bn",
+        "name" => "Bengali",
+        "native_name" => "বাংলা",
+        "is_native"=>1
     ],
-    "others" => [
-        "HI" => [
-            'label' => 'हिंदी',
-            'label_en' => 'Hindi',
-            'code' => 'HI'
-        ],
-        "AR" => [
-            'label' => 'الشفرة',
-            'label_en' => 'Arabic',
-            'code' => 'AR'
-        ],
-        "SO" => [
-            'label' => 'Soomaali',
-            'label_en' => 'Somali',
-            'code' => 'SO'
-        ]
+    [
+        "code" => "en",
+        "name" => "English",
+        "native_name" => "English",
+        "is_native"=>0
+    ],
+    [
+        "code" => "hi",
+        "name" => "Hindi",
+        "native_name" => "हिंदी",
+        "is_native"=>0
+    ],
+    [
+        "code" => "te",
+        "name" => "Telugu",
+        "native_name" => "తెలుగు",
+        "is_native"=>0
     ]
 ];
