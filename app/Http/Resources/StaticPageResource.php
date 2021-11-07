@@ -30,11 +30,8 @@ class StaticPageResource extends JsonResource
             "institute_id" => $this->institute_id,
             "organization_id" => $this->organization_id,
             "title" => $this->title,
-            "title_en" => $this->title_en,
             "sub_title" => $this->sub_title,
-            "sub_title_en" => $this->sub_title_en,
-            "contents" => $this->contents,
-            "contents_en" => $this->contents_en,
+            "contents" => $this->contents
         ];
         if (!empty(StaticPage::STATIC_PAGE_LANGUAGE_FILLABLE) && is_array(StaticPage::STATIC_PAGE_LANGUAGE_FILLABLE) && $languageCode && in_array($languageCode, LanguageCodeService::getLanguageCode())) {
             $tableName = $this->getTable();

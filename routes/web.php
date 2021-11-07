@@ -52,6 +52,13 @@ $router->group(['prefix' => 'api/v1', 'as' => 'api.v1'], function () use ($route
         "uses"=>"FaqController@clientSiteRead"
     ]);
 
+    $router->group(['prefix' => 'public', 'as' => 'public'], function () use ($router) {
+        $router->get('faqs/{id}', ["as" => "public.faqs", "uses" => "FaqController@clientSiteRead"]);
+        $router->get('static-pages/{id}', ["as" => "public.static.pages", "uses" => "StaticPageController@clientSiteRead"]);
+        $router->get('notice-or-news/{id}', ["as" => "public.notice.news", "uses" => "NoticeOrNewsController@clientSiteRead"]);
+        $router->get('recent-activities/{id}', ["as" => "public.recent.activities", "uses" => "RecentActivityController@clientSiteRead"]);
+    });
+
     /** Language Field Remove From CsmLanguage Table */
     $router->post('delete-other-language',
         [
