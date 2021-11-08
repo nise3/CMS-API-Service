@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
 
-
 class CmsLanguageService
 {
 
@@ -64,10 +63,13 @@ class CmsLanguageService
         $otherLanguage = [];
         /** @var CmsLanguage $language */
         foreach ($cmsLanguage as $language) {
-            $indexKey = $language->lang_code;
             $column = $language->column_name;
-            $otherLanguage[$indexKey][$column] = $language->column_value;
+            $otherLanguage[] = [
+                'lang_code' => $language->lang_code,
+                $column => $language->column_value
+            ];
         }
+
         return $otherLanguage;
     }
 
