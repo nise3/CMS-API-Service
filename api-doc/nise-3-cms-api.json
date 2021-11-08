@@ -664,12 +664,7 @@
                         }
                     },
                     {
-                        "name": "Accept-Language",
-                        "in": "header",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
+                        "$ref": "#/components/parameters/Accept-Language"
                     }
                 ],
                 "responses": {
@@ -1008,12 +1003,7 @@
                 "description": "API endpoint to get a specified Slider.A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
-                        "name": "Accept-Language",
-                        "in": "header",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
+                        "$ref": "#/components/parameters/Accept-Language"
                     },
                     {
                         "in": "path",
@@ -3738,7 +3728,10 @@
                 "in": "header",
                 "required": false,
                 "schema": {
-                    "type": "string"
+                    "type": "string",
+                    "enum": [
+                        "bn" ,"en" ,"hi","te"
+                    ]
                 }
             },
             "recentActivityId": {
