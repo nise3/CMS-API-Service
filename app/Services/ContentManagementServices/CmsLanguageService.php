@@ -63,13 +63,10 @@ class CmsLanguageService
         $otherLanguage = [];
         /** @var CmsLanguage $language */
         foreach ($cmsLanguage as $language) {
+            $indexKey = $language->lang_code;
             $column = $language->column_name;
-            $otherLanguage[] = [
-                'lang_code' => $language->lang_code,
-                $column => $language->column_value
-            ];
+            $otherLanguage[$indexKey][$column] = $language->column_value;
         }
-
         return $otherLanguage;
     }
 
