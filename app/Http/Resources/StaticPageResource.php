@@ -47,7 +47,7 @@ class StaticPageResource extends JsonResource
             $response['sub_title'] = $this->sub_title;
             $response['contents'] = $this->contents;
             if (!$request->get(BaseModel::IS_COLLECTION_KEY)) {
-                $response[BaseModel::OTHER_LANGUAGE_FIELDS_KEY] = CmsLanguageService::otherLanguageResponse($this->cmsLanguages);
+                $response[BaseModel::OTHER_LANGUAGE_FIELDS_KEY] = CmsLanguageService::otherLanguageResponse($this);
             }
         }
         $response['row_status'] = $this->row_status;

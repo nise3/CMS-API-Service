@@ -36,7 +36,7 @@ class Nise3PartnerResource extends JsonResource
             $response['title'] = $this->title;
             $response['image_alt_title'] = $this->image_alt_title;
             if (!$request->get(BaseModel::IS_COLLECTION_KEY)) {
-                $response[BaseModel::OTHER_LANGUAGE_FIELDS_KEY] = CmsLanguageService::otherLanguageResponse($this->cmsLanguages);
+                $response[BaseModel::OTHER_LANGUAGE_FIELDS_KEY] = CmsLanguageService::otherLanguageResponse($this);
             }
         }
 

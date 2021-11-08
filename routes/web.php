@@ -46,11 +46,6 @@ $router->group(['prefix' => 'api/v1', 'as' => 'api.v1'], function () use ($route
     $customRouter()->resourceRoute('faqs', 'FaqController')->render();
     $customRouter()->resourceRoute('visitor-feedback-suggestions', 'VisitorFeedbackSuggestionController')->render();
 
-    /** Client Site Read Detail */
-    $router->get('faqs/{id}/client-site-read',[
-        "as"=>"client.client-site-read",
-        "uses"=>"FaqController@clientSiteRead"
-    ]);
 
     $router->group(['prefix' => 'public', 'as' => 'public'], function () use ($router) {
         $router->get('faqs/{id}', ["as" => "public.faqs", "uses" => "FaqController@clientSiteRead"]);
@@ -62,6 +57,8 @@ $router->group(['prefix' => 'api/v1', 'as' => 'api.v1'], function () use ($route
         $router->get('gallery-images-videos/{id}', ["as" => "public.gallery.images.videos.activities", "uses" => "GalleryImageVideoController@clientSiteRead"]);
         $router->get('sliders/{id}', ["as" => "public.sliders", "uses" => "SliderController@clientSiteRead"]);
     });
+    /** calender */
+    $customRouter()->resourceRoute('calender-events', 'CalenderEventsController')->render();
 
     /** Language Field Remove From CsmLanguage Table */
     $router->post('delete-other-language',

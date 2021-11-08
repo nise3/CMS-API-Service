@@ -58,7 +58,7 @@ class GalleryImageVideoResource extends JsonResource
             $response['content_description'] = $this->content_description;
             $response['alt_title'] = $this->alt_title;
             if (!$request->get(BaseModel::IS_COLLECTION_KEY)) {
-                $response[BaseModel::OTHER_LANGUAGE_FIELDS_KEY] = CmsLanguageService::otherLanguageResponse($this->cmsLanguages);
+                $response[BaseModel::OTHER_LANGUAGE_FIELDS_KEY] = CmsLanguageService::otherLanguageResponse($this);
             }
         }
 

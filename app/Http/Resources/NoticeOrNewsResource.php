@@ -55,7 +55,7 @@ class NoticeOrNewsResource extends JsonResource
             $response['image_alt_title'] = $this->image_alt_title;
             $response['file_alt_title'] = $this->file_alt_title;
             if (!$request->get(BaseModel::IS_COLLECTION_KEY)) {
-                $response[BaseModel::OTHER_LANGUAGE_FIELDS_KEY] = CmsLanguageService::otherLanguageResponse($this->cmsLanguages);
+                $response[BaseModel::OTHER_LANGUAGE_FIELDS_KEY] = CmsLanguageService::otherLanguageResponse($this);
             }
         }
         $response['row_status'] = $this->row_status;

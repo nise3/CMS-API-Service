@@ -60,7 +60,7 @@ class RecentActivityResource extends JsonResource
             $response['image_alt_title'] = $this->image_alt_title;
             $response['description'] = $this->description;
             if (!$request->get(BaseModel::IS_COLLECTION_KEY)) {
-                $response[BaseModel::OTHER_LANGUAGE_FIELDS_KEY] = CmsLanguageService::otherLanguageResponse($this->cmsLanguages);
+                $response[BaseModel::OTHER_LANGUAGE_FIELDS_KEY] = CmsLanguageService::otherLanguageResponse($this);
             }
         }
 
