@@ -32,9 +32,9 @@ class CmsGlobalConfigController extends Controller
         $response = [
             '_response_status' => [
                 'data' => $this->cmsGlobalConfigService->getGlobalConfigList(),
-                "success" => false,
-                "code" => ResponseAlias::HTTP_UNPROCESSABLE_ENTITY,
-                "message" => "User is not created",
+                "success" => true,
+                "code" => ResponseAlias::HTTP_OK,
+                "message" => "Successfully fetched cms config",
                 "query_time" => $this->startTime->diffInSeconds(Carbon::now()),
             ]
         ];

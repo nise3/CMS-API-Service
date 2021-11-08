@@ -3740,9 +3740,9 @@
                                                     }
                                                 ]
                                             },
-                                            "success": false,
-                                            "code": 422,
-                                            "message": "User is not created",
+                                            "success": true,
+                                            "code": 200,
+                                            "message": "Successfully fetched cms config",
                                             "query_time": 0
                                         }
                                     }
