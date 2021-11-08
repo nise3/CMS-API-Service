@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\BaseModel;
 use App\Models\GalleryImageVideo;
 use App\Services\Common\LanguageCodeService;
 use App\Services\ContentManagementServices\CmsLanguageService;
@@ -20,7 +21,6 @@ class GalleryImageVideoResource extends JsonResource
      */
     public function toArray($request): array
     {
-        $languageCode = strtolower($request->server('HTTP_ACCEPT_LANGUAGE'));
 
         /** @var GalleryImageVideo $this */
         $response = [
@@ -35,26 +35,33 @@ class GalleryImageVideoResource extends JsonResource
             "content_type" => $this->content_type,
             "video_type" => $this->video_type,
             "content_title" => $this->content_title,
-            "content_title_en" => $this->content_title_en,
             "content_description" => $this->content_description,
-            "content_description_en" => $this->content_description_en,
             "image_url" => $this->image_url,
             "video_url" => $this->video_url,
             "content_properties_json" => $this->content_properties_json,
             "content_cover_image_url" => $this->content_cover_image_url,
             "content_grid_image_url" => $this->content_thumb_image_url,
             "alt_title" => $this->alt_title,
-            "alt_title_en" => $this->alt_title_en
         ];
-
-        if (!empty(GalleryImageVideo::GALLERY_IMAGE_VIDEO_LANGUAGE_FILLABLE) && is_array(GalleryImageVideo::GALLERY_IMAGE_VIDEO_LANGUAGE_FILLABLE) && $languageCode && in_array($languageCode, LanguageCodeService::getLanguageCode())) {
-            $tableName = $this->getTable();
-            $keyId = $this->id;
-            foreach (GalleryImageVideo::GALLERY_IMAGE_VIDEO_LANGUAGE_FILLABLE as $translatableKey) {
-                $translatableValue = app(CmsLanguageService::class)->getLanguageValue($tableName, $keyId, $translatableKey);
-                $response = array_merge($response, $translatableValue);
+        if ($request->offsetExists(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY) && $request->get(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY)) {
+            $response['content_title'] = app(CmsLanguageService::class)->getLanguageValue($this, GalleryImageVideo::LANGUAGE_ATTR_CONTENT_TITLE);
+            $response['content_description'] = app(CmsLanguageService::class)->getLanguageValue($this, GalleryImageVideo::LANGUAGE_ATTR_CONTENT_DESCRIPTION);
+            $response['alt_title'] = app(CmsLanguageService::class)->getLanguageValue($this, GalleryImageVideo::LANGUAGE_ATTR_ALT_TITLE);
+        } else {
+            $response['institute_title'] = "";
+            $response['institute_title_en'] = "";
+            $response['industry_association_title'] = "";
+            $response['industry_association_title_en'] = "";
+            $response['organization_title'] = "";
+            $response['organization_title_en'] = "";
+            $response['content_title'] = $this->content_title;
+            $response['content_description'] = $this->content_description;
+            $response['alt_title'] = $this->alt_title;
+            if (!$request->get(BaseModel::IS_COLLECTION_KEY)) {
+                $response[BaseModel::OTHER_LANGUAGE_FIELDS_KEY] = CmsLanguageService::otherLanguageResponse($this->cmsLanguages);
             }
         }
+
         $response['row_status'] = $this->row_status;
         $response['published_by'] = $this->published_by;
         $response['archived_by'] = $this->archived_by;

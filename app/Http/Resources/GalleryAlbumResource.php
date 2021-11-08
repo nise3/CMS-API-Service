@@ -50,7 +50,7 @@ class GalleryAlbumResource extends JsonResource
             $response['organization_title_en'] = "";
             $response['title'] = $this->title;
             $response['image_alt_title'] = $this->image_alt_title;
-            if (isset($this->cmsLanguages)) {
+            if (!$request->get(BaseModel::IS_COLLECTION_KEY)) {
                 $response[BaseModel::OTHER_LANGUAGE_FIELDS_KEY] = CmsLanguageService::otherLanguageResponse($this->cmsLanguages);
             }
         }

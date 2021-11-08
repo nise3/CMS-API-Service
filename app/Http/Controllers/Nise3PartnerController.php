@@ -9,7 +9,6 @@ use App\Services\Common\LanguageCodeService;
 use App\Services\ContentManagementServices\CmsLanguageService;
 use App\Services\ContentManagementServices\Nise3PartnerService;
 use Carbon\Carbon;
-use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -56,6 +55,21 @@ class Nise3PartnerController extends Controller
         return Response::json($response,ResponseAlias::HTTP_OK);
     }
 
+    /**
+     * Display the specified resource from client site.
+     *
+     * @param Request $request
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function clientSiteRead(Request $request, int $id): JsonResponse
+    {
+        $response = new Nise3PartnerResource($this->nise3PartnerService->getOnePartner($id));
+        $request->offsetSet(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY, BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG);
+        $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
+        return Response::json($response, ResponseAlias::HTTP_OK);
+    }
+
 
     /**
      * @param Request $request
@@ -65,7 +79,6 @@ class Nise3PartnerController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
-
         $validatedData = $this->nise3PartnerService->validator($request)->validate();
         $message = "Faq successfully added";
         $otherLanguagePayload = $validatedData['other_language_fields'] ?? [];
@@ -79,7 +92,7 @@ class Nise3PartnerController extends Controller
                 foreach ($otherLanguagePayload as $key => $value) {
                     $languageValidatedData = $this->nise3PartnerService->languageFieldValidator($value, $key)->validate();
                     foreach (Nise3Partner::NISE_3_PARTNER_LANGUAGE_FIELDS as $fillableColumn) {
-                        if (!empty($languageValidatedData[$fillableColumn])) {
+                        if (isset($languageValidatedData[$fillableColumn])) {
                             $languageFillablePayload[] = [
                                 "table_name" => $nise3Partner->getTable(),
                                 "key_id" => $nise3Partner->id,
@@ -93,9 +106,11 @@ class Nise3PartnerController extends Controller
                 }
                 app(CmsLanguageService::class)->store($languageFillablePayload);
             }
-            $response = getResponse($nise3Partner->toArray(), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
+            $response=new Nise3PartnerResource($nise3Partner);
+            $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
             DB::commit();
         } catch (Throwable $e) {
+            DB::rollBack();
             throw $e;
         }
         return Response::json($response, ResponseAlias::HTTP_CREATED);
@@ -125,7 +140,7 @@ class Nise3PartnerController extends Controller
                 foreach ($otherLanguagePayload as $key => $value) {
                     $languageValidatedData = $this->nise3PartnerService->languageFieldValidator($value, $key)->validate();
                     foreach (Nise3Partner::NISE_3_PARTNER_LANGUAGE_FIELDS as $fillableColumn) {
-                        if (!empty($languageValidatedData[$fillableColumn])) {
+                        if (isset($languageValidatedData[$fillableColumn])) {
                             $languageFillablePayload = [
                                 "table_name" => $nise3Partner->getTable(),
                                 "key_id" => $nise3Partner->id,
@@ -138,9 +153,11 @@ class Nise3PartnerController extends Controller
                     }
                 }
             }
-            $response = getResponse($nise3Partner->toArray(), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK, $message);
+            $response=new Nise3PartnerResource($nise3Partner);
+            $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK, $message);
             DB::commit();
         } catch (Throwable $e) {
+            DB::rollBack();
             throw $e;
         }
         return Response::json($response, ResponseAlias::HTTP_OK);
