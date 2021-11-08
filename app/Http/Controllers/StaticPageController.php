@@ -47,6 +47,7 @@ class StaticPageController extends Controller
      */
     public function getList(Request $request): JsonResponse
     {
+        $request->offsetSet(BaseModel::IS_COLLECTION_KEY, BaseModel::IS_COLLECTION_FLAG);
         $filter = $this->staticPageService->filterValidator($request)->validate();
         $response = StaticPageResource::collection($this->staticPageService->getAllStaticPages($filter))->resource;
         $response = getResponse($response->toArray(), $this->startTime, !BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
@@ -67,6 +68,21 @@ class StaticPageController extends Controller
         $response = new StaticPageResource($this->staticPageService->getOneStaticPage($id));
         $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
         return Response::json($response,ResponseAlias::HTTP_OK);
+    }
+
+    /**
+     * Display the specified resource from client site.
+     *
+     * @param Request $request
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function clientSiteRead(Request $request, int $id): JsonResponse
+    {
+        $response = new StaticPageResource($this->staticPageService->getOneStaticPage($id));
+        $request->offsetSet(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY, BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG);
+        $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
+        return Response::json($response, ResponseAlias::HTTP_OK);
     }
 
     /**
@@ -92,7 +108,7 @@ class StaticPageController extends Controller
                 foreach ($otherLanguagePayload as $key => $value) {
                     $languageValidatedData = $this->staticPageService->languageFieldValidator($value, $key)->validate();
                     foreach (StaticPage::STATIC_PAGE_LANGUAGE_FILLABLE as $fillableColumn) {
-                        if (!empty($languageValidatedData[$fillableColumn])) {
+                        if (isset($languageValidatedData[$fillableColumn])) {
                             $languageFillablePayload = [
                                 "table_name" => $staticPageData->getTable(),
                                 "key_id" => $staticPageData->id,
@@ -141,7 +157,7 @@ class StaticPageController extends Controller
                 foreach ($otherLanguagePayload as $key => $value) {
                     $languageValidatedData = $this->staticPageService->languageFieldValidator($value, $key)->validate();
                     foreach (StaticPage::STATIC_PAGE_LANGUAGE_FILLABLE as $fillableColumn) {
-                        if (!empty($languageValidatedData[$fillableColumn])) {
+                        if (isset($languageValidatedData[$fillableColumn])) {
                             $languageFillablePayload = [
                                 "table_name" => $staticPageData->getTable(),
                                 "key_id" => $staticPageData->id,
@@ -150,6 +166,7 @@ class StaticPageController extends Controller
                                 "column_value" => $languageValidatedData[$fillableColumn]
                             ];
                             app(CmsLanguageService::class)->createOrUpdate($languageFillablePayload);
+                            CmsLanguageService::languageCacheClearByKey($staticPageData->getTable(), $staticPageData->id, $key, $fillableColumn);
                         }
                     }
                 }
