@@ -33,8 +33,8 @@ class GalleryAlbumService
         $rowStatus = $request['row_status'] ?? "";
         $order = $request['order'] ?? "ASC";
 
-        /** @var Builder $GalleryAlbumBuilder */
-        $GalleryAlbumBuilder = GalleryAlbum::select([
+        /** @var Builder $galleryAlbumBuilder */
+        $galleryAlbumBuilder = GalleryAlbum::select([
             'gallery_albums.id',
             'gallery_albums.parent_gallery_album_id',
             'gallery_albums.featured',
@@ -48,12 +48,10 @@ class GalleryAlbumService
             'gallery_albums.program_id',
             'gallery_albums.batch_id',
             'gallery_albums.title',
-            'gallery_albums.title_en',
             'gallery_albums.main_image_path',
             'gallery_albums.thumb_image_path',
             'gallery_albums.grid_image_path',
             'gallery_albums.image_alt_title',
-            'gallery_albums.image_alt_title_en',
             'gallery_albums.row_status',
             'gallery_albums.created_by',
             'gallery_albums.updated_by',
@@ -61,25 +59,25 @@ class GalleryAlbumService
             'gallery_albums.updated_at'
         ]);
 
-        $GalleryAlbumBuilder->orderBy('gallery_albums.id', $order);
+        $galleryAlbumBuilder->orderBy('gallery_albums.id', $order);
 
         if (is_numeric($rowStatus)) {
-            $GalleryAlbumBuilder->where('gallery_albums.row_status', $rowStatus);
+            $galleryAlbumBuilder->where('gallery_albums.row_status', $rowStatus);
         }
 
         if (!empty($titleEn)) {
-            $GalleryAlbumBuilder->where('gallery_albums.title_en', 'like', '%' . $titleEn . '%');
+            $galleryAlbumBuilder->where('gallery_albums.title_en', 'like', '%' . $titleEn . '%');
         }
         if (!empty($titleBn)) {
-            $GalleryAlbumBuilder->where('gallery_albums.title', 'like', '%' . $titleBn . '%');
+            $galleryAlbumBuilder->where('gallery_albums.title', 'like', '%' . $titleBn . '%');
         }
 
         /** @var Collection $galleryAlbums */
         if (is_numeric($paginate) || is_numeric($pageSize)) {
             $pageSize = $pageSize ?: BaseModel::DEFAULT_PAGE_SIZE;
-            $galleryAlbums = $GalleryAlbumBuilder->paginate($pageSize);
+            $galleryAlbums = $galleryAlbumBuilder->paginate($pageSize);
         } else {
-            $galleryAlbums = $GalleryAlbumBuilder->get();
+            $galleryAlbums = $galleryAlbumBuilder->get();
         }
 
         return $galleryAlbums;
@@ -88,8 +86,8 @@ class GalleryAlbumService
 
     public function getOneGalleryAlbum(int $id): Model|Builder
     {
-        /** @var Builder $GalleryAlbumBuilder */
-        $GalleryAlbumBuilder = GalleryAlbum::select([
+        /** @var Builder $galleryAlbumBuilder */
+        $galleryAlbumBuilder = GalleryAlbum::select([
             'gallery_albums.id',
             'gallery_albums.parent_gallery_album_id',
             'gallery_albums.featured',
@@ -103,22 +101,19 @@ class GalleryAlbumService
             'gallery_albums.program_id',
             'gallery_albums.batch_id',
             'gallery_albums.title',
-            'gallery_albums.title_en',
             'gallery_albums.main_image_path',
             'gallery_albums.thumb_image_path',
             'gallery_albums.grid_image_path',
             'gallery_albums.image_alt_title',
-            'gallery_albums.image_alt_title_en',
             'gallery_albums.row_status',
             'gallery_albums.created_by',
             'gallery_albums.updated_by',
             'gallery_albums.created_at',
             'gallery_albums.updated_at'
         ]);
-        $GalleryAlbumBuilder->where('gallery_albums.id', $id);
-
+        $galleryAlbumBuilder->where('gallery_albums.id', $id);
         /** @var GalleryAlbum $GalleryAlbum */
-        return $GalleryAlbumBuilder->firstOrFail();
+        return $galleryAlbumBuilder->firstOrFail();
     }
 
 
@@ -218,7 +213,7 @@ class GalleryAlbumService
             'show_in' => [
                 "required",
                 "integer",
-                Rule::in(BaseModel::SHOW_INS)
+                Rule::in(array_keys(BaseModel::SHOW_INS))
             ],
             'institute_id' => [
                 Rule::requiredIf(function () use ($request) {
