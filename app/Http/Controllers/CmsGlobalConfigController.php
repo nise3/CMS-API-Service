@@ -18,7 +18,7 @@ class CmsGlobalConfigController extends Controller
      * @param CmsGlobalConfigService $cmsGlobalConfigService
      * @param Carbon $startTime
      */
-    public function __construct(CmsGlobalConfigService $cmsGlobalConfigService,Carbon $startTime)
+    public function __construct(CmsGlobalConfigService $cmsGlobalConfigService, Carbon $startTime)
     {
         $this->cmsGlobalConfigService = $cmsGlobalConfigService;
         $this->startTime = $startTime;
@@ -29,15 +29,7 @@ class CmsGlobalConfigController extends Controller
      */
     public function getGlobalConfig(): JsonResponse
     {
-        $response = [
-            '_response_status' => [
-                'data' => $this->cmsGlobalConfigService->getGlobalConfigList(),
-                "success" => true,
-                "code" => ResponseAlias::HTTP_OK,
-                "message" => "Successfully fetched cms config",
-                "query_time" => $this->startTime->diffInSeconds(Carbon::now()),
-            ]
-        ];
-        return Response::json($response, $response['_response_status']['code']);
+        $response = getResponse($this->cmsGlobalConfigService->getGlobalConfigList(), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
+        return Response::json($response,ResponseAlias::HTTP_OK);
     }
 }
