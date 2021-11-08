@@ -60,13 +60,11 @@ class VisitorFeedbackSuggestionController extends Controller
 
 
     /**
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+//     * @throws \Illuminate\Auth\Access\AuthorizationException
      * @throws ValidationException
      */
     function store(Request $request): JsonResponse
     {
-        $this->authorize('create', VisitorFeedbackSuggestion::class);
-
         $validated = $this->visitorFeedbackSuggestionService->validator($request)->validate();
         $data = $this->visitorFeedbackSuggestionService->store($validated);
         $response = [
@@ -86,13 +84,12 @@ class VisitorFeedbackSuggestionController extends Controller
     public function destroy(int $id): JsonResponse
     {
         $occupation = VisitorFeedbackSuggestion::findOrFail($id);
-        $this->authorize('delete', $occupation);
         $this->visitorFeedbackSuggestionService->destroy($occupation);
         $response = [
             '_response_status' => [
                 "success" => true,
                 "code" => ResponseAlias::HTTP_OK,
-                "message" => "Occupation deleted successfully.",
+                "message" => "VisitorFeedbackSuggestion deleted successfully.",
                 "query_time" => $this->startTime->diffInSeconds(Carbon::now())
             ]
         ];

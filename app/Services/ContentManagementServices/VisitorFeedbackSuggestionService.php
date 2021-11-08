@@ -38,6 +38,7 @@ class VisitorFeedbackSuggestionService
             'visitor_feedbacks_suggestions.email',
             'visitor_feedbacks_suggestions.address',
             'visitor_feedbacks_suggestions.address_en',
+            'visitor_feedbacks_suggestions.comment',
             'visitor_feedbacks_suggestions.comment_en',
             'visitor_feedbacks_suggestions.read_at',
             'visitor_feedbacks_suggestions.archived_at',
@@ -85,6 +86,7 @@ class VisitorFeedbackSuggestionService
             'visitor_feedbacks_suggestions.email',
             'visitor_feedbacks_suggestions.address',
             'visitor_feedbacks_suggestions.address_en',
+            'visitor_feedbacks_suggestions.comment',
             'visitor_feedbacks_suggestions.comment_en',
             'visitor_feedbacks_suggestions.read_at',
             'visitor_feedbacks_suggestions.archived_at',
@@ -99,6 +101,10 @@ class VisitorFeedbackSuggestionService
 
         return $visitorFeedbackSuggestionBuilder->firstOrFail();
     }
+
+
+
+
     public function store(array $data): VisitorFeedbackSuggestion
     {
         $VisitorFeedbackSuggestion = new VisitorFeedbackSuggestion();
@@ -106,6 +112,18 @@ class VisitorFeedbackSuggestionService
         $VisitorFeedbackSuggestion->save();
         return $VisitorFeedbackSuggestion;
     }
+
+
+
+
+    public function destroy(VisitorFeedbackSuggestion $VisitorFeedbackSuggestion): bool
+    {
+        return $VisitorFeedbackSuggestion->delete();
+    }
+
+
+
+
 
     public function filterValidator(Request $request): \Illuminate\Contracts\Validation\Validator
     {
@@ -154,24 +172,7 @@ class VisitorFeedbackSuggestionService
                 "integer",
                 "gt:0",
             ],
-            'title_en' => [
-                'nullable',
-                'string',
-                'max:250',
-                'min:2'
-            ],
-            'title' => [
-                'required',
-                'string',
-                'max:500',
-                'min:2'
-            ],
 
-            'industry_association_id' => [
-                "nullable",
-                "integer",
-                "gt:0",
-            ],
             'organization_id' => [
                 "nullable",
                 "integer",
@@ -190,7 +191,7 @@ class VisitorFeedbackSuggestionService
                 'string'
             ],
             'name_en' => [
-                'required',
+                'nullable',
                 'min:2',
                 'max:200',
                 'string'
@@ -214,6 +215,7 @@ class VisitorFeedbackSuggestionService
                 'nullable',
                 'string'
             ],
+
             'comment' => [
                 'nullable',
                 'string'

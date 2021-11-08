@@ -405,14 +405,16 @@
                 ]
             }
         },
+
+
+
+
         "/nise3-partners": {
             "get": {
                 "summary": "Get All Partners",
                 "description": "Get The list of all partners of Nise3",
                 "parameters": [
-                    {
-                        "$ref": "#/components/parameters/Accept-Language"
-                    },
+
                     {
                         "$ref": "#/components/parameters/title_optional"
                     },
@@ -518,14 +520,6 @@
                         "required": true,
                         "schema": {
                             "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "Accept-Language",
-                        "in": "header",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
                         }
                     }
                 ],
@@ -658,14 +652,76 @@
                 ]
             }
         },
+        "/public/nise3-partners/{partnerId}": {
+            "get": {
+                "summary": "Get partner by Id",
+                "description": "API endpoint to create a partner.A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "name": "partnerId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "Accept-Language",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successfull",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "order": "ASC",
+                                    "data": {
+                                        "id": 1,
+                                        "title": "newtitle",
+                                        "main_image_path": "https://en.as.com/en/2021/11/01/soccer/1635749055_402801.html",
+                                        "thumb_image_path": "https://en.as.com/en/2021/11/01/soccer/1635749055_402801.html",
+                                        "grid_image_path": "https://en.as.com/en/2021/11/01/soccer/1635749055_402801.html",
+                                        "domain": null,
+                                        "image_alt_title": null,
+                                        "row_status": 1,
+                                        "created_by": null,
+                                        "updated_by": null,
+                                        "created_at": "2021-11-04T10:46:39.000000Z",
+                                        "updated_at": "2021-11-04T10:46:39.000000Z"
+                                    },
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "message": null,
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "nise3_partners"
+                ]
+            }
+        },
+
+
+
+
+
+
         "/sliders": {
             "get": {
                 "summary": "Get All sliders",
                 "description": "Get All the sliders",
                 "parameters": [
-                    {
-                        "$ref": "#/components/parameters/Accept-Language"
-                    },
                     {
                         "$ref": "#/components/parameters/title_optional"
                     },
@@ -769,14 +825,7 @@
                 "summary": "get_one",
                 "description": "API endpoint to get a specified Slider.A successful request response will show 200 HTTP status code",
                 "parameters": [
-                    {
-                        "name": "Accept-Language",
-                        "in": "header",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
+
                     {
                         "in": "path",
                         "name": "SliderId",
@@ -959,6 +1008,80 @@
                 ]
             }
         },
+        "/public/sliders/{SliderId}": {
+            "get": {
+                "summary": "get_one",
+                "description": "API endpoint to get a specified Slider.A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "name": "Accept-Language",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "path",
+                        "name": "SliderId",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "required": true,
+                        "description": "Slider ID"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "get Slider by Id",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Slider"
+                                },
+                                "example": {
+                                    "data": {
+                                        "id": 1,
+                                        "institute_id": 1,
+                                        "organization_id": 1,
+                                        "title": "New Title",
+                                        "sub_title": "No subtitle",
+                                        "is_button_available": 1,
+                                        "button_text": "new field",
+                                        "link": "new link",
+                                        "slider_images": [
+                                            "sssss"
+                                        ],
+                                        "alt_title": null,
+                                        "banner_template": null,
+                                        "row_status": 0,
+                                        "created_by": null,
+                                        "updated_by": null,
+                                        "created_at": "2021-11-04T04:24:01.000000Z",
+                                        "updated_at": "2021-11-04T04:24:01.000000Z"
+                                    },
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "message": "Slider details",
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Sliders"
+                ]
+            }
+        },
+
+
+
+
+
+
         "/faqs": {
             "get": {
                 "summary": "Get All faqs",
@@ -1066,6 +1189,7 @@
                                         {
                                             "id": 1,
                                             "show_in": 7,
+                                            "show_in_label":  "Show in Nise3",
                                             "institute_id": 1,
                                             "industry_association_id": 1,
                                             "organization_id": 5,
@@ -1157,14 +1281,6 @@
                 "summary": "Get All faqs",
                 "description": "API endpoint to get an faq.A successful request response will show 200 HTTP status code",
                 "parameters": [
-                    {
-                        "name": "Accept-Language",
-                        "in": "header",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
                     {
                         "name": "faqId",
                         "in": "path",
@@ -1312,6 +1428,14 @@
                         "$ref": "#/components/parameters/Accept-Language"
                     },
                     {
+                        "name": "faqId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
                         "name": "question",
                         "in": "query",
                         "required": false,
@@ -1411,7 +1535,8 @@
                                     "data": [
                                         {
                                             "id": 1,
-                                            "show_in": 7,
+                                            "show_in": 1,
+                                            "show_in_label":  "Show in Nise3",
                                             "institute_id": 1,
                                             "industry_association_id": 1,
                                             "organization_id": 5,
@@ -1426,6 +1551,7 @@
                                         {
                                             "id": 2,
                                             "show_in": 1,
+                                            "show_in_label":  "Show in Nise3",
                                             "institute_id": 0,
                                             "industry_association_id": 0,
                                             "organization_id": 9,
@@ -1451,61 +1577,17 @@
                 "tags": [
                     "faqs"
                 ]
-            },
-            "post": {
-                "summary": "create",
-                "description": "API endpoint to create a faq.A successful request response will show 200 HTTP status code",
-                "requestBody": {
-                    "content": {
-                        "application/x-www-form-urlencoded": {
-                            "schema": {
-                                "$ref": "#/components/schemas/faq"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "create",
-                        "content": {
-                            "application/json": {
-                                "example": {
-                                    "data": {
-                                        "show_in": "1",
-                                        "institute_id": null,
-                                        "industry_association_id": null,
-                                        "organization_id": null,
-                                        "question": "New Question",
-                                        "answer": "New Answer",
-                                        "row_status": "0",
-                                        "updated_at": "2021-11-04T06:03:46.000000Z",
-                                        "created_at": "2021-11-04T06:03:46.000000Z",
-                                        "id": 21
-                                    },
-                                    "_response_status": {
-                                        "success": true,
-                                        "code": 201,
-                                        "message": "Faq successfully added",
-                                        "query_time": 0
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "faqs"
-                ]
             }
         },
+
+
+
         "/gallery-albums": {
             "get": {
                 "summary": "Get All gallery albums",
                 "description": "API endpoint to get all gallery image.A successful request response will show 200 HTTP status code",
                 "parameters": [
-                    {
-                        "$ref": "#/components/parameters/Accept-Language"
-                    },
+
                     {
                         "$ref": "#/components/parameters/title_optional"
                     },
@@ -1703,15 +1785,8 @@
                         "schema": {
                             "type": "integer"
                         }
-                    },
-                    {
-                        "name": "Accept-Language",
-                        "in": "header",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
                     }
+
                 ],
                 "responses": {
                     "200": {
@@ -1794,14 +1869,96 @@
                 ]
             }
         },
+        "/public/gallery-albums/{galleryAlbumId}": {
+            "get": {
+                "summary": "Get All gallery albums",
+                "description": "API endpoint to get all gallery image.A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "name": "galleryAlbumId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/Accept-Language"
+                    },
+                    {
+                        "$ref": "#/components/parameters/title_optional"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page_size"
+                    },
+                    {
+                        "$ref": "#/components/parameters/row_status"
+                    },
+                    {
+                        "$ref": "#/components/parameters/order"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get All gallery albums",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "order": "ASC",
+                                    "data": [
+                                        {
+                                            "id": 1,
+                                            "parent_gallery_album_id": null,
+                                            "featured": 1,
+                                            "show_in": 1,
+                                            "album_type": 1,
+                                            "published_at": null,
+                                            "archived_at": null,
+                                            "institute_id": null,
+                                            "organization_id": null,
+                                            "industry_association_id": null,
+                                            "batch_id": null,
+                                            "program_id": null,
+                                            "title": "NewTitle",
+                                            "main_image_path": null,
+                                            "thumb_image_path": null,
+                                            "grid_image_path": null,
+                                            "image_alt_title": null,
+                                            "row_status": 1,
+                                            "created_by": null,
+                                            "updated_by": null,
+                                            "created_at": "2021-11-04T06:55:37.000000Z",
+                                            "updated_at": "2021-11-04T06:55:37.000000Z"
+                                        }
+                                    ],
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "message": null,
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Gallery-Album"
+                ]
+            }
+        },
+
+
+
+
         "/gallery-images-videos": {
             "get": {
                 "summary": "Get all gallery image videos",
                 "description": "API endpoint to get the list of gallery-images-videos.A successful request response will show 200 HTTP status code",
                 "parameters": [
-                    {
-                        "$ref": "#/components/parameters/Accept-Language"
-                    },
                     {
                         "$ref": "#/components/parameters/page"
                     },
@@ -1998,15 +2155,8 @@
                         "schema": {
                             "type": "integer"
                         }
-                    },
-                    {
-                        "name": "Accept-Language",
-                        "in": "header",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
                     }
+
                 ],
                 "responses": {
                     "200": {
@@ -2093,14 +2243,90 @@
                 ]
             }
         },
+        "/public/gallery-images-videos/{galleryImagesVideoId}": {
+            "get": {
+                "summary": "Get all gallery image videos",
+                "description": "API endpoint to get the list of gallery-images-videos.A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "name": "galleryImagesVideoId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/Accept-Language"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page_size"
+                    },
+                    {
+                        "$ref": "#/components/parameters/row_status"
+                    },
+                    {
+                        "$ref": "#/components/parameters/order"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successfull",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "data": [
+                                        {
+                                            "gallery_album_id": "1",
+                                            "featured": "1",
+                                            "institute_id": "1",
+                                            "organization_id": "1",
+                                            "content_type": "2",
+                                            "video_type": "1",
+                                            "content_title": "newtitle",
+                                            "content_description": null,
+                                            "content_properties_json": null,
+                                            "image_url": null,
+                                            "video_url": "ddddd",
+                                            "content_cover_image_url": null,
+                                            "content_grid_image_url": null,
+                                            "content_thumb_image_url": null,
+                                            "alt_title": null,
+                                            "row_status": "1",
+                                            "updated_at": "2021-11-04T07:52:27.000000Z",
+                                            "created_at": "2021-11-04T07:52:27.000000Z",
+                                            "id": 1
+                                        }
+                                    ],
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 201,
+                                        "message": "GalleryImageVideo is Successfully added",
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "gallery-images-videos"
+                ]
+            }
+        },
+
+
+
+
         "/static-pages": {
             "get": {
                 "summary": "Get all static page",
                 "description": "API endpoint to get all a Static Page.A successful request response will show 200 HTTP status code",
                 "parameters": [
-                    {
-                        "$ref": "#/components/parameters/Accept-Language"
-                    },
+
                     {
                         "$ref": "#/components/parameters/title_optional"
                     },
@@ -2188,14 +2414,6 @@
                         "required": true,
                         "schema": {
                             "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "Accept-Language",
-                        "in": "header",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
                         }
                     }
                 ],
@@ -2333,14 +2551,60 @@
                 ]
             }
         },
+        "/public/static-pages/{staticPagesId}": {
+            "get": {
+                "summary": "Get all static page",
+                "description": "API endpoint to get all a Static Page.A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "name": "staticPagesId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/Accept-Language"
+                    },
+                    {
+                        "$ref": "#/components/parameters/title_optional"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page_size"
+                    },
+                    {
+                        "$ref": "#/components/parameters/order"
+                    },
+                    {
+                        "$ref": "#/components/parameters/row_status"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successfull",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                },
+                "tags": [
+                    "static-pages"
+                ]
+            }
+        },
+
+
+
+
         "/recent-activities": {
             "get": {
                 "summary": "Get All recent activity",
                 "description": "API endpoint to get all recent activities.A successful request response will show 200 HTTP status code",
                 "parameters": [
-                    {
-                        "$ref": "#/components/parameters/Accept-Language"
-                    },
                     {
                         "$ref": "#/components/parameters/title_optional"
                     },
@@ -2433,14 +2697,6 @@
                         "required": true,
                         "schema": {
                             "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "Accept-Language",
-                        "in": "header",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
                         }
                     }
                 ],
@@ -2601,6 +2857,56 @@
                 ]
             }
         },
+        "/public/recent-activities/{recentActivityId}": {
+            "get": {
+                "summary": "Get All recent activity",
+                "description": "API endpoint to get all recent activities.A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "name": "recentActivityId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/Accept-Language"
+                    },
+                    {
+                        "$ref": "#/components/parameters/title_optional"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page_size"
+                    },
+                    {
+                        "$ref": "#/components/parameters/order"
+                    },
+                    {
+                        "$ref": "#/components/parameters/row_status"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successfull",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                },
+                "tags": [
+                    "recent-activities"
+                ]
+            }
+        },
+
+
+
+
+
         "/calender-events": {
             "get": {
                 "summary": "Get list of Calender Events",
@@ -2986,14 +3292,15 @@
                 ]
             }
         },
+
+
+
         "/notice-or-news": {
             "get": {
                 "summary": "Get all notice or news",
                 "description": "API endpoint to all all notice or news.A successful request response will show 200 HTTP status code",
                 "parameters": [
-                    {
-                        "$ref": "#/components/parameters/Accept-Language"
-                    },
+
                     {
                         "$ref": "#/components/parameters/title_optional"
                     },
@@ -3223,6 +3530,72 @@
                 ]
             }
         },
+        "/public/notice-or-news/{noticeId}": {
+            "get": {
+                "summary": "Get notice by Id",
+                "description": "API endpoint to get a notice .A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/Accept-Language"
+                    },
+                    {
+                        "name": "noticeId",
+                        "in": "path",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/x-www-form-urlencoded": {
+                                "schema": {
+                                    "example": {
+                                        "data": {
+                                            "id": 1,
+                                            "type": 1,
+                                            "show_in": 3,
+                                            "published_at": null,
+                                            "archived_at": null,
+                                            "title": "Our English to Bangla Translation Tool is powered by Google Translation API",
+                                            "institute_id": 1,
+                                            "organization_id": 1,
+                                            "industry_association_id": 1,
+                                            "details": null,
+                                            "main_image_path": null,
+                                            "grid_image_path": null,
+                                            "thumb_image_path": null,
+                                            "image_alt_title": null,
+                                            "file_path": null,
+                                            "file_alt_title": null,
+                                            "row_status": 1,
+                                            "created_by": null,
+                                            "updated_by": null,
+                                            "created_at": "2021-11-07T06:29:09.000000Z",
+                                            "updated_at": null
+                                        },
+                                        "_response_status": {
+                                            "success": true,
+                                            "code": 200,
+                                            "message": null,
+                                            "query_time": 0
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "notice-or-news"
+                ]
+            }
+        },
+
+
         "/visitor-feedback-suggestions": {
             "get": {
                 "summary": "Get aAll visitor-feedback-suggestion",
@@ -3284,7 +3657,122 @@
                         "description": "successfull",
                         "content": {
                             "application/json": {
-                                "example": {}
+                                "example": {
+                                    "data": {
+                                        "form_type": "1",
+                                        "institute_id": null,
+                                        "organization_id": null,
+                                        "organization_association_id": null,
+                                        "name": "OldHobbit",
+                                        "mobile": null,
+                                        "email": null,
+                                        "address": null,
+                                        "comment": null,
+                                        "row_status": "1",
+                                        "updated_at": "2021-11-08T04:43:28.000000Z",
+                                        "created_at": "2021-11-08T04:43:28.000000Z",
+                                        "id": 1
+                                    },
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 201,
+                                        "message": "Occupation added successfully.",
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "visitor-feedback-suggestions"
+                ]
+            }
+        },
+        "/visitor-feedback-suggestions/{visitorId}": {
+            "get": {
+                "summary": "Get visitor feedback suggestion by Id",
+                "description": " API endpoint to get a visitor feedback suggestion. A successful request response will show 201 HTTP status code",
+                "parameters": [
+                    {
+                        "name": "visitorId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successfull",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "data": {
+                                        "id": 1,
+                                        "form_type": 1,
+                                        "institute_id": null,
+                                        "organization_id": null,
+                                        "organization_association_id": null,
+                                        "name": "OldHobbit",
+                                        "name_en": null,
+                                        "mobile": null,
+                                        "email": null,
+                                        "address": null,
+                                        "address_en": null,
+                                        "comment": null,
+                                        "comment_en": null,
+                                        "read_at": null,
+                                        "archived_at": null,
+                                        "archived_by": null,
+                                        "row_status": 1,
+                                        "created_at": "2021-11-08T04:43:28.000000Z",
+                                        "updated_at": "2021-11-08T04:43:28.000000Z"
+                                    },
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "message": null,
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "visitor-feedback-suggestions"
+                ]
+            },
+            "delete": {
+                "summary": "Delete a visitor feedback suggestion",
+                "description": " API endpoint to delete a visitor feedback suggestion.A successful request response will show 201 HTTP status code",
+                "parameters": [
+                    {
+                        "name": "visitorId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successfull",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "example": {
+                                        "_response_status": {
+                                            "success": true,
+                                            "code": 200,
+                                            "message": "VisitorFeedbackSuggestion deleted successfully.",
+                                            "query_time": 0
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -4209,7 +4697,11 @@
                         ],
                         "example": 1
                     }
-                }
+                },
+                "required": [
+                    "form_type",
+                    "name"
+                ]
             },
             "country": {
                 "type": "object",
