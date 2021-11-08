@@ -83,7 +83,6 @@ class Nise3PartnerController extends Controller
         $message = "Faq successfully added";
         $otherLanguagePayload = $validatedData['other_language_fields'] ?? [];
         $isLanguage = (bool)count(array_intersect(array_keys($otherLanguagePayload), LanguageCodeService::getLanguageCode()));
-        $response = [];
         DB::beginTransaction();
         try {
             $nise3Partner = $this->nise3PartnerService->store($validatedData);
@@ -132,7 +131,6 @@ class Nise3PartnerController extends Controller
         $message = "Nise3Partner Update Successfully Done";
         $otherLanguagePayload = $validatedData['other_language_fields'] ?? [];
         $isLanguage = (bool)count(array_intersect(array_keys($otherLanguagePayload), LanguageCodeService::getLanguageCode()));
-        $response = [];
         DB::beginTransaction();
         try {
             $nise3Partner = $this->nise3PartnerService->update($nise3Partner, $validatedData);
