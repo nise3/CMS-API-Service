@@ -407,8 +407,6 @@
         },
 
 
-
-
         "/nise3-partners": {
             "get": {
                 "summary": "Get All Partners",
@@ -711,10 +709,6 @@
                 ]
             }
         },
-
-
-
-
 
 
         "/sliders": {
@@ -1076,10 +1070,6 @@
                 ]
             }
         },
-
-
-
-
 
 
         "/faqs": {
@@ -1492,7 +1482,6 @@
         },
 
 
-
         "/gallery-albums": {
             "get": {
                 "summary": "Get All gallery albums",
@@ -1848,8 +1837,6 @@
         },
 
 
-
-
         "/gallery-images-videos": {
             "get": {
                 "summary": "Get all gallery image videos",
@@ -2203,9 +2190,6 @@
             }
         },
 
-
-
-
         "/static-pages": {
             "get": {
                 "summary": "Get all static page",
@@ -2466,9 +2450,6 @@
                 ]
             }
         },
-
-
-
 
         "/recent-activities": {
             "get": {
@@ -2757,10 +2738,6 @@
                 ]
             }
         },
-
-
-
-
 
         "/calender-events": {
             "get": {
@@ -3147,8 +3124,6 @@
                 ]
             }
         },
-
-
 
         "/notice-or-news": {
             "get": {
@@ -3634,6 +3609,28 @@
                 },
                 "tags": [
                     "visitor-feedback-suggestions"
+                ]
+            }
+        },
+
+        "/cms-global-config": {
+            "get": {
+                "summary": "Get All cms-global-config",
+                "description": " API endpoint to get all cms-global-config.A successful request response will show 200 HTTP status code",
+                "responses": {
+                    "200": {
+                        "description": "successfull",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "example": {}
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "cms-global-config"
                 ]
             }
         }
