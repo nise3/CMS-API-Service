@@ -57,6 +57,8 @@ $router->group(['prefix' => 'api/v1', 'as' => 'api.v1'], function () use ($route
         $router->get('static-pages/{id}', ["as" => "public.static.pages", "uses" => "StaticPageController@clientSiteRead"]);
         $router->get('notice-or-news/{id}', ["as" => "public.notice.news", "uses" => "NoticeOrNewsController@clientSiteRead"]);
         $router->get('recent-activities/{id}', ["as" => "public.recent.activities", "uses" => "RecentActivityController@clientSiteRead"]);
+        $router->get('gallery-albums/{id}', ["as" => "gallery.albums.activities", "uses" => "GalleryAlbumController@clientSiteRead"]);
+        $router->get('gallery-images-videos/{id}', ["as" => "gallery.images.videos.activities", "uses" => "GalleryImageVideoController@clientSiteRead"]);
     });
 
     /** Language Field Remove From CsmLanguage Table */
