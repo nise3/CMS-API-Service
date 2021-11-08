@@ -140,7 +140,6 @@ class SliderController extends Controller
         $message = "Slider successfully update";
         $otherLanguagePayload = $validatedData['other_language_fields'] ?? [];
         $isLanguage = (bool)count(array_intersect(array_keys($otherLanguagePayload), LanguageCodeService::getLanguageCode()));
-        $response = [];
         DB::beginTransaction();
         try {
             $slider = $this->sliderService->update($slider, $validatedData);
