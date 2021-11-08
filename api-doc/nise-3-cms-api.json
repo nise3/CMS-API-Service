@@ -5260,6 +5260,18 @@
                         "type": "integer",
                         "description": "Institute id"
                     },
+                    "show_in": {
+                        "type": "integer",
+                        "description": "1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry, 5=>Industry Association",
+                        "enum": [
+                            1,
+                            2,
+                            3,
+                            4,
+                            5
+                        ],
+                        "example": 1
+                    },
                     "description": {
                         "type": "string",
                         "description": "description in Bengali"
@@ -5314,6 +5326,7 @@
                     "embedded_url": {
                         "type": "string"
                     },
+
                     "row_status": {
                         "type": "integer",
                         "description": "activation status",
