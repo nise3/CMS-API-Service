@@ -83,8 +83,8 @@ class VisitorFeedbackSuggestionController extends Controller
 
     public function destroy(int $id): JsonResponse
     {
-        $occupation = VisitorFeedbackSuggestion::findOrFail($id);
-        $this->visitorFeedbackSuggestionService->destroy($occupation);
+        $visitorFeedback = VisitorFeedbackSuggestion::findOrFail($id);
+        $this->visitorFeedbackSuggestionService->destroy($visitorFeedback);
         $response = [
             '_response_status' => [
                 "success" => true,
