@@ -64,6 +64,22 @@ class SliderController extends Controller
     }
 
     /**
+     * Display the specified resource from client site.
+     *
+     * @param Request $request
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function clientSiteRead(Request $request, int $id): JsonResponse
+    {
+        $response = new SliderResource($this->sliderService->getOneSlider($id));
+        $request->offsetSet(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY, BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG);
+        $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
+        return Response::json($response, ResponseAlias::HTTP_OK);
+    }
+
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param Request $request

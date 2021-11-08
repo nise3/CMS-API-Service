@@ -8,6 +8,7 @@ use App\Services\Common\LanguageCodeService;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Storage;
@@ -89,7 +90,7 @@ class SliderService
 
     }
 
-    public function getOneSlider(int $id): Slider
+    public function getOneSlider(int $id): Builder|Model
     {
         /** @var Builder $sliderBuilder */
 
@@ -114,8 +115,7 @@ class SliderService
         ]);
         $sliderBuilder->where('sliders.id', $id);
         /** @var Slider $slider */
-        $slider = $sliderBuilder->firstOrFail();
-        return $slider;
+        return $sliderBuilder->firstOrFail();
     }
 
     /**
