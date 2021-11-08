@@ -122,7 +122,6 @@ class FaqService
     }
 
     /**
-     * @param Faq $faq
      * @param array $data
      * @return Faq
      */

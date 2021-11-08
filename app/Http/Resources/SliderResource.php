@@ -46,7 +46,7 @@ class SliderResource extends JsonResource
             $response['button_text'] = $this->button_text;
 
             if (!$request->get(BaseModel::IS_COLLECTION_KEY)) {
-                $response[BaseModel::OTHER_LANGUAGE_FIELDS_KEY] = CmsLanguageService::otherLanguageResponse($this->cmsLanguages);
+                $response[BaseModel::OTHER_LANGUAGE_FIELDS_KEY] = CmsLanguageService::otherLanguageResponse($this);
             }
         }
         $response["banner_template_code"] = $this->banner_template_code;
@@ -56,7 +56,6 @@ class SliderResource extends JsonResource
         $response['updated_by'] = $this->updated_by;
         $response['created_at'] = $this->created_at;
         $response['updated_at'] = $this->updated_at;
-
         return $response;
     }
 }

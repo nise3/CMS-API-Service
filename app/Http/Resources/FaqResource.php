@@ -41,7 +41,7 @@ class FaqResource extends JsonResource
             $response['question'] = $this->question;
             $response['answer'] = $this->answer;
             if (!$request->get(BaseModel::IS_COLLECTION_KEY)) {
-                $response[BaseModel::OTHER_LANGUAGE_FIELDS_KEY] = CmsLanguageService::otherLanguageResponse($this->cmsLanguages);
+                $response[BaseModel::OTHER_LANGUAGE_FIELDS_KEY] = CmsLanguageService::otherLanguageResponse($this);
             }
         }
 

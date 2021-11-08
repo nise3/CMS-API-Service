@@ -14,16 +14,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 abstract class BaseModel extends Model
 {
     use HasFactory;
-
-    /**
-     * @return HasMany
-     */
-    public function cmsLanguages(): HasMany
-    {
-        return $this->hasMany(CmsLanguage::class, 'key_id', "id");
-    }
-
-
     public const IMAGE_PATH_VALIDATION_RULE = 'url';
     public const HTTP_URL = 'regex:/^(http|https):\/\/[a-zA-Z-\-\.0-9]+$/';
 

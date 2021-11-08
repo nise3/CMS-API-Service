@@ -20,7 +20,6 @@ class SliderService
 
     /**
      * @param array $request
-     * @param Carbon $startTime
      * @return Collection|LengthAwarePaginator|array
      */
     public function getAllSliders(array $request): Collection|LengthAwarePaginator|array
