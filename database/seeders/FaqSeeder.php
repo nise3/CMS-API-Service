@@ -40,10 +40,22 @@ class FaqSeeder extends Seeder
                             'lang_code' => 'hi',
                             'column_name' => Faq::LANGUAGE_ATTR_ANSWER,
                             'column_value' => "भारत का इतिहास या फिर भूगोल, यह इतना बड़ा है कि इसको याद करने में बड़ों-बड़ों की रातों की नींद हराम हो जाती है। सभी प्रश्‍नों के उत्‍तर याद करना सभी के लिए लगभग असंभव है, आज हम आपको बता रहे हैं उन खास प्रश्‍नों को उनके उत्‍तर के साथ जो प्रतियोगी परिक्षाओं से लेकर जॉब इंटरव्‍यू में ज्‍यादातर पूछे जाते हैं। अगर आपको इन प्रश्‍नों के उत्‍तर पता हैं तो आपकी मुश्‍किलें हल हो जाएंगी"
+                        ],
+                        [
+                            'table_name' => $faqModelInstance->getTable(),
+                            'lang_code' => 'te',
+                            'column_name' => Faq::LANGUAGE_ATTR_QUESTION,
+                            'column_value' => "మీరు ఏదైనా పరీక్షకు సిద్ధమవుతున్నట్లయితే"
+                        ],
+                        [
+                            'table_name' => $faqModelInstance->getTable(),
+                            'lang_code' => 'te',
+                            'column_name' => Faq::LANGUAGE_ATTR_ANSWER,
+                            'column_value' => "మీరు ఏదైనా పరీక్షకు సిద్ధమవుతున్నట్లయితే, మంచి సాధారణ జ్ఞానం కలిగి ఉండటం చాలా ముఖ్యం. కాబట్టి ఏయే ప్రశ్నలు తెలుసుకుందాం"
                         ]
                     )
                 )
-                ->count(2)
+                ->count(4)
         )
             ->count(20)
             ->create();

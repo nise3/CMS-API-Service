@@ -43,5 +43,10 @@ class Faq extends BaseModel
         self::LANGUAGE_ATTR_ANSWER
     ];
 
+    public function cmsLanguage():HasMany
+    {
+        return $this->hasMany(CmsLanguage::class, "key_id");
+    }
+
 
 }
