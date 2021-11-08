@@ -97,7 +97,7 @@ abstract class BaseModel extends Model
     public const DEFAULT_LANGUAGE_CODE = 'bn';
     public const IS_CLIENT_SITE_RESPONSE_KEY = 'IS_CLIENT_SITE_RESPONSE_KEY';
     public const IS_CLIENT_SITE_RESPONSE_FLAG = true;
-    public const IS_NOT_COLLECTION_KEY="IS_NOT_COLLECTION_KEY";
-    public const IS_NOT_COLLECTION_FLAG=true;
+    public const IS_COLLECTION_KEY="IS_COLLECTION_KEY";
+    public const IS_COLLECTION_FLAG=true;
 
 }

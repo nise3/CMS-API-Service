@@ -41,9 +41,10 @@ class SliderController extends Controller
     public function getList(Request $request): JsonResponse
     {
         $filter = $this->sliderService->filterValidator($request)->validate();
-        $message="Slider list";
+        $message = "Slider list";
+        $request->offsetSet(BaseModel::IS_COLLECTION_KEY, BaseModel::IS_COLLECTION_FLAG);
         $response = SliderResource::collection($this->sliderService->getAllSliders($filter))->resource;
-        $response = getResponse($response->toArray(), $this->startTime, !BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK,$message);
+        $response = getResponse($response->toArray(), $this->startTime, !BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK, $message);
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
 
@@ -56,9 +57,9 @@ class SliderController extends Controller
      */
     public function read(Request $request, int $id): JsonResponse
     {
-        $message="Slider details";
+        $message = "Slider details";
         $response = new SliderResource($this->sliderService->getOneSlider($id));
-        $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK,$message);
+        $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK, $message);
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
 
@@ -84,8 +85,8 @@ class SliderController extends Controller
                 $languageFillablePayload = [];
                 foreach ($otherLanguagePayload as $key => $value) {
                     $languageValidatedData = $this->sliderService->languageFieldValidator($value, $key)->validate();
-                    foreach (Slider::SLIDER_LANGUAGE_FIELDS as $fillableColumn){
-                        if (!empty($languageValidatedData[$fillableColumn])) {
+                    foreach (Slider::SLIDER_LANGUAGE_FIELDS as $fillableColumn) {
+                        if (isset($languageValidatedData[$fillableColumn])) {
                             $languageFillablePayload[] = [
                                 "table_name" => $slider->getTable(),
                                 "key_id" => $slider->id,
@@ -98,7 +99,7 @@ class SliderController extends Controller
                 }
                 app(CmsLanguageService::class)->store($languageFillablePayload);
             }
-            $response=new SliderResource($slider);
+            $response = new SliderResource($slider);
             $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
             DB::commit();
         } catch (Throwable $e) {
@@ -131,8 +132,8 @@ class SliderController extends Controller
             if ($isLanguage) {
                 foreach ($otherLanguagePayload as $key => $value) {
                     $languageValidatedData = $this->sliderService->languageFieldValidator($value, $key)->validate();
-                    foreach (Slider::SLIDER_LANGUAGE_FIELDS as $fillableColumn){
-                        if (!empty($languageValidatedData[$fillableColumn])) {
+                    foreach (Slider::SLIDER_LANGUAGE_FIELDS as $fillableColumn) {
+                        if (isset($languageValidatedData[$fillableColumn])) {
                             $languageFillablePayload = [
                                 "table_name" => $slider->getTable(),
                                 "key_id" => $slider->id,
@@ -141,18 +142,19 @@ class SliderController extends Controller
                                 "column_value" => $languageValidatedData[$fillableColumn]
                             ];
                             app(CmsLanguageService::class)->createOrUpdate($languageFillablePayload);
+                            CmsLanguageService::languageCacheClearByKey($slider->getTable(), $slider->id, $key, $fillableColumn);
                         }
                     }
                 }
             }
-            $response=new SliderResource($slider);
-            $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
+            $response = new SliderResource($slider);
+            $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK, $message);
             DB::commit();
 
         } catch (Throwable $e) {
             throw $e;
         }
-        return Response::json($response, ResponseAlias::HTTP_CREATED);
+        return Response::json($response, ResponseAlias::HTTP_OK);
     }
 
     /**

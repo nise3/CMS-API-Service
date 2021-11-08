@@ -2,8 +2,8 @@
 
 namespace App\Http\Resources;
 
+use App\Models\BaseModel;
 use App\Models\NoticeOrNews;
-use App\Services\Common\LanguageCodeService;
 use App\Services\ContentManagementServices\CmsLanguageService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -18,8 +18,6 @@ class NoticeOrNewsResource extends JsonResource
      */
     public function toArray($request): array
     {
-        $languageCode = strtolower($request->server('HTTP_ACCEPT_LANGUAGE'));
-
         /** @var NoticeOrNews $this */
         $response = [
             "id" => $this->id,
@@ -28,27 +26,36 @@ class NoticeOrNewsResource extends JsonResource
             'published_at' => $this->published_at,
             'archived_at' => $this->archived_at,
             "title" => $this->title,
-            "title_en" => $this->title_en,
             "institute_id" => $this->institute_id,
             "organization_id" => $this->organization_id,
             "industry_association_id" => $this->industry_association_id,
             "details" => $this->details,
-            "details_en" => $this->details_en,
             "main_image_path" => $this->main_image_path,
             "grid_image_path" => $this->grid_image_path,
             "thumb_image_path" => $this->thumb_image_path,
-            "image_alt_title_en" => $this->image_alt_title_en,
             "image_alt_title" => $this->image_alt_title,
             "file_path" => $this->file_path,
-            "file_alt_title_en" => $this->file_alt_title_en,
             "file_alt_title" => $this->file_alt_title
         ];
-        if (!empty(NoticeOrNews::NOTICE_OR_NEWS_LANGUAGE_FILLABLE) && is_array(NoticeOrNews::NOTICE_OR_NEWS_LANGUAGE_FILLABLE) && $languageCode && in_array($languageCode, LanguageCodeService::getLanguageCode())) {
-            $tableName = $this->getTable();
-            $keyId = $this->id;
-            foreach (NoticeOrNews::NOTICE_OR_NEWS_LANGUAGE_FILLABLE as $translatableKey) {
-                $translatableValue = app(CmsLanguageService::class)->getLanguageValue($tableName, $keyId, $translatableKey);
-                $response = array_merge($response, $translatableValue);
+
+        if ($request->offsetExists(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY) && $request->get(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY)) {
+            $response['title'] = app(CmsLanguageService::class)->getLanguageValue($this, NoticeOrNews::LANGUAGE_ATTR_TITLE);
+            $response['details'] = app(CmsLanguageService::class)->getLanguageValue($this, NoticeOrNews::LANGUAGE_ATTR_DETAILS);
+            $response['image_alt_title'] = app(CmsLanguageService::class)->getLanguageValue($this, NoticeOrNews::LANGUAGE_ATTR_IMAGE_ALT_TITLE);
+            $response['file_alt_title'] = app(CmsLanguageService::class)->getLanguageValue($this, NoticeOrNews::LANGUAGE_ATTR_FILE_ALT_TITLE);
+        } else {
+            $response['institute_title'] = "";
+            $response['institute_title_en'] = "";
+            $response['industry_association_title'] = "";
+            $response['industry_association_title_en'] = "";
+            $response['organization_title'] = "";
+            $response['organization_title_en'] = "";
+            $response['title'] = $this->title;
+            $response['details'] = $this->details;
+            $response['image_alt_title'] = $this->image_alt_title;
+            $response['file_alt_title'] = $this->file_alt_title;
+            if (!$request->get(BaseModel::IS_COLLECTION_KEY)) {
+                $response[BaseModel::OTHER_LANGUAGE_FIELDS_KEY] = CmsLanguageService::otherLanguageResponse($this->cmsLanguages);
             }
         }
         $response['row_status'] = $this->row_status;

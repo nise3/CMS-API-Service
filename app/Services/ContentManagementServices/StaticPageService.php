@@ -201,7 +201,7 @@ class StaticPageService
             'show_in' => [
                 'required',
                 'integer',
-                Rule::in(BaseModel::SHOW_INS)
+                Rule::in(array_keys(BaseModel::SHOW_INS))
             ],
             'content_slug_or_id' => [
                 'required',
