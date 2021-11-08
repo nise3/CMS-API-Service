@@ -27,5 +27,6 @@ class DatabaseSeeder extends Seeder
         $this->call(SliderSeeder::class);
         $this->call(StaticPageSeeder::class);
         $this->call(NoticeOrNewsSeeder::class);
+        $this->call(RecentActivitySeeder::class);
     }
 }

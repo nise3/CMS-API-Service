@@ -21,10 +21,7 @@ class RecentActivityFactory extends Factory
             'description' => $this->faker->sentence(40),
             'content_type' => $this->faker->randomElement([1, 2,3]),
             "content_path" => $this->faker->sentence(),
-            "content_properties" => $this->faker->sentence(),
-            'alt_title_en' => $this->faker->word(),
-            'alt_title' => $this->faker->word(),
-
+            "content_properties" => $this->faker->sentence()
         ];
     }
 }
