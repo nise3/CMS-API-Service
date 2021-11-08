@@ -40,6 +40,7 @@ class GalleryAlbumController extends Controller
      */
     public function getList(Request $request): JsonResponse
     {
+        $request->offsetSet(BaseModel::IS_COLLECTION_KEY, BaseModel::IS_COLLECTION_FLAG);
         $filter = $this->galleryAlbumService->filterValidator($request)->validate();
         $response = GalleryAlbumResource::collection($this->galleryAlbumService->getAllGalleryAlbums($filter))->resource;
         $response = getResponse($response->toArray(), $this->startTime, !BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
@@ -56,7 +57,6 @@ class GalleryAlbumController extends Controller
     public function read(Request $request, int $id): JsonResponse
     {
         $response = new GalleryAlbumResource($this->galleryAlbumService->getOneGalleryAlbum($id));
-        $request->offsetSet(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY, BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG);
         $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
@@ -97,25 +97,26 @@ class GalleryAlbumController extends Controller
         try {
             $galleryAlbumData = $this->galleryAlbumService->store($validatedData);
             if ($isLanguage) {
+                $languageFillablePayload = [];
                 foreach ($otherLanguagePayload as $key => $value) {
                     $languageValidatedData = $this->galleryAlbumService->languageFieldValidator($value, $key)->validate();
                     foreach (GalleryAlbum::GALLERY_ALBUM_LANGUAGE_FILLABLE as $fillableColumn) {
                         if (isset($languageValidatedData[$fillableColumn])) {
-                            $languageFillablePayload = [
+                            $languageFillablePayload[] = [
                                 "table_name" => $galleryAlbumData->getTable(),
                                 "key_id" => $galleryAlbumData->id,
                                 "lang_code" => $key,
                                 "column_name" => $fillableColumn,
                                 "column_value" => $languageValidatedData[$fillableColumn]
                             ];
-                            app(CmsLanguageService::class)->store($languageFillablePayload);
-                        }
 
+                        }
                     }
                 }
-
+                app(CmsLanguageService::class)->store($languageFillablePayload);
             }
-            $response = getResponse($galleryAlbumData->toArray(), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
+            $response = new GalleryAlbumResource($galleryAlbumData);
+            $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
             DB::commit();
         } catch (Throwable $e) {
             DB::rollBack();

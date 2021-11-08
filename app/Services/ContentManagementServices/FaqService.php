@@ -122,7 +122,6 @@ class FaqService
     }
 
     /**
-     * @param Faq $faq
      * @param array $data
      * @return Faq
      */
@@ -206,6 +205,8 @@ class FaqService
                 Rule::in([BaseModel::ROW_STATUS_ACTIVE, BaseModel::ROW_STATUS_INACTIVE]),
             ]
         ];
+
+        /** other_language_fields added here */
         $rules = array_merge($rules, BaseModel::OTHER_LANGUAGE_VALIDATION_RULES);
 
         return Validator::make($request->all(), $rules, $customMessage);

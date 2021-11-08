@@ -6,6 +6,7 @@ use App\Traits\Scopes\ScopeRowStatusTrait;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Collection;
 
 /**
  * App\Models\Partner
@@ -24,6 +25,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property Carbon | null created_at
  * @property Carbon | null updated_at
  * @property Carbon | null deleted_at
+ * @property  Collection cmsLanguages
  */
 class Nise3Partner extends BaseModel
 {

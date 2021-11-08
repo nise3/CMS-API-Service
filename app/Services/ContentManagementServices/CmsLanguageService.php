@@ -4,14 +4,13 @@ namespace App\Services\ContentManagementServices;
 
 use App\Models\CmsLanguage;
 use App\Services\Common\LanguageCodeService;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
-use JetBrains\PhpStorm\NoReturn;
+
 
 
 class CmsLanguageService
@@ -55,8 +54,13 @@ class CmsLanguageService
                 ->first()->column_value ?? "";
     }
 
-    public static function otherLanguageResponse(Collection $cmsLanguage): array
+    /**
+     * @param JsonResource $resource
+     * @return array
+     */
+    public static function otherLanguageResponse(JsonResource $resource): array
     {
+        $cmsLanguage = CmsLanguage::where("table_name", $resource->getTable())->where("key_id", $resource->id)->get();
         $otherLanguage = [];
         /** @var CmsLanguage $language */
         foreach ($cmsLanguage as $language) {
