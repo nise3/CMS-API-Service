@@ -64,10 +64,10 @@ class RecentActivityController extends Controller
      * @param int $id
      * @return JsonResponse
      */
-    public function clientSiteRead(Request $request, int $id): JsonResponse
+    public function clientSideRead(Request $request, int $id): JsonResponse
     {
-        $response = new RecentActivityResource($this->recentActivityService->getOneRecentActivity($id));
         $request->offsetSet(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY, BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG);
+        $response = new RecentActivityResource($this->recentActivityService->getOneRecentActivity($id));
         $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
         return Response::json($response, ResponseAlias::HTTP_OK);
     }

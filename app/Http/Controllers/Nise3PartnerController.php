@@ -39,8 +39,8 @@ class Nise3PartnerController extends Controller
     {
         $filter = $this->nise3PartnerService->filterValidation($request)->validate();
         $response = Nise3PartnerResource::collection($this->nise3PartnerService->getPartnerList($filter))->resource;
-        $response=getResponse($response->toArray(),$this->startTime,!BaseModel::IS_SINGLE_RESPONSE,ResponseAlias::HTTP_OK);
-        return Response::json($response,ResponseAlias::HTTP_OK);
+        $response = getResponse($response->toArray(), $this->startTime, !BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
+        return Response::json($response, ResponseAlias::HTTP_OK);
     }
 
     /**
@@ -51,8 +51,8 @@ class Nise3PartnerController extends Controller
     public function read(Request $request, int $id): JsonResponse
     {
         $response = new Nise3PartnerResource($this->nise3PartnerService->getOnePartner($id));
-        $response=getResponse($response->toArray($request),$this->startTime,!BaseModel::IS_SINGLE_RESPONSE,ResponseAlias::HTTP_OK);
-        return Response::json($response,ResponseAlias::HTTP_OK);
+        $response = getResponse($response->toArray($request), $this->startTime, !BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
+        return Response::json($response, ResponseAlias::HTTP_OK);
     }
 
     /**
@@ -62,10 +62,10 @@ class Nise3PartnerController extends Controller
      * @param int $id
      * @return JsonResponse
      */
-    public function clientSiteRead(Request $request, int $id): JsonResponse
+    public function clientSideRead(Request $request, int $id): JsonResponse
     {
-        $response = new Nise3PartnerResource($this->nise3PartnerService->getOnePartner($id));
         $request->offsetSet(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY, BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG);
+        $response = new Nise3PartnerResource($this->nise3PartnerService->getOnePartner($id));
         $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
@@ -83,7 +83,6 @@ class Nise3PartnerController extends Controller
         $message = "Faq successfully added";
         $otherLanguagePayload = $validatedData['other_language_fields'] ?? [];
         $isLanguage = (bool)count(array_intersect(array_keys($otherLanguagePayload), LanguageCodeService::getLanguageCode()));
-        $response = [];
         DB::beginTransaction();
         try {
             $nise3Partner = $this->nise3PartnerService->store($validatedData);
@@ -106,7 +105,7 @@ class Nise3PartnerController extends Controller
                 }
                 app(CmsLanguageService::class)->store($languageFillablePayload);
             }
-            $response=new Nise3PartnerResource($nise3Partner);
+            $response = new Nise3PartnerResource($nise3Partner);
             $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
             DB::commit();
         } catch (Throwable $e) {
@@ -132,7 +131,6 @@ class Nise3PartnerController extends Controller
         $message = "Nise3Partner Update Successfully Done";
         $otherLanguagePayload = $validatedData['other_language_fields'] ?? [];
         $isLanguage = (bool)count(array_intersect(array_keys($otherLanguagePayload), LanguageCodeService::getLanguageCode()));
-        $response = [];
         DB::beginTransaction();
         try {
             $nise3Partner = $this->nise3PartnerService->update($nise3Partner, $validatedData);
@@ -153,7 +151,7 @@ class Nise3PartnerController extends Controller
                     }
                 }
             }
-            $response=new Nise3PartnerResource($nise3Partner);
+            $response = new Nise3PartnerResource($nise3Partner);
             $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK, $message);
             DB::commit();
         } catch (Throwable $e) {

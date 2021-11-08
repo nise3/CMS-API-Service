@@ -272,12 +272,6 @@ class RecentActivityService
                 "integer",
                 "gt:0",
             ],
-            'title_en' => [
-                'nullable',
-                'string',
-                'max:300',
-                'min:2'
-            ],
             'title' => [
                 'required',
                 'string',
@@ -328,16 +322,6 @@ class RecentActivityService
                 'string',
                 'max:500',
                 'min:2'
-            ],
-            'image_alt_title_en' => [
-                'nullable',
-                'string',
-                'max:250',
-                'min:2'
-            ],
-            'description_en' => [
-                'nullable',
-                'string'
             ],
             'description' => [
                 'nullable',

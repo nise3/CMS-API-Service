@@ -190,12 +190,6 @@ class VisitorFeedbackSuggestionService
                 'max:200',
                 'string'
             ],
-            'name_en' => [
-                'nullable',
-                'min:2',
-                'max:200',
-                'string'
-            ],
             'mobile' => [
                 'nullable',
                 'string',
@@ -211,16 +205,7 @@ class VisitorFeedbackSuggestionService
                 'nullable',
                 'string'
             ],
-            'address_en' => [
-                'nullable',
-                'string'
-            ],
-
             'comment' => [
-                'nullable',
-                'string'
-            ],
-            'comment_en' => [
                 'nullable',
                 'string'
             ],

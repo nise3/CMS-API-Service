@@ -265,17 +265,7 @@ class GalleryImageVideoService
                 'max:600',
                 'min:2'
             ],
-            'content_title_en' => [
-                'nullable',
-                'string',
-                'max:250',
-                'min:2'
-            ],
             'content_description' => [
-                'nullable',
-                'string'
-            ],
-            'content_description_en' => [
                 'nullable',
                 'string'
             ],
@@ -304,10 +294,6 @@ class GalleryImageVideoService
                 'string'
             ],
             'alt_title' => [
-                'nullable',
-                'string'
-            ],
-            'alt_title_en' => [
                 'nullable',
                 'string'
             ],

@@ -252,12 +252,6 @@ class GalleryAlbumService
                 'nullable',
                 'int',
             ],
-            'title_en' => [
-                'nullable',
-                'string',
-                'max:200',
-                'min:2'
-            ],
             'title' => [
                 'required',
                 'string',
@@ -276,12 +270,6 @@ class GalleryAlbumService
             'grid_image_path' => [
                 'nullable',
                 'string',
-            ],
-            'image_alt_title_en' => [
-                'nullable',
-                'string',
-                'max:250',
-                'min:2'
             ],
             'image_alt_title' => [
                 'nullable',

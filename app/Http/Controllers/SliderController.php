@@ -70,10 +70,10 @@ class SliderController extends Controller
      * @param int $id
      * @return JsonResponse
      */
-    public function clientSiteRead(Request $request, int $id): JsonResponse
+    public function clientSideRead(Request $request, int $id): JsonResponse
     {
-        $response = new SliderResource($this->sliderService->getOneSlider($id));
         $request->offsetSet(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY, BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG);
+        $response = new SliderResource($this->sliderService->getOneSlider($id));
         $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
@@ -93,7 +93,6 @@ class SliderController extends Controller
         $message = "Slider successfully added";
         $otherLanguagePayload = $validatedData['other_language_fields'] ?? [];
         $isLanguage = (bool)count(array_intersect(array_keys($otherLanguagePayload), LanguageCodeService::getLanguageCode()));
-        $response = [];
         DB::beginTransaction();
         try {
             $slider = $this->sliderService->store($validatedData);
