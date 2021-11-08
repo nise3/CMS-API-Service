@@ -56,6 +56,7 @@ class SliderResource extends JsonResource
         $response['updated_by'] = $this->updated_by;
         $response['created_at'] = $this->created_at;
         $response['updated_at'] = $this->updated_at;
+
         return $response;
     }
 }
