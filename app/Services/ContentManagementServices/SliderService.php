@@ -39,8 +39,10 @@ class SliderService
 
         $sliderBuilder = Slider::select([
             'sliders.id',
+            'sliders.show_in',
             'sliders.institute_id',
             'sliders.organization_id',
+            'sliders.industry_association_id',
             'sliders.title_en',
             'sliders.title',
             'sliders.sub_title_en',
@@ -96,8 +98,10 @@ class SliderService
 
         $sliderBuilder = Slider::select([
             'sliders.id',
+            'sliders.show_in',
             'sliders.institute_id',
             'sliders.organization_id',
+            'sliders.industry_association_id',
             'sliders.title_en',
             'sliders.title',
             'sliders.sub_title_en',
@@ -214,13 +218,34 @@ class SliderService
             "banner_template_code.in"=>"The :attribute must be with in ".implode(", ",array_keys(Slider::BANNER_TEMPLATE_TYPES)).".[30000]"
         ];
         $rules = [
+            'show_in' => [
+                'required',
+                'integer',
+                Rule::in(array_keys(BaseModel::SHOW_INS))
+            ],
             'institute_id' => [
-                'nullable',
-                'int',
+                Rule::requiredIf(function () use ($request) {
+                    return $request->input('show_in') == BaseModel::SHOW_IN_TSP;
+                }),
+                "nullable",
+                "integer",
+                "gt:0",
+            ],
+            'industry_association_id' => [
+                Rule::requiredIf(function () use ($request) {
+                    return $request->input('show_in') == BaseModel::SHOW_IN_INDUSTRY_ASSOCIATION;
+                }),
+                "nullable",
+                "integer",
+                "gt:0",
             ],
             'organization_id' => [
-                'nullable',
-                'int',
+                Rule::requiredIf(function () use ($request) {
+                    return $request->input('show_in') == BaseModel::SHOW_IN_INDUSTRY;
+                }),
+                "nullable",
+                "integer",
+                "gt:0",
             ],
             'title' => [
                 'required',

@@ -23,8 +23,10 @@ class SliderResource extends JsonResource
         /** @var Slider $this */
         $response = [
             "id" => $this->id,
+            "show_in" => $this->show_in,
             "institute_id" => $this->institute_id,
             "organization_id" => $this->organization_id,
+            "industry_association_id" => $this->industry_association_id,
             "is_button_available" => $this->is_button_available,
             "link" => $this->link,
             "slider_images" => $this->slider_images,
