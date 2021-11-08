@@ -29,7 +29,7 @@ class FaqResource extends JsonResource
             "organization_id" => $this->organization_id,
         ];
         if ($request->offsetExists(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY) && $request->get(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY)) {
-            $response['question'] = app(CmsLanguageService::class)->getLanguageValue($this, Slider::SLIDER_LANGUAGE_ATTR_TITLE);
+            $response['question'] = app(CmsLanguageService::class)->getLanguageValue($this, Faq::LANGUAGE_ATTR_QUESTION);
             $response['answer'] = app(CmsLanguageService::class)->getLanguageValue($this, Faq::LANGUAGE_ATTR_ANSWER);
         } else {
             $response['institute_title'] = "";

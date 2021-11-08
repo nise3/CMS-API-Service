@@ -48,14 +48,14 @@ $router->group(['prefix' => 'api/v1', 'as' => 'api.v1'], function () use ($route
 
 
     $router->group(['prefix' => 'public', 'as' => 'public'], function () use ($router) {
-        $router->get('faqs/{id}', ["as" => "public.faqs", "uses" => "FaqController@clientSiteRead"]);
-        $router->get('static-pages/{id}', ["as" => "public.static.pages", "uses" => "StaticPageController@clientSiteRead"]);
-        $router->get('notice-or-news/{id}', ["as" => "public.notice.news", "uses" => "NoticeOrNewsController@clientSiteRead"]);
-        $router->get('recent-activities/{id}', ["as" => "public.recent.activities", "uses" => "RecentActivityController@clientSiteRead"]);
-        $router->get('nise3-partners/{id}', ["as" => "public.recent.activities", "uses" => "Nise3PartnerController@clientSiteRead"]);
-        $router->get('gallery-albums/{id}', ["as" => "public.gallery.albums.activities", "uses" => "GalleryAlbumController@clientSiteRead"]);
-        $router->get('gallery-images-videos/{id}', ["as" => "public.gallery.images.videos.activities", "uses" => "GalleryImageVideoController@clientSiteRead"]);
-        $router->get('sliders/{id}', ["as" => "public.sliders", "uses" => "SliderController@clientSiteRead"]);
+        $router->get('faqs/{id}', ["as" => "faqs", "uses" => "FaqController@clientSideRead"]);
+        $router->get('static-pages/{id}', ["as" => "static.pages", "uses" => "StaticPageController@clientSideRead"]);
+        $router->get('notice-or-news/{id}', ["as" => "notice.news", "uses" => "NoticeOrNewsController@clientSideRead"]);
+        $router->get('recent-activities/{id}', ["as" => "recent.activities", "uses" => "RecentActivityController@clientSideRead"]);
+        $router->get('nise3-partners/{id}', ["as" => "recent.activities", "uses" => "Nise3PartnerController@clientSideRead"]);
+        $router->get('gallery-albums/{id}', ["as" => "gallery.albums.activities", "uses" => "GalleryAlbumController@clientSideRead"]);
+        $router->get('gallery-images-videos/{id}', ["as" => "gallery.images.videos.activities", "uses" => "GalleryImageVideoController@clientSideRead"]);
+        $router->get('sliders/{id}', ["as" => "public.sliders", "uses" => "SliderController@clientSideRead"]);
     });
     /** calender */
     $customRouter()->resourceRoute('calender-events', 'CalenderEventsController')->render();
@@ -68,9 +68,9 @@ $router->group(['prefix' => 'api/v1', 'as' => 'api.v1'], function () use ($route
         ]
     );
 
-    $router->get('cms-global-config',[
-        "as"=>"cms.global-config",
-        "uses"=>"CmsGlobalConfigController@getGlobalConfig"
+    $router->get('cms-global-config', [
+        "as" => "cms.global-config",
+        "uses" => "CmsGlobalConfigController@getGlobalConfig"
     ]);
 
 });

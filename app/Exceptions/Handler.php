@@ -6,6 +6,7 @@ use BadMethodCallException;
 use ErrorException;
 use Exception;
 
+use FastRoute\BadRouteException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -59,6 +60,7 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $e): JsonResponse
     {
+
         $errors = [
             '_response_status' => [
                 'success' => false,
@@ -106,7 +108,7 @@ class Handler extends ExceptionHandler
             $errors['_response_status']['message'] = $e->getMessage();
         }
 
-        return response()->json($errors,$errors['_response_status']['code']);
+        return response()->json($errors, $errors['_response_status']['code']);
 
     }
 
