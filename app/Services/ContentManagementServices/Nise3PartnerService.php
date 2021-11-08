@@ -185,7 +185,7 @@ class Nise3PartnerService
             'row_status.in' => 'The :attribute must be within 1 or 0'
         ];
         $rules = [
-            "title_en" => "required|max:191|min:2",
+            "title_en" => "nullable|max:191|min:2",
             "title" => "required|max:500|min:2",
             "main_image_path" => [
                 "nullable",
