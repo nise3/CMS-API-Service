@@ -26,12 +26,12 @@ class CreateNoticeOrNewsTable extends Migration
             $table->dateTime('published_at')->nullable();
             $table->dateTime('archived_at')->nullable();
 
-            $table->string('title_en', 250);
+            $table->string('title_en', 250)->nullable();
             $table->string('title', 500);
 
             $table->unsignedInteger('institute_id')->nullable();
             $table->unsignedInteger('organization_id')->nullable();
-            $table->unsignedInteger('organization_association_id')->nullable();
+            $table->unsignedInteger('industry_association_id')->nullable();
 
             $table->text('details')->nullable();
             $table->text('details_en')->nullable();

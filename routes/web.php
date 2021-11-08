@@ -13,6 +13,7 @@
 */
 
 use App\Helpers\Classes\CustomRouter;
+use App\Services\Common\LanguageCodeService;
 
 $customRouter = function (string $as = '') use ($router) {
     $custom = new CustomRouter($router);
@@ -32,14 +33,45 @@ $router->group(['prefix' => 'api/v1', 'as' => 'api.v1'], function () use ($route
 
     $router->get('countries', ['as' => 'countries.get-list', 'uses' => 'CountryController@getList']);
 
-    $customRouter()->resourceRoute('partners', 'PartnerController')->render();
+    $customRouter()->resourceRoute('nise3-partners', 'Nise3PartnerController')->render();
     $customRouter()->resourceRoute('notice-or-news', 'NoticeOrNewsController')->render();
     $customRouter()->resourceRoute('recent-activities', 'RecentActivityController')->render();
 
-    $customRouter()->resourceRoute('gallery-categories', 'GalleryCategoryController')->render();
-    $customRouter()->resourceRoute('galleries', 'GalleryController')->render();
+    $customRouter()->resourceRoute('gallery-albums', 'GalleryAlbumController')->render();
+    $customRouter()->resourceRoute('gallery-images-videos', 'GalleryImageVideoController')->render();
     $customRouter()->resourceRoute('video-categories', 'VideoCategoryController')->render();
     $customRouter()->resourceRoute('videos', 'VideoController')->render();
     $customRouter()->resourceRoute('sliders', 'SliderController')->render();
     $customRouter()->resourceRoute('static-pages', 'StaticPageController')->render();
+    $customRouter()->resourceRoute('faqs', 'FaqController')->render();
+    $customRouter()->resourceRoute('visitor-feedback-suggestions', 'VisitorFeedbackSuggestionController')->render();
+
+    /** Client Site Read Detail */
+    $router->get('faqs/{id}/client-site-read',[
+        "as"=>"client.client-site-read",
+        "uses"=>"FaqController@clientSiteRead"
+    ]);
+
+    $router->group(['prefix' => 'public', 'as' => 'public'], function () use ($router) {
+        $router->get('faqs/{id}', ["as" => "public.faqs", "uses" => "FaqController@clientSiteRead"]);
+        $router->get('static-pages/{id}', ["as" => "public.static.pages", "uses" => "StaticPageController@clientSiteRead"]);
+        $router->get('notice-or-news/{id}', ["as" => "public.notice.news", "uses" => "NoticeOrNewsController@clientSiteRead"]);
+        $router->get('recent-activities/{id}', ["as" => "public.recent.activities", "uses" => "RecentActivityController@clientSiteRead"]);
+        $router->get('gallery-albums/{id}', ["as" => "gallery.albums.activities", "uses" => "GalleryAlbumController@clientSiteRead"]);
+        $router->get('gallery-images-videos/{id}', ["as" => "gallery.images.videos.activities", "uses" => "GalleryImageVideoController@clientSiteRead"]);
+    });
+
+    /** Language Field Remove From CsmLanguage Table */
+    $router->post('delete-other-language',
+        [
+            "as" => "cms.delete-other-language",
+            "uses" => "CmsLanguageController@deleteLanguageFieldByKeyId"
+        ]
+    );
+
 });
+$router->get("language-code", function () {
+    $languageCode = new LanguageCodeService();
+    dd(\Illuminate\Support\Facades\Cache::get('language_codes'));
+});
+

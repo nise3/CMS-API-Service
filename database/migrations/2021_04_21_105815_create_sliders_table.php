@@ -27,6 +27,7 @@ class CreateSlidersTable extends Migration
             $table->text('slider_images')->comment("[image_link1,image_link2.........]");
             $table->string('alt_title_en')->nullable();
             $table->string('alt_title')->nullable();
+            $table->string("banner_template_code",20)->comment("BT_LR,BT_RL,BT_CB")->nullable();
             $table->unsignedTinyInteger('row_status')
                 ->default(1)
                 ->comment('ACTIVE_STATUS = 1, INACTIVE_STATUS = 0');

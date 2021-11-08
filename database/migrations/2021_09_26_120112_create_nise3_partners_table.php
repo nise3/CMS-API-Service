@@ -13,7 +13,6 @@ class CreateNise3PartnersTable extends Migration
     public function up()
     {
         Schema::create('nise3_partners', function (Blueprint $table) {
-
             $table->increments("id");
 
             $table->string('title_en',250);
