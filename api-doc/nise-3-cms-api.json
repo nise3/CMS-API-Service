@@ -3444,7 +3444,23 @@
                             "application/json": {
                                 "example": {
                                     "order": "ASC",
-                                    "data": [],
+                                    "data": [
+                                        {
+                                            "form_type": "1",
+                                            "institute_id": null,
+                                            "organization_id": null,
+                                            "organization_association_id": null,
+                                            "name": "OldHobbit",
+                                            "mobile": null,
+                                            "email": null,
+                                            "address": null,
+                                            "comment": null,
+                                            "row_status": "1",
+                                            "updated_at": "2021-11-08T04:43:28.000000Z",
+                                            "created_at": "2021-11-08T04:43:28.000000Z",
+                                            "id": 1
+                                        }
+                                    ],
                                     "_response_status": {
                                         "success": true,
                                         "code": 200,
@@ -3496,7 +3512,7 @@
                                     "_response_status": {
                                         "success": true,
                                         "code": 201,
-                                        "message": "Occupation added successfully.",
+                                        "message": "visitor feedback suggestions added successfully.",
                                         "query_time": 0
                                     }
                                 }
