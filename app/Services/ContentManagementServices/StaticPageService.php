@@ -232,21 +232,11 @@ class StaticPageService
                 "integer",
                 "gt:0",
             ],
-            'title_en' => [
-                'nullable',
-                'string',
-                'max:200',
-                'min:2'
-            ],
             'title' => [
                 'required',
                 'string',
                 'max:500',
                 'min:2'
-            ],
-            'sub_title_en' => [
-                'nullable',
-                'string'
             ],
             'sub_title' => [
                 'nullable',

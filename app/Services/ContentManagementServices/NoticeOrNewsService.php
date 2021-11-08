@@ -253,12 +253,6 @@ class NoticeOrNewsService
                 "integer",
                 Rule::in(array_keys(BaseModel::SHOW_INS))
             ],
-            'title_en' => [
-                'nullable',
-                'string',
-                'max:250',
-                'min:2'
-            ],
             'title' => [
                 'required',
                 'string',
@@ -293,10 +287,6 @@ class NoticeOrNewsService
                 'nullable',
                 'string'
             ],
-            'details_en' => [
-                'nullable',
-                'string'
-            ],
             'main_image_path' => [
                 'nullable',
                 'string',
@@ -309,15 +299,7 @@ class NoticeOrNewsService
                 'nullable',
                 'string',
             ],
-            'image_alt_title_en' => [
-                'nullable',
-                'string'
-            ],
             'image_alt_title' => [
-                'nullable',
-                'string'
-            ],
-            'file_alt_title_en' => [
                 'nullable',
                 'string'
             ],

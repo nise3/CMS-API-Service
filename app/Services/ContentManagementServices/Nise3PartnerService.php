@@ -185,7 +185,6 @@ class Nise3PartnerService
             'row_status.in' => 'The :attribute must be within 1 or 0'
         ];
         $rules = [
-            "title_en" => "nullable|max:191|min:2",
             "title" => "required|max:500|min:2",
             "main_image_path" => [
                 "nullable",
@@ -203,7 +202,6 @@ class Nise3PartnerService
                 "nullable",
                 BaseModel::HTTP_URL
             ],
-            "image_alt_title_en" => "nullable|min:2|max:191",
             "image_alt_title" => "nullable|min:2|max:191",
             "created_by" => "nullable|numeric|gt:0",
             "updated_by" => "nullable|numeric|gt:0",
@@ -233,7 +231,6 @@ class Nise3PartnerService
         ];
 
         $rules = [
-            "title_en" => "nullable",
             "title" => "nullable",
             'page' => 'numeric|gt:0',
             'page_size' => 'numeric|gt:0',
