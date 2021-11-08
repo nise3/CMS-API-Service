@@ -15,9 +15,11 @@ class GalleryAlbumSeeder extends Seeder
      */
     public function run()
     {
-        GalleryAlbum::factory()
-            ->has(GalleryImageVideo::factory()->count(2))
-            ->count(10)
-            ->create();
+            GalleryAlbum::factory()
+                ->has(GalleryImageVideo::factory()->count(2))
+                ->count(10)
+                ->create();
+
+
     }
 }
