@@ -3163,14 +3163,21 @@
                                 "example": {
                                     "data": {
                                         "type": "1",
-                                        "show_in": "3",
-                                        "title": "Our English to Bangla Translation Tool is powered by Google Translation API",
-                                        "institute_id": "1",
-                                        "industry_association_id": "1",
-                                        "organization_id": "1",
-                                        "updated_at": "2021-11-07T06:29:09.000000Z",
-                                        "created_at": "2021-11-07T06:29:09.000000Z",
-                                        "id": 1
+                                        "show_in": "1",
+                                        "title": "AnEWtiTle",
+                                        "institute_id": null,
+                                        "organization_id": null,
+                                        "details": null,
+                                        "main_image_path": null,
+                                        "grid_image_path": null,
+                                        "thumb_image_path": null,
+                                        "image_alt_title": null,
+                                        "file_path": null,
+                                        "file_alt_title": null,
+                                        "row_status": "1",
+                                        "updated_at": "2021-11-08T08:43:39.000000Z",
+                                        "created_at": "2021-11-08T08:43:39.000000Z",
+                                        "id": 2
                                     },
                                     "_response_status": {
                                         "success": true,
