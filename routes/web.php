@@ -68,9 +68,10 @@ $router->group(['prefix' => 'api/v1', 'as' => 'api.v1'], function () use ($route
         ]
     );
 
-});
-$router->get("language-code", function () {
-    $languageCode = new LanguageCodeService();
-    dd(\Illuminate\Support\Facades\Cache::get('language_codes'));
+    $router->get('cms-global-config',[
+        "as"=>"cms.global-config",
+        "uses"=>"CmsGlobalConfigController@getGlobalConfig"
+    ]);
+
 });
 
