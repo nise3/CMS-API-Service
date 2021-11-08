@@ -11,6 +11,9 @@
         },
         {
             "url": "http://localhost:8000/api/v1"
+        },
+        {
+            "url": "http://localhost:8004/api/v1"
         }
     ],
     "security": [
@@ -458,7 +461,7 @@
                     }
                 },
                 "tags": [
-                    "nise3_partners"
+                    "Nise3 partners"
                 ]
             },
             "post": {
@@ -503,7 +506,7 @@
                     }
                 },
                 "tags": [
-                    "nise3_partners"
+                    "Nise3 partners"
                 ]
             }
         },
@@ -554,7 +557,7 @@
                     }
                 },
                 "tags": [
-                    "nise3_partners"
+                    "Nise3 partners"
                 ]
             },
             "put": {
@@ -612,7 +615,7 @@
                     }
                 },
                 "tags": [
-                    "nise3_partners"
+                    "Nise3 partners"
                 ]
             },
             "delete": {
@@ -646,7 +649,7 @@
                     }
                 },
                 "tags": [
-                    "nise3_partners"
+                    "Nise3 partners"
                 ]
             }
         },
@@ -705,7 +708,7 @@
                     }
                 },
                 "tags": [
-                    "nise3_partners"
+                    "Nise3 partners"
                 ]
             }
         },
@@ -3623,7 +3626,126 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "example": {}
+                                    "example": {
+                                        "data": {
+                                            "language_configs": [
+                                                {
+                                                    "id": 1,
+                                                    "code": "bn",
+                                                    "name": "Bengali",
+                                                    "native_name": "বাংলা",
+                                                    "is_native": 1,
+                                                    "created_at": null,
+                                                    "updated_at": null
+                                                },
+                                                {
+                                                    "id": 2,
+                                                    "code": "en",
+                                                    "name": "English",
+                                                    "native_name": "English",
+                                                    "is_native": 0,
+                                                    "created_at": null,
+                                                    "updated_at": null
+                                                },
+                                                {
+                                                    "id": 3,
+                                                    "code": "hi",
+                                                    "name": "Hindi",
+                                                    "native_name": "हिंदी",
+                                                    "is_native": 0,
+                                                    "created_at": null,
+                                                    "updated_at": null
+                                                },
+                                                {
+                                                    "id": 4,
+                                                    "code": "te",
+                                                    "name": "Telugu",
+                                                    "native_name": "తెలుగు",
+                                                    "is_native": 0,
+                                                    "created_at": null,
+                                                    "updated_at": null
+                                                }
+                                            ],
+                                            "banner_templates": {
+                                                "BT_LR": {
+                                                    "banner_template_code": "BT_LR",
+                                                    "banner_template_title": "Banner with text left and image right",
+                                                    "title": {
+                                                        "position": "left"
+                                                    },
+                                                    "sub_title": {
+                                                        "position": "left"
+                                                    },
+                                                    "button": {
+                                                        "position": "left"
+                                                    },
+                                                    "context_path": {
+                                                        "position": "right"
+                                                    }
+                                                },
+                                                "BT_RL": {
+                                                    "banner_template_code": "BT_RL",
+                                                    "banner_template_title": "Banner with text right and image left",
+                                                    "title": {
+                                                        "position": "right"
+                                                    },
+                                                    "sub_title": {
+                                                        "position": "right"
+                                                    },
+                                                    "button": {
+                                                        "position": "right"
+                                                    },
+                                                    "context_path": {
+                                                        "position": "left"
+                                                    }
+                                                },
+                                                "BT_CB": {
+                                                    "banner_template_code": "BT_CB",
+                                                    "banner_template_title": "Banner with text center and image background",
+                                                    "title": {
+                                                        "position": "center"
+                                                    },
+                                                    "sub_title": {
+                                                        "position": "center"
+                                                    },
+                                                    "button": {
+                                                        "position": "center"
+                                                    },
+                                                    "context_path": {
+                                                        "position": "background"
+                                                    }
+                                                }
+                                            },
+                                            "show_in": [
+                                                {
+                                                    "id": 1,
+                                                    "title": "Nise3",
+                                                    "title_en": "Nise3"
+                                                },
+                                                {
+                                                    "id": 3,
+                                                    "title": "TSP",
+                                                    "title_en": "TSP"
+                                                },
+                                                {
+                                                    "id": 4,
+                                                    "title": "Industry",
+                                                    "title_en": "Industry"
+                                                },
+                                                {
+                                                    "id": 5,
+                                                    "title": "Industry Association",
+                                                    "title_en": "Industry Association"
+                                                }
+                                            ]
+                                        },
+                                        "_response_status": {
+                                            "success": true,
+                                            "code": 200,
+                                            "message": "Successfully fetched cms config",
+                                            "query_time": 0
+                                        }
+                                    }
                                 }
                             }
                         }
