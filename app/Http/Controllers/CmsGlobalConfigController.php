@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BaseModel;
 use App\Services\Common\CmsGlobalConfigService;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
@@ -29,7 +30,12 @@ class CmsGlobalConfigController extends Controller
      */
     public function getGlobalConfig(): JsonResponse
     {
-        $response = getResponse($this->cmsGlobalConfigService->getGlobalConfigList(), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
+        $response = getResponse(
+            $this->cmsGlobalConfigService->getGlobalConfigList(),
+            $this->startTime, BaseModel::IS_SINGLE_RESPONSE,
+            ResponseAlias::HTTP_OK,
+            "Successfully fetched cms config"
+        );
         return Response::json($response,ResponseAlias::HTTP_OK);
     }
 }
