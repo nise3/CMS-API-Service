@@ -48,6 +48,7 @@ class GalleryImageVideoController extends Controller
      */
     public function getList(Request $request): JsonResponse
     {
+        $request->offsetSet(BaseModel::IS_COLLECTION_KEY, BaseModel::IS_COLLECTION_FLAG);
         $filter = $this->galleryImageVideoService->filterValidator($request)->validate();
         $response = GalleryImageVideoResource::collection($this->galleryImageVideoService->getGalleryImageVideoList($filter))->resource;
         $response = getResponse($response->toArray(), $this->startTime, !BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
@@ -102,6 +103,7 @@ class GalleryImageVideoController extends Controller
         try {
             $galleryImageVideo = $this->galleryImageVideoService->store($validatedData);
             if ($isLanguage) {
+                $languageFillablePayload = [];
                 foreach ($otherLanguagePayload as $key => $value) {
                     $languageValidatedData = $this->galleryImageVideoService->languageFieldValidator($value, $key)->validate();
                     foreach (GalleryImageVideo::GALLERY_IMAGE_VIDEO_LANGUAGE_FILLABLE as $fillableColumn) {
@@ -113,13 +115,12 @@ class GalleryImageVideoController extends Controller
                                 "column_name" => $fillableColumn,
                                 "column_value" => $languageValidatedData[$fillableColumn]
                             ];
-                            app(CmsLanguageService::class)->store($languageFillablePayload);
                         }
 
                     }
 
                 }
-
+                app(CmsLanguageService::class)->store($languageFillablePayload);
             }
             $response = new GalleryImageVideoResource($galleryImageVideo);
             $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
