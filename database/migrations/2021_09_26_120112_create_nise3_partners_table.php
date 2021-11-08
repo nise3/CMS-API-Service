@@ -15,7 +15,7 @@ class CreateNise3PartnersTable extends Migration
         Schema::create('nise3_partners', function (Blueprint $table) {
             $table->increments("id");
 
-            $table->string('title_en',250);
+            $table->string('title_en',250)->nullable();
             $table->string('title',500);
 
             $table->string('main_image_path', 600)->nullable();
