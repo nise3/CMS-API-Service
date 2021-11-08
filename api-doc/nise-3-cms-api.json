@@ -667,12 +667,7 @@
                         }
                     },
                     {
-                        "name": "Accept-Language",
-                        "in": "header",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
+                        "$ref": "#/components/parameters/Accept-Language"
                     }
                 ],
                 "responses": {
@@ -1011,12 +1006,7 @@
                 "description": "API endpoint to get a specified Slider.A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
-                        "name": "Accept-Language",
-                        "in": "header",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
+                        "$ref": "#/components/parameters/Accept-Language"
                     },
                     {
                         "in": "path",
@@ -3176,14 +3166,21 @@
                                 "example": {
                                     "data": {
                                         "type": "1",
-                                        "show_in": "3",
-                                        "title": "Our English to Bangla Translation Tool is powered by Google Translation API",
-                                        "institute_id": "1",
-                                        "industry_association_id": "1",
-                                        "organization_id": "1",
-                                        "updated_at": "2021-11-07T06:29:09.000000Z",
-                                        "created_at": "2021-11-07T06:29:09.000000Z",
-                                        "id": 1
+                                        "show_in": "1",
+                                        "title": "AnEWtiTle",
+                                        "institute_id": null,
+                                        "organization_id": null,
+                                        "details": null,
+                                        "main_image_path": null,
+                                        "grid_image_path": null,
+                                        "thumb_image_path": null,
+                                        "image_alt_title": null,
+                                        "file_path": null,
+                                        "file_alt_title": null,
+                                        "row_status": "1",
+                                        "updated_at": "2021-11-08T08:43:39.000000Z",
+                                        "created_at": "2021-11-08T08:43:39.000000Z",
+                                        "id": 2
                                     },
                                     "_response_status": {
                                         "success": true,
@@ -3457,7 +3454,23 @@
                             "application/json": {
                                 "example": {
                                     "order": "ASC",
-                                    "data": [],
+                                    "data": [
+                                        {
+                                            "form_type": "1",
+                                            "institute_id": null,
+                                            "organization_id": null,
+                                            "organization_association_id": null,
+                                            "name": "OldHobbit",
+                                            "mobile": null,
+                                            "email": null,
+                                            "address": null,
+                                            "comment": null,
+                                            "row_status": "1",
+                                            "updated_at": "2021-11-08T04:43:28.000000Z",
+                                            "created_at": "2021-11-08T04:43:28.000000Z",
+                                            "id": 1
+                                        }
+                                    ],
                                     "_response_status": {
                                         "success": true,
                                         "code": 200,
@@ -3509,7 +3522,7 @@
                                     "_response_status": {
                                         "success": true,
                                         "code": 201,
-                                        "message": "Occupation added successfully.",
+                                        "message": "visitor feedback suggestions added successfully.",
                                         "query_time": 0
                                     }
                                 }
@@ -3771,7 +3784,10 @@
                 "in": "header",
                 "required": false,
                 "schema": {
-                    "type": "string"
+                    "type": "string",
+                    "enum": [
+                        "bn" ,"en" ,"hi","te"
+                    ]
                 }
             },
             "recentActivityId": {
@@ -5299,6 +5315,18 @@
                     "organization_id": {
                         "type": "integer",
                         "description": "Institute id"
+                    },
+                    "show_in": {
+                        "type": "integer",
+                        "description": "1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry, 5=>Industry Association",
+                        "enum": [
+                            1,
+                            2,
+                            3,
+                            4,
+                            5
+                        ],
+                        "example": 1
                     },
                     "description": {
                         "type": "string",
