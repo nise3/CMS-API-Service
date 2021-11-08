@@ -67,6 +67,22 @@ class GalleryImageVideoController extends Controller
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
 
+
+    /**
+     * Display the specified resource from client site.
+     *
+     * @param Request $request
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function clientSiteRead(Request $request, int $id): JsonResponse
+    {
+        $response = new GalleryImageVideoResource($this->galleryImageVideoService->getOneGalleryImageVideo($id));
+        $request->offsetSet(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY, BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG);
+        $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
+        return Response::json($response, ResponseAlias::HTTP_OK);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -105,7 +121,8 @@ class GalleryImageVideoController extends Controller
                 }
 
             }
-            $response = getResponse($galleryImageVideo->toArray(), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
+            $response = new GalleryImageVideoResource($galleryImageVideo);
+            $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
             DB::commit();
         } catch (Throwable $e) {
             DB::rollBack();
@@ -146,8 +163,8 @@ class GalleryImageVideoController extends Controller
                                 "column_value" => $languageValidatedData[$fillableColumn]
                             ];
                             app(CmsLanguageService::class)->createOrUpdate($languageFillablePayload);
+                            CmsLanguageService::languageCacheClearByKey($galleryImageVideo->getTable(), $galleryImageVideo->id, $key, $fillableColumn);
                         }
-
                     }
                 }
             }
