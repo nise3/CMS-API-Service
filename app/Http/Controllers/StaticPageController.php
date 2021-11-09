@@ -105,11 +105,12 @@ class StaticPageController extends Controller
         try {
             $staticPageData = $this->staticPageService->store($validatedData);
             if ($isLanguage) {
+                $languageFillablePayload = [];
                 foreach ($otherLanguagePayload as $key => $value) {
                     $languageValidatedData = $this->staticPageService->languageFieldValidator($value, $key)->validate();
                     foreach (StaticPage::STATIC_PAGE_LANGUAGE_FILLABLE as $fillableColumn) {
                         if (isset($languageValidatedData[$fillableColumn])) {
-                            $languageFillablePayload = [
+                            $languageFillablePayload [] = [
                                 "table_name" => $staticPageData->getTable(),
                                 "key_id" => $staticPageData->id,
                                 "lang_code" => $key,

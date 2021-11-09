@@ -91,11 +91,12 @@ class RecentActivityController extends Controller
         try {
             $recentActivity = $this->recentActivityService->store($validated);
             if ($isLanguage) {
+                $languageFillablePayload = [];
                 foreach ($otherLanguagePayload as $key => $value) {
                     $languageValidatedData = $this->recentActivityService->languageFieldValidator($value, $key)->validate();
                     foreach (RecentActivity::RECENT_ACTIVITY_LANGUAGE_FILLABLE as $fillableColumn) {
                         if (isset($languageValidatedData[$fillableColumn])) {
-                            $languageFillablePayload = [
+                            $languageFillablePayload[] = [
                                 "table_name" => $recentActivity->getTable(),
                                 "key_id" => $recentActivity->id,
                                 "lang_code" => $key,

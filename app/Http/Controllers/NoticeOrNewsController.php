@@ -90,11 +90,12 @@ class NoticeOrNewsController extends Controller
         try {
             $noticeOrNews = $this->noticeOrNewsService->store($validated);
             if ($isLanguage) {
+                $languageFillablePayload = [];
                 foreach ($otherLanguagePayload as $key => $value) {
                     $languageValidatedData = $this->noticeOrNewsService->languageFieldValidator($value, $key)->validate();
                     foreach (NoticeOrNews::NOTICE_OR_NEWS_LANGUAGE_FILLABLE as $fillableColumn) {
                         if (isset($languageValidatedData[$fillableColumn])) {
-                            $languageFillablePayload = [
+                            $languageFillablePayload[] = [
                                 "table_name" => $noticeOrNews->getTable(),
                                 "key_id" => $noticeOrNews->id,
                                 "lang_code" => $key,
