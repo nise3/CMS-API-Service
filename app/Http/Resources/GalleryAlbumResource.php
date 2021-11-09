@@ -46,12 +46,6 @@ class GalleryAlbumResource extends JsonResource
             $response['title'] = app(CmsLanguageService::class)->getLanguageValue($this, GalleryAlbum::LANGUAGE_ATTR_TITLE);
             $response['image_alt_title'] = app(CmsLanguageService::class)->getLanguageValue($this, GalleryAlbum::LANGUAGE_ATTR_IMAGE_ALT_TITLE);
         } else {
-            $response['institute_title'] = "";
-            $response['institute_title_en'] = "";
-            $response['industry_association_title'] = "";
-            $response['industry_association_title_en'] = "";
-            $response['organization_title'] = "";
-            $response['organization_title_en'] = "";
             $response['title'] = $this->title;
             $response['image_alt_title'] = $this->image_alt_title;
             if (!$request->get(BaseModel::IS_COLLECTION_KEY)) {
