@@ -2232,6 +2232,45 @@
             }
         },
 
+        "/gallery-albums/publish-or-archive/{galleryAlbumId}": {
+            "post": {
+                "summary": "Create a new published or archived gallery-album",
+                "description": "API endpoint to create  a new published or archived gallery-album.A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "name": "galleryAlbumId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PublishOrArchive"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successfull",
+                        "content": {
+                            "application/json": {
+                                "example": {}
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Gallery-Album"
+                ]
+            }
+        },
+
 
 
 
@@ -2665,6 +2704,44 @@
                                         "query_time": 0
                                     }
                                 }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "gallery-images-videos"
+                ]
+            }
+        },
+        "/gallery-images-videos/publish-or-archive/{id}": {
+            "post": {
+                "summary": "Create a new archived/published gallery image video",
+                "description": "API endpoint to create a new archived/published gallery image video.A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "name": "galleryImagesVideoId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PublishOrArchive"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successfull",
+                        "content": {
+                            "application/json": {
+                                "example": {}
                             }
                         }
                     }
@@ -3316,7 +3393,44 @@
                 ]
             }
         },
-
+        "/recent-activities/publish-or-archive/{recentActivityId}":{
+            "post": {
+                "summary": "create a new archived/published recent-activity",
+                "description": "API endpoint to create a new archived/published recent-activity.A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "name": "recentActivityId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PublishOrArchive"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "succesfull",
+                        "content": {
+                            "application/json": {
+                                "example": {}
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "recent-activities"
+                ]
+            }
+        },
 
 
         "/calender-events": {
@@ -4035,6 +4149,47 @@
                                         }
                                     }
                                 }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "notice-or-news"
+                ]
+            }
+        },
+        "/notice-or-news/publish-or-archive/{noticeId}": {
+            "post": {
+                "summary": "Create a new archived/published noticeOrNews",
+                "description": "API endpoint to create a new archived/published noticeOrNews.A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "name": "noticeId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PublishOrArchive"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successfull",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NoticeOrNews"
+                                },
+                                "example": {}
                             }
                         }
                     }
@@ -5199,6 +5354,21 @@
             }
         },
         "schemas": {
+            "PublishOrArchive": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "integer",
+                        "description": "1=>published 0=> archived",
+                        "enum": [
+                            0 , 1
+                        ]
+                    }
+                },
+                "required": [
+                    "status"
+                ]
+            },
             "CalendarEvent": {
                 "type": "object",
                 "description": "Provide Calendar Events data",
