@@ -153,6 +153,7 @@ class FaqService
         return $faq->delete();
     }
 
+
     /**
      * @param Request $request
      * @param int|null $id
