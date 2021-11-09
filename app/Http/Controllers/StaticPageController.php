@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\FaqResource;
 use App\Http\Resources\StaticPageResource;
 use App\Models\BaseModel;
 use App\Models\StaticPage;
@@ -12,6 +13,7 @@ use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
@@ -97,6 +99,7 @@ class StaticPageController extends Controller
     {
 
         $validatedData = $this->staticPageService->validator($request)->validate();
+
         $message = "Static Page is successfully added";
         $otherLanguagePayload = $validatedData['other_language_fields'] ?? [];
         $isLanguage = (bool)count(array_intersect(array_keys($otherLanguagePayload), LanguageCodeService::getLanguageCode()));
@@ -117,16 +120,16 @@ class StaticPageController extends Controller
                                 "column_name" => $fillableColumn,
                                 "column_value" => $languageValidatedData[$fillableColumn]
                             ];
+                            app(CmsLanguageService::class)->store($languageFillablePayload);
                         }
 
                     }
                 }
-//                dd($languageFillablePayload);
-                app(CmsLanguageService::class)->store($languageFillablePayload);
-
 
             }
-            $response = getResponse($staticPageData->toArray(), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
+//            dd($staticPageData);
+            $response=new StaticPageResource($staticPageData);
+            $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
             DB::commit();
         } catch (Throwable $e) {
             DB::rollBack();
@@ -175,7 +178,8 @@ class StaticPageController extends Controller
                 }
 
             }
-            $response = getResponse($staticPageData->toArray(), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
+
+            $response = getResponse($staticPageData->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
             DB::commit();
         } catch (Throwable $e) {
             DB::rollBack();

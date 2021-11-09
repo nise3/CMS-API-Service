@@ -110,7 +110,11 @@ class RecentActivityController extends Controller
                 }
 
             }
-            $response = getResponse($recentActivity->toArray(), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
+
+
+
+            $response = new RecentActivityResource($recentActivity);
+            $response = getResponse($recentActivity->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
             DB::commit();
         } catch (Throwable $e) {
             DB::rollBack();

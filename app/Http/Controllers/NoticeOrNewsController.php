@@ -108,7 +108,7 @@ class NoticeOrNewsController extends Controller
                 }
 
             }
-            $response = getResponse($noticeOrNews->toArray(), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
+            $response = getResponse($noticeOrNews->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
             DB::commit();
         } catch (Throwable $e) {
             DB::rollBack();

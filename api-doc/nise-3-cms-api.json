@@ -2764,20 +2764,37 @@
                         "description": "successfull",
                         "content": {
                             "application/json": {
-                                "example": {
+                                "example":{
                                     "data": {
+                                        "id": 29,
                                         "content_type": "1",
                                         "show_in": "1",
-                                        "content_slug_or_id": "1",
-                                        "institute_id": null,
+                                        "show_in_label": "Nise3",
+                                        "industry_association_id": null,
+                                        "content_slug_or_id": "aaaaaaaaa",
+                                        "institute_id": "1",
                                         "organization_id": null,
-                                        "title": "NewTitle",
+                                        "title": "aaaaaaaaaaa",
                                         "sub_title": null,
                                         "contents": null,
+                                        "institute_title": "",
+                                        "institute_title_en": "",
+                                        "industry_association_title": "",
+                                        "industry_association_title_en": "",
+                                        "organization_title": "",
+                                        "organization_title_en": "",
+                                        "other_language_fields": {
+                                            "hi": {
+                                                "title": "asjdkjakdjajdja",
+                                                "sub_title": "aaaaaaaaaaaa",
+                                                "contents": "asjdkjakdjajdja"
+                                            }
+                                        },
                                         "row_status": "1",
-                                        "updated_at": "2021-11-04T11:29:41.000000Z",
-                                        "created_at": "2021-11-04T11:29:41.000000Z",
-                                        "id": 1
+                                        "created_by": null,
+                                        "updated_by": null,
+                                        "created_at": "2021-11-09T11:28:46.000000Z",
+                                        "updated_at": "2021-11-09T11:28:46.000000Z"
                                     },
                                     "_response_status": {
                                         "success": true,
