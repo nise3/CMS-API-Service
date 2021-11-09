@@ -21,7 +21,7 @@ class NoticeOrNewsService
      * @param array $request
      * @return Collection|LengthAwarePaginator|array
      */
-    public function getNoticeOrNewsServiceList(array $request): Collection|LengthAwarePaginator|array
+    public function getNoticeOrNewsServiceList(array $request, $startTime = null): Collection|LengthAwarePaginator|array
     {
         $titleEn = $request['title_en'] ?? "";
         $titleBn = $request['title'] ?? "";
@@ -29,6 +29,7 @@ class NoticeOrNewsService
         $pageSize = $request['page_size'] ?? "";
         $rowStatus = $request['row_status'] ?? "";
         $order = $request['order'] ?? "ASC";
+        $isRequestFromClientSide = !empty($request[BaseModel::IS_CLIENT_SITE_RESPONSE_KEY]);
 
         /** @var Builder $noticeOrNewsBuilder */
         $noticeOrNewsBuilder = NoticeOrNews::select([
@@ -69,6 +70,14 @@ class NoticeOrNewsService
         }
         if (!empty($titleBn)) {
             $noticeOrNewsBuilder->where('notice_or_news.title', 'like', '%' . $titleBn . '%');
+        }
+
+        if($isRequestFromClientSide){
+            $noticeOrNewsBuilder->whereDate('notice_or_news.published_at', '<=', $startTime);
+            $noticeOrNewsBuilder->where(function ($builder) use ($startTime){
+                $builder->whereNull('notice_or_news.archived_at');
+                $builder->orWhereDate('notice_or_news.archived_at', '>=', $startTime);
+            });
         }
 
         /** @var Collection $noticeOrNews */
