@@ -203,7 +203,7 @@ class GalleryAlbumService
             'parent_gallery_album_id' => [
                 'nullable',
                 'int',
-                'exists:gallery_albums,deleted_at,NULL'
+                'exists:gallery_albums,id,deleted_at,NULL'
             ],
             'featured' => [
                 'required',

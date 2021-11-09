@@ -108,7 +108,7 @@ class GalleryImageVideoController extends Controller
                     $languageValidatedData = $this->galleryImageVideoService->languageFieldValidator($value, $key)->validate();
                     foreach (GalleryImageVideo::GALLERY_IMAGE_VIDEO_LANGUAGE_FILLABLE as $fillableColumn) {
                         if (!empty($languageValidatedData[$fillableColumn])) {
-                            $languageFillablePayload = [
+                            $languageFillablePayload[] = [
                                 "table_name" => $galleryImageVideo->getTable(),
                                 "key_id" => $galleryImageVideo->id,
                                 "lang_code" => $key,
