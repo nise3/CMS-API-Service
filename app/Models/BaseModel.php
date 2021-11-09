@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 abstract class BaseModel extends Model
 {
     use HasFactory;
+
     public const IMAGE_PATH_VALIDATION_RULE = 'url';
     public const HTTP_URL = 'regex:/^(http|https):\/\/[a-zA-Z-\-\.0-9]+$/';
 
@@ -87,7 +88,15 @@ abstract class BaseModel extends Model
     public const DEFAULT_LANGUAGE_CODE = 'bn';
     public const IS_CLIENT_SITE_RESPONSE_KEY = 'IS_CLIENT_SITE_RESPONSE_KEY';
     public const IS_CLIENT_SITE_RESPONSE_FLAG = true;
-    public const IS_COLLECTION_KEY="IS_COLLECTION_KEY";
-    public const IS_COLLECTION_FLAG=true;
+    public const IS_COLLECTION_KEY = "IS_COLLECTION_KEY";
+    public const IS_COLLECTION_FLAG = true;
+
+    /** INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID */
+    public const INSTITUTE_SERVICE= "institute";
+    public const ORGANIZATION_SERVICE = "organization";
+    public const INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID = "INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID";
+    public const GET_INSTITUTE_TITLE_BY_ID__HTTP_CLIENT_ENDPOINT = "get-institute-title-by-ids";
+    public const GET_ORGANIZATION_TITLE_BY_ID_HTTP_CLIENT_ENDPOINT = "get-organization-title-by-ids";
+
 
 }
