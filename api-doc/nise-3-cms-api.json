@@ -5298,6 +5298,12 @@
                     "archived_by": {
                         "type": "string"
                     },
+                    "archived_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "Archive date",
+                        "example": "2021-06-03"
+                    },
                     "row_status": {
                         "type": "integer",
                         "description": "1=>Active 0=>Inactive",
@@ -5880,6 +5886,18 @@
                         "type": "string",
                         "description": "alt file title in Bengali"
                     },
+                    "published_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "publish date",
+                        "example": "2021-04-03"
+                    },
+                    "archived_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "Archive date",
+                        "example": "2021-06-03"
+                    },
                     "row_status": {
                         "type": "integer",
                         "description": "activation status",
@@ -5978,6 +5996,18 @@
                     "embedded_id": {
                         "type": "integer",
                         "description": "Required. When content type ==3 "
+                    },
+                    "published_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "publish date",
+                        "example": "2021-04-03"
+                    },
+                    "archived_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "Archive date",
+                        "example": "2021-06-03"
                     },
                     "embedded_url": {
                         "type": "string"
