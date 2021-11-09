@@ -9,10 +9,12 @@ use App\Models\Faq;
 use App\Models\LanguageCode;
 use App\Models\LanguageConfig;
 use App\Models\Slider;
+use App\Services\Common\CmsGlobalConfigService;
 use App\Services\Common\LanguageCodeService;
 use App\Services\ContentManagementServices\CmsLanguageService;
 use App\Services\ContentManagementServices\FaqService;
 use Carbon\Carbon;
+use Illuminate\Http\Client\RequestException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -44,9 +46,11 @@ class FaqController extends Controller implements ResourceInterface
     {
         $request->offsetSet(BaseModel::IS_COLLECTION_KEY, BaseModel::IS_COLLECTION_FLAG);
         $filter = $this->faqService->filterValidator($request)->validate();
-        $response = FaqResource::collection($this->faqService->getFaqList($filter))->resource;
+        $faqList = $this->faqService->getFaqList($filter);
+        $request->offsetSet(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID, CmsGlobalConfigService::getOrganizationOrInstituteOrIndustryAssociationTitle($faqList->toArray()['data'] ?? $faqList->toArray()));
+        $response = FaqResource::collection($faqList)->resource;
         $response = getResponse($response->toArray(), $this->startTime, !BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
-        return Response::json($response, ResponseAlias::HTTP_OK);
+        return Response::json($faqList, ResponseAlias::HTTP_OK);
     }
 
     /**
@@ -55,10 +59,13 @@ class FaqController extends Controller implements ResourceInterface
      * @param Request $request
      * @param int $id
      * @return JsonResponse
+     * @throws RequestException
      */
     public function read(Request $request, int $id): JsonResponse
     {
-        $response = new FaqResource($this->faqService->getOneFaq($id));
+        $faq = $this->faqService->getOneFaq($id);
+        $request->offsetSet(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID, CmsGlobalConfigService::getOrganizationOrInstituteOrIndustryAssociationTitle($faq->toArray()));
+        $response = new FaqResource($faq);
         $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
@@ -69,11 +76,14 @@ class FaqController extends Controller implements ResourceInterface
      * @param Request $request
      * @param int $id
      * @return JsonResponse
+     * @throws RequestException
      */
     public function clientSideRead(Request $request, int $id): JsonResponse
     {
         $request->offsetSet(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY, BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG);
-        $response = new FaqResource($this->faqService->getOneFaq($id));
+        $faq = $this->faqService->getOneFaq($id);
+        $request->offsetSet(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID, CmsGlobalConfigService:: getOrganizationOrInstituteOrIndustryAssociationTitle($faq->toArray()));
+        $response = new FaqResource($faq);
         $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
@@ -113,7 +123,7 @@ class FaqController extends Controller implements ResourceInterface
                 }
                 app(CmsLanguageService::class)->store($languageFillablePayload);
             }
-            $response=new FaqResource($faq);
+            $response = new FaqResource($faq);
             $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
             DB::commit();
         } catch (Throwable $e) {
@@ -161,7 +171,7 @@ class FaqController extends Controller implements ResourceInterface
                 }
 
             }
-            $response=new FaqResource($faq);
+            $response = new FaqResource($faq);
             $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
             DB::commit();
         } catch (Throwable $e) {
