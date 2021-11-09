@@ -4804,15 +4804,15 @@
                     },
                     "institute_id": {
                         "type": "integer",
-                        "description": "Institute id"
+                        "description": "Required when you give show_in = 3"
+                    },
+                    "organization_id": {
+                        "type": "integer",
+                        "description": "Required when you give show_in = 4"
                     },
                     "parent_gallery_album_id": {
                         "type": "integer",
                         "description": "Institute id"
-                    },
-                    "organization_id": {
-                        "type": "integer",
-                        "description": "organization id"
                     },
                     "organization_association_id": {
                         "type": "integer",
@@ -4864,13 +4864,12 @@
                     },
                     "show_in": {
                         "type": "integer",
-                        "description": "1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry, 5=>Industry Association",
+                        "description": "1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry",
                         "enum": [
                             1,
                             2,
                             3,
-                            4,
-                            5
+                            4
                         ],
                         "example": 1
                     },
@@ -5036,13 +5035,12 @@
                 "properties": {
                     "show_in": {
                         "type": "integer",
-                        "description": "1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry, 5=>Industry Association",
+                        "description": "1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry",
                         "enum": [
                             1,
                             2,
                             3,
-                            4,
-                            5
+                            4
                         ]
                     },
                     "content_slug_or_id": {
@@ -5056,11 +5054,11 @@
                     },
                     "institute_id": {
                         "type": "integer",
-                        "description": "Institute id"
+                        "description": "Required when you give show_in = 3"
                     },
                     "organization_id": {
                         "type": "integer",
-                        "description": "organization id"
+                        "description": "Required when you give show_in = 4"
                     },
                     "organization_association_id": {
                         "type": "integer",
@@ -5239,11 +5237,11 @@
                     },
                     "institute_id": {
                         "type": "integer",
-                        "description": "Institute id"
+                        "description": "Required when you give show_in = 3"
                     },
                     "organization_id": {
                         "type": "integer",
-                        "description": "Institute id"
+                        "description": "Required when you give show_in = 4"
                     },
                     "details": {
                         "type": "string"
@@ -5273,7 +5271,7 @@
                             4,
                             5
                         ],
-                        "description": "SHOW_IN_NISE3 = 1;\n     SHOW_IN_YOUTH = 2;\n     SHOW_IN_TSP = 3;\n     SHOW_IN_INDUSTRY = 4;\n     SHOW_IN_INDUSTRY_ASSOCIATION = 5"
+                        "description": "SHOW_IN_NISE3 = 1;\n     SHOW_IN_YOUTH = 2;\n     SHOW_IN_TSP = 3;\n     SHOW_IN_INDUSTRY = 4;"
                     },
                     "file_alt_title": {
                         "type": "string",
@@ -5310,21 +5308,20 @@
                     },
                     "institute_id": {
                         "type": "integer",
-                        "description": "Institute id"
+                        "description": "Required when you give show_in = 3"
                     },
                     "organization_id": {
                         "type": "integer",
-                        "description": "Institute id"
+                        "description": "Required when you give show_in = 4"
                     },
                     "show_in": {
                         "type": "integer",
-                        "description": "1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry, 5=>Industry Association",
+                        "description": "1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry",
                         "enum": [
                             1,
                             2,
                             3,
-                            4,
-                            5
+                            4
                         ],
                         "example": 1
                     },
@@ -5334,7 +5331,7 @@
                     },
                     "content_type": {
                         "type": "integer",
-                        "description": "=>Image,2=>Video,3=>Youtube Source",
+                        "description": "1 => Image, 2 => Facebook source, 3 => Youtube Source",
                         "enum": [
                             1,
                             2,
@@ -5438,26 +5435,25 @@
                 "properties": {
                     "show_in": {
                         "type": "integer",
-                        "description": "1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry, 5=>Industry Association",
+                        "description": "1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry",
                         "enum": [
                             1,
                             2,
                             3,
-                            4,
-                            5
+                            4
                         ]
                     },
                     "institute_id": {
                         "type": "integer",
-                        "description": "For Particular TSP Website"
+                        "description": "Required when you give show_in = 3"
+                    },
+                    "organization_id": {
+                        "type": "integer",
+                        "description": "Required when you give show_in = 4"
                     },
                     "industry_association_id": {
                         "type": "integer",
                         "description": "Required For Particular Industry Association Website, ie-5  "
-                    },
-                    "organization_id": {
-                        "type": "integer",
-                        "description": "For Particular Industry Website"
                     },
                     "question": {
                         "type": "string"
