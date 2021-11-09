@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Resources\GalleryAlbumResource;
 use App\Models\BaseModel;
 use App\Models\GalleryAlbum;
+use App\Services\Common\CmsGlobalConfigService;
 use App\Services\Common\LanguageCodeService;
 use App\Services\ContentManagementServices\CmsLanguageService;
 use App\Services\ContentManagementServices\GalleryAlbumService;
 use Carbon\Carbon;
+use Illuminate\Http\Client\RequestException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -37,12 +39,15 @@ class GalleryAlbumController extends Controller
      * @param Request $request
      * @return JsonResponse
      * @throws ValidationException
+     * @throws RequestException
      */
     public function getList(Request $request): JsonResponse
     {
         $request->offsetSet(BaseModel::IS_COLLECTION_KEY, BaseModel::IS_COLLECTION_FLAG);
         $filter = $this->galleryAlbumService->filterValidator($request)->validate();
-        $response = GalleryAlbumResource::collection($this->galleryAlbumService->getAllGalleryAlbums($filter))->resource;
+        $galleryAlbumList = $this->galleryAlbumService->getAllGalleryAlbums($filter);
+        $request->offsetSet(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID, CmsGlobalConfigService::getOrganizationOrInstituteOrIndustryAssociationTitle($galleryAlbumList->toArray()['data'] ?? $galleryAlbumList->toArray()));
+        $response = GalleryAlbumResource::collection($galleryAlbumList)->resource;
         $response = getResponse($response->toArray(), $this->startTime, !BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
@@ -65,10 +70,13 @@ class GalleryAlbumController extends Controller
      * @param Request $request
      * @param int $id
      * @return JsonResponse
+     * @throws RequestException
      */
     public function read(Request $request, int $id): JsonResponse
     {
-        $response = new GalleryAlbumResource($this->galleryAlbumService->getOneGalleryAlbum($id));
+        $gallery = $this->galleryAlbumService->getOneGalleryAlbum($id);
+        $request->offsetSet(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID, CmsGlobalConfigService::getOrganizationOrInstituteOrIndustryAssociationTitle($gallery->toArray()));
+        $response = new GalleryAlbumResource($gallery);
         $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
@@ -80,11 +88,14 @@ class GalleryAlbumController extends Controller
      * @param Request $request
      * @param int $id
      * @return JsonResponse
+     * @throws RequestException
      */
     public function clientSideRead(Request $request, int $id): JsonResponse
     {
         $request->offsetSet(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY, BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG);
-        $response = new GalleryAlbumResource($this->galleryAlbumService->getOneGalleryAlbum($id));
+        $gallery = $this->galleryAlbumService->getOneGalleryAlbum($id);
+        $request->offsetSet(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID, CmsGlobalConfigService::getOrganizationOrInstituteOrIndustryAssociationTitle($gallery->toArray()));
+        $response = new GalleryAlbumResource($gallery);
         $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
         return Response::json($response, ResponseAlias::HTTP_OK);
     }

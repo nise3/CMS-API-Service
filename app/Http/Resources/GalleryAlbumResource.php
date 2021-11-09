@@ -29,7 +29,11 @@ class GalleryAlbumResource extends JsonResource
             'published_at' => $this->published_at,
             'archived_at' => $this->archived_at,
             "institute_id" => $this->institute_id,
+            "institute_title" => $request->get(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID)[BaseModel::INSTITUTE_SERVICE][$this->institute_id]['title'] ?? "",
+            "institute_title_en" => $request->get(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID)[BaseModel::INSTITUTE_SERVICE][$this->institute_id]['title_en'] ?? "",
             "organization_id" => $this->organization_id,
+            "organization_title" => $request->get(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID)[BaseModel::ORGANIZATION_SERVICE][$this->organization_id]['title'] ?? "",
+            "organization_title_en" => $request->get(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID)[BaseModel::ORGANIZATION_SERVICE][$this->organization_id]['title_en'] ?? "",
             "industry_association_id" => $this->industry_association_id,
             "batch_id" => $this->batch_id,
             "program_id" => $this->program_id,
@@ -42,12 +46,6 @@ class GalleryAlbumResource extends JsonResource
             $response['title'] = app(CmsLanguageService::class)->getLanguageValue($this, GalleryAlbum::LANGUAGE_ATTR_TITLE);
             $response['image_alt_title'] = app(CmsLanguageService::class)->getLanguageValue($this, GalleryAlbum::LANGUAGE_ATTR_IMAGE_ALT_TITLE);
         } else {
-            $response['institute_title'] = "";
-            $response['institute_title_en'] = "";
-            $response['industry_association_title'] = "";
-            $response['industry_association_title_en'] = "";
-            $response['organization_title'] = "";
-            $response['organization_title_en'] = "";
             $response['title'] = $this->title;
             $response['image_alt_title'] = $this->image_alt_title;
             if (!$request->get(BaseModel::IS_COLLECTION_KEY)) {
