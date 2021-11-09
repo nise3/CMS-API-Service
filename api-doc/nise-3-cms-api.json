@@ -483,16 +483,28 @@
                             "application/json": {
                                 "example": {
                                     "data": {
-                                        "title": "newtitle",
-                                        "main_image_path": "https://en.as.com/en/2021/11/01/soccer/1635749055_402801.html",
-                                        "thumb_image_path": "https://en.as.com/en/2021/11/01/soccer/1635749055_402801.html",
-                                        "grid_image_path": "https://en.as.com/en/2021/11/01/soccer/1635749055_402801.html",
+                                        "id": 13,
+                                        "title": "Title in Native",
+                                        "main_image_path": null,
+                                        "thumb_image_path": null,
+                                        "grid_image_path": null,
                                         "domain": null,
-                                        "image_alt_title": null,
-                                        "row_status": "1",
-                                        "updated_at": "2021-11-04T10:46:39.000000Z",
-                                        "created_at": "2021-11-04T10:46:39.000000Z",
-                                        "id": 1
+                                        "image_alt_title": "Image alter title in Native",
+                                        "other_language_fields": {
+                                            "hi": {
+                                                "title": "Title in hindi",
+                                                "image_alt_title": "Image Alter Title in Hindi"
+                                            },
+                                            "te": {
+                                                "title": "Title in Telegu",
+                                                "image_alt_title": "Image alter title in Telegu"
+                                            }
+                                        },
+                                        "row_status": null,
+                                        "created_by": null,
+                                        "updated_by": null,
+                                        "created_at": "2021-11-09T05:58:46.000000Z",
+                                        "updated_at": "2021-11-09T05:58:46.000000Z"
                                     },
                                     "_response_status": {
                                         "success": true,
