@@ -17,8 +17,6 @@ class RecentActivitySeeder extends Seeder
      */
     public function run()
     {
-        RecentActivity::factory()->count(10)->create();
-
         Schema::disableForeignKeyConstraints();
         RecentActivity::query()->truncate();
         for ($i = 0; $i < 10; $i++) {
