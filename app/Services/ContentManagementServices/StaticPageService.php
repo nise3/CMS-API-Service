@@ -238,6 +238,11 @@ class StaticPageService
                 'max:500',
                 'min:2'
             ],
+            'archived_at' => [
+                'nullable',
+                'date',
+                'after:published_at'
+            ],
             'sub_title' => [
                 'nullable',
                 'string'

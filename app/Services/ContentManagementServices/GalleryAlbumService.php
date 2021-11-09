@@ -22,9 +22,10 @@ class GalleryAlbumService
 {
     /**
      * @param array $request
+     * @param null $startTime
      * @return Collection|LengthAwarePaginator|array
      */
-    public function getAllGalleryAlbums(array $request): Collection|LengthAwarePaginator|array
+    public function getAllGalleryAlbums(array $request, $startTime = null): Collection|LengthAwarePaginator|array
     {
         $titleEn = $request['title_en'] ?? "";
         $titleBn = $request['title'] ?? "";
@@ -32,6 +33,7 @@ class GalleryAlbumService
         $pageSize = $request['page_size'] ?? "";
         $rowStatus = $request['row_status'] ?? "";
         $order = $request['order'] ?? "ASC";
+        $isRequestFromClientSide = !empty($request[BaseModel::IS_CLIENT_SITE_RESPONSE_KEY]);
 
         /** @var Builder $galleryAlbumBuilder */
         $galleryAlbumBuilder = GalleryAlbum::select([
@@ -70,6 +72,14 @@ class GalleryAlbumService
         }
         if (!empty($titleBn)) {
             $galleryAlbumBuilder->where('gallery_albums.title', 'like', '%' . $titleBn . '%');
+        }
+
+        if($isRequestFromClientSide){
+            $galleryAlbumBuilder->whereDate('gallery_albums.published_at', '<=', $startTime);
+            $galleryAlbumBuilder->where(function ($builder) use ($startTime){
+                $builder->whereNull('gallery_albums.archived_at');
+                $builder->orWhereDate('gallery_albums.archived_at', '>=', $startTime);
+            });
         }
 
         /** @var Collection $galleryAlbums */
@@ -196,6 +206,7 @@ class GalleryAlbumService
      */
     public function validator(Request $request, int $id = null): \Illuminate\Contracts\Validation\Validator
     {
+
         $customMessage = [
             'row_status.in' => 'Row status must be within 1 or 0. [30000]'
         ];
@@ -243,6 +254,15 @@ class GalleryAlbumService
                 'required',
                 'integer',
                 Rule::in(GalleryAlbum::GALLERY_ALBUM_TYPES)
+            ],
+            'published_at' => [
+                'nullable',
+                'date',
+            ],
+            'archived_at' => [
+                'nullable',
+                'date',
+                'after:published_at'
             ],
             'batch_id' => [
                 'nullable',
@@ -308,7 +328,7 @@ class GalleryAlbumService
             $request['order'] = strtoupper($request['order']);
         }
 
-        return Validator::make($request->all(), [
+        $rules = [
             'title_en' => 'nullable|max:200|min:2',
             'title' => 'nullable|max:600|min:2',
             'page' => 'integer|gt:0',
@@ -320,7 +340,16 @@ class GalleryAlbumService
             'row_status' => [
                 "integer",
                 Rule::in([BaseModel::ROW_STATUS_ACTIVE, BaseModel::ROW_STATUS_INACTIVE]),
-            ],
-        ], $customMessage);
+            ]
+        ];
+
+        if($request->filled(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY)){
+            $rules[BaseModel::IS_CLIENT_SITE_RESPONSE_KEY] = [
+                'nullable',
+                'bool'
+            ];
+        }
+
+        return Validator::make($request->all(), $rules, $customMessage);
     }
 }

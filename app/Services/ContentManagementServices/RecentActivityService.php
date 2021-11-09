@@ -327,7 +327,15 @@ class RecentActivityService
                 'nullable',
                 'string'
             ],
-
+            'published_at' => [
+                'nullable',
+                'date',
+            ],
+            'archived_at' => [
+                'nullable',
+                'date',
+                'after:published_at'
+            ],
             'row_status' => [
                 'required_if:' . $id . ',!=,null',
                 Rule::in([BaseModel::ROW_STATUS_ACTIVE, BaseModel::ROW_STATUS_INACTIVE]),

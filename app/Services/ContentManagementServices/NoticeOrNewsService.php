@@ -283,6 +283,15 @@ class NoticeOrNewsService
                 "integer",
                 "gt:0",
             ],
+            'published_at' => [
+                'nullable',
+                'date',
+            ],
+            'archived_at' => [
+                'nullable',
+                'date',
+                'after:published_at'
+            ],
             'details' => [
                 'nullable',
                 'string'

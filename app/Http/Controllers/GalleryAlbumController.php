@@ -47,11 +47,14 @@ class GalleryAlbumController extends Controller
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function clientSideGetList(Request $request): JsonResponse
     {
         $request->offsetSet(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY, BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG);
         $filter = $this->galleryAlbumService->filterValidator($request)->validate();
-        $response = GalleryAlbumResource::collection($this->galleryAlbumService->getAllGalleryAlbums($filter))->resource;
+        $response = GalleryAlbumResource::collection($this->galleryAlbumService->getAllGalleryAlbums($filter, $this->startTime))->resource;
         $response = getResponse($response->toArray(), $this->startTime, !BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
