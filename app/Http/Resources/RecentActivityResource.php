@@ -23,6 +23,7 @@ class RecentActivityResource extends JsonResource
         $response = [
             "id" => $this->id,
             "show_in" => $this->show_in,
+            "show_in_label" => BaseModel::SHOW_INS[$this->show_in],
             'activity_date' => $this->activity_date,
             'published_at' => $this->published_at,
             'archived_at' => $this->archived_at,

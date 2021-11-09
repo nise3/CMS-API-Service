@@ -23,6 +23,7 @@ class StaticPageResource extends JsonResource
             "id" => $this->id,
             "content_type" => $this->content_type,
             "show_in" => $this->show_in,
+            "show_in_label" => BaseModel::SHOW_INS[$this->show_in],
             "industry_association_id" => $this->industry_association_id,
             "content_slug_or_id" => $this->content_slug_or_id,
             "institute_id" => $this->institute_id,
