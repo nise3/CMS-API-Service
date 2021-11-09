@@ -3,7 +3,6 @@
 namespace App\Services\ContentManagementServices;
 
 use App\Models\BaseModel;
-use App\Models\Occupation;
 use App\Models\VisitorFeedbackSuggestion;
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -14,8 +13,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
+/**
+ *
+ */
 class VisitorFeedbackSuggestionService
 {
+    /**
+     * @param array $request
+     * @return Collection|LengthAwarePaginator|array
+     */
     public function getVisitorFeedbackSuggestionList(array $request): Collection|LengthAwarePaginator|array
     {
         $name = $request['name'] ?? "";
@@ -71,6 +77,10 @@ class VisitorFeedbackSuggestionService
 
     }
 
+    /**
+     * @param int $id
+     * @return Model|Builder
+     */
     public function getOneVisitorFeedbackSuggestion(int $id): Model|Builder
     {
         /** @var Builder $visitorFeedbackSuggestionBuilder */
@@ -103,8 +113,10 @@ class VisitorFeedbackSuggestionService
     }
 
 
-
-
+    /**
+     * @param array $data
+     * @return VisitorFeedbackSuggestion
+     */
     public function store(array $data): VisitorFeedbackSuggestion
     {
         $VisitorFeedbackSuggestion = new VisitorFeedbackSuggestion();
@@ -114,17 +126,20 @@ class VisitorFeedbackSuggestionService
     }
 
 
-
-
+    /**
+     * @param VisitorFeedbackSuggestion $VisitorFeedbackSuggestion
+     * @return bool
+     */
     public function destroy(VisitorFeedbackSuggestion $VisitorFeedbackSuggestion): bool
     {
         return $VisitorFeedbackSuggestion->delete();
     }
 
 
-
-
-
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
     public function filterValidator(Request $request): \Illuminate\Contracts\Validation\Validator
     {
         $customMessage = [
@@ -155,8 +170,11 @@ class VisitorFeedbackSuggestionService
     }
 
 
-
-
+    /**
+     * @param $request
+     * @param int|null $id
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
     public function validator($request, int $id = null): \Illuminate\Contracts\Validation\Validator
     {
         $customMessage = [
