@@ -30,7 +30,6 @@ class FaqService
         $questionEn = $request['question_en'] ?? "";
         $answer = $request['answer'] ?? "";
         $answerEn = $request['answer_en'] ?? "";
-
         $rowStatus = $request['row_status'] ?? "";
         $order = $request['order'] ?? "ASC";
 
@@ -153,6 +152,7 @@ class FaqService
     {
         return $faq->delete();
     }
+
 
     /**
      * @param Request $request

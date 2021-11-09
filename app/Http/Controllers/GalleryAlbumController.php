@@ -19,6 +19,9 @@ use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 use Throwable;
 
+/**
+ *
+ */
 class GalleryAlbumController extends Controller
 {
 
@@ -54,12 +57,16 @@ class GalleryAlbumController extends Controller
 
     /**
      * @throws ValidationException
+     * @throws RequestException
      */
     public function clientSideGetList(Request $request): JsonResponse
     {
         $request->offsetSet(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY, BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG);
         $filter = $this->galleryAlbumService->filterValidator($request)->validate();
-        $response = GalleryAlbumResource::collection($this->galleryAlbumService->getAllGalleryAlbums($filter, $this->startTime))->resource;
+        $filter[BaseModel::IS_CLIENT_SITE_RESPONSE_KEY] = BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG;
+        $galleryAlbumList = $this->galleryAlbumService->getAllGalleryAlbums($filter, $this->startTime);
+        $request->offsetSet(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID, CmsGlobalConfigService::getOrganizationOrInstituteOrIndustryAssociationTitle($galleryAlbumList->toArray()['data'] ?? $galleryAlbumList->toArray()));
+        $response = GalleryAlbumResource::collection($galleryAlbumList)->resource;
         $response = getResponse($response->toArray(), $this->startTime, !BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
@@ -212,4 +219,33 @@ class GalleryAlbumController extends Controller
         $response = getResponse($destroyStatus, $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK, $message);
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
+
+    /**
+     * @param Request $request
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function publishOrArchive(Request $request, int $id): JsonResponse
+    {
+        $galleryAlbum = GalleryAlbum::findOrFail($id);
+
+        if ($request->input('status') == 1) {
+            $message = "Gallery Album published successfully";
+        } else {
+            $message = "Gallery Album archived successfully";
+        }
+        $data = $this->galleryAlbumService->publishOrArchive($request, $galleryAlbum);
+        $response = [
+            '_response_status' => [
+                "data" => $data,
+                "success" => true,
+                "code" => ResponseAlias::HTTP_CREATED,
+                "message" => $message,
+                "query_time" => $this->startTime->diffInSeconds(\Illuminate\Support\Carbon::now()),
+            ]
+        ];
+        return Response::json($response, ResponseAlias::HTTP_OK);
+
+    }
+
 }

@@ -30,6 +30,10 @@ class NoticeOrNewsResource extends JsonResource
             "institute_id" => $this->institute_id,
             "organization_id" => $this->organization_id,
             "industry_association_id" => $this->industry_association_id,
+            "institute_title" => $request->get(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID)[BaseModel::INSTITUTE_SERVICE][$this->institute_id]['title'] ?? "",
+            "institute_title_en" => $request->get(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID)[BaseModel::INSTITUTE_SERVICE][$this->institute_id]['title_en'] ?? "",
+            "organization_title" => $request->get(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID)[BaseModel::ORGANIZATION_SERVICE][$this->organization_id]['title'] ?? "",
+            "organization_title_en" => $request->get(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID)[BaseModel::ORGANIZATION_SERVICE][$this->organization_id]['title_en'] ?? "",
             "details" => $this->details,
             "main_image_path" => $this->main_image_path,
             "grid_image_path" => $this->grid_image_path,
@@ -45,12 +49,6 @@ class NoticeOrNewsResource extends JsonResource
             $response['image_alt_title'] = app(CmsLanguageService::class)->getLanguageValue($this, NoticeOrNews::LANGUAGE_ATTR_IMAGE_ALT_TITLE);
             $response['file_alt_title'] = app(CmsLanguageService::class)->getLanguageValue($this, NoticeOrNews::LANGUAGE_ATTR_FILE_ALT_TITLE);
         } else {
-            $response['institute_title'] = "";
-            $response['institute_title_en'] = "";
-            $response['industry_association_title'] = "";
-            $response['industry_association_title_en'] = "";
-            $response['organization_title'] = "";
-            $response['organization_title_en'] = "";
             $response['title'] = $this->title;
             $response['details'] = $this->details;
             $response['image_alt_title'] = $this->image_alt_title;

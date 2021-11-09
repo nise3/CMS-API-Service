@@ -5,6 +5,7 @@ namespace App\Services\ContentManagementServices;
 use App\Models\BaseModel;
 use App\Models\NoticeOrNews;
 use App\Services\Common\LanguageCodeService;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -14,6 +15,9 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
 
+/**
+ *
+ */
 class NoticeOrNewsService
 {
 
@@ -21,7 +25,7 @@ class NoticeOrNewsService
      * @param array $request
      * @return Collection|LengthAwarePaginator|array
      */
-    public function getNoticeOrNewsServiceList(array $request): Collection|LengthAwarePaginator|array
+    public function getNoticeOrNewsServiceList(array $request, $startTime = null): Collection|LengthAwarePaginator|array
     {
         $titleEn = $request['title_en'] ?? "";
         $titleBn = $request['title'] ?? "";
@@ -29,6 +33,7 @@ class NoticeOrNewsService
         $pageSize = $request['page_size'] ?? "";
         $rowStatus = $request['row_status'] ?? "";
         $order = $request['order'] ?? "ASC";
+        $isRequestFromClientSide = !empty($request[BaseModel::IS_CLIENT_SITE_RESPONSE_KEY]);
 
         /** @var Builder $noticeOrNewsBuilder */
         $noticeOrNewsBuilder = NoticeOrNews::select([
@@ -69,6 +74,14 @@ class NoticeOrNewsService
         }
         if (!empty($titleBn)) {
             $noticeOrNewsBuilder->where('notice_or_news.title', 'like', '%' . $titleBn . '%');
+        }
+
+        if($isRequestFromClientSide){
+            $noticeOrNewsBuilder->whereDate('notice_or_news.published_at', '<=', $startTime);
+            $noticeOrNewsBuilder->where(function ($builder) use ($startTime){
+                $builder->whereNull('notice_or_news.archived_at');
+                $builder->orWhereDate('notice_or_news.archived_at', '>=', $startTime);
+            });
         }
 
         /** @var Collection $noticeOrNews */
@@ -159,6 +172,23 @@ class NoticeOrNewsService
     public function destroy(NoticeOrNews $noticeOrNews): bool
     {
         return $noticeOrNews->delete();
+    }
+
+    /**
+     * @param Request $request
+     * @param NoticeOrNews $noticeOrNews
+     * @return NoticeOrNews
+     */
+    public function publishOrArchive(Request $request, NoticeOrNews $noticeOrNews): NoticeOrNews
+    {
+        if ($request->input('status') == 1) {
+            $noticeOrNews->published_at = Carbon::now()->format('Y-m-d H:i:s');
+            $noticeOrNews->archived_at = null;
+        } else {
+            $noticeOrNews->archived_at = Carbon::now()->format('Y-m-d H:i:s');
+        }
+        $noticeOrNews->save();
+        return $noticeOrNews;
     }
 
     public function languageFieldValidator(array $request, string $languageCode): \Illuminate\Contracts\Validation\Validator
