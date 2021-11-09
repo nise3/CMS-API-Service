@@ -80,7 +80,7 @@ class Nise3PartnerController extends Controller
     public function store(Request $request): JsonResponse
     {
         $validatedData = $this->nise3PartnerService->validator($request)->validate();
-        $message = "Faq successfully added";
+        $message = "Nise3 Partner successfully added";
         $otherLanguagePayload = $validatedData['other_language_fields'] ?? [];
         $isLanguage = (bool)count(array_intersect(array_keys($otherLanguagePayload), LanguageCodeService::getLanguageCode()));
         DB::beginTransaction();

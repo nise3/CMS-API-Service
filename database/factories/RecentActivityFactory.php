@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\BaseModel;
 use App\Models\RecentActivity;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -15,16 +16,14 @@ class RecentActivityFactory extends Factory
         return [
             'title_en' => $title,
             'title' => $title,
+            'show_in' => $this->faker->randomElement(array_keys(BaseModel::SHOW_INS)),
             'institute_id' => $this->faker->numberBetween(1, 10),
             'organization_id' => $this->faker->numberBetween(1, 10),
             'description_en' => $this->faker->sentence(40),
             'description' => $this->faker->sentence(40),
-            'content_type' => $this->faker->randomElement([1, 2,3]),
+            'content_type' => $this->faker->randomElement(RecentActivity::CONTENT_TYPES),
             "content_path" => $this->faker->sentence(),
-            "content_properties" => $this->faker->sentence(),
-            'alt_title_en' => $this->faker->word(),
-            'alt_title' => $this->faker->word(),
-
+            "content_properties" => $this->faker->sentence()
         ];
     }
 }

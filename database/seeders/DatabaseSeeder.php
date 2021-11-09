@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\GalleryAlbum;
 use App\Models\GalleryImageVideo;
+use App\Models\Nise3Partner;
 use App\Models\NoticeOrNews;
 use Illuminate\Database\Seeder;
 
@@ -27,5 +28,8 @@ class DatabaseSeeder extends Seeder
         $this->call(SliderSeeder::class);
         $this->call(StaticPageSeeder::class);
         $this->call(NoticeOrNewsSeeder::class);
+        $this->call(RecentActivitySeeder::class);
+        $this->call(Nise3PartnerSeeder::class);
+        $this->call(VisitorFeedbackSuggestionSeeder::class);
     }
 }

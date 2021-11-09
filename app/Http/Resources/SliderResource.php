@@ -24,6 +24,7 @@ class SliderResource extends JsonResource
         $response = [
             "id" => $this->id,
             "show_in" => $this->show_in,
+            "show_in_label" => BaseModel::SHOW_INS[$this->show_in],
             "institute_id" => $this->institute_id,
             "organization_id" => $this->organization_id,
             "industry_association_id" => $this->industry_association_id,

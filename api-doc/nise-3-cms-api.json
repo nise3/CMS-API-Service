@@ -483,16 +483,28 @@
                             "application/json": {
                                 "example": {
                                     "data": {
-                                        "title": "newtitle",
-                                        "main_image_path": "https://en.as.com/en/2021/11/01/soccer/1635749055_402801.html",
-                                        "thumb_image_path": "https://en.as.com/en/2021/11/01/soccer/1635749055_402801.html",
-                                        "grid_image_path": "https://en.as.com/en/2021/11/01/soccer/1635749055_402801.html",
+                                        "id": 13,
+                                        "title": "Title in Native",
+                                        "main_image_path": null,
+                                        "thumb_image_path": null,
+                                        "grid_image_path": null,
                                         "domain": null,
-                                        "image_alt_title": null,
-                                        "row_status": "1",
-                                        "updated_at": "2021-11-04T10:46:39.000000Z",
-                                        "created_at": "2021-11-04T10:46:39.000000Z",
-                                        "id": 1
+                                        "image_alt_title": "Image alter title in Native",
+                                        "other_language_fields": {
+                                            "hi": {
+                                                "title": "Title in hindi",
+                                                "image_alt_title": "Image Alter Title in Hindi"
+                                            },
+                                            "te": {
+                                                "title": "Title in Telegu",
+                                                "image_alt_title": "Image alter title in Telegu"
+                                            }
+                                        },
+                                        "row_status": null,
+                                        "created_by": null,
+                                        "updated_by": null,
+                                        "created_at": "2021-11-09T05:58:46.000000Z",
+                                        "updated_at": "2021-11-09T05:58:46.000000Z"
                                     },
                                     "_response_status": {
                                         "success": true,
@@ -4804,15 +4816,15 @@
                     },
                     "institute_id": {
                         "type": "integer",
-                        "description": "Institute id"
+                        "description": "Required when you give show_in = 3"
+                    },
+                    "organization_id": {
+                        "type": "integer",
+                        "description": "Required when you give show_in = 4"
                     },
                     "parent_gallery_album_id": {
                         "type": "integer",
                         "description": "Institute id"
-                    },
-                    "organization_id": {
-                        "type": "integer",
-                        "description": "organization id"
                     },
                     "organization_association_id": {
                         "type": "integer",
@@ -4864,13 +4876,12 @@
                     },
                     "show_in": {
                         "type": "integer",
-                        "description": "1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry, 5=>Industry Association",
+                        "description": "1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry",
                         "enum": [
                             1,
                             2,
                             3,
-                            4,
-                            5
+                            4
                         ],
                         "example": 1
                     },
@@ -5036,13 +5047,12 @@
                 "properties": {
                     "show_in": {
                         "type": "integer",
-                        "description": "1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry, 5=>Industry Association",
+                        "description": "1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry",
                         "enum": [
                             1,
                             2,
                             3,
-                            4,
-                            5
+                            4
                         ]
                     },
                     "content_slug_or_id": {
@@ -5056,11 +5066,11 @@
                     },
                     "institute_id": {
                         "type": "integer",
-                        "description": "Institute id"
+                        "description": "Required when you give show_in = 3"
                     },
                     "organization_id": {
                         "type": "integer",
-                        "description": "organization id"
+                        "description": "Required when you give show_in = 4"
                     },
                     "organization_association_id": {
                         "type": "integer",
@@ -5239,11 +5249,11 @@
                     },
                     "institute_id": {
                         "type": "integer",
-                        "description": "Institute id"
+                        "description": "Required when you give show_in = 3"
                     },
                     "organization_id": {
                         "type": "integer",
-                        "description": "Institute id"
+                        "description": "Required when you give show_in = 4"
                     },
                     "details": {
                         "type": "string"
@@ -5273,7 +5283,7 @@
                             4,
                             5
                         ],
-                        "description": "SHOW_IN_NISE3 = 1;\n     SHOW_IN_YOUTH = 2;\n     SHOW_IN_TSP = 3;\n     SHOW_IN_INDUSTRY = 4;\n     SHOW_IN_INDUSTRY_ASSOCIATION = 5"
+                        "description": "SHOW_IN_NISE3 = 1;\n     SHOW_IN_YOUTH = 2;\n     SHOW_IN_TSP = 3;\n     SHOW_IN_INDUSTRY = 4;"
                     },
                     "file_alt_title": {
                         "type": "string",
@@ -5310,21 +5320,20 @@
                     },
                     "institute_id": {
                         "type": "integer",
-                        "description": "Institute id"
+                        "description": "Required when you give show_in = 3"
                     },
                     "organization_id": {
                         "type": "integer",
-                        "description": "Institute id"
+                        "description": "Required when you give show_in = 4"
                     },
                     "show_in": {
                         "type": "integer",
-                        "description": "1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry, 5=>Industry Association",
+                        "description": "1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry",
                         "enum": [
                             1,
                             2,
                             3,
-                            4,
-                            5
+                            4
                         ],
                         "example": 1
                     },
@@ -5334,7 +5343,7 @@
                     },
                     "content_type": {
                         "type": "integer",
-                        "description": "=>Image,2=>Video,3=>Youtube Source",
+                        "description": "1 => Image, 2 => Facebook source, 3 => Youtube Source",
                         "enum": [
                             1,
                             2,
@@ -5438,26 +5447,25 @@
                 "properties": {
                     "show_in": {
                         "type": "integer",
-                        "description": "1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry, 5=>Industry Association",
+                        "description": "1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry",
                         "enum": [
                             1,
                             2,
                             3,
-                            4,
-                            5
+                            4
                         ]
                     },
                     "institute_id": {
                         "type": "integer",
-                        "description": "For Particular TSP Website"
+                        "description": "Required when you give show_in = 3"
+                    },
+                    "organization_id": {
+                        "type": "integer",
+                        "description": "Required when you give show_in = 4"
                     },
                     "industry_association_id": {
                         "type": "integer",
                         "description": "Required For Particular Industry Association Website, ie-5  "
-                    },
-                    "organization_id": {
-                        "type": "integer",
-                        "description": "For Particular Industry Website"
                     },
                     "question": {
                         "type": "string"
