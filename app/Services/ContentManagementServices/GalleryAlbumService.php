@@ -196,6 +196,7 @@ class GalleryAlbumService
      */
     public function validator(Request $request, int $id = null): \Illuminate\Contracts\Validation\Validator
     {
+
         $customMessage = [
             'row_status.in' => 'Row status must be within 1 or 0. [30000]'
         ];
@@ -243,6 +244,15 @@ class GalleryAlbumService
                 'required',
                 'integer',
                 Rule::in(GalleryAlbum::GALLERY_ALBUM_TYPES)
+            ],
+            'published_at' => [
+                'nullable',
+                'date',
+            ],
+            'archived_at' => [
+                'nullable',
+                'date',
+                'after:published_at'
             ],
             'batch_id' => [
                 'nullable',

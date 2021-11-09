@@ -5,7 +5,6 @@ namespace App\Services\ContentManagementServices;
 
 use App\Models\BaseModel;
 use App\Models\Nise3Partner;
-use App\Models\Slider;
 use App\Services\Common\LanguageCodeService;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
@@ -14,8 +13,6 @@ use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
-use stdClass;
-use Symfony\Component\HttpFoundation\Response;
 
 
 class Nise3PartnerService

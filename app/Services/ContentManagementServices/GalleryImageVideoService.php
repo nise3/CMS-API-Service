@@ -265,6 +265,15 @@ class GalleryImageVideoService
                 'max:600',
                 'min:2'
             ],
+            'published_at' => [
+                'nullable',
+                'date',
+            ],
+            'archived_at' => [
+                'nullable',
+                'date',
+                'after:published_at'
+            ],
             'content_description' => [
                 'nullable',
                 'string'
