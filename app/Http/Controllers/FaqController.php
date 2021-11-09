@@ -113,7 +113,7 @@ class FaqController extends Controller implements ResourceInterface
                 }
                 app(CmsLanguageService::class)->store($languageFillablePayload);
             }
-            $response=new FaqResource($faq);
+            $response = new FaqResource($faq);
             $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
             DB::commit();
         } catch (Throwable $e) {
@@ -161,7 +161,7 @@ class FaqController extends Controller implements ResourceInterface
                 }
 
             }
-            $response=new FaqResource($faq);
+            $response = new FaqResource($faq);
             $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
             DB::commit();
         } catch (Throwable $e) {
@@ -177,6 +177,16 @@ class FaqController extends Controller implements ResourceInterface
         $faqDestroyStatus = $this->faqService->destroy($faq);
         $message = $faqDestroyStatus ? "Faq successfully deleted" : "Faq is not deleted";
         $response = getResponse($faqDestroyStatus, $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK, $message);
+        return Response::json($response, ResponseAlias::HTTP_OK);
+
+    }
+
+    public function publishOrArchiveFaq(Request $request, int $id): JsonResponse
+    {
+        $faq = Faq::findOrFail($id);
+        $response = $this->faqService->publishOrArchiveFaq($request, $faq);
+        $message = $response ? "Faq successfully deleted" : "Faq is not deleted";
+        $response = getResponse($response, $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK, $message);
         return Response::json($response, ResponseAlias::HTTP_OK);
 
     }

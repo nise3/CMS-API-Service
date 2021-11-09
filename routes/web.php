@@ -47,8 +47,12 @@ $router->group(['prefix' => 'api/v1', 'as' => 'api.v1'], function () use ($route
     $customRouter()->resourceRoute('visitor-feedback-suggestions', 'VisitorFeedbackSuggestionController')->render();
 
 
+    /** publish or archive  */
+    $router->post('faqs/publish-or-archive/{id}', ["as" => "faqs.publish.or.archive", "uses" => "FaqController@publishOrArchiveFaq"]);
+
+
     $router->group(['prefix' => 'public', 'as' => 'public'], function () use ($router) {
-        $router->get('faqs/{id}', ["as" => "faqs", "uses.read" => "FaqController@clientSideRead"]);
+        $router->get('faqs/{id}', ["as" => "faqs.read", "uses" => "FaqController@clientSideRead"]);
         $router->get('static-pages/{id}', ["as" => "static.pages.read", "uses" => "StaticPageController@clientSideRead"]);
         $router->get('notice-or-news/{id}', ["as" => "notice.news.read", "uses" => "NoticeOrNewsController@clientSideRead"]);
         $router->get('recent-activities/{id}', ["as" => "recent.activities.read", "uses" => "RecentActivityController@clientSideRead"]);

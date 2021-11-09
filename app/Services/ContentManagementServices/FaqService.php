@@ -154,6 +154,12 @@ class FaqService
         return $faq->delete();
     }
 
+    public function publishOrArchiveFaq(Request $request, Faq $faq): ?bool
+    {
+        dd($request);
+    }
+
+
     /**
      * @param Request $request
      * @param int|null $id
