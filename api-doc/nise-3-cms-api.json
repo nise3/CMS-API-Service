@@ -409,7 +409,64 @@
             }
         },
 
+        "/public/nise3-partners": {
+            "get": {
+                "summary": "Get All Partners",
+                "description": "Get The list of all partners of Nise3",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/Accept-Language"
+                    },
 
+                    {
+                        "$ref": "#/components/parameters/title_optional"
+                    },
+                    {
+                        "$ref": "#/components/parameters/row_status"
+                    },
+                    {
+                        "$ref": "#/components/parameters/order"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page_size"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/nise3_partner"
+                                },
+                                "example": {
+                                    "order": "asc",
+                                    "data": [
+                                        {
+                                            "id": 3,
+                                            "title": "Bangladesh",
+                                            "code": "BD",
+                                            "deleted_at": null
+                                        }
+                                    ],
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "query_time": "1 second before"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Nise3 partners"
+                ]
+            }
+        },
         "/nise3-partners": {
             "get": {
                 "summary": "Get All Partners",
@@ -481,35 +538,31 @@
                         "description": "Successful",
                         "content": {
                             "application/json": {
-                                "example": {
+                                "example":{
                                     "data": {
-                                        "id": 13,
-                                        "title": "Title in Native",
+                                        "id": 3,
+                                        "title": "AAASSSDDD",
                                         "main_image_path": null,
                                         "thumb_image_path": null,
                                         "grid_image_path": null,
                                         "domain": null,
-                                        "image_alt_title": "Image alter title in Native",
+                                        "image_alt_title": null,
                                         "other_language_fields": {
                                             "hi": {
-                                                "title": "Title in hindi",
-                                                "image_alt_title": "Image Alter Title in Hindi"
-                                            },
-                                            "te": {
-                                                "title": "Title in Telegu",
-                                                "image_alt_title": "Image alter title in Telegu"
+                                                "title": "हमारा अंग्रेजी से बांग्ला अनुवाद उपकरण",
+                                                "image_alt_title": "हमारा अंग्रेजी से बांग्ला अनुवाद उपकरण"
                                             }
                                         },
-                                        "row_status": null,
+                                        "row_status": "1",
                                         "created_by": null,
                                         "updated_by": null,
-                                        "created_at": "2021-11-09T05:58:46.000000Z",
-                                        "updated_at": "2021-11-09T05:58:46.000000Z"
+                                        "created_at": "2021-11-09T10:19:39.000000Z",
+                                        "updated_at": "2021-11-09T10:19:39.000000Z"
                                     },
                                     "_response_status": {
                                         "success": true,
                                         "code": 201,
-                                        "message": "Faq successfully added",
+                                        "message": "Nise3 Partner successfully added",
                                         "query_time": 0
                                     }
                                 }
@@ -721,6 +774,61 @@
         },
 
 
+
+
+        "/public/sliders": {
+            "get": {
+                "summary": "Get All sliders",
+                "description": "Get All the sliders",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/Accept-Language"
+                    },
+                    {
+                        "$ref": "#/components/parameters/title_optional"
+                    },
+                    {
+                        "$ref": "#/components/parameters/sub_title"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page_size"
+                    },
+                    {
+                        "$ref": "#/components/parameters/row_status"
+                    },
+                    {
+                        "$ref": "#/components/parameters/order"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Slider"
+                                },
+                                "example": {
+                                    "order": "asc",
+                                    "data": [],
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "query_time": "1 second before"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Sliders"
+                ]
+            }
+        },
         "/sliders": {
             "get": {
                 "summary": "Get All sliders",
@@ -787,26 +895,43 @@
                         "description": "Slider Created",
                         "content": {
                             "appication/json": {
-                                "example": {
+                                "example":{
                                     "data": {
-                                        "id": 1,
+                                        "id": 11,
+                                        "show_in": "1",
+                                        "show_in_label": "Nise3",
                                         "institute_id": "1",
-                                        "organization_id": "1",
-                                        "title": "New Title",
-                                        "sub_title": "No subtitle",
+                                        "organization_id": null,
+                                        "industry_association_id": null,
                                         "is_button_available": "1",
-                                        "button_text": "new field",
-                                        "link": "new link",
+                                        "link": "akjskjasjlksj",
                                         "slider_images": [
-                                            "sssss"
+                                            "image1",
+                                            "image2"
                                         ],
-                                        "alt_title": null,
+                                        "institute_title": "",
+                                        "institute_title_en": "",
+                                        "organization_title": "",
+                                        "organization_title_en": "",
+                                        "title": "aaa",
+                                        "sub_title": "vv",
+                                        "alt_title": "atr_text",
+                                        "button_text": "aaaaaaaaaaaaaaaaa",
+                                        "other_language_fields": {
+                                            "hi": {
+                                                "title": "हमारा अंग्रेजी से बांग्ला अनुवाद उपकरण",
+                                                "sub_title": "हमारा अंग्रेजी से बांग्ला अनुवाद उपकरण",
+                                                "alt_title": "हमारा अंग्रेजी से बांग्ला अनुवाद उपकरण",
+                                                "button_text": "अंग्रेजी"
+                                            }
+                                        },
+                                        "banner_template_code": null,
                                         "banner_template": null,
-                                        "row_status": "0",
+                                        "row_status": "1",
                                         "created_by": null,
                                         "updated_by": null,
-                                        "created_at": "2021-11-04T04:24:01.000000Z",
-                                        "updated_at": "2021-11-04T04:24:01.000000Z"
+                                        "created_at": "2021-11-09T10:02:03.000000Z",
+                                        "updated_at": "2021-11-09T10:02:03.000000Z"
                                     },
                                     "_response_status": {
                                         "success": true,
@@ -1077,6 +1202,159 @@
         },
 
 
+        "/public/faqs": {
+            "get": {
+                "summary": "Get All faqs",
+                "description": "API endpoint to get the list of Sliders.A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/Accept-Language"
+                    },
+
+                    {
+                        "name": "question",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "answer",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "show_in",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "institute_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "industry_association_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "organization_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "page_size",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "order",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "ASC",
+                                "DESC"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "row_status",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "description": "1=>Active 0=>InActive",
+                            "enum": [
+                                1,
+                                0
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get list of all faqs",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "order": "ASC",
+                                    "data": [
+                                        {
+                                            "id": 1,
+                                            "show_in": 7,
+                                            "show_in_label":  "Show in Nise3",
+                                            "institute_id": 1,
+                                            "industry_association_id": 1,
+                                            "organization_id": 5,
+                                            "question": "I was thinking I should be like then?' And she began fancying the sort of people live about here?'.",
+                                            "answer": "Hatter, 'you wouldn't talk about her and to hear..",
+                                            "row_status": 1,
+                                            "created_by": null,
+                                            "updated_by": null,
+                                            "created_at": "2021-11-03T12:58:59.000000Z",
+                                            "updated_at": "2021-11-03T12:58:59.000000Z"
+                                        },
+                                        {
+                                            "id": 2,
+                                            "show_in": 1,
+                                            "institute_id": 0,
+                                            "industry_association_id": 0,
+                                            "organization_id": 9,
+                                            "question": "March Hare. 'Then it wasn't trouble enough hatching the eggs.",
+                                            "row_status": 1,
+                                            "created_by": null,
+                                            "updated_by": null,
+                                            "created_at": "2021-11-03T12:58:59.000000Z",
+                                            "updated_at": "2021-11-03T12:58:59.000000Z"
+                                        }
+                                    ],
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "message": null,
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "faqs"
+                ]
+            }
+        },
+
         "/faqs": {
             "get": {
                 "summary": "Get All faqs",
@@ -1244,16 +1522,31 @@
                             "application/json": {
                                 "example": {
                                     "data": {
-                                        "show_in": "1",
-                                        "institute_id": null,
-                                        "industry_association_id": null,
-                                        "organization_id": null,
-                                        "question": "New Question",
-                                        "answer": "New Answer",
-                                        "row_status": "0",
-                                        "updated_at": "2021-11-04T06:03:46.000000Z",
-                                        "created_at": "2021-11-04T06:03:46.000000Z",
-                                        "id": 21
+                                        "id": 22,
+                                        "show_in": "3",
+                                        "show_in_label": "Training Service Provider(TSP)",
+                                        "institute_id": "1",
+                                        "industry_association_id": "1",
+                                        "organization_id": "1",
+                                        "institute_title": "",
+                                        "institute_title_en": "",
+                                        "industry_association_title": "",
+                                        "industry_association_title_en": "",
+                                        "organization_title": "",
+                                        "organization_title_en": "",
+                                        "question": "আমাদের ইংরেজি থেকে বাংলা অনুবাদ টুলটি দ্বারা চালিত",
+                                        "answer": "আমাদের ইংরেজি থেকে বাংলা অনুবাদ টুলটি দ্বারা চালিত। আপনি বাম হাতের পাঠ্য এলাকায় টাইপ করা শুরু করতে পারেন এবং তারপরে \"অনুবাদ\" বোতামে ক্লিক করুন৷ আমাদের অ্যাপ তখন আপনার ইংরেজি শব্দ, বাক্যাংশ বা বাক্যকে বাংলায় অনুবাদ করে",
+                                        "other_language_fields": {
+                                            "hi": {
+                                                "question": "हमारा अंग्रेजी से बांग्ला अनुवाद उपकरण",
+                                                "answer": "हमारा अंग्रेजी से बांग्ला अनुवाद उपकरण अनुवाद एपीआई द्वारा संचालित है। आप बाएं हाथ के टेक्स्ट क्षेत्र पर टाइप करना शुरू कर सकते हैं और फिर \"अनुवाद\" बटन पर क्लिक कर सकते हैं। हमारा ऐप तब आपके अंग्रेजी शब्द, वाक्यांश या वाक्य का बंगाली में अनुवाद करता है"
+                                            }
+                                        },
+                                        "row_status": null,
+                                        "created_by": null,
+                                        "updated_by": null,
+                                        "created_at": "2021-11-09T09:55:22.000000Z",
+                                        "updated_at": "2021-11-09T09:55:22.000000Z"
                                     },
                                     "_response_status": {
                                         "success": true,
@@ -1486,6 +1779,80 @@
             }
         },
 
+        "/public/gallery-albums": {
+            "get": {
+                "summary": "Get All gallery albums",
+                "description": "API endpoint to get all gallery image.A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/Accept-Language"
+                    },
+
+                    {
+                        "$ref": "#/components/parameters/title_optional"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page_size"
+                    },
+                    {
+                        "$ref": "#/components/parameters/row_status"
+                    },
+                    {
+                        "$ref": "#/components/parameters/order"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get All gallery albums",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "order": "ASC",
+                                    "data": [
+                                        {
+                                            "id": 1,
+                                            "parent_gallery_album_id": null,
+                                            "featured": 1,
+                                            "show_in": 1,
+                                            "album_type": 1,
+                                            "published_at": null,
+                                            "archived_at": null,
+                                            "institute_id": null,
+                                            "organization_id": null,
+                                            "industry_association_id": null,
+                                            "batch_id": null,
+                                            "program_id": null,
+                                            "title": "NewTitle",
+                                            "main_image_path": null,
+                                            "thumb_image_path": null,
+                                            "grid_image_path": null,
+                                            "image_alt_title": null,
+                                            "row_status": 1,
+                                            "created_by": null,
+                                            "updated_by": null,
+                                            "created_at": "2021-11-04T06:55:37.000000Z",
+                                            "updated_at": "2021-11-04T06:55:37.000000Z"
+                                        }
+                                    ],
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "message": null,
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Gallery-Album"
+                ]
+            }
+        },
 
         "/gallery-albums": {
             "get": {
@@ -1866,6 +2233,74 @@
         },
 
 
+
+
+        "/public/gallery-images-videos": {
+            "get": {
+                "summary": "Get all gallery image videos",
+                "description": "API endpoint to get the list of gallery-images-videos.A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/Accept-Language"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page_size"
+                    },
+                    {
+                        "$ref": "#/components/parameters/row_status"
+                    },
+                    {
+                        "$ref": "#/components/parameters/order"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successfull",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "data": [
+                                        {
+                                            "gallery_album_id": "1",
+                                            "featured": "1",
+                                            "institute_id": "1",
+                                            "organization_id": "1",
+                                            "content_type": "2",
+                                            "video_type": "1",
+                                            "content_title": "newtitle",
+                                            "content_description": null,
+                                            "content_properties_json": null,
+                                            "image_url": null,
+                                            "video_url": "ddddd",
+                                            "content_cover_image_url": null,
+                                            "content_grid_image_url": null,
+                                            "content_thumb_image_url": null,
+                                            "alt_title": null,
+                                            "row_status": "1",
+                                            "updated_at": "2021-11-04T07:52:27.000000Z",
+                                            "created_at": "2021-11-04T07:52:27.000000Z",
+                                            "id": 1
+                                        }
+                                    ],
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 201,
+                                        "message": "GalleryImageVideo is Successfully added",
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "gallery-images-videos"
+                ]
+            }
+        },
         "/gallery-images-videos": {
             "get": {
                 "summary": "Get all gallery image videos",
@@ -2240,6 +2675,44 @@
             }
         },
 
+        "/public/static-pages": {
+            "get": {
+                "summary": "Get all static page",
+                "description": "API endpoint to get all a Static Page.A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/Accept-Language"
+                    },
+
+                    {
+                        "$ref": "#/components/parameters/title_optional"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page_size"
+                    },
+                    {
+                        "$ref": "#/components/parameters/order"
+                    },
+                    {
+                        "$ref": "#/components/parameters/row_status"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successfull",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                },
+                "tags": [
+                    "static-pages"
+                ]
+            }
+        },
         "/static-pages": {
             "get": {
                 "summary": "Get all static page",
@@ -2470,6 +2943,7 @@
                 ]
             }
         },
+
         "/public/static-pages/{staticPagesId}": {
             "get": {
                 "summary": "Get all static page",
@@ -2501,6 +2975,43 @@
             }
         },
 
+        "/public/recent-activities": {
+            "get": {
+                "summary": "Get All recent activity",
+                "description": "API endpoint to get all recent activities.A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/Accept-Language"
+                    },
+                    {
+                        "$ref": "#/components/parameters/title_optional"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page_size"
+                    },
+                    {
+                        "$ref": "#/components/parameters/order"
+                    },
+                    {
+                        "$ref": "#/components/parameters/row_status"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successfull",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                },
+                "tags": [
+                    "recent-activities"
+                ]
+            }
+        },
         "/recent-activities": {
             "get": {
                 "summary": "Get All recent activity",
@@ -2788,6 +3299,8 @@
                 ]
             }
         },
+
+
 
         "/calender-events": {
             "get": {
@@ -3175,6 +3688,39 @@
             }
         },
 
+
+        "/public/notice-or-news": {
+            "get": {
+                "summary": "Get all notice or news",
+                "description": "API endpoint to all all notice or news.A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/Accept-Language"
+                    },
+
+                    {
+                        "$ref": "#/components/parameters/title_optional"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page_size"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successfull",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                },
+                "tags": [
+                    "notice-or-news"
+                ]
+            }
+        },
         "/notice-or-news": {
             "get": {
                 "summary": "Get all notice or news",

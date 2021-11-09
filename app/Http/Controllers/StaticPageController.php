@@ -117,11 +117,13 @@ class StaticPageController extends Controller
                                 "column_name" => $fillableColumn,
                                 "column_value" => $languageValidatedData[$fillableColumn]
                             ];
-                            app(CmsLanguageService::class)->store($languageFillablePayload);
                         }
 
                     }
                 }
+//                dd($languageFillablePayload);
+                app(CmsLanguageService::class)->store($languageFillablePayload);
+
 
             }
             $response = getResponse($staticPageData->toArray(), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
