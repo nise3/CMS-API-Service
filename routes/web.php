@@ -53,9 +53,11 @@ $router->group(['prefix' => 'api/v1', 'as' => 'api.v1'], function () use ($route
         $router->get('notice-or-news/{id}', ["as" => "notice.news", "uses" => "NoticeOrNewsController@clientSideRead"]);
         $router->get('recent-activities/{id}', ["as" => "recent.activities", "uses" => "RecentActivityController@clientSideRead"]);
         $router->get('nise3-partners/{id}', ["as" => "recent.activities", "uses" => "Nise3PartnerController@clientSideRead"]);
-        $router->get('gallery-albums/{id}', ["as" => "gallery.albums.activities", "uses" => "GalleryAlbumController@clientSideRead"]);
-        $router->get('gallery-images-videos/{id}', ["as" => "gallery.images.videos.activities", "uses" => "GalleryImageVideoController@clientSideRead"]);
+        $router->get('gallery-albums/{id}', ["as" => "gallery.albums", "uses" => "GalleryAlbumController@clientSideRead"]);
+        $router->get('gallery-images-videos/{id}', ["as" => "gallery.images.videos", "uses" => "GalleryImageVideoController@clientSideRead"]);
         $router->get('sliders/{id}', ["as" => "public.sliders", "uses" => "SliderController@clientSideRead"]);
+
+        $router->get('gallery-albums', ["as" => "gallery.albums.list", "uses" => "GalleryAlbumController@clientSideGetList"]);
     });
     /** calender */
     $customRouter()->resourceRoute('calender-events', 'CalenderEventsController')->render();
