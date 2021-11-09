@@ -23,6 +23,7 @@ class NoticeOrNewsResource extends JsonResource
             "id" => $this->id,
             "type" => $this->type,
             "show_in" => $this->show_in,
+            "show_in_label" => BaseModel::SHOW_INS[$this->show_in],
             'published_at' => $this->published_at,
             'archived_at' => $this->archived_at,
             "title" => $this->title,
