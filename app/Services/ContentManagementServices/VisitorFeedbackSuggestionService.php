@@ -37,7 +37,7 @@ class VisitorFeedbackSuggestionService
             'visitor_feedbacks_suggestions.form_type',
             'visitor_feedbacks_suggestions.institute_id',
             'visitor_feedbacks_suggestions.organization_id',
-            'visitor_feedbacks_suggestions.organization_association_id',
+            'visitor_feedbacks_suggestions.industry_association_id',
             'visitor_feedbacks_suggestions.name',
             'visitor_feedbacks_suggestions.name_en',
             'visitor_feedbacks_suggestions.mobile',
@@ -89,7 +89,7 @@ class VisitorFeedbackSuggestionService
             'visitor_feedbacks_suggestions.form_type',
             'visitor_feedbacks_suggestions.institute_id',
             'visitor_feedbacks_suggestions.organization_id',
-            'visitor_feedbacks_suggestions.organization_association_id',
+            'visitor_feedbacks_suggestions.industry_association_id',
             'visitor_feedbacks_suggestions.name',
             'visitor_feedbacks_suggestions.name_en',
             'visitor_feedbacks_suggestions.mobile',
@@ -196,7 +196,7 @@ class VisitorFeedbackSuggestionService
                 "integer",
                 "gt:0",
             ],
-            'organization_association_id' => [
+            'industry_association_id' => [
                 "nullable",
                 "integer",
                 "gt:0",

@@ -1574,23 +1574,47 @@
                         "description": "Successfully created gallery-album",
                         "content": {
                             "application/json": {
-                                "example": {
+                                "example":{
                                     "data": {
-                                        "featured": "1",
-                                        "show_in": "1",
+                                        "id": 11,
+                                        "parent_gallery_album_id": null,
+                                        "featured": "0",
+                                        "show_in": "3",
+                                        "show_in_label": "Training Service Provider(TSP)",
+                                        "album_type": "1",
+                                        "published_at": null,
+                                        "archived_at": null,
                                         "institute_id": "1",
                                         "organization_id": "1",
-                                        "album_type": "1",
-                                        "batch_id": "1",
-                                        "title": "New title",
+                                        "industry_association_id": "1",
+                                        "batch_id": null,
+                                        "program_id": null,
                                         "main_image_path": null,
                                         "thumb_image_path": null,
                                         "grid_image_path": null,
+                                        "institute_title": "",
+                                        "institute_title_en": "",
+                                        "industry_association_title": "",
+                                        "industry_association_title_en": "",
+                                        "organization_title": "",
+                                        "organization_title_en": "",
+                                        "title": "Our English to Bangla Translation Tool is powered by Google Translation API",
                                         "image_alt_title": null,
-                                        "row_status": "1",
-                                        "updated_at": "2021-11-04T06:42:58.000000Z",
-                                        "created_at": "2021-11-04T06:42:58.000000Z",
-                                        "id": 1
+                                        "other_language_fields": {
+                                            "hi": {
+                                                "title": "హమారా ఆంగ్రేజీ సే బాంగ్లా అనువాద ఉపకరణ అనువాద ఏపీ ద్వార సంచలనం. మీరు టెక్స్ట్ క్షేత్రం ప్రతి టైప్ కరణ షురూ కర సకటే ఉంది",
+                                                "image_alt_title": "హమారా ఆంగ్రేజీ సే బాంగ్లా అనువాద ఉపకరణ అనువాద ఏపీ ద్వార సంచలనం. మీరు టెక్స్ట్ క్షేత్రం ప్రతి టైప్ కరణ షురూ కర సకటే ఉంది"
+                                            },
+                                            "te": {
+                                                "title": ". يمكنك البدء في الكتابة فيمنطقة النص الأيسر ثم النقر فوقلبنغالية",
+                                                "image_alt_title": "يتم تشغيل أداة الترجمة من الإنجليزية إلى البنغالية بواسطة Google Translation API. يمكنك البدء في الكتابة في منطقة النص الأيسر ثم النقر فوق الزر \"ترجمة\". يترجم تطبيقنا بعد ذلك الكلمة أو العبارة أو الجملة الإنجليزية إلى البنغالية"
+                                            }
+                                        },
+                                        "row_status": null,
+                                        "created_by": null,
+                                        "updated_by": null,
+                                        "created_at": "2021-11-09T07:35:10.000000Z",
+                                        "updated_at": "2021-11-09T07:35:10.000000Z"
                                     },
                                     "_response_status": {
                                         "success": true,
@@ -1922,26 +1946,47 @@
                         "content": {
                             "application/json": {
                                 "example": {
-                                    "data": {
-                                        "gallery_album_id": "1",
-                                        "featured": "1",
-                                        "institute_id": "1",
-                                        "organization_id": "1",
-                                        "content_type": "1",
-                                        "video_type": "1",
-                                        "content_title": "Old title",
-                                        "content_description": null,
-                                        "content_properties_json": null,
-                                        "image_url": "aaaa",
-                                        "video_url": null,
-                                        "content_cover_image_url": null,
-                                        "content_grid_image_url": null,
-                                        "content_thumb_image_url": null,
-                                        "alt_title": null,
-                                        "row_status": "1",
-                                        "updated_at": "2021-11-04T07:53:49.000000Z",
-                                        "created_at": "2021-11-04T07:53:49.000000Z",
-                                        "id": 2
+                                    "data":{
+                                        "data": {
+                                            "id": 14,
+                                            "gallery_album_id": "1",
+                                            "featured": "1",
+                                            "published_at": null,
+                                            "archived_at": null,
+                                            "institute_id": "1",
+                                            "organization_id": null,
+                                            "industry_association_id": null,
+                                            "content_type": "1",
+                                            "video_type": null,
+                                            "content_title": "image ccccc dddddd ddddd",
+                                            "content_description": null,
+                                            "image_url": "1",
+                                            "video_url": null,
+                                            "content_properties_json": null,
+                                            "content_cover_image_url": null,
+                                            "content_grid_image_url": null,
+                                            "alt_title": null,
+                                            "institute_title": "",
+                                            "institute_title_en": "",
+                                            "industry_association_title": "",
+                                            "industry_association_title_en": "",
+                                            "organization_title": "",
+                                            "organization_title_en": "",
+                                            "other_language_fields": {
+                                                "hi": {
+                                                    "alt_title": "aaaaaaaaaaaa",
+                                                    "content_title": "हमारा अंग्रेजी से बांग्ला अनुवाद उपकरण",
+                                                    "content_description": "asjdkjakdjajdja"
+                                                }
+                                            },
+                                            "row_status": null,
+                                            "published_by": null,
+                                            "archived_by": null,
+                                            "created_by": null,
+                                            "updated_by": null,
+                                            "created_at": "2021-11-09T09:05:53.000000Z",
+                                            "updated_at": "2021-11-09T09:05:53.000000Z"
+                                        }
                                     },
                                     "_response_status": {
                                         "success": true,
@@ -3471,7 +3516,7 @@
                                             "form_type": "1",
                                             "institute_id": null,
                                             "organization_id": null,
-                                            "organization_association_id": null,
+                                            "industry_association_id": null,
                                             "name": "OldHobbit",
                                             "mobile": null,
                                             "email": null,
@@ -3520,7 +3565,7 @@
                                         "form_type": "1",
                                         "institute_id": null,
                                         "organization_id": null,
-                                        "organization_association_id": null,
+                                        "industry_association_id": null,
                                         "name": "OldHobbit",
                                         "mobile": null,
                                         "email": null,
@@ -3571,8 +3616,8 @@
                                         "id": 1,
                                         "form_type": 1,
                                         "institute_id": null,
-                                        "organization_id": null,
-                                        "organization_association_id": null,
+                                        "industry_id": null,
+                                        "industry_association_id": null,
                                         "name": "OldHobbit",
                                         "name_en": null,
                                         "mobile": null,
@@ -4663,7 +4708,7 @@
                         "minLength": 1,
                         "maxLength": 250
                     },
-                    "organization_association_id": {
+                    "industry_association_id": {
                         "type": "integer",
                         "description": "Organisation Association Id",
                         "minLength": 1,
@@ -4808,9 +4853,19 @@
                 "type": "object",
                 "description": "Provide Gallery Categories",
                 "properties": {
+                    "show_in": {
+                        "type": "integer",
+                        "description": "1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry",
+                        "enum": [
+                            1,
+                            2,
+                            3,
+                            4
+                        ],
+                        "example": 1
+                    },
                     "title": {
                         "type": "string",
-                        "description": " Title In Bengali",
                         "minLength": 1,
                         "maxLength": 500
                     },
@@ -4822,30 +4877,20 @@
                         "type": "integer",
                         "description": "Required when you give show_in = 4"
                     },
-                    "parent_gallery_album_id": {
-                        "type": "integer",
-                        "description": "Institute id"
+                    "industry_association_id": {
+                        "type": "integer"
                     },
-                    "organization_association_id": {
-                        "type": "integer",
-                        "description": "organization_association_id"
+                    "parent_gallery_album_id": {
+                        "type": "integer"
                     },
                     "batch_id": {
-                        "type": "integer",
-                        "description": "Batch id"
+                        "type": "integer"
                     },
-                    "programme_id": {
-                        "type": "integer",
-                        "description": "Programme id"
-                    },
-                    "image": {
-                        "type": "string",
-                        "description": "gallery category image",
-                        "minLength": 191
+                    "program_id": {
+                        "type": "integer"
                     },
                     "main_image_path": {
                         "type": "string",
-                        "description": "gallery category image",
                         "minLength": 191
                     },
                     "thumb_image_path": {
@@ -4858,12 +4903,7 @@
                     },
                     "grid_image_path": {
                         "type": "string",
-                        "description": "List or Grid Image",
                         "minLength": 191
-                    },
-                    "alt_title": {
-                        "type": "string",
-                        "description": "alternative title for image"
                     },
                     "featured": {
                         "type": "integer",
@@ -4871,17 +4911,6 @@
                         "enum": [
                             0,
                             1
-                        ],
-                        "example": 1
-                    },
-                    "show_in": {
-                        "type": "integer",
-                        "description": "1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry",
-                        "enum": [
-                            1,
-                            2,
-                            3,
-                            4
                         ],
                         "example": 1
                     },
@@ -4942,6 +4971,30 @@
                         ],
                         "description": "YES => 1, NO => 0"
                     },
+                    "published_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "publish date",
+                        "example": "2021-04-03"
+                    },
+                    "archived_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "Archive date",
+                        "example": "2021-06-03"
+                    },
+                    "institute_id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "organization_id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "industry_association_id": {
+                        "type": "integer",
+                        "example": 1
+                    },
                     "content_type": {
                         "type": "integer",
                         "description": "1=>image,2=>video",
@@ -4988,33 +5041,8 @@
                     "content_thumb_image_url": {
                         "type": "string"
                     },
-                    "institute_id": {
-                        "type": "integer",
-                        "description": "Institute id",
-                        "example": 1
-                    },
-                    "organization_id": {
-                        "type": "integer",
-                        "description": "organization id",
-                        "example": 1
-                    },
-                    "organization_association_id": {
-                        "type": "integer",
-                        "description": "organization_association_id",
-                        "example": 1
-                    },
-                    "published_at": {
-                        "type": "string",
-                        "format": "date-time",
-                        "description": "publish date",
-                        "example": "2021-04-03"
-                    },
-                    "archived_at": {
-                        "type": "string",
-                        "format": "date-time",
-                        "description": "Archive date",
-                        "example": "2021-06-03"
-                    },
+
+
                     "alt_title": {
                         "type": "string",
                         "description": "alternate title for content"
