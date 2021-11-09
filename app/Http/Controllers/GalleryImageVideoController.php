@@ -191,4 +191,32 @@ class GalleryImageVideoController extends Controller
         $response = getResponse($destroyStatus, $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK, $message);
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
+
+    /**
+     * @param Request $request
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function publishOrArchive(Request $request, int $id): JsonResponse
+    {
+        $galleryImageVideo = GalleryImageVideo::findOrFail($id);
+
+        if ($request->input('status') == 1) {
+            $message = "GalleryImageVideo published successfully";
+        } else {
+            $message = "GalleryImageVideo archived successfully";
+        }
+        $data = $this->galleryImageVideoService->publishOrArchive($request, $galleryImageVideo);
+        $response = [
+            '_response_status' => [
+                "data" => $data,
+                "success" => true,
+                "code" => ResponseAlias::HTTP_CREATED,
+                "message" => $message,
+                "query_time" => $this->startTime->diffInSeconds(\Illuminate\Support\Carbon::now()),
+            ]
+        ];
+        return Response::json($response, ResponseAlias::HTTP_OK);
+
+    }
 }

@@ -5,6 +5,7 @@ namespace App\Services\ContentManagementServices;
 use App\Models\BaseModel;
 use App\Models\RecentActivity;
 use App\Services\Common\LanguageCodeService;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -13,6 +14,9 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
+/**
+ *
+ */
 class RecentActivityService
 {
 
@@ -225,6 +229,24 @@ class RecentActivityService
             ],
         ];
         return Validator::make($request->all(), $rules, $customMessage);
+    }
+
+
+    /**
+     * @param Request $request
+     * @param RecentActivity $recentActivity
+     * @return RecentActivity
+     */
+    public function publishOrArchive(Request $request, RecentActivity $recentActivity): RecentActivity
+    {
+        if ($request->input('status') == 1) {
+            $recentActivity->published_at = Carbon::now()->format('Y-m-d H:i:s');
+            $recentActivity->archived_at = null;
+        } else {
+            $recentActivity->archived_at = Carbon::now()->format('Y-m-d H:i:s');
+        }
+        $recentActivity->save();
+        return $recentActivity;
     }
 
     /**

@@ -6,6 +6,7 @@ namespace App\Services\ContentManagementServices;
 use App\Models\BaseModel;
 use App\Models\GalleryAlbum;
 use App\Services\Common\LanguageCodeService;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -74,9 +75,9 @@ class GalleryAlbumService
             $galleryAlbumBuilder->where('gallery_albums.title', 'like', '%' . $titleBn . '%');
         }
 
-        if($isRequestFromClientSide){
+        if ($isRequestFromClientSide) {
             $galleryAlbumBuilder->whereDate('gallery_albums.published_at', '<=', $startTime);
-            $galleryAlbumBuilder->where(function ($builder) use ($startTime){
+            $galleryAlbumBuilder->where(function ($builder) use ($startTime) {
                 $builder->whereNull('gallery_albums.archived_at');
                 $builder->orWhereDate('gallery_albums.archived_at', '>=', $startTime);
             });
@@ -94,6 +95,10 @@ class GalleryAlbumService
     }
 
 
+    /**
+     * @param int $id
+     * @return Model|Builder
+     */
     public function getOneGalleryAlbum(int $id): Model|Builder
     {
         /** @var Builder $galleryAlbumBuilder */
@@ -159,6 +164,23 @@ class GalleryAlbumService
     public function destroy(GalleryAlbum $galleryCategory): bool
     {
         return $galleryCategory->delete();
+    }
+
+    /**
+     * @param Request $request
+     * @param GalleryAlbum $galleryAlbum
+     * @return GalleryAlbum
+     */
+    public function publishOrArchive(Request $request, GalleryAlbum $galleryAlbum): GalleryAlbum
+    {
+        if ($request->input('status') == 1) {
+            $galleryAlbum->published_at = Carbon::now()->format('Y-m-d H:i:s');
+            $galleryAlbum->archived_at = null;
+        } else {
+            $galleryAlbum->archived_at = Carbon::now()->format('Y-m-d H:i:s');
+        }
+        $galleryAlbum->save();
+        return $galleryAlbum;
     }
 
     /**
@@ -343,7 +365,7 @@ class GalleryAlbumService
             ]
         ];
 
-        if($request->filled(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY)){
+        if ($request->filled(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY)) {
             $rules[BaseModel::IS_CLIENT_SITE_RESPONSE_KEY] = [
                 'nullable',
                 'bool'

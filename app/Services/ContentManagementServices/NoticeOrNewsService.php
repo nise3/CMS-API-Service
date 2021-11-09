@@ -5,6 +5,7 @@ namespace App\Services\ContentManagementServices;
 use App\Models\BaseModel;
 use App\Models\NoticeOrNews;
 use App\Services\Common\LanguageCodeService;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -14,6 +15,9 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
 
+/**
+ *
+ */
 class NoticeOrNewsService
 {
 
@@ -159,6 +163,23 @@ class NoticeOrNewsService
     public function destroy(NoticeOrNews $noticeOrNews): bool
     {
         return $noticeOrNews->delete();
+    }
+
+    /**
+     * @param Request $request
+     * @param NoticeOrNews $noticeOrNews
+     * @return NoticeOrNews
+     */
+    public function publishOrArchive(Request $request, NoticeOrNews $noticeOrNews): NoticeOrNews
+    {
+        if ($request->input('status') == 1) {
+            $noticeOrNews->published_at = Carbon::now()->format('Y-m-d H:i:s');
+            $noticeOrNews->archived_at = null;
+        } else {
+            $noticeOrNews->archived_at = Carbon::now()->format('Y-m-d H:i:s');
+        }
+        $noticeOrNews->save();
+        return $noticeOrNews;
     }
 
     public function languageFieldValidator(array $request, string $languageCode): \Illuminate\Contracts\Validation\Validator
