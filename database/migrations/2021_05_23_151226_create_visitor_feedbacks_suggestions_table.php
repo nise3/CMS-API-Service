@@ -24,7 +24,7 @@ class CreateVisitorFeedbacksSuggestionsTable extends Migration
 
             $table->unsignedInteger('institute_id')->nullable();
             $table->unsignedInteger('organization_id')->nullable();
-            $table->unsignedInteger('organization_association_id')->nullable();
+            $table->unsignedInteger('industry_association_id')->nullable();
 
             $table->string('name', 600);
             $table->string('name_en', 200)->nullable();
