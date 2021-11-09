@@ -60,6 +60,7 @@ class GalleryAlbumController extends Controller
     {
         $request->offsetSet(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY, BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG);
         $filter = $this->galleryAlbumService->filterValidator($request)->validate();
+        $filter[BaseModel::IS_CLIENT_SITE_RESPONSE_KEY] = BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG;
         $galleryAlbumList = $this->galleryAlbumService->getAllGalleryAlbums($filter, $this->startTime);
         $request->offsetSet(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID, CmsGlobalConfigService::getOrganizationOrInstituteOrIndustryAssociationTitle($galleryAlbumList->toArray()['data'] ?? $galleryAlbumList->toArray()));
         $response = GalleryAlbumResource::collection($galleryAlbumList)->resource;

@@ -342,14 +342,6 @@ class GalleryAlbumService
                 Rule::in([BaseModel::ROW_STATUS_ACTIVE, BaseModel::ROW_STATUS_INACTIVE]),
             ]
         ];
-
-        if($request->filled(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY)){
-            $rules[BaseModel::IS_CLIENT_SITE_RESPONSE_KEY] = [
-                'nullable',
-                'bool'
-            ];
-        }
-
         return Validator::make($request->all(), $rules, $customMessage);
     }
 }
