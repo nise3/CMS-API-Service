@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\CustomInterfaces\Contract\ResourceInterface;
 use App\Http\Resources\FaqResource;
 use App\Models\BaseModel;
+use App\Models\CmsLanguage;
 use App\Models\Faq;
 use App\Models\LanguageCode;
 use App\Models\LanguageConfig;
@@ -64,7 +65,7 @@ class FaqController extends Controller implements ResourceInterface
     {
         $request->offsetSet(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY, BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG);
         $filter = $this->faqService->filterValidator($request)->validate();
-        $filter[BaseModel::IS_CLIENT_SITE_RESPONSE_KEY]=BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG;
+        $filter[BaseModel::IS_CLIENT_SITE_RESPONSE_KEY] = BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG;
         $faqList = $this->faqService->getFaqList($filter);
         $request->offsetSet(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID, CmsGlobalConfigService::getOrganizationOrInstituteOrIndustryAssociationTitle($faqList->toArray()['data'] ?? $faqList->toArray()));
         $response = FaqResource::collection($faqList)->resource;
@@ -172,23 +173,24 @@ class FaqController extends Controller implements ResourceInterface
         try {
             $faq = $this->faqService->update($faq, $validatedData);
             if ($isLanguage) {
+                CmsLanguage::where('key_id', $faq->id)->delete();
+                $languageFillablePayload = [];
                 foreach ($otherLanguagePayload as $key => $value) {
                     $languageValidatedData = $this->faqService->languageFieldValidator($value, $key)->validate();
                     foreach (Faq::FAQ_LANGUAGE_FILLABLE as $fillableColumn) {
                         if (!empty($languageValidatedData[$fillableColumn])) {
-                            $languageFillablePayload = [
+                            $languageFillablePayload[] = [
                                 "table_name" => $faq->getTable(),
                                 "key_id" => $faq->id,
                                 "lang_code" => $key,
                                 "column_name" => $fillableColumn,
                                 "column_value" => $languageValidatedData[$fillableColumn]
                             ];
-                            app(CmsLanguageService::class)->createOrUpdate($languageFillablePayload);
                             CmsLanguageService::languageCacheClearByKey($faq->getTable(), $faq->id, $key, $fillableColumn);
                         }
                     }
                 }
-
+                app(CmsLanguageService::class)->store($languageFillablePayload);
             }
             $response = new FaqResource($faq);
             $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);

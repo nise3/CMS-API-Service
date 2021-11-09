@@ -150,6 +150,7 @@ class Nise3PartnerController extends Controller
         try {
             $nise3Partner = $this->nise3PartnerService->update($nise3Partner, $validatedData);
             if ($isLanguage) {
+
                 foreach ($otherLanguagePayload as $key => $value) {
                     $languageValidatedData = $this->nise3PartnerService->languageFieldValidator($value, $key)->validate();
                     foreach (Nise3Partner::NISE_3_PARTNER_LANGUAGE_FIELDS as $fillableColumn) {
@@ -161,6 +162,7 @@ class Nise3PartnerController extends Controller
                                 "column_name" => $fillableColumn,
                                 "column_value" => $languageValidatedData[$fillableColumn]
                             ];
+                            CmsLanguageService::languageCacheClearByKey($nise3Partner->getTable(), $nise3Partner->id, $key, $fillableColumn);
                             app(CmsLanguageService::class)->createOrUpdate($languageFillablePayload);
                         }
                     }
