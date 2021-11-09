@@ -4884,10 +4884,6 @@
                         "type": "string",
                         "minLength": 191
                     },
-                    "alt_title": {
-                        "type": "string",
-                        "description": "alternative title for image"
-                    },
                     "featured": {
                         "type": "integer",
                         "description": "1=>YES 0=>NO ",
