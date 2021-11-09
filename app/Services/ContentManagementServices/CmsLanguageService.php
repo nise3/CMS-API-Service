@@ -3,6 +3,8 @@
 namespace App\Services\ContentManagementServices;
 
 use App\Models\CmsLanguage;
+use App\Models\LanguageCode;
+use App\Models\LanguageConfig;
 use App\Services\Common\LanguageCodeService;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -24,15 +26,20 @@ class CmsLanguageService
     {
         $languageCode = strtolower(request()->server('HTTP_ACCEPT_LANGUAGE'));
         $response = "";
-        $languageAttributeKey = getLanguageAttributeKey($model->getTable(), $model->id, $languageCode, $languageColumnName);
-        if (Cache::has($languageAttributeKey)) {
-            $response = Cache::get($languageAttributeKey);
-        } else {
-            $cmsLanguageValue = $this->getLanguageValueByKeyId($model->getTable(), $model->id, $languageCode, $languageColumnName);
-            if ($cmsLanguageValue) {
-                $response = $cmsLanguageValue;
-                Cache::put($languageAttributeKey, $response);
+        if (!LanguageConfig::isNative($languageCode)) {
+            $languageAttributeKey = getLanguageAttributeKey($model->getTable(), $model->id, $languageCode, $languageColumnName);
+            if (Cache::has($languageAttributeKey)) {
+                $response = Cache::get($languageAttributeKey);
+            } else {
+                $cmsLanguageValue = $this->getLanguageValueByKeyId($model->getTable(), $model->id, $languageCode, $languageColumnName);
+                if ($cmsLanguageValue) {
+                    $response = $cmsLanguageValue;
+                    Cache::put($languageAttributeKey, $response);
+                }
             }
+        } else {
+
+            $response = $model->$languageColumnName;
         }
         return $response;
     }
