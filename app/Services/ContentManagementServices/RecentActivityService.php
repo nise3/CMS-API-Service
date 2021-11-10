@@ -392,8 +392,6 @@ class RecentActivityService
                 'required_if:' . $id . ',!=,null',
                 Rule::in([BaseModel::ROW_STATUS_ACTIVE, BaseModel::ROW_STATUS_INACTIVE]),
             ]
-
-
         ];
 
         if (!empty($requestData['content_type']) &&
