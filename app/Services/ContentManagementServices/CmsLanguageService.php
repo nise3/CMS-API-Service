@@ -36,7 +36,6 @@ class CmsLanguageService
                 }
             }
         } else {
-
             $response = $model->$languageColumnName;
         }
         return $response;
