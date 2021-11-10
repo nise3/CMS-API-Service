@@ -34,6 +34,10 @@ class SliderService
         $pageSize = $request['page_size'] ?? "";
         $rowStatus = $request['row_status'] ?? "";
         $order = $request['order'] ?? "ASC";
+        $instituteId = $request['institute_id'] ?? "";
+        $organizationId = $request['organization_id'] ?? "";
+        $industryAssociationId = $request['industry_association_id'] ?? "";
+        $showIn = $request['show_in'] ?? "";
 
         /** @var Builder $sliderBuilder */
 
@@ -76,6 +80,22 @@ class SliderService
         }
         if (!empty($subTitleBn)) {
             $sliderBuilder->where('sliders.sub_title', 'like', '%' . $subTitleBn . '%');
+        }
+
+        if (is_numeric($instituteId)) {
+            $sliderBuilder->where('sliders.institute_id', '=', $instituteId);
+        }
+
+        if (is_numeric($organizationId)) {
+            $sliderBuilder->where('sliders.organization_id', '=', $organizationId);
+        }
+
+        if (is_numeric($industryAssociationId)) {
+            $sliderBuilder->where('sliders.industry_association_id', '=', $industryAssociationId);
+        }
+
+        if (is_numeric($showIn)) {
+            $sliderBuilder->where('sliders.show_in', '=', $showIn);
         }
 
 
@@ -327,6 +347,10 @@ class SliderService
             'sub_title' => 'nullable|max:500|min:2',
             'page' => 'numeric|gt:0',
             'page_size' => 'numeric|gt:0',
+            'institute_id' => 'nullable|integer|gt:0',
+            'organization_id' => 'nullable|integer|gt:0',
+            'industry_association_id' => 'nullable|integer|gt:0',
+            'show_in' => 'nullable|integer|gt:0',
             'order' => [
                 'string',
                 Rule::in([BaseModel::ROW_ORDER_ASC, BaseModel::ROW_ORDER_DESC])
