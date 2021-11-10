@@ -2534,7 +2534,7 @@
         },
         "/gallery-albums/publish-or-archive/{galleryAlbumId}": {
             "post": {
-                "summary": "Published or Archived gallery-album",
+                "summary": "Published/Archived gallery-album",
                 "description": "API endpoint to create  a new published or archived gallery-album.A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
@@ -3963,7 +3963,7 @@
         },
         "/recent-activities/publish-or-archive/{recentActivityId}": {
             "put": {
-                "summary": "Archived or published recent-activity",
+                "summary": "Archived/Published recent-activity",
                 "description": "API endpoint to create a new archived/published recent-activity.A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
@@ -4786,7 +4786,7 @@
         },
         "/notice-or-news/publish-or-archive/{noticeId}": {
             "put": {
-                "summary": "Archived/published noticeOrNews",
+                "summary": "Archived/Published noticeOrNews",
                 "description": "API endpoint to create a new archived/published noticeOrNews.A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
