@@ -803,6 +803,8 @@
                 ]
             }
         },
+
+
         "/public/sliders": {
             "get": {
                 "summary": "Get All public sliders",
