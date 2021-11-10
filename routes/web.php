@@ -76,13 +76,13 @@ $router->group(['prefix' => 'api/v1', 'as' => 'api.v1'], function () use ($route
     /** calender */
     $customRouter()->resourceRoute('calender-events', 'CalenderEventsController')->render();
 
-    /** Language Field Remove From CsmLanguage Table */
-    $router->post('delete-other-language',
-        [
-            "as" => "cms.delete-other-language",
-            "uses" => "CmsLanguageController@deleteLanguageFieldByKeyId"
-        ]
-    );
+//    /** Language Field Remove From CsmLanguage Table */
+//    $router->post('delete-other-language',
+//        [
+//            "as" => "cms.delete-other-language",
+//            "uses" => "CmsLanguageController@deleteLanguageFieldByKeyId"
+//        ]
+//    );
 
     $router->get('cms-global-config', [
         "as" => "cms.global-config",
