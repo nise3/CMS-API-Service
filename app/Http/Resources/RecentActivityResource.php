@@ -29,6 +29,10 @@ class RecentActivityResource extends JsonResource
             'archived_at' => $this->archived_at,
             "institute_id" => $this->institute_id,
             "organization_id" => $this->organization_id,
+            "institute_title" => $request->get(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID)[BaseModel::INSTITUTE_SERVICE][$this->institute_id]['title'] ?? "",
+            "institute_title_en" => $request->get(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID)[BaseModel::INSTITUTE_SERVICE][$this->institute_id]['title_en'] ?? "",
+            "organization_title" => $request->get(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID)[BaseModel::ORGANIZATION_SERVICE][$this->organization_id]['title'] ?? "",
+            "organization_title_en" => $request->get(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID)[BaseModel::ORGANIZATION_SERVICE][$this->organization_id]['title_en'] ?? "",
             "industry_association_id" => $this->industry_association_id,
             "title" => $this->title,
             "content_type" => $this->content_type,
@@ -51,12 +55,6 @@ class RecentActivityResource extends JsonResource
             $response['image_alt_title'] = app(CmsLanguageService::class)->getLanguageValue($this, RecentActivity::LANGUAGE_ATTR_IMAGE_ALT_TITLE);
             $response['description'] = app(CmsLanguageService::class)->getLanguageValue($this, RecentActivity::LANGUAGE_ATTR_DESCRIPTION);
         } else {
-            $response['institute_title'] = "";
-            $response['institute_title_en'] = "";
-            $response['industry_association_title'] = "";
-            $response['industry_association_title_en'] = "";
-            $response['organization_title'] = "";
-            $response['organization_title_en'] = "";
             $response['title'] = $this->title;
             $response['image_alt_title'] = $this->image_alt_title;
             $response['description'] = $this->description;

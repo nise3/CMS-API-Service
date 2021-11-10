@@ -5,6 +5,7 @@ namespace App\Services\ContentManagementServices;
 use App\Models\BaseModel;
 use App\Models\NoticeOrNews;
 use App\Services\Common\LanguageCodeService;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -14,6 +15,9 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
 
+/**
+ *
+ */
 class NoticeOrNewsService
 {
 
@@ -21,7 +25,7 @@ class NoticeOrNewsService
      * @param array $request
      * @return Collection|LengthAwarePaginator|array
      */
-    public function getNoticeOrNewsServiceList(array $request): Collection|LengthAwarePaginator|array
+    public function getNoticeOrNewsServiceList(array $request, $startTime = null): Collection|LengthAwarePaginator|array
     {
         $titleEn = $request['title_en'] ?? "";
         $titleBn = $request['title'] ?? "";
@@ -29,6 +33,10 @@ class NoticeOrNewsService
         $pageSize = $request['page_size'] ?? "";
         $rowStatus = $request['row_status'] ?? "";
         $order = $request['order'] ?? "ASC";
+        $instituteId = $request['institute_id'] ?? "";
+        $organizationId = $request['organization_id'] ?? "";
+        $industryAssociationId = $request['industry_association_id'] ?? "";
+        $isRequestFromClientSide = !empty($request[BaseModel::IS_CLIENT_SITE_RESPONSE_KEY]);
 
         /** @var Builder $noticeOrNewsBuilder */
         $noticeOrNewsBuilder = NoticeOrNews::select([
@@ -70,6 +78,27 @@ class NoticeOrNewsService
         if (!empty($titleBn)) {
             $noticeOrNewsBuilder->where('notice_or_news.title', 'like', '%' . $titleBn . '%');
         }
+
+        if ($isRequestFromClientSide) {
+            $noticeOrNewsBuilder->whereDate('notice_or_news.published_at', '<=', $startTime);
+            $noticeOrNewsBuilder->where(function ($builder) use ($startTime) {
+                $builder->whereNull('notice_or_news.archived_at');
+                $builder->orWhereDate('notice_or_news.archived_at', '>=', $startTime);
+            });
+        }
+
+        if (is_numeric($instituteId)) {
+            $noticeOrNewsBuilder->where('notice_or_news.institute_id', '=', $instituteId);
+        }
+
+        if (is_numeric($organizationId)) {
+            $noticeOrNewsBuilder->where('notice_or_news.organization_id', '=', $organizationId);
+        }
+
+        if (is_numeric($industryAssociationId)) {
+            $noticeOrNewsBuilder->where('notice_or_news.industry_association_id', '=', $industryAssociationId);
+        }
+
 
         /** @var Collection $noticeOrNews */
         if (is_numeric($paginate) || is_numeric($pageSize)) {
@@ -161,6 +190,42 @@ class NoticeOrNewsService
         return $noticeOrNews->delete();
     }
 
+    /**
+     * @param array $data
+     * @param NoticeOrNews $noticeOrNews
+     * @return NoticeOrNews
+     * @throws \Throwable
+     */
+    public function publishOrArchiveNoticeOrNews(array $data, NoticeOrNews $noticeOrNews): NoticeOrNews
+    {
+        if ($data['status'] == BaseModel::STATUS_PUBLISH) {
+            $noticeOrNews->published_at = Carbon::now()->format('Y-m-d H:i:s');
+            $noticeOrNews->archived_at = null;
+        }
+        if ($data['status'] == BaseModel::STATUS_ARCHIVE) {
+            $noticeOrNews->archived_at = Carbon::now()->format('Y-m-d H:i:s');
+        }
+        $noticeOrNews->saveOrFail();
+
+        return $noticeOrNews;
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    public function publishOrArchiveValidator(Request $request): \Illuminate\Contracts\Validation\Validator
+    {
+        $rules = [
+            'status' => [
+                'integer',
+                Rule::in(BaseModel::PUBLISH_OR_ARCHIVE_STATUSES)
+            ]
+
+        ];
+        return Validator::make($request->all(), $rules);
+    }
+
     public function languageFieldValidator(array $request, string $languageCode): \Illuminate\Contracts\Validation\Validator
     {
         $customMessage = [
@@ -220,6 +285,9 @@ class NoticeOrNewsService
             'title' => 'nullable|max:500|min:2',
             'page' => 'nullable|integer|gt:0',
             'page_size' => 'nullable|integer|gt:0',
+            'institute_id' => 'nullable|integer|gt:0',
+            'organization_id' => 'nullable|integer|gt:0',
+            'industry_association_id' => 'nullable|integer|gt:0',
             'order' => [
                 'nullable',
                 'string',

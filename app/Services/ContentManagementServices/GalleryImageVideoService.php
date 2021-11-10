@@ -6,6 +6,7 @@ namespace App\Services\ContentManagementServices;
 use App\Models\BaseModel;
 use App\Models\GalleryImageVideo;
 use App\Services\Common\LanguageCodeService;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -13,14 +14,19 @@ use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Throwable;
 
+/**
+ *
+ */
 class GalleryImageVideoService
 {
     /**
      * @param array $request
+     * @param null $startTime
      * @return Collection|LengthAwarePaginator|array
      */
-    public function getGalleryImageVideoList(array $request): Collection|LengthAwarePaginator|array
+    public function getGalleryImageVideoList(array $request, $startTime = null): Collection|LengthAwarePaginator|array
     {
 
         $contentTitle = $request['content_title'] ?? "";
@@ -29,6 +35,7 @@ class GalleryImageVideoService
         $pageSize = $request['page_size'] ?? "";
         $rowStatus = $request['row_status'] ?? "";
         $order = $request['order'] ?? "ASC";
+        $isRequestFromClientSide = !empty($request[BaseModel::IS_CLIENT_SITE_RESPONSE_KEY]);
 
         /** @var GalleryImageVideo|Builder $galleryImageVideoBuilder */
         $galleryImageVideoBuilder = GalleryImageVideo::select([
@@ -81,6 +88,14 @@ class GalleryImageVideoService
         }
         if (!empty($contentTitleEN)) {
             $galleryImageVideoBuilder->where('gallery_images_videos.content_title_en', 'like', '%' . $contentTitleEN . '%');
+        }
+
+        if($isRequestFromClientSide){
+            $galleryImageVideoBuilder->whereDate('gallery_images_videos.published_at', '<=', $startTime);
+            $galleryImageVideoBuilder->where(function ($builder) use ($startTime){
+                $builder->whereNull('gallery_images_videos.archived_at');
+                $builder->orWhereDate('gallery_images_videos.archived_at', '>=', $startTime);
+            });
         }
 
         /** @var Collection $galleries */
@@ -179,6 +194,43 @@ class GalleryImageVideoService
     public function destroy(GalleryImageVideo $galleryImageVideo): bool
     {
         return $galleryImageVideo->delete();
+    }
+
+
+    /**
+     * @param array $data
+     * @param GalleryImageVideo $galleryImageVideo
+     * @return GalleryImageVideo
+     * @throws Throwable
+     */
+    public function publishOrArchiveGalleryImageVideo(array $data, GalleryImageVideo $galleryImageVideo): GalleryImageVideo
+    {
+        if ($data['status'] == BaseModel::STATUS_PUBLISH) {
+            $galleryImageVideo->published_at = Carbon::now()->format('Y-m-d H:i:s');
+            $galleryImageVideo->archived_at = null;
+        }
+        if ($data['status'] == BaseModel::STATUS_ARCHIVE) {
+            $galleryImageVideo->archived_at = Carbon::now()->format('Y-m-d H:i:s');
+        }
+        $galleryImageVideo->saveOrFail();
+        return $galleryImageVideo;
+    }
+
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    public function publishOrArchiveValidator(Request $request): \Illuminate\Contracts\Validation\Validator
+    {
+        $rules = [
+            'status' => [
+                'integer',
+                Rule::in(BaseModel::PUBLISH_OR_ARCHIVE_STATUSES)
+            ]
+
+        ];
+        return Validator::make($request->all(), $rules);
     }
 
     public function languageFieldValidator(array $request, string $languageCode): \Illuminate\Contracts\Validation\Validator

@@ -2,16 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\FaqResource;
 use App\Http\Resources\StaticPageResource;
 use App\Models\BaseModel;
 use App\Models\StaticPage;
+use App\Services\Common\CmsGlobalConfigService;
 use App\Services\Common\LanguageCodeService;
 use App\Services\ContentManagementServices\CmsLanguageService;
 use App\Services\ContentManagementServices\StaticPageService;
 use Carbon\Carbon;
+use Illuminate\Http\Client\RequestException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
@@ -44,15 +48,32 @@ class StaticPageController extends Controller
      * @param Request $request
      * @return JsonResponse
      * @throws ValidationException
+     * @throws RequestException
      */
     public function getList(Request $request): JsonResponse
     {
         $request->offsetSet(BaseModel::IS_COLLECTION_KEY, BaseModel::IS_COLLECTION_FLAG);
         $filter = $this->staticPageService->filterValidator($request)->validate();
-        $response = StaticPageResource::collection($this->staticPageService->getAllStaticPages($filter))->resource;
+        $staticPageList = $this->staticPageService->getAllStaticPages($filter);
+        $request->offsetSet(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID, CmsGlobalConfigService::getOrganizationOrInstituteOrIndustryAssociationTitle($staticPageList->toArray()['data'] ?? $staticPageList->toArray()));
+        $response = StaticPageResource::collection($staticPageList)->resource;
         $response = getResponse($response->toArray(), $this->startTime, !BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
+        return Response::json($response, ResponseAlias::HTTP_OK);
+    }
 
-        return Response::json($response);
+    /**
+     * @throws ValidationException
+     * @throws RequestException
+     */
+    public function clientSideGetList(Request $request): JsonResponse
+    {
+        $request->offsetSet(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY, BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG);
+        $filter = $this->staticPageService->filterValidator($request)->validate();
+        $staticPageList = $this->staticPageService->getAllStaticPages($filter);
+        $request->offsetSet(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID, CmsGlobalConfigService::getOrganizationOrInstituteOrIndustryAssociationTitle($staticPageList->toArray()['data'] ?? $staticPageList->toArray()));
+        $response = StaticPageResource::collection($staticPageList)->resource;
+        $response = getResponse($response->toArray(), $this->startTime, !BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
+        return Response::json($response, ResponseAlias::HTTP_OK);
     }
 
     /**
@@ -61,11 +82,13 @@ class StaticPageController extends Controller
      * @param Request $request
      * @param int $id
      * @return JsonResponse
+     * @throws RequestException
      */
     public function read(Request $request, int $id): JsonResponse
     {
-
-        $response = new StaticPageResource($this->staticPageService->getOneStaticPage($id));
+        $staticPage = $this->staticPageService->getOneStaticPage($id);
+        $request->offsetSet(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID, CmsGlobalConfigService::getOrganizationOrInstituteOrIndustryAssociationTitle($staticPage->toArray()));
+        $response = new StaticPageResource($staticPage);
         $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
@@ -76,11 +99,14 @@ class StaticPageController extends Controller
      * @param Request $request
      * @param int $id
      * @return JsonResponse
+     * @throws RequestException
      */
     public function clientSideRead(Request $request, int $id): JsonResponse
     {
         $request->offsetSet(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY, BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG);
-        $response = new StaticPageResource($this->staticPageService->getOneStaticPage($id));
+        $staticPage = $this->staticPageService->getOneStaticPage($id);
+        $request->offsetSet(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID, CmsGlobalConfigService::getOrganizationOrInstituteOrIndustryAssociationTitle($staticPage->toArray()));
+        $response = new StaticPageResource($staticPage);
         $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
@@ -97,6 +123,7 @@ class StaticPageController extends Controller
     {
 
         $validatedData = $this->staticPageService->validator($request)->validate();
+
         $message = "Static Page is successfully added";
         $otherLanguagePayload = $validatedData['other_language_fields'] ?? [];
         $isLanguage = (bool)count(array_intersect(array_keys($otherLanguagePayload), LanguageCodeService::getLanguageCode()));
@@ -124,7 +151,9 @@ class StaticPageController extends Controller
                 }
 
             }
-            $response = getResponse($staticPageData->toArray(), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
+//            dd($staticPageData);
+            $response=new StaticPageResource($staticPageData);
+            $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
             DB::commit();
         } catch (Throwable $e) {
             DB::rollBack();
@@ -173,7 +202,8 @@ class StaticPageController extends Controller
                 }
 
             }
-            $response = getResponse($staticPageData->toArray(), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
+
+            $response = getResponse($staticPageData->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
             DB::commit();
         } catch (Throwable $e) {
             DB::rollBack();

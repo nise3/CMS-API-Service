@@ -6,6 +6,7 @@ namespace App\Services\ContentManagementServices;
 use App\Models\BaseModel;
 use App\Models\GalleryAlbum;
 use App\Services\Common\LanguageCodeService;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -13,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Throwable;
 
 /**
  * Class GalleryAlbumService
@@ -74,9 +76,9 @@ class GalleryAlbumService
             $galleryAlbumBuilder->where('gallery_albums.title', 'like', '%' . $titleBn . '%');
         }
 
-        if($isRequestFromClientSide){
+        if ($isRequestFromClientSide) {
             $galleryAlbumBuilder->whereDate('gallery_albums.published_at', '<=', $startTime);
-            $galleryAlbumBuilder->where(function ($builder) use ($startTime){
+            $galleryAlbumBuilder->where(function ($builder) use ($startTime) {
                 $builder->whereNull('gallery_albums.archived_at');
                 $builder->orWhereDate('gallery_albums.archived_at', '>=', $startTime);
             });
@@ -94,6 +96,10 @@ class GalleryAlbumService
     }
 
 
+    /**
+     * @param int $id
+     * @return Model|Builder
+     */
     public function getOneGalleryAlbum(int $id): Model|Builder
     {
         /** @var Builder $galleryAlbumBuilder */
@@ -159,6 +165,42 @@ class GalleryAlbumService
     public function destroy(GalleryAlbum $galleryCategory): bool
     {
         return $galleryCategory->delete();
+    }
+
+    /**
+     * @param array $data
+     * @param GalleryAlbum $galleryAlbum
+     * @return GalleryAlbum
+     * @throws Throwable
+     */
+    public function publishOrArchiveGalleryAlbum(array $data, GalleryAlbum $galleryAlbum): GalleryAlbum
+    {
+        if ($data['status'] == BaseModel::STATUS_PUBLISH) {
+            $galleryAlbum->published_at = Carbon::now()->format('Y-m-d H:i:s');
+            $galleryAlbum->archived_at = null;
+
+        }
+        if ($data['status'] == BaseModel::STATUS_ARCHIVE) {
+            $galleryAlbum->archived_at = Carbon::now()->format('Y-m-d H:i:s');
+        }
+        $galleryAlbum->saveOrFail();
+        return $galleryAlbum;
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    public function publishOrArchiveValidator(Request $request): \Illuminate\Contracts\Validation\Validator
+    {
+        $rules = [
+            'status' => [
+                'integer',
+                Rule::in(BaseModel::PUBLISH_OR_ARCHIVE_STATUSES)
+            ]
+
+        ];
+        return Validator::make($request->all(), $rules);
     }
 
     /**

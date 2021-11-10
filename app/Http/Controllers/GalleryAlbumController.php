@@ -19,6 +19,9 @@ use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 use Throwable;
 
+/**
+ *
+ */
 class GalleryAlbumController extends Controller
 {
 
@@ -215,5 +218,27 @@ class GalleryAlbumController extends Controller
         $message = $destroyStatus ? "Gallery Album successfully deleted" : "Gallery Album is not deleted";
         $response = getResponse($destroyStatus, $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK, $message);
         return Response::json($response, ResponseAlias::HTTP_OK);
+    }
+
+    /**
+     * @param Request $request
+     * @param int $id
+     * @return JsonResponse
+     * @throws Throwable
+     */
+    public function publishOrArchive(Request $request, int $id): JsonResponse
+    {
+        $galleryAlbum = GalleryAlbum::findOrFail($id);
+
+        if ($request->input('status') == BaseModel::STATUS_PUBLISH) {
+            $message = "Gallery Album published successfully";
+        }
+        if ($request->input('status') == BaseModel::STATUS_ARCHIVE) {
+            $message = "Gallery Album archived successfully";
+        }
+        $validatedData = $this->galleryAlbumService->publishOrArchiveValidator($request)->validate();
+        $data = $this->galleryAlbumService->publishOrArchiveGalleryAlbum($validatedData, $galleryAlbum);
+        $response = getResponse($data->toArray(), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
+        return Response::json($response, ResponseAlias::HTTP_CREATED);
     }
 }

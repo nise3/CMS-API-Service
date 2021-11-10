@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\GalleryAlbumResource;
 use App\Http\Resources\NoticeOrNewsResource;
 use App\Models\BaseModel;
 use App\Models\NoticeOrNews;
+use App\Services\Common\CmsGlobalConfigService;
 use App\Services\Common\LanguageCodeService;
 use App\Services\ContentManagementServices\CmsLanguageService;
 use App\Services\ContentManagementServices\NoticeOrNewsService;
@@ -40,7 +42,25 @@ class NoticeOrNewsController extends Controller
     {
         $request->offsetSet(BaseModel::IS_COLLECTION_KEY, BaseModel::IS_COLLECTION_FLAG);
         $filter = $this->noticeOrNewsService->filterValidator($request)->validate();
-        $response = NoticeOrNewsResource::collection($this->noticeOrNewsService->getNoticeOrNewsServiceList($filter))->resource;
+        $noticeOrNewsList = $this->noticeOrNewsService->getNoticeOrNewsServiceList($filter);
+        $request->offsetSet(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID, CmsGlobalConfigService::getOrganizationOrInstituteOrIndustryAssociationTitle($noticeOrNewsList->toArray()['data'] ?? $noticeOrNewsList->toArray()));
+        $response = NoticeOrNewsResource::collection($noticeOrNewsList)->resource;
+        $response = getResponse($response->toArray(), $this->startTime, !BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
+        return Response::json($response, ResponseAlias::HTTP_OK);
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function clientSideGetList(Request $request): JsonResponse
+    {
+        $request->offsetSet(BaseModel::IS_COLLECTION_KEY, BaseModel::IS_COLLECTION_FLAG);
+        $filter = $this->noticeOrNewsService->filterValidator($request)->validate();
+        $filter[BaseModel::IS_CLIENT_SITE_RESPONSE_KEY] = BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG;
+        $noticeOrNewsList = $this->noticeOrNewsService->getNoticeOrNewsServiceList($filter, $this->startTime);
+        $request->offsetSet(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID, CmsGlobalConfigService::getOrganizationOrInstituteOrIndustryAssociationTitle($noticeOrNewsList->toArray()['data'] ?? $noticeOrNewsList->toArray()));
+        $response = NoticeOrNewsResource::collection($noticeOrNewsList)->resource;
         $response = getResponse($response->toArray(), $this->startTime, !BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
@@ -52,7 +72,9 @@ class NoticeOrNewsController extends Controller
      */
     public function read(Request $request, int $id): JsonResponse
     {
-        $response = new  NoticeOrNewsResource($this->noticeOrNewsService->getOneNoticeOrNewsService($id));
+        $noticeOrNews = $this->noticeOrNewsService->getOneNoticeOrNewsService($id);
+        $response = new  NoticeOrNewsResource($noticeOrNews);
+        $request->offsetSet(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID, CmsGlobalConfigService::getOrganizationOrInstituteOrIndustryAssociationTitle($noticeOrNews->toArray()));
         $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
@@ -67,8 +89,9 @@ class NoticeOrNewsController extends Controller
      */
     public function clientSideRead(Request $request, int $id): JsonResponse
     {
-        $request->offsetSet(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY, BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG);
-        $response = new NoticeOrNewsResource($this->noticeOrNewsService->getOneNoticeOrNewsService($id));
+        $noticeOrNews = $this->noticeOrNewsService->getOneNoticeOrNewsService($id);
+        $response = new NoticeOrNewsResource($noticeOrNews);
+        $request->offsetSet(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID, CmsGlobalConfigService::getOrganizationOrInstituteOrIndustryAssociationTitle($galleryImageVideo->toArray()));
         $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
@@ -108,7 +131,7 @@ class NoticeOrNewsController extends Controller
                 }
 
             }
-            $response = getResponse($noticeOrNews->toArray(), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
+            $response = getResponse($noticeOrNews->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
             DB::commit();
         } catch (Throwable $e) {
             DB::rollBack();
@@ -180,6 +203,30 @@ class NoticeOrNewsController extends Controller
         $message = $noticeOrNews ? "NoticeOrNews successfully deleted" : "NoticeOrNews is not deleted";
         $response = getResponse($destroyStatus, $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK, $message);
         return Response::json($response, ResponseAlias::HTTP_OK);
+    }
+
+    /**
+     * @param Request $request
+     * @param int $id
+     * @return JsonResponse
+     * @throws ValidationException
+     * @throws Throwable
+     */
+    public function publishOrArchive(Request $request, int $id): JsonResponse
+    {
+        $noticeOrNews = NoticeOrNews::findOrFail($id);
+
+        if ($request->input('status') == BaseModel::STATUS_PUBLISH) {
+            $message = "NoticeOrNews published successfully";
+        }
+        if ($request->input('status') == BaseModel::STATUS_ARCHIVE) {
+            $message = "NoticeOrNews archived successfully";
+        }
+        $validatedData = $this->noticeOrNewsService->publishOrArchiveValidator($request)->validate();
+        $data = $this->noticeOrNewsService->publishOrArchiveNoticeOrNews($validatedData, $noticeOrNews);
+        $response = getResponse($data->toArray(), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
+        return Response::json($response, ResponseAlias::HTTP_CREATED);
+
     }
 
 }

@@ -5,6 +5,7 @@ namespace App\Services\ContentManagementServices;
 use App\Models\BaseModel;
 use App\Models\RecentActivity;
 use App\Services\Common\LanguageCodeService;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -12,15 +13,20 @@ use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Throwable;
 
+/**
+ *
+ */
 class RecentActivityService
 {
 
     /**
      * @param array $request
+     * @param null $startTime
      * @return Collection|LengthAwarePaginator|array
      */
-    public function getRecentActivityList(array $request): Collection|LengthAwarePaginator|array
+    public function getRecentActivityList(array $request, $startTime = null): Collection|LengthAwarePaginator|array
     {
         $titleEn = $request['title_en'] ?? "";
         $titleBn = $request['title'] ?? "";
@@ -28,6 +34,7 @@ class RecentActivityService
         $pageSize = $request['page_size'] ?? "";
         $rowStatus = $request['row_status'] ?? "";
         $order = $request['order'] ?? "ASC";
+        $isRequestFromClientSide = !empty($request[BaseModel::IS_CLIENT_SITE_RESPONSE_KEY]);
 
 
         /** @var  Builder $recentActivityBuilder */
@@ -69,6 +76,14 @@ class RecentActivityService
         }
         if (!empty($titleBn)) {
             $recentActivityBuilder->where('recent_activities.title', 'like', '%' . $titleBn . '%');
+        }
+
+        if($isRequestFromClientSide){
+            $recentActivityBuilder->whereDate('recent_activities.published_at', '<=', $startTime);
+            $recentActivityBuilder->where(function ($builder) use ($startTime){
+                $builder->whereNull('recent_activities.archived_at');
+                $builder->orWhereDate('recent_activities.archived_at', '>=', $startTime);
+            });
         }
 
 
@@ -227,6 +242,43 @@ class RecentActivityService
         return Validator::make($request->all(), $rules, $customMessage);
     }
 
+
+    /**
+     * @param array $data
+     * @param RecentActivity $recentActivity
+     * @return RecentActivity
+     * @throws Throwable
+     */
+    public function publishOrArchiveRecentActivity(array $data, RecentActivity $recentActivity): RecentActivity
+    {
+        if ($data['status'] == BaseModel::STATUS_PUBLISH) {
+            $recentActivity->published_at = Carbon::now()->format('Y-m-d H:i:s');
+            $recentActivity->archived_at = null;
+        }
+        if ($data['status'] == BaseModel::STATUS_ARCHIVE) {
+            $recentActivity->archived_at = Carbon::now()->format('Y-m-d H:i:s');
+        }
+        $recentActivity->saveOrFail();
+        return $recentActivity;
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    public function publishOrArchiveValidator(Request $request): \Illuminate\Contracts\Validation\Validator
+    {
+        $rules = [
+            'status' => [
+                'integer',
+                Rule::in(BaseModel::PUBLISH_OR_ARCHIVE_STATUSES)
+            ]
+
+        ];
+        return Validator::make($request->all(), $rules);
+    }
+
+
     /**
      * @param $request
      * @param int|null $id
@@ -340,15 +392,7 @@ class RecentActivityService
                 'required_if:' . $id . ',!=,null',
                 Rule::in([BaseModel::ROW_STATUS_ACTIVE, BaseModel::ROW_STATUS_INACTIVE]),
             ]
-
-
         ];
-        if (!empty($requestData['content_type']) && $requestData['content_type'] == RecentActivity::CONTENT_TYPE_YOUTUBE_VIDEO) {
-            $rules['embedded_id'] = [
-                'required',
-                'max:300'
-            ];
-        }
 
         if (!empty($requestData['content_type']) &&
             ($requestData['content_type'] == RecentActivity::CONTENT_TYPE_FACEBOOK_VIDEO || $requestData['content_type'] == RecentActivity::CONTENT_TYPE_YOUTUBE_VIDEO)) {
@@ -356,6 +400,10 @@ class RecentActivityService
                 'required',
                 'string',
                 'max:800'
+            ];
+            $rules['embedded_id'] = [
+                'required',
+                'max:300'
             ];
         }
         $rules = array_merge($rules, BaseModel::OTHER_LANGUAGE_VALIDATION_RULES);

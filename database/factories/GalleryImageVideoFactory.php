@@ -20,6 +20,7 @@ class GalleryImageVideoFactory extends Factory
         }
         return [
             'featured'=>$this->faker->boolean(),
+            'published_at' => Carbon::now(),
             'content_type' => $contentType,
             'video_type' =>$videoType,
             'institute_id' => $this->faker->numberBetween(1, 10),

@@ -3,13 +3,16 @@
 namespace App\Http\Controllers;
 
 
+use App\Http\Resources\GalleryImageVideoResource;
 use App\Http\Resources\RecentActivityResource;
 use App\Models\BaseModel;
 use App\Models\RecentActivity;
+use App\Services\Common\CmsGlobalConfigService;
 use App\Services\Common\LanguageCodeService;
 use App\Services\ContentManagementServices\CmsLanguageService;
 use App\Services\ContentManagementServices\RecentActivityService;
 use Carbon\Carbon;
+use Illuminate\Http\Client\RequestException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -18,6 +21,9 @@ use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 use Throwable;
 
+/**
+ *
+ */
 class RecentActivityController extends Controller
 {
 
@@ -35,24 +41,49 @@ class RecentActivityController extends Controller
      * @param Request $request
      * @return JsonResponse
      * @throws ValidationException
+     * @throws RequestException
      */
     public function getList(Request $request): JsonResponse
     {
         $request->offsetSet(BaseModel::IS_COLLECTION_KEY, BaseModel::IS_COLLECTION_FLAG);
         $filter = $this->recentActivityService->filterValidator($request)->validate();
-        $response = RecentActivityResource::collection($this->recentActivityService->getRecentActivityList($filter))->resource;
+        $recentActivityList = $this->recentActivityService->getRecentActivityList($filter);
+        $request->offsetSet(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID, CmsGlobalConfigService::getOrganizationOrInstituteOrIndustryAssociationTitle($recentActivityList->toArray()['data'] ?? $recentActivityList->toArray()));
+        $response = RecentActivityResource::collection($recentActivityList)->resource;
         $response = getResponse($response->toArray(), $this->startTime, !BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
 
     /**
+     * @param Request $request
+     * @return JsonResponse
+     * @throws ValidationException
+     * @throws RequestException
+     */
+    public function clientSideGetList(Request $request): JsonResponse
+    {
+        $request->offsetSet(BaseModel::IS_COLLECTION_KEY, BaseModel::IS_COLLECTION_FLAG);
+        $filter = $this->recentActivityService->filterValidator($request)->validate();
+        $filter[BaseModel::IS_CLIENT_SITE_RESPONSE_KEY] = BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG;
+        $recentActivityList = $this->recentActivityService->getRecentActivityList($filter, $this->startTime);
+        $request->offsetSet(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID, CmsGlobalConfigService::getOrganizationOrInstituteOrIndustryAssociationTitle($recentActivityList->toArray()['data'] ?? $recentActivityList->toArray()));
+        $response = RecentActivityResource::collection($recentActivityList)->resource;
+        $response = getResponse($response->toArray(), $this->startTime, !BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
+        return Response::json($response, ResponseAlias::HTTP_OK);
+    }
+
+    /**
+     * @param Request $request
      * @param int $id
      * @return JsonResponse
+     * @throws RequestException
      */
-    public function read(int $id): JsonResponse
+    public function read(Request $request, int $id): JsonResponse
     {
-        $response = new RecentActivityResource($this->recentActivityService->getOneRecentActivity($id));
-        $response = getResponse($response->toArray(request()), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
+        $recentActivity = $this->recentActivityService->getOneRecentActivity($id);
+        $response = new  RecentActivityResource($recentActivity);
+        $request->offsetSet(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID, CmsGlobalConfigService::getOrganizationOrInstituteOrIndustryAssociationTitle($recentActivity->toArray()));
+        $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
 
@@ -63,11 +94,14 @@ class RecentActivityController extends Controller
      * @param Request $request
      * @param int $id
      * @return JsonResponse
+     * @throws RequestException
      */
     public function clientSideRead(Request $request, int $id): JsonResponse
     {
         $request->offsetSet(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY, BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG);
-        $response = new RecentActivityResource($this->recentActivityService->getOneRecentActivity($id));
+        $recentActivity = $this->recentActivityService->getOneRecentActivity($id);
+        $request->offsetSet(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID, CmsGlobalConfigService::getOrganizationOrInstituteOrIndustryAssociationTitle($recentActivity->toArray()));
+        $response = new RecentActivityResource($recentActivity);
         $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
@@ -110,7 +144,11 @@ class RecentActivityController extends Controller
                 }
 
             }
-            $response = getResponse($recentActivity->toArray(), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
+
+
+
+            $response = new RecentActivityResource($recentActivity);
+            $response = getResponse($recentActivity->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
             DB::commit();
         } catch (Throwable $e) {
             DB::rollBack();
@@ -180,6 +218,29 @@ class RecentActivityController extends Controller
         $message = $destroyStatus ? "RecentActivity successfully deleted" : "RecentActivity not deleted";
         $response = getResponse($destroyStatus, $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK, $message);
         return Response::json($response, ResponseAlias::HTTP_OK);
+    }
+
+
+    /**
+     * @param Request $request
+     * @param int $id
+     * @return JsonResponse
+     * @throws Throwable
+     */
+    public function publishOrArchive(Request $request, int $id): JsonResponse
+    {
+        $recentActivity = RecentActivity::findOrFail($id);
+
+        if ($request->input('status') == BaseModel::STATUS_PUBLISH) {
+            $message = "RecentActivity published successfully";
+        }
+        if ($request->input('status') == BaseModel::STATUS_ARCHIVE) {
+            $message = "RecentActivity archived successfully";
+        }
+        $validatedData = $this->recentActivityService->publishOrArchiveValidator($request)->validate();
+        $data = $this->recentActivityService->publishOrArchiveRecentActivity($validatedData, $recentActivity);
+        $response = getResponse($data->toArray(), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
+        return Response::json($response, ResponseAlias::HTTP_CREATED);
     }
 
 }
