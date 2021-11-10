@@ -410,7 +410,7 @@
         },
         "/public/nise3-partners": {
             "get": {
-                "summary": "Get All Partners",
+                "summary": "Get All Public Partners",
                 "description": "Get The list of all partners of Nise3",
                 "parameters": [
                     {
@@ -602,7 +602,7 @@
         },
         "/nise3-partners/{partnerId}": {
             "get": {
-                "summary": "Get partner by Id",
+                "summary": "Get a partner by Id",
                 "description": "API endpoint to create a partner.A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
@@ -657,7 +657,7 @@
                 ]
             },
             "put": {
-                "summary": "Update partner by Id",
+                "summary": "Update a  partner by Id",
                 "description": "API endpoint to update a partner.A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
@@ -751,7 +751,7 @@
         },
         "/public/nise3-partners/{partnerId}": {
             "get": {
-                "summary": "Get partner by Id",
+                "summary": "Get a public partner by Id",
                 "description": "API endpoint to create a partner.A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
@@ -809,6 +809,18 @@
                 "description": "Get All the sliders",
                 "parameters": [
                     {
+                        "$ref": "#/components/parameters/show_in"
+                    },
+                    {
+                        "$ref": "#/components/parameters/institute_id"
+                    },
+                    {
+                        "$ref": "#/components/parameters/industry_association_id"
+                    },
+                    {
+                        "$ref": "#/components/parameters/organization_id"
+                    },
+                    {
                         "$ref": "#/components/parameters/Accept-Language"
                     },
                     {
@@ -861,6 +873,18 @@
                 "summary": "Get All sliders",
                 "description": "Get All the sliders",
                 "parameters": [
+                    {
+                        "$ref": "#/components/parameters/show_in"
+                    },
+                    {
+                        "$ref": "#/components/parameters/institute_id"
+                    },
+                    {
+                        "$ref": "#/components/parameters/industry_association_id"
+                    },
+                    {
+                        "$ref": "#/components/parameters/organization_id"
+                    },
                     {
                         "$ref": "#/components/parameters/title_optional"
                     },
@@ -4697,6 +4721,37 @@
             }
         },
         "parameters": {
+            "show_in":{
+                    "name": "show_in",
+                    "in": "query",
+                    "required": false,
+                     "description": "1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry",
+                    "schema": {
+                        "type": "integer",
+                        "enum": [
+                            1,
+                            2,
+                            3,
+                            4
+                        ]
+                    }
+                },
+            "institute_id":{
+                    "name": "institute_id",
+                    "in": "query",
+                    "required": false,
+                    "schema": {
+                    "type": "integer"
+                    }
+                },
+            "industry_association_id":{
+                    "name": "industry_association_id",
+                    "in": "query",
+                    "required": false,
+                    "schema": {
+                    "type": "integer"
+                    }
+                },
             "Accept-Language": {
                 "name": "Accept-Language",
                 "in": "header",
@@ -5364,15 +5419,6 @@
                         1,
                         2
                     ]
-                }
-            },
-            "institute_id": {
-                "name": "institute_id",
-                "in": "query",
-                "required": true,
-                "style": "form",
-                "schema": {
-                    "type": "integer"
                 }
             },
             "institute_id_optional": {
