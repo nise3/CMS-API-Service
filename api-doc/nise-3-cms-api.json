@@ -417,7 +417,6 @@
                     {
                         "$ref": "#/components/parameters/Accept-Language"
                     },
-
                     {
                         "$ref": "#/components/parameters/title_optional"
                     },
@@ -439,9 +438,6 @@
                         "description": "Successful",
                         "content": {
                             "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/nise3_partner"
-                                },
                                 "example": {
                                     "order": "asc",
                                     "data": [
@@ -494,23 +490,54 @@
                         "description": "Successful",
                         "content": {
                             "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/nise3_partner"
-                                },
-                                "example": {
-                                    "order": "asc",
+                                "example":{
+                                    "order": "ASC",
                                     "data": [
                                         {
+                                            "id": 1,
+                                            "title": "Oldie",
+                                            "main_image_path": null,
+                                            "thumb_image_path": null,
+                                            "grid_image_path": null,
+                                            "domain": null,
+                                            "image_alt_title": null,
+                                            "other_language_fields": {
+                                                "hi": {
+                                                    "title": "హమారా ఆంగ్రేజీ సే బాంగ్లా అనువాద ఉపకరణ అనువాద ఏపీ ద్వార సంచలనం. మీరు టెక్స్ట్ క్షేత్రం ప్రతి టైప్ కరణ షురూ కర సకటే ఉంది"
+                                                }
+                                            },
+                                            "row_status": 1,
+                                            "created_by": null,
+                                            "updated_by": null,
+                                            "created_at": "2021-11-09T06:09:01.000000Z",
+                                            "updated_at": "2021-11-09T06:09:01.000000Z"
+                                        },
+                                        {
                                             "id": 3,
-                                            "title": "Bangladesh",
-                                            "code": "BD",
-                                            "deleted_at": null
+                                            "title": "AAASSSDDD",
+                                            "main_image_path": null,
+                                            "thumb_image_path": null,
+                                            "grid_image_path": null,
+                                            "domain": null,
+                                            "image_alt_title": null,
+                                            "other_language_fields": {
+                                                "hi": {
+                                                    "title": "हमारा अंग्रेजी से बांग्ला अनुवाद उपकरण",
+                                                    "image_alt_title": "हमारा अंग्रेजी से बांग्ला अनुवाद उपकरण"
+                                                }
+                                            },
+                                            "row_status": 1,
+                                            "created_by": null,
+                                            "updated_by": null,
+                                            "created_at": "2021-11-09T10:19:39.000000Z",
+                                            "updated_at": "2021-11-09T10:19:39.000000Z"
                                         }
                                     ],
                                     "_response_status": {
                                         "success": true,
                                         "code": 200,
-                                        "query_time": "1 second before"
+                                        "message": null,
+                                        "query_time": 0
                                     }
                                 }
                             }
@@ -594,21 +621,27 @@
                         "description": "successfull",
                         "content": {
                             "application/json": {
-                                "example": {
+                                "example":{
                                     "order": "ASC",
                                     "data": {
-                                        "id": 1,
-                                        "title": "newtitle",
-                                        "main_image_path": "https://en.as.com/en/2021/11/01/soccer/1635749055_402801.html",
-                                        "thumb_image_path": "https://en.as.com/en/2021/11/01/soccer/1635749055_402801.html",
-                                        "grid_image_path": "https://en.as.com/en/2021/11/01/soccer/1635749055_402801.html",
+                                        "id": 3,
+                                        "title": "AAASSSDDD",
+                                        "main_image_path": null,
+                                        "thumb_image_path": null,
+                                        "grid_image_path": null,
                                         "domain": null,
                                         "image_alt_title": null,
+                                        "other_language_fields": {
+                                            "hi": {
+                                                "title": "हमारा अंग्रेजी से बांग्ला अनुवाद उपकरण",
+                                                "image_alt_title": "हमारा अंग्रेजी से बांग्ला अनुवाद उपकरण"
+                                            }
+                                        },
                                         "row_status": 1,
                                         "created_by": null,
                                         "updated_by": null,
-                                        "created_at": "2021-11-04T10:46:39.000000Z",
-                                        "updated_at": "2021-11-04T10:46:39.000000Z"
+                                        "created_at": "2021-11-09T10:19:39.000000Z",
+                                        "updated_at": "2021-11-09T10:19:39.000000Z"
                                     },
                                     "_response_status": {
                                         "success": true,
@@ -718,6 +751,7 @@
                 ]
             }
         },
+
         "/public/nise3-partners/{partnerId}": {
             "get": {
                 "summary": "Get partner by Id",
@@ -1137,6 +1171,7 @@
                 ]
             }
         },
+
         "/public/sliders/{SliderId}": {
             "get": {
                 "summary": "get_one",
@@ -1354,7 +1389,6 @@
                 ]
             }
         },
-
         "/faqs": {
             "get": {
                 "summary": "Get All faqs",
@@ -1707,6 +1741,7 @@
                 ]
             }
         },
+
         "/public/faqs/{faqId}": {
             "get": {
                 "summary": "Get All faqs",
@@ -1778,6 +1813,7 @@
                 ]
             }
         },
+
 
         "/public/gallery-albums": {
             "get": {
@@ -1852,8 +1888,8 @@
                     "Gallery-Album"
                 ]
             }
-        },
 
+        },
         "/gallery-albums": {
             "get": {
                 "summary": "Get All gallery albums",
@@ -2713,6 +2749,7 @@
                 ]
             }
         },
+
         "/gallery-images-videos/publish-or-archive/{id}": {
             "post": {
                 "summary": "Create a new archived/published gallery image video",
@@ -2751,6 +2788,8 @@
                 ]
             }
         },
+
+
 
         "/public/static-pages": {
             "get": {
