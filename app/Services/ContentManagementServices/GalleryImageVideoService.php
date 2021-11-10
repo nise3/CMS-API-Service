@@ -22,9 +22,10 @@ class GalleryImageVideoService
 {
     /**
      * @param array $request
+     * @param null $startTime
      * @return Collection|LengthAwarePaginator|array
      */
-    public function getGalleryImageVideoList(array $request): Collection|LengthAwarePaginator|array
+    public function getGalleryImageVideoList(array $request, $startTime = null): Collection|LengthAwarePaginator|array
     {
 
         $contentTitle = $request['content_title'] ?? "";
@@ -33,6 +34,7 @@ class GalleryImageVideoService
         $pageSize = $request['page_size'] ?? "";
         $rowStatus = $request['row_status'] ?? "";
         $order = $request['order'] ?? "ASC";
+        $isRequestFromClientSide = !empty($request[BaseModel::IS_CLIENT_SITE_RESPONSE_KEY]);
 
         /** @var GalleryImageVideo|Builder $galleryImageVideoBuilder */
         $galleryImageVideoBuilder = GalleryImageVideo::select([
@@ -85,6 +87,14 @@ class GalleryImageVideoService
         }
         if (!empty($contentTitleEN)) {
             $galleryImageVideoBuilder->where('gallery_images_videos.content_title_en', 'like', '%' . $contentTitleEN . '%');
+        }
+
+        if($isRequestFromClientSide){
+            $galleryImageVideoBuilder->whereDate('gallery_images_videos.published_at', '<=', $startTime);
+            $galleryImageVideoBuilder->where(function ($builder) use ($startTime){
+                $builder->whereNull('gallery_images_videos.archived_at');
+                $builder->orWhereDate('gallery_images_videos.archived_at', '>=', $startTime);
+            });
         }
 
         /** @var Collection $galleries */
