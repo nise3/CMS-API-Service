@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Throwable;
 
 /**
  *
@@ -233,21 +234,40 @@ class RecentActivityService
 
 
     /**
-     * @param Request $request
+     * @param array $data
      * @param RecentActivity $recentActivity
      * @return RecentActivity
+     * @throws Throwable
      */
-    public function publishOrArchive(Request $request, RecentActivity $recentActivity): RecentActivity
+    public function publishOrArchiveRecentActivity(array $data, RecentActivity $recentActivity): RecentActivity
     {
-        if ($request->input('status') == 1) {
+        if ($data['status'] == BaseModel::STATUS_PUBLISH) {
             $recentActivity->published_at = Carbon::now()->format('Y-m-d H:i:s');
             $recentActivity->archived_at = null;
-        } else {
+        }
+        if ($data['status'] == BaseModel::STATUS_ARCHIVE) {
             $recentActivity->archived_at = Carbon::now()->format('Y-m-d H:i:s');
         }
-        $recentActivity->save();
+        $recentActivity->saveOrFail();
         return $recentActivity;
     }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    public function publishOrArchiveValidator(Request $request): \Illuminate\Contracts\Validation\Validator
+    {
+        $rules = [
+            'status' => [
+                'integer',
+                Rule::in(BaseModel::PUBLISH_OR_ARCHIVE_STATUSES)
+            ]
+
+        ];
+        return Validator::make($request->all(), $rules);
+    }
+
 
     /**
      * @param $request

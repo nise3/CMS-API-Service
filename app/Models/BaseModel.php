@@ -83,6 +83,17 @@ abstract class BaseModel extends Model
         ],
     ];
 
+    /**publish or archive status */
+
+    public const STATUS_PUBLISH = 1;
+    public const STATUS_ARCHIVE = 0;
+
+    public const PUBLISH_OR_ARCHIVE_STATUSES = [
+        self::STATUS_PUBLISH,
+        self::STATUS_ARCHIVE
+    ];
+
+
     /** Native Language Flag */
     public const IS_NATIVE_LANGUAGE_FLAG = 1;
     public const DEFAULT_LANGUAGE_CODE = 'bn';
@@ -92,7 +103,7 @@ abstract class BaseModel extends Model
     public const IS_COLLECTION_FLAG = true;
 
     /** INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID */
-    public const INSTITUTE_SERVICE= "institute";
+    public const INSTITUTE_SERVICE = "institute";
     public const ORGANIZATION_SERVICE = "organization";
     public const INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID = "INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID";
     public const GET_INSTITUTE_TITLE_BY_ID__HTTP_CLIENT_ENDPOINT = "get-institute-title-by-ids";
