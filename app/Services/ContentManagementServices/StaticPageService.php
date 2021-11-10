@@ -28,6 +28,10 @@ class StaticPageService
         $pageSize = $request['page_size'] ?? "";
         $rowStatus = $request['row_status'] ?? "";
         $order = $request['order'] ?? "ASC";
+        $instituteId = $request['institute_id'] ?? "";
+        $organizationId = $request['organization_id'] ?? "";
+        $industryAssociationId = $request['industry_association_id'] ?? "";
+        $showIn = $request['show_in'] ?? "";
 
         /** @var Builder $staticPageBuilder */
         $staticPageBuilder = StaticPage::select([
@@ -61,6 +65,22 @@ class StaticPageService
         }
         if (!empty($titleBn)) {
             $staticPageBuilder->where('static_pages_and_block.title', 'like', '%' . $titleBn . '%');
+        }
+
+        if (is_numeric($instituteId)) {
+            $staticPageBuilder->where('static_pages_and_block.institute_id', '=', $instituteId);
+        }
+
+        if (is_numeric($organizationId)) {
+            $staticPageBuilder->where('static_pages_and_block.organization_id', '=', $organizationId);
+        }
+
+        if (is_numeric($industryAssociationId)) {
+            $staticPageBuilder->where('static_pages_and_block.industry_association_id', '=', $industryAssociationId);
+        }
+
+        if (is_numeric($showIn)) {
+            $staticPageBuilder->where('static_pages_and_block.show_in', '=', $showIn);
         }
 
         /** @var Collection $staticPages */
@@ -285,6 +305,10 @@ class StaticPageService
             'title' => 'nullable|max:500|min:2',
             'page' => 'nullable|integer|gt:0',
             'page_size' => 'nullable|integer|gt:0',
+            'institute_id' => 'nullable|integer|gt:0',
+            'organization_id' => 'nullable|integer|gt:0',
+            'industry_association_id' => 'nullable|integer|gt:0',
+            'show_in' => 'nullable|integer|gt:0',
             'order' => [
                 'string',
                 Rule::in([BaseModel::ROW_ORDER_ASC, BaseModel::ROW_ORDER_DESC])
