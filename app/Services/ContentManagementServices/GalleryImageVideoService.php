@@ -287,6 +287,7 @@ class GalleryImageVideoService
      */
     public function validator(Request $request, int $id = null): \Illuminate\Contracts\Validation\Validator
     {
+        $requestData = $request->all();
         $customMessage = [
             'row_status.in' => 'Row status must be within 1 or 0. [30000]'
         ];
@@ -346,13 +347,9 @@ class GalleryImageVideoService
                 'nullable',
                 'array'
             ],
-            'image_url' => [
+            'content_path' => [
                 'nullable',
                 'required_if:content_type,' . GalleryImageVideo::CONTENT_TYPE_IMAGE
-            ],
-            'video_url' => [
-                'nullable',
-                'required_if:content_type,' . GalleryImageVideo::CONTENT_TYPE_VIDEO
             ],
             'content_cover_image_url' => [
                 'nullable',
@@ -375,6 +372,18 @@ class GalleryImageVideoService
                 Rule::in([BaseModel::ROW_STATUS_ACTIVE, BaseModel::ROW_STATUS_INACTIVE]),
             ]
         ];
+        if (!empty($requestData['video_type']) &&
+            ($requestData['video_type'] == GalleryImageVideo::VIDEO_TYPE_YOUTUBE || $requestData['video_type'] == GalleryImageVideo::VIDEO_TYPE_FACEBOOK)) {
+            $rules['embedded_url'] = [
+                'required',
+                'string',
+                'max:800'
+            ];
+            $rules['embedded_id'] = [
+                'required',
+                'max:300'
+            ];
+        }
         $rules = array_merge($rules, BaseModel::OTHER_LANGUAGE_VALIDATION_RULES);
 
         return Validator::make($request->all(), $rules, $customMessage);
