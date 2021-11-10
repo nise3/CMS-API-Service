@@ -29,6 +29,10 @@ class GalleryAlbumService
      */
     public function getAllGalleryAlbums(array $request, $startTime = null): Collection|LengthAwarePaginator|array
     {
+        $showIn = $request['show_in'] ?? "";
+        $instituteId = $request['institute_id'] ?? "";
+        $industryAssociationId = $request['industry_association_id'] ?? "";
+        $organizationId = $request['organization_id'] ?? "";
         $titleEn = $request['title_en'] ?? "";
         $titleBn = $request['title'] ?? "";
         $paginate = $request['page'] ?? "";
@@ -65,6 +69,9 @@ class GalleryAlbumService
 
         $galleryAlbumBuilder->orderBy('gallery_albums.id', $order);
 
+        if (is_numeric($showIn)) {
+            $galleryAlbumBuilder->where('gallery_albums.show_in', $showIn);
+        }
         if (is_numeric($rowStatus)) {
             $galleryAlbumBuilder->where('gallery_albums.row_status', $rowStatus);
         }
@@ -74,6 +81,15 @@ class GalleryAlbumService
         }
         if (!empty($titleBn)) {
             $galleryAlbumBuilder->where('gallery_albums.title', 'like', '%' . $titleBn . '%');
+        }
+        if (is_numeric($instituteId)) {
+            $galleryAlbumBuilder->where('gallery_albums.institute_id', $instituteId);
+        }
+        if (is_numeric($industryAssociationId)) {
+            $galleryAlbumBuilder->where('gallery_albums.industry_association_id', $industryAssociationId);
+        }
+        if (is_numeric($organizationId)) {
+            $galleryAlbumBuilder->where('gallery_albums.organization_id', $organizationId);
         }
 
         if ($isRequestFromClientSide) {
@@ -373,6 +389,10 @@ class GalleryAlbumService
         $rules = [
             'title_en' => 'nullable|max:200|min:2',
             'title' => 'nullable|max:600|min:2',
+            'show_in' => 'nullable|integer |gt:0',
+            'institute_id' => 'nullable|integer|gt:0',
+            'industry_association_id' => 'nullable|integer|gt:0',
+            'organization_id' => 'nullable|integer|gt:0',
             'page' => 'integer|gt:0',
             'page_size' => 'integer|gt:0',
             'order' => [

@@ -14,20 +14,25 @@ return [
             "title_en"=>'Nise3'
         ],
         2=>[
+            "id"=>BaseModel::SHOW_IN_YOUTH,
+            "title"=>"Youth",
+            "title_en"=>'Youth'
+        ],
+        3=>[
             "id"=>BaseModel::SHOW_IN_TSP,
             "title"=>"TSP",
             "title_en"=>'TSP'
         ],
-        3=>[
+        4=>[
             "id"=>BaseModel::SHOW_IN_INDUSTRY,
             "title"=>"Industry",
             "title_en"=>'Industry'
-        ],
-        4=>[
-            "id"=>BaseModel::SHOW_IN_INDUSTRY_ASSOCIATION,
-            "title"=>"Industry Association",
-            "title_en"=>'Industry Association'
         ]
+//        5=>[
+//            "id"=>BaseModel::SHOW_IN_INDUSTRY_ASSOCIATION,
+//            "title"=>"Industry Association",
+//            "title_en"=>'Industry Association'
+//        ]
     ],
     "banner_template"=>[
         Slider::BT_LR=>[
