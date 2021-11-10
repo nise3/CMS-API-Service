@@ -408,6 +408,8 @@
                 ]
             }
         },
+
+
         "/public/nise3-partners": {
             "get": {
                 "summary": "Get All Public Partners",
@@ -811,6 +813,9 @@
                 "description": "Get All the sliders",
                 "parameters": [
                     {
+                        "$ref": "#/components/parameters/Accept-Language"
+                    },
+                    {
                         "$ref": "#/components/parameters/show_in"
                     },
                     {
@@ -821,9 +826,6 @@
                     },
                     {
                         "$ref": "#/components/parameters/organization_id"
-                    },
-                    {
-                        "$ref": "#/components/parameters/Accept-Language"
                     },
                     {
                         "$ref": "#/components/parameters/title_optional"
@@ -3756,13 +3758,26 @@
                         "description": "successful",
                         "content": {
                             "application/json": {
-                                "example": {
+                                "example":{
                                     "data": {
-                                        "institute_id": null,
+                                        "id": 12,
+                                        "show_in": "1",
+                                        "show_in_label": "Nise3",
+                                        "activity_date": null,
+                                        "published_at": null,
+                                        "archived_at": null,
+                                        "institute_id": "1",
                                         "organization_id": null,
-                                        "title": "aaa",
+                                        "institute_title": "",
+                                        "institute_title_en": "",
+                                        "organization_title": "",
+                                        "organization_title_en": "",
+                                        "industry_association_id": null,
+                                        "title": "aaaaaaaaaaa",
                                         "content_type": "2",
                                         "content_path": null,
+                                        "embedded_url": "qwqw",
+                                        "embedded_id": "2",
                                         "content_properties": null,
                                         "collage_image_path": null,
                                         "collage_position": null,
@@ -3770,11 +3785,19 @@
                                         "grid_image_path": null,
                                         "image_alt_title": null,
                                         "description": null,
+                                        "other_language_fields": {
+                                            "hi": {
+                                                "title": "aaaaaaaaaaaa",
+                                                "image_alt_title": "asjdkjakdjajdja",
+                                                "description": "asjdkjakdjajdja"
+                                            }
+                                        },
                                         "row_status": "1",
-                                        "embedded_url": "aaaa",
-                                        "updated_at": "2021-11-04T12:31:57.000000Z",
-                                        "created_at": "2021-11-04T12:31:57.000000Z",
-                                        "id": 1
+                                        "published_by": null,
+                                        "archived_by": null,
+                                        "updated_by": null,
+                                        "created_at": "2021-11-10T11:08:29.000000Z",
+                                        "updated_at": "2021-11-10T11:08:29.000000Z"
                                     },
                                     "_response_status": {
                                         "success": true,
@@ -3899,21 +3922,26 @@
                         "description": "success",
                         "content": {
                             "application/json": {
-                                "example": {
+                                "example":{
                                     "data": {
-                                        "id": 1,
-                                        "show_in": 0,
+                                        "id": 12,
+                                        "show_in": "1",
+                                        "show_in_label": "Nise3",
                                         "activity_date": null,
                                         "published_at": null,
                                         "archived_at": null,
-                                        "institute_id": null,
+                                        "institute_id": "1",
                                         "organization_id": null,
+                                        "institute_title": "",
+                                        "institute_title_en": "",
+                                        "organization_title": "",
+                                        "organization_title_en": "",
                                         "industry_association_id": null,
-                                        "title": "aSasAS",
-                                        "content_type": "1",
+                                        "title": "abc",
+                                        "content_type": "2",
                                         "content_path": null,
-                                        "embedded_url": "aaaa",
-                                        "embedded_id": null,
+                                        "embedded_url": "qwqw",
+                                        "embedded_id": "2",
                                         "content_properties": null,
                                         "collage_image_path": null,
                                         "collage_position": null,
@@ -3921,19 +3949,24 @@
                                         "grid_image_path": null,
                                         "image_alt_title": null,
                                         "description": null,
+                                        "other_language_fields": {
+                                            "hi": {
+                                                "title": "aaaaaaaaaaaa",
+                                                "image_alt_title": "asjdkjakdjajdja",
+                                                "description": "Chup Beyadob"
+                                            }
+                                        },
                                         "row_status": "1",
                                         "published_by": null,
                                         "archived_by": null,
-                                        "created_by": null,
                                         "updated_by": null,
-                                        "created_at": "2021-11-04T12:31:57.000000Z",
-                                        "updated_at": "2021-11-04T12:42:36.000000Z",
-                                        "deleted_at": null
+                                        "created_at": "2021-11-10T11:08:29.000000Z",
+                                        "updated_at": "2021-11-10T11:14:32.000000Z"
                                     },
                                     "_response_status": {
                                         "success": true,
                                         "code": 201,
-                                        "message": "Recent Activity  Update is Successfully Done",
+                                        "message": "Recent Activity is Successfully Updated",
                                         "query_time": 0
                                     }
                                 }
@@ -4001,7 +4034,49 @@
                     "200": {
                         "description": "successfull",
                         "content": {
-                            "application/json": {}
+                            "application/json": {
+                                "example": {
+                                    "data": {
+                                        "id": 12,
+                                        "show_in": 1,
+                                        "show_in_label": "Nise3",
+                                        "activity_date": null,
+                                        "published_at": null,
+                                        "archived_at": null,
+                                        "institute_id": 1,
+                                        "organization_id": null,
+                                        "institute_title": "Julie Ortiz II",
+                                        "institute_title_en": "Julie Ortiz II",
+                                        "organization_title": "",
+                                        "organization_title_en": "",
+                                        "industry_association_id": null,
+                                        "title": "abc",
+                                        "content_type": 2,
+                                        "content_path": null,
+                                        "embedded_url": "qwqw",
+                                        "embedded_id": "2",
+                                        "content_properties": null,
+                                        "collage_image_path": null,
+                                        "collage_position": null,
+                                        "thumb_image_path": null,
+                                        "grid_image_path": null,
+                                        "image_alt_title": null,
+                                        "description": null,
+                                        "row_status": null,
+                                        "published_by": null,
+                                        "archived_by": null,
+                                        "updated_by": null,
+                                        "created_at": "2021-11-10T11:08:29.000000Z",
+                                        "updated_at": "2021-11-10T11:14:32.000000Z"
+                                    },
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "message": null,
+                                        "query_time": 0
+                                    }
+                                }
+                            }
                         }
                     }
                 },
@@ -4518,6 +4593,8 @@
                 ]
             }
         },
+
+
         "/notice-or-news": {
             "get": {
                 "summary": "Get all notice or news",
@@ -4549,7 +4626,75 @@
                     "200": {
                         "description": "successfull",
                         "content": {
-                            "application/json": {}
+                            "application/json": {
+                                "example":{
+                                    "order": "ASC",
+                                    "data": [
+                                        {
+                                            "id": 1,
+                                            "type": 1,
+                                            "show_in": 4,
+                                            "show_in_label": "Organization",
+                                            "published_at": "2021-11-10 10:51:34",
+                                            "archived_at": null,
+                                            "title": "Photographic Process Worker",
+                                            "institute_id": 7,
+                                            "organization_id": 7,
+                                            "industry_association_id": 3,
+                                            "institute_title": "",
+                                            "institute_title_en": "",
+                                            "organization_title": "",
+                                            "organization_title_en": "",
+                                            "details": "Eum nihil sed quasi vel ut quis eos dolorem ab consectetur iure molestiae et aliquam facere quas minus corrupti expedita doloremque tempora ipsum sit voluptate enim temporibus ut est fuga hic in sint voluptatum et aut nesciunt quia aperiam consectetur perspiciatis consequatur deleniti incidunt quia aut autem blanditiis.",
+                                            "main_image_path": null,
+                                            "grid_image_path": null,
+                                            "thumb_image_path": null,
+                                            "image_alt_title": "expedita",
+                                            "file_path": "Unde aut quam dolorem consequatur quia ad.",
+                                            "file_alt_title": "beatae",
+                                            "row_status": 1,
+                                            "created_by": null,
+                                            "updated_by": null,
+                                            "created_at": "2021-11-10T10:51:34.000000Z",
+                                            "updated_at": null
+                                        },
+                                        {
+                                            "id": 7,
+                                            "type": 2,
+                                            "show_in": 3,
+                                            "show_in_label": "Training Service Provider(TSP)",
+                                            "published_at": "2021-11-10 10:51:34",
+                                            "archived_at": null,
+                                            "title": "Preschool Education Administrators",
+                                            "institute_id": 7,
+                                            "organization_id": 5,
+                                            "industry_association_id": 3,
+                                            "institute_title": "",
+                                            "institute_title_en": "",
+                                            "organization_title": "Kuphal, Fay and Kerluke",
+                                            "organization_title_en": "Kuphal, Fay and Kerluke",
+                                            "details": "Quia quisquam non eos quibusdam voluptas vel eaque natus in consectetur dolore officiis qui est ipsum dolorem consequatur earum minima ex consectetur incidunt repellat ipsa totam et et nesciunt voluptatem impedit aut doloremque possimus sed doloribus aut dolor quod et eaque sapiente ex et odio delectus est voluptatum expedita voluptatum aut laboriosam aliquam rerum quis voluptatem consequatur.",
+                                            "main_image_path": null,
+                                            "grid_image_path": null,
+                                            "thumb_image_path": null,
+                                            "image_alt_title": "maxime",
+                                            "file_path": "Aperiam omnis tempore assumenda laboriosam minus velit.",
+                                            "file_alt_title": "dolores",
+                                            "row_status": 1,
+                                            "created_by": null,
+                                            "updated_by": null,
+                                            "created_at": "2021-11-10T10:51:34.000000Z",
+                                            "updated_at": null
+                                        }
+                                    ],
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "message": null,
+                                        "query_time": 0
+                                    }
+                                }
+                            }
                         }
                     }
                 },
@@ -4574,13 +4719,22 @@
                         "description": "succefull",
                         "content": {
                             "application/json": {
-                                "example": {
+                                "example":{
                                     "data": {
-                                        "type": "1",
+                                        "id": 11,
+                                        "type": "2",
                                         "show_in": "1",
-                                        "title": "AnEWtiTle",
-                                        "institute_id": null,
+                                        "show_in_label": "Nise3",
+                                        "published_at": null,
+                                        "archived_at": null,
+                                        "title": "aaaaaaaaaaa",
+                                        "institute_id": "1",
                                         "organization_id": null,
+                                        "industry_association_id": null,
+                                        "institute_title": "",
+                                        "institute_title_en": "",
+                                        "organization_title": "",
+                                        "organization_title_en": "",
                                         "details": null,
                                         "main_image_path": null,
                                         "grid_image_path": null,
@@ -4588,10 +4742,19 @@
                                         "image_alt_title": null,
                                         "file_path": null,
                                         "file_alt_title": null,
+                                        "other_language_fields": {
+                                            "hi": {
+                                                "title": "asjdkjakdjajdja",
+                                                "details": "aaaaaaaaaaaa",
+                                                "image_alt_title": "asjdkjakdjajdja",
+                                                "file_alt_title": "asjdkjakdjajdja"
+                                            }
+                                        },
                                         "row_status": "1",
-                                        "updated_at": "2021-11-08T08:43:39.000000Z",
-                                        "created_at": "2021-11-08T08:43:39.000000Z",
-                                        "id": 2
+                                        "created_by": null,
+                                        "updated_by": null,
+                                        "created_at": "2021-11-10T11:28:37.000000Z",
+                                        "updated_at": "2021-11-10T11:28:37.000000Z"
                                     },
                                     "_response_status": {
                                         "success": true,
@@ -4629,35 +4792,48 @@
                         "content": {
                             "application/x-www-form-urlencoded": {
                                 "schema": {
-                                    "example": {
+                                    "example":{
                                         "data": {
                                             "id": 1,
                                             "type": 1,
-                                            "show_in": 3,
-                                            "published_at": null,
+                                            "show_in": 4,
+                                            "show_in_label": "Organization",
+                                            "published_at": "2021-11-10 10:51:34",
                                             "archived_at": null,
-                                            "title": "Our English to Bangla Translation Tool is powered by Google Translation API",
-                                            "institute_id": 1,
-                                            "organization_id": 1,
-                                            "industry_association_id": 1,
-                                            "details": null,
+                                            "title": "Photographic Process Worker",
+                                            "institute_id": 7,
+                                            "organization_id": 7,
+                                            "industry_association_id": 3,
+                                            "institute_title": "",
+                                            "institute_title_en": "",
+                                            "organization_title": "",
+                                            "organization_title_en": "",
+                                            "details": "Eum nihil sed quasi vel ut quis eos dolorem ab consectetur iure molestiae et aliquam facere quas minus corrupti expedita doloremque tempora ipsum sit voluptate enim temporibus ut est fuga hic in sint voluptatum et aut nesciunt quia aperiam consectetur perspiciatis consequatur deleniti incidunt quia aut autem blanditiis.",
                                             "main_image_path": null,
                                             "grid_image_path": null,
                                             "thumb_image_path": null,
-                                            "image_alt_title": null,
-                                            "file_path": null,
-                                            "file_alt_title": null,
+                                            "image_alt_title": "expedita",
+                                            "file_path": "Unde aut quam dolorem consequatur quia ad.",
+                                            "file_alt_title": "beatae",
+                                            "other_language_fields": {
+                                                "hi": {
+                                                    "title": "अगर आप किसी एग्जाम की तैयारी ",
+                                                    "image_alt_title": "भारत का इतिहासं",
+                                                    "file_alt_title": "भारत का इतिहासं",
+                                                    "details": "आधुनिक अधिकांश विकास पडता उशकी सभिसमज असक्षम केन्द्रिय लेकिन गटकउसि आशाआपस बनाकर उसके करने गटकउसि संस्थान मुश्किले संसाध तरीके हमेहो। सोफ़्टवेर अन्तरराष्ट्रीयकरन अन्य खरिदे दिशामे सभिसमज पढाए नवंबर आवश्यक आवश्यकत जाता प्रसारन मर्यादित विभाजनक्षमता चुनने एछित संसाध एछित हमेहो। सामूहिक समाज वर्णन अनुकूल स्थापित ढांचामात्रुभाषा करने विशेष परस्पर दर्शाता केन्द्रित\r\n"
+                                                }
+                                            },
                                             "row_status": 1,
                                             "created_by": null,
                                             "updated_by": null,
-                                            "created_at": "2021-11-07T06:29:09.000000Z",
+                                            "created_at": "2021-11-10T10:51:34.000000Z",
                                             "updated_at": null
                                         },
                                         "_response_status": {
                                             "success": true,
                                             "code": 200,
                                             "message": null,
-                                            "query_time": 0
+                                            "query_time": 1
                                         }
                                     }
                                 }
@@ -4699,30 +4875,42 @@
                         "description": "success",
                         "content": {
                             "application/json": {
-                                "example": {
+                                "example":{
                                     "data": {
                                         "id": 1,
-                                        "type": "1",
+                                        "type": "2",
                                         "show_in": "1",
-                                        "published_at": null,
+                                        "show_in_label": "Nise3",
+                                        "published_at": "2021-11-10 10:51:34",
                                         "archived_at": null,
-                                        "title": "NewKKK",
-                                        "institute_id": null,
-                                        "organization_id": null,
-                                        "industry_association_id": 1,
-                                        "details": null,
+                                        "title": "aaaaaaaaaaa",
+                                        "institute_id": "1",
+                                        "organization_id": 7,
+                                        "industry_association_id": 3,
+                                        "institute_title": "",
+                                        "institute_title_en": "",
+                                        "organization_title": "",
+                                        "organization_title_en": "",
+                                        "details": "Eum nihil sed quasi vel ut quis eos dolorem ab consectetur iure molestiae et aliquam facere quas minus corrupti expedita doloremque tempora ipsum sit voluptate enim temporibus ut est fuga hic in sint voluptatum et aut nesciunt quia aperiam consectetur perspiciatis consequatur deleniti incidunt quia aut autem blanditiis.",
                                         "main_image_path": null,
                                         "grid_image_path": null,
                                         "thumb_image_path": null,
-                                        "image_alt_title": null,
-                                        "file_path": null,
-                                        "file_alt_title": null,
+                                        "image_alt_title": "expedita",
+                                        "file_path": "Unde aut quam dolorem consequatur quia ad.",
+                                        "file_alt_title": "beatae",
+                                        "other_language_fields": {
+                                            "hi": {
+                                                "title": "asjdkjakdjajdja",
+                                                "details": "aaaaaaaaaaaa",
+                                                "image_alt_title": "asjdkjakdjajdja",
+                                                "file_alt_title": "asjdkjakdjajdja"
+                                            }
+                                        },
                                         "row_status": "1",
                                         "created_by": null,
                                         "updated_by": null,
-                                        "created_at": "2021-11-07T06:29:09.000000Z",
-                                        "updated_at": "2021-11-07T06:48:18.000000Z",
-                                        "deleted_at": null
+                                        "created_at": "2021-11-10T10:51:34.000000Z",
+                                        "updated_at": "2021-11-10T11:37:27.000000Z"
                                     },
                                     "_response_status": {
                                         "success": true,
@@ -4794,28 +4982,41 @@
                         "content": {
                             "application/x-www-form-urlencoded": {
                                 "schema": {
-                                    "example": {
+                                    "example":{
                                         "data": {
                                             "id": 1,
                                             "type": 1,
                                             "show_in": 3,
-                                            "published_at": null,
+                                            "show_in_label": "Training Service Provider(TSP)",
+                                            "published_at": "2021-11-10 11:08:04",
                                             "archived_at": null,
-                                            "title": "Our English to Bangla Translation Tool is powered by Google Translation API",
-                                            "institute_id": 1,
-                                            "organization_id": 1,
-                                            "industry_association_id": 1,
-                                            "details": null,
+                                            "title": "Ship Mates",
+                                            "institute_id": 8,
+                                            "organization_id": 8,
+                                            "industry_association_id": 9,
+                                            "institute_title": "",
+                                            "institute_title_en": "",
+                                            "organization_title": "Nader, Considine and Fahey",
+                                            "organization_title_en": "Nader, Considine and Fahey",
+                                            "details": "Minus ullam ullam et tenetur est in nostrum rerum ipsa animi consequuntur blanditiis officia vitae sit in quos ut aut sit magnam hic voluptas quia doloribus est sit ipsum quia dolor dolor ut beatae nam sapiente soluta a molestias ipsum exercitationem.",
                                             "main_image_path": null,
                                             "grid_image_path": null,
                                             "thumb_image_path": null,
-                                            "image_alt_title": null,
-                                            "file_path": null,
-                                            "file_alt_title": null,
+                                            "image_alt_title": "praesentium",
+                                            "file_path": "Dolorem quia neque repudiandae in ut.",
+                                            "file_alt_title": "eos",
+                                            "other_language_fields": {
+                                                "hi": {
+                                                    "title": "अगर आप किसी एग्जाम की तैयारी ",
+                                                    "image_alt_title": "भारत का इतिहासं",
+                                                    "file_alt_title": "भारत का इतिहासं",
+                                                    "details": "आधुनिक अधिकांश विकास पडता उशकी सभिसमज असक्षम केन्द्रिय लेकिन गटकउसि आशाआपस बनाकर उसके करने गटकउसि संस्थान मुश्किले संसाध तरीके हमेहो। सोफ़्टवेर अन्तरराष्ट्रीयकरन अन्य खरिदे दिशामे सभिसमज पढाए नवंबर आवश्यक आवश्यकत जाता प्रसारन मर्यादित विभाजनक्षमता चुनने एछित संसाध एछित हमेहो। सामूहिक समाज वर्णन अनुकूल स्थापित ढांचामात्रुभाषा करने विशेष परस्पर दर्शाता केन्द्रित\n"
+                                                }
+                                            },
                                             "row_status": 1,
                                             "created_by": null,
                                             "updated_by": null,
-                                            "created_at": "2021-11-07T06:29:09.000000Z",
+                                            "created_at": "2021-11-10T10:31:18.000000Z",
                                             "updated_at": null
                                         },
                                         "_response_status": {
@@ -4866,39 +5067,39 @@
                                 "schema": {
                                     "$ref": "#/components/schemas/NoticeOrNews"
                                 },
-                                "example": {
+                                "example":{
                                     "data": {
                                         "id": 1,
-                                        "type": 2,
-                                        "show_in": 4,
-                                        "published_at": "2021-11-10 05:00:41",
-                                        "archived_at": null,
-                                        "title_en": "Keyboard Instrument Repairer and Tuner",
-                                        "title": "Keyboard Instrument Repairer and Tuner",
-                                        "institute_id": 3,
-                                        "organization_id": 4,
-                                        "industry_association_id": 6,
-                                        "details": "Cupiditate quisquam quis illo amet praesentium architecto rerum sunt explicabo ipsum et omnis ipsam magni iste aliquam reiciendis sunt ut voluptatem sunt laboriosam nobis non magnam enim quo perferendis consequatur minima fugit expedita quae neque repudiandae omnis ex rerum harum quia quasi nam soluta exercitationem laboriosam culpa harum quasi deserunt aut enim expedita quia et voluptatem.",
-                                        "details_en": "Et natus aliquam aliquam officiis odio repellat sapiente temporibus id saepe libero tempora qui est fugiat non corporis sunt deleniti rerum recusandae nesciunt exercitationem ad rem quo vel ratione voluptates dolores ipsum omnis quisquam nihil eos sit autem esse natus voluptatem facere est aspernatur dolorum.",
+                                        "type": 1,
+                                        "show_in": 3,
+                                        "published_at": "2021-11-10 11:08:04",
+                                        "archived_at": "2021-11-10 11:41:12",
+                                        "title_en": "Ship Mates",
+                                        "title": "Ship Mates",
+                                        "institute_id": 8,
+                                        "organization_id": 8,
+                                        "industry_association_id": 9,
+                                        "details": "Minus ullam ullam et tenetur est in nostrum rerum ipsa animi consequuntur blanditiis officia vitae sit in quos ut aut sit magnam hic voluptas quia doloribus est sit ipsum quia dolor dolor ut beatae nam sapiente soluta a molestias ipsum exercitationem.",
+                                        "details_en": "Omnis et omnis commodi adipisci provident sed eius qui qui tenetur aut eveniet quis et maiores aut eveniet sunt ipsa ut provident cumque facilis corrupti possimus et tenetur eum aperiam provident unde maxime ut quis et tenetur autem magni et sint ipsam laboriosam nisi soluta cumque aliquam et numquam suscipit.",
                                         "main_image_path": null,
                                         "grid_image_path": null,
                                         "thumb_image_path": null,
-                                        "image_alt_title_en": "voluptatem",
-                                        "image_alt_title": "voluptatum",
-                                        "file_path": "Velit laboriosam earum enim quia molestiae ipsam vel.",
-                                        "file_alt_title_en": "sit",
-                                        "file_alt_title": "labore",
+                                        "image_alt_title_en": "nihil",
+                                        "image_alt_title": "praesentium",
+                                        "file_path": "Dolorem quia neque repudiandae in ut.",
+                                        "file_alt_title_en": "ut",
+                                        "file_alt_title": "eos",
                                         "row_status": 1,
                                         "created_by": null,
                                         "updated_by": null,
-                                        "created_at": "2021-11-09T04:52:38.000000Z",
-                                        "updated_at": "2021-11-10T05:00:41.000000Z",
+                                        "created_at": "2021-11-10T10:31:18.000000Z",
+                                        "updated_at": "2021-11-10T11:41:12.000000Z",
                                         "deleted_at": null
                                     },
                                     "_response_status": {
                                         "success": true,
                                         "code": 201,
-                                        "message": "NoticeOrNews published successfully",
+                                        "message": "NoticeOrNews archived successfully",
                                         "query_time": 0
                                     }
                                 }
