@@ -24,6 +24,9 @@ class VisitorFeedbackSuggestionService
      */
     public function getVisitorFeedbackSuggestionList(array $request): Collection|LengthAwarePaginator|array
     {
+        $instituteId = $request['institute_id'] ?? "";
+        $industryAssociationId = $request['industry_association_id'] ?? "";
+        $organizationId = $request['organization_id'] ?? "";
         $name = $request['name'] ?? "";
         $nameEn = $request['name_en'] ?? "";
         $paginate = $request['page'] ?? "";
@@ -57,6 +60,15 @@ class VisitorFeedbackSuggestionService
 
         if (is_numeric($rowStatus)) {
             $visitorFeedbackSuggestionBuilder->where('visitor_feedbacks_suggestions.row_status', $rowStatus);
+        }
+        if (is_numeric($instituteId)) {
+            $visitorFeedbackSuggestionBuilder->where('visitor_feedbacks_suggestions.institute_id', $instituteId);
+        }
+        if (is_numeric($industryAssociationId)) {
+            $visitorFeedbackSuggestionBuilder->where('visitor_feedbacks_suggestions.industry_association_id', $industryAssociationId);
+        }
+        if (is_numeric($organizationId)) {
+            $visitorFeedbackSuggestionBuilder->where('visitor_feedbacks_suggestions.organization_id', $organizationId);
         }
         if (!empty($nameEn)) {
             $visitorFeedbackSuggestionBuilder->where('visitor_feedbacks_suggestions.name_en', 'like', '%' . $nameEn . '%');
@@ -155,6 +167,9 @@ class VisitorFeedbackSuggestionService
             'name_en' => 'nullable|max:200|min:2',
             'name' => 'nullable|max:600|min:2',
             'page' => 'nullable|integer|gt:0',
+            'institute_id' => 'nullable|integer|gt:0',
+            'industry_association_id' => 'nullable|integer|gt:0',
+            'organization_id' => 'nullable|integer|gt:0',
             'page_size' => 'nullable|integer|gt:0',
             'order' => [
                 'nullable',

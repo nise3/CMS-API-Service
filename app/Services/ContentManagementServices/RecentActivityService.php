@@ -28,6 +28,10 @@ class RecentActivityService
      */
     public function getRecentActivityList(array $request, $startTime = null): Collection|LengthAwarePaginator|array
     {
+        $showIn = $request['show_in'] ?? "";
+        $instituteId = $request['institute_id'] ?? "";
+        $industryAssociationId = $request['industry_association_id'] ?? "";
+        $organizationId = $request['organization_id'] ?? "";
         $titleEn = $request['title_en'] ?? "";
         $titleBn = $request['title'] ?? "";
         $paginate = $request['page'] ?? "";
@@ -70,7 +74,18 @@ class RecentActivityService
         if (is_numeric($rowStatus)) {
             $recentActivityBuilder->where('recent_activities.row_status', $rowStatus);
         }
-
+        if (is_numeric($showIn)) {
+            $recentActivityBuilder->where('recent_activities.show_in', $showIn);
+        }
+        if (is_numeric($instituteId)) {
+            $recentActivityBuilder->where('recent_activities.institute_id', $instituteId);
+        }
+        if (is_numeric($industryAssociationId)) {
+            $recentActivityBuilder->where('recent_activities.industry_association_id', $industryAssociationId);
+        }
+        if (is_numeric($organizationId)) {
+            $recentActivityBuilder->where('recent_activities.organization_id', $organizationId);
+        }
         if (!empty($titleEn)) {
             $recentActivityBuilder->where('recent_activities.title_en', 'like', '%' . $titleEn . '%');
         }
@@ -78,9 +93,9 @@ class RecentActivityService
             $recentActivityBuilder->where('recent_activities.title', 'like', '%' . $titleBn . '%');
         }
 
-        if($isRequestFromClientSide){
+        if ($isRequestFromClientSide) {
             $recentActivityBuilder->whereDate('recent_activities.published_at', '<=', $startTime);
-            $recentActivityBuilder->where(function ($builder) use ($startTime){
+            $recentActivityBuilder->where(function ($builder) use ($startTime) {
                 $builder->whereNull('recent_activities.archived_at');
                 $builder->orWhereDate('recent_activities.archived_at', '>=', $startTime);
             });
@@ -228,6 +243,10 @@ class RecentActivityService
         $rules = [
             "title_en" => "nullable|string",
             "title" => "nullable|string",
+            'show_in' => 'nullable|integer |gt:0',
+            'institute_id' => 'nullable|integer|gt:0',
+            'industry_association_id' => 'nullable|integer|gt:0',
+            'organization_id' => 'nullable|integer|gt:0',
             'page' => 'nullable|integer|gt:0',
             'page_size' => 'nullable|integer|gt:0',
             'order' => [

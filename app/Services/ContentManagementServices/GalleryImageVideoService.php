@@ -29,6 +29,9 @@ class GalleryImageVideoService
     public function getGalleryImageVideoList(array $request, $startTime = null): Collection|LengthAwarePaginator|array
     {
 
+        $instituteId = $request['institute_id'] ?? "";
+        $industryAssociationId = $request['industry_association_id'] ?? "";
+        $organizationId = $request['organization_id'] ?? "";
         $contentTitle = $request['content_title'] ?? "";
         $contentTitleEN = $request['content_title_en'] ?? "";
         $paginate = $request['page'] ?? "";
@@ -82,6 +85,15 @@ class GalleryImageVideoService
         if (is_numeric($rowStatus)) {
             $galleryImageVideoBuilder->where('gallery_images_videos.row_status', $rowStatus);
         }
+        if (is_numeric($instituteId)) {
+            $galleryImageVideoBuilder->where('gallery_images_videos.institute_id', $instituteId);
+        }
+        if (is_numeric($industryAssociationId)) {
+            $galleryImageVideoBuilder->where('gallery_images_videos.industry_association_id', $industryAssociationId);
+        }
+        if (is_numeric($organizationId)) {
+            $galleryImageVideoBuilder->where('gallery_images_videos.organization_id', $organizationId);
+        }
 
         if (!empty($contentTitle)) {
             $galleryImageVideoBuilder->where('gallery_images_videos.content_title', 'like', '%' . $contentTitle . '%');
@@ -90,9 +102,9 @@ class GalleryImageVideoService
             $galleryImageVideoBuilder->where('gallery_images_videos.content_title_en', 'like', '%' . $contentTitleEN . '%');
         }
 
-        if($isRequestFromClientSide){
+        if ($isRequestFromClientSide) {
             $galleryImageVideoBuilder->whereDate('gallery_images_videos.published_at', '<=', $startTime);
-            $galleryImageVideoBuilder->where(function ($builder) use ($startTime){
+            $galleryImageVideoBuilder->where(function ($builder) use ($startTime) {
                 $builder->whereNull('gallery_images_videos.archived_at');
                 $builder->orWhereDate('gallery_images_videos.archived_at', '>=', $startTime);
             });
@@ -385,6 +397,9 @@ class GalleryImageVideoService
         }
 
         return Validator::make($request->all(), [
+            'institute_id' => 'nullable|integer|gt:0',
+            'industry_association_id' => 'nullable|integer|gt:0',
+            'organization_id' => 'nullable|integer|gt:0',
             'content_title' => 'nullable|max:500|min:2',
             'content_title_en' => 'nullable|max:250|min:2',
             'page_size' => 'nullable|integer|gt:0',
