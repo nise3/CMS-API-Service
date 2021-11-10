@@ -224,28 +224,21 @@ class GalleryAlbumController extends Controller
      * @param Request $request
      * @param int $id
      * @return JsonResponse
+     * @throws Throwable
      */
     public function publishOrArchive(Request $request, int $id): JsonResponse
     {
         $galleryAlbum = GalleryAlbum::findOrFail($id);
 
-        if ($request->input('status') == 1) {
+        if ($request->input('status') == BaseModel::STATUS_PUBLISH) {
             $message = "Gallery Album published successfully";
-        } else {
+        }
+        if ($request->input('status') == BaseModel::STATUS_ARCHIVE) {
             $message = "Gallery Album archived successfully";
         }
-        $data = $this->galleryAlbumService->publishOrArchive($request, $galleryAlbum);
-        $response = [
-            '_response_status' => [
-                "data" => $data,
-                "success" => true,
-                "code" => ResponseAlias::HTTP_CREATED,
-                "message" => $message,
-                "query_time" => $this->startTime->diffInSeconds(\Illuminate\Support\Carbon::now()),
-            ]
-        ];
-        return Response::json($response, ResponseAlias::HTTP_OK);
-
+        $validatedData = $this->galleryAlbumService->publishOrArchiveValidator($request)->validate();
+        $data = $this->galleryAlbumService->publishOrArchiveGalleryAlbum($validatedData, $galleryAlbum);
+        $response = getResponse($data->toArray(), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
+        return Response::json($response, ResponseAlias::HTTP_CREATED);
     }
-
 }

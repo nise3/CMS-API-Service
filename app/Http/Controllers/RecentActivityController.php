@@ -190,28 +190,22 @@ class RecentActivityController extends Controller
      * @param Request $request
      * @param int $id
      * @return JsonResponse
+     * @throws Throwable
      */
     public function publishOrArchive(Request $request, int $id): JsonResponse
     {
         $recentActivity = RecentActivity::findOrFail($id);
 
-        if ($request->input('status') == 1) {
+        if ($request->input('status') == BaseModel::STATUS_PUBLISH) {
             $message = "RecentActivity published successfully";
-        } else {
+        }
+        if ($request->input('status') == BaseModel::STATUS_ARCHIVE) {
             $message = "RecentActivity archived successfully";
         }
-        $data = $this->recentActivityService->publishOrArchive($request, $recentActivity);
-        $response = [
-            '_response_status' => [
-                "data" => $data,
-                "success" => true,
-                "code" => ResponseAlias::HTTP_CREATED,
-                "message" => $message,
-                "query_time" => $this->startTime->diffInSeconds(\Illuminate\Support\Carbon::now()),
-            ]
-        ];
-        return Response::json($response, ResponseAlias::HTTP_OK);
-
+        $validatedData = $this->recentActivityService->publishOrArchiveValidator($request)->validate();
+        $data = $this->recentActivityService->publishOrArchiveRecentActivity($validatedData, $recentActivity);
+        $response = getResponse($data->toArray(), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
+        return Response::json($response, ResponseAlias::HTTP_CREATED);
     }
 
 }

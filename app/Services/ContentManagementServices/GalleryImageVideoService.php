@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Throwable;
 
 /**
  *
@@ -197,20 +198,39 @@ class GalleryImageVideoService
 
 
     /**
-     * @param Request $request
+     * @param array $data
      * @param GalleryImageVideo $galleryImageVideo
      * @return GalleryImageVideo
+     * @throws Throwable
      */
-    public function publishOrArchive(Request $request, GalleryImageVideo $galleryImageVideo): GalleryImageVideo
+    public function publishOrArchiveGalleryImageVideo(array $data, GalleryImageVideo $galleryImageVideo): GalleryImageVideo
     {
-        if ($request->input('status') == 1) {
+        if ($data['status'] == BaseModel::STATUS_PUBLISH) {
             $galleryImageVideo->published_at = Carbon::now()->format('Y-m-d H:i:s');
             $galleryImageVideo->archived_at = null;
-        } else {
+        }
+        if ($data['status'] == BaseModel::STATUS_ARCHIVE) {
             $galleryImageVideo->archived_at = Carbon::now()->format('Y-m-d H:i:s');
         }
-        $galleryImageVideo->save();
+        $galleryImageVideo->saveOrFail();
         return $galleryImageVideo;
+    }
+
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    public function publishOrArchiveValidator(Request $request): \Illuminate\Contracts\Validation\Validator
+    {
+        $rules = [
+            'status' => [
+                'integer',
+                Rule::in(BaseModel::PUBLISH_OR_ARCHIVE_STATUSES)
+            ]
+
+        ];
+        return Validator::make($request->all(), $rules);
     }
 
     public function languageFieldValidator(array $request, string $languageCode): \Illuminate\Contracts\Validation\Validator
