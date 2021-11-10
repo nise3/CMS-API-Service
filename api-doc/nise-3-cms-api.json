@@ -805,7 +805,7 @@
         },
         "/public/sliders": {
             "get": {
-                "summary": "Get All sliders",
+                "summary": "Get All public sliders",
                 "description": "Get All the sliders",
                 "parameters": [
                     {
@@ -850,13 +850,102 @@
                                 "schema": {
                                     "$ref": "#/components/schemas/Slider"
                                 },
-                                "example": {
-                                    "order": "asc",
-                                    "data": [],
+                                "example":{
+                                    "order": "ASC",
+                                    "data": [
+                                        {
+                                            "id": 12,
+                                            "show_in": 1,
+                                            "show_in_label": "Nise3",
+                                            "institute_id": null,
+                                            "organization_id": null,
+                                            "institute_title": "",
+                                            "institute_title_en": "",
+                                            "organization_title": "",
+                                            "organization_title_en": "",
+                                            "industry_association_id": null,
+                                            "is_button_available": 0,
+                                            "link": null,
+                                            "slider_images": [
+                                                "aaasas"
+                                            ],
+                                            "title": "Ammon Ammarth",
+                                            "sub_title": "Ammon Ammarth",
+                                            "alt_title": null,
+                                            "button_text": null,
+                                            "banner_template_code": "BT_LR",
+                                            "banner_template": {
+                                                "banner_template_code": "BT_LR",
+                                                "banner_template_title": "Banner with text left and image right",
+                                                "title": {
+                                                    "position": "left"
+                                                },
+                                                "sub_title": {
+                                                    "position": "left"
+                                                },
+                                                "button": {
+                                                    "position": "left"
+                                                },
+                                                "context_path": {
+                                                    "position": "right"
+                                                }
+                                            },
+                                            "row_status": 0,
+                                            "created_by": null,
+                                            "updated_by": null,
+                                            "created_at": "2021-11-10T08:53:48.000000Z",
+                                            "updated_at": "2021-11-10T08:53:48.000000Z"
+                                        },
+                                        {
+                                            "id": 13,
+                                            "show_in": 1,
+                                            "show_in_label": "Nise3",
+                                            "institute_id": 1,
+                                            "organization_id": null,
+                                            "institute_title": "Julie Ortiz II",
+                                            "institute_title_en": "Julie Ortiz II",
+                                            "organization_title": "",
+                                            "organization_title_en": "",
+                                            "industry_association_id": null,
+                                            "is_button_available": 1,
+                                            "link": "akjskjasjlksj",
+                                            "slider_images": [
+                                                "image1",
+                                                "image2"
+                                            ],
+                                            "title": "aaa",
+                                            "sub_title": "vv",
+                                            "alt_title": "atr_text",
+                                            "button_text": "aaaaaaaaaaaaaaaaa",
+                                            "banner_template_code": "BT_LR",
+                                            "banner_template": {
+                                                "banner_template_code": "BT_LR",
+                                                "banner_template_title": "Banner with text left and image right",
+                                                "title": {
+                                                    "position": "left"
+                                                },
+                                                "sub_title": {
+                                                    "position": "left"
+                                                },
+                                                "button": {
+                                                    "position": "left"
+                                                },
+                                                "context_path": {
+                                                    "position": "right"
+                                                }
+                                            },
+                                            "row_status": 1,
+                                            "created_by": null,
+                                            "updated_by": null,
+                                            "created_at": "2021-11-10T08:57:04.000000Z",
+                                            "updated_at": "2021-11-10T08:57:04.000000Z"
+                                        }
+                                    ],
                                     "_response_status": {
                                         "success": true,
                                         "code": 200,
-                                        "query_time": "1 second before"
+                                        "message": null,
+                                        "query_time": 0
                                     }
                                 }
                             }
@@ -912,13 +1001,103 @@
                                 "schema": {
                                     "$ref": "#/components/schemas/Slider"
                                 },
-                                "example": {
-                                    "order": "asc",
-                                    "data": [],
+                                "example":{
+                                    "order": "ASC",
+                                    "data": [
+
+                                        {
+                                            "id": 12,
+                                            "show_in": 1,
+                                            "show_in_label": "Nise3",
+                                            "institute_id": null,
+                                            "organization_id": null,
+                                            "institute_title": "",
+                                            "institute_title_en": "",
+                                            "organization_title": "",
+                                            "organization_title_en": "",
+                                            "industry_association_id": null,
+                                            "is_button_available": 0,
+                                            "link": null,
+                                            "slider_images": [
+                                                "aaasas"
+                                            ],
+                                            "title": "Ammon Ammarth",
+                                            "sub_title": "Ammon Ammarth",
+                                            "alt_title": null,
+                                            "button_text": null,
+                                            "banner_template_code": "BT_LR",
+                                            "banner_template": {
+                                                "banner_template_code": "BT_LR",
+                                                "banner_template_title": "Banner with text left and image right",
+                                                "title": {
+                                                    "position": "left"
+                                                },
+                                                "sub_title": {
+                                                    "position": "left"
+                                                },
+                                                "button": {
+                                                    "position": "left"
+                                                },
+                                                "context_path": {
+                                                    "position": "right"
+                                                }
+                                            },
+                                            "row_status": 0,
+                                            "created_by": null,
+                                            "updated_by": null,
+                                            "created_at": "2021-11-10T08:53:48.000000Z",
+                                            "updated_at": "2021-11-10T08:53:48.000000Z"
+                                        },
+                                        {
+                                            "id": 13,
+                                            "show_in": 1,
+                                            "show_in_label": "Nise3",
+                                            "institute_id": 1,
+                                            "organization_id": null,
+                                            "institute_title": "Julie Ortiz II",
+                                            "institute_title_en": "Julie Ortiz II",
+                                            "organization_title": "",
+                                            "organization_title_en": "",
+                                            "industry_association_id": null,
+                                            "is_button_available": 1,
+                                            "link": "akjskjasjlksj",
+                                            "slider_images": [
+                                                "image1",
+                                                "image2"
+                                            ],
+                                            "title": "aaa",
+                                            "sub_title": "vv",
+                                            "alt_title": "atr_text",
+                                            "button_text": "aaaaaaaaaaaaaaaaa",
+                                            "banner_template_code": "BT_LR",
+                                            "banner_template": {
+                                                "banner_template_code": "BT_LR",
+                                                "banner_template_title": "Banner with text left and image right",
+                                                "title": {
+                                                    "position": "left"
+                                                },
+                                                "sub_title": {
+                                                    "position": "left"
+                                                },
+                                                "button": {
+                                                    "position": "left"
+                                                },
+                                                "context_path": {
+                                                    "position": "right"
+                                                }
+                                            },
+                                            "row_status": 1,
+                                            "created_by": null,
+                                            "updated_by": null,
+                                            "created_at": "2021-11-10T08:57:04.000000Z",
+                                            "updated_at": "2021-11-10T08:57:04.000000Z"
+                                        }
+                                    ],
                                     "_response_status": {
                                         "success": true,
                                         "code": 200,
-                                        "query_time": "1 second before"
+                                        "message": null,
+                                        "query_time": 0
                                     }
                                 }
                             }
@@ -946,13 +1125,17 @@
                         "description": "Slider Created",
                         "content": {
                             "appication/json": {
-                                "example": {
+                                "example":  {
                                     "data": {
-                                        "id": 11,
+                                        "id": 13,
                                         "show_in": "1",
                                         "show_in_label": "Nise3",
                                         "institute_id": "1",
                                         "organization_id": null,
+                                        "institute_title": "",
+                                        "institute_title_en": "",
+                                        "organization_title": "",
+                                        "organization_title_en": "",
                                         "industry_association_id": null,
                                         "is_button_available": "1",
                                         "link": "akjskjasjlksj",
@@ -960,10 +1143,6 @@
                                             "image1",
                                             "image2"
                                         ],
-                                        "institute_title": "",
-                                        "institute_title_en": "",
-                                        "organization_title": "",
-                                        "organization_title_en": "",
                                         "title": "aaa",
                                         "sub_title": "vv",
                                         "alt_title": "atr_text",
@@ -976,13 +1155,28 @@
                                                 "button_text": "अंग्रेजी"
                                             }
                                         },
-                                        "banner_template_code": null,
-                                        "banner_template": null,
+                                        "banner_template_code": "BT_LR",
+                                        "banner_template": {
+                                            "banner_template_code": "BT_LR",
+                                            "banner_template_title": "Banner with text left and image right",
+                                            "title": {
+                                                "position": "left"
+                                            },
+                                            "sub_title": {
+                                                "position": "left"
+                                            },
+                                            "button": {
+                                                "position": "left"
+                                            },
+                                            "context_path": {
+                                                "position": "right"
+                                            }
+                                        },
                                         "row_status": "1",
                                         "created_by": null,
                                         "updated_by": null,
-                                        "created_at": "2021-11-09T10:02:03.000000Z",
-                                        "updated_at": "2021-11-09T10:02:03.000000Z"
+                                        "created_at": "2021-11-10T08:57:04.000000Z",
+                                        "updated_at": "2021-11-10T08:57:04.000000Z"
                                     },
                                     "_response_status": {
                                         "success": true,
@@ -1023,32 +1217,46 @@
                                 "schema": {
                                     "$ref": "#/components/schemas/Slider"
                                 },
-                                "example": {
+                                "example":{
                                     "data": {
                                         "id": 1,
-                                        "institute_id": 1,
-                                        "organization_id": 1,
-                                        "title": "New Title",
-                                        "sub_title": "No subtitle",
-                                        "is_button_available": 1,
-                                        "button_text": "new field",
-                                        "link": "new link",
-                                        "slider_images": [
-                                            "sssss"
-                                        ],
+                                        "show_in": 5,
+                                        "show_in_label": "Industry Association",
+                                        "institute_id": 4,
+                                        "organization_id": 4,
+                                        "institute_title": "",
+                                        "institute_title_en": "",
+                                        "organization_title": "Schiller-VonRueden",
+                                        "organization_title_en": "Schiller-VonRueden",
+                                        "industry_association_id": 1,
+                                        "is_button_available": 0,
+                                        "link": null,
+                                        "slider_images": null,
+                                        "title": "Residential Advisor",
+                                        "sub_title": "Residential Advisor",
                                         "alt_title": null,
+                                        "button_text": "Nesciunt error neces",
+                                        "other_language_fields": {
+                                            "hi": {
+                                                "title": "अगर आप किसी एग्जाम की तैयारी कर रहे हैं, तो जेनरल नॉलेज अच्छी करना बेहद जरूरी। तो चलिए जानते हैं कौन-से सवाल",
+                                                "sub_title": "भारत का इतिहास या फिर भूगोल, यह इतना बड़ा है कि इसको याद करने में बड़ों-बड़ों की रातों की नींद हराम हो जाती है। सभी प्रश्‍नों के उत्‍तर याद करना सभी के लिए लगभग असंभव है, आज हम आपको बता रहे हैं उन खास प्रश्‍नों को उनके उत्‍तर के साथ जो प्रतियोगी परिक्षाओं से लेकर जॉब इंटरव्‍यू में ज्‍यादातर पूछे जाते हैं। अगर आपको इन प्रश्‍नों के उत्‍तर पता हैं तो आपकी मुश्‍किलें हल हो जाएंगी",
+                                                "alt_title": "भारत का इतिहास या फिर भूगोल",
+                                                "button_text": "भारत का इतिहास या फिर भूगोल"
+                                            }
+                                        },
+                                        "banner_template_code": null,
                                         "banner_template": null,
-                                        "row_status": 0,
+                                        "row_status": 1,
                                         "created_by": null,
                                         "updated_by": null,
-                                        "created_at": "2021-11-04T04:24:01.000000Z",
-                                        "updated_at": "2021-11-04T04:24:01.000000Z"
+                                        "created_at": "2021-11-09T04:52:37.000000Z",
+                                        "updated_at": "2021-11-09T04:52:37.000000Z"
                                     },
                                     "_response_status": {
                                         "success": true,
                                         "code": 200,
-                                        "message": "Slider details",
-                                        "query_time": 0
+                                        "message": null,
+                                        "query_time": 1
                                     }
                                 }
                             }
@@ -1079,30 +1287,46 @@
                             "schema": {
                                 "$ref": "#/components/schemas/Slider"
                             },
-                            "example": {
+                            "example":{
                                 "data": {
                                     "id": 1,
+                                    "show_in": "1",
+                                    "show_in_label": "Nise3",
                                     "institute_id": "1",
-                                    "organization_id": "1",
-                                    "title": "Abar Title",
-                                    "sub_title": "New Subtitle",
-                                    "is_button_available": "0",
-                                    "button_text": null,
-                                    "link": null,
+                                    "organization_id": 4,
+                                    "institute_title": "",
+                                    "institute_title_en": "",
+                                    "organization_title": "",
+                                    "organization_title_en": "",
+                                    "industry_association_id": 1,
+                                    "is_button_available": "1",
+                                    "link": "akjskjasjlksj",
                                     "slider_images": [
-                                        "No Image"
+                                        "aasasas"
                                     ],
+                                    "title": "abc",
+                                    "sub_title": "abc",
                                     "alt_title": null,
+                                    "button_text": "bbbbbb",
+                                    "other_language_fields": {
+                                        "hi": {
+                                            "title": "अगर आप किसी एग्जाम की तैयारी कर रहे हैं, तो जेनरल नॉलेज अच्छी करना बेहद जरूरी। तो चलिए जानते हैं कौन-से सवाल",
+                                            "sub_title": "भारत का इतिहास या फिर भूगोल, यह इतना बड़ा है कि इसको याद करने में बड़ों-बड़ों की रातों की नींद हराम हो जाती है। सभी प्रश्‍नों के उत्‍तर याद करना सभी के लिए लगभग असंभव है, आज हम आपको बता रहे हैं उन खास प्रश्‍नों को उनके उत्‍तर के साथ जो प्रतियोगी परिक्षाओं से लेकर जॉब इंटरव्‍यू में ज्‍यादातर पूछे जाते हैं। अगर आपको इन प्रश्‍नों के उत्‍तर पता हैं तो आपकी मुश्‍किलें हल हो जाएंगी",
+                                            "alt_title": "भारत का इतिहास या फिर भूगोल",
+                                            "button_text": "भारत का इतिहास या फिर भूगोल"
+                                        }
+                                    },
+                                    "banner_template_code": null,
                                     "banner_template": null,
-                                    "row_status": "0",
+                                    "row_status": "1",
                                     "created_by": null,
                                     "updated_by": null,
-                                    "created_at": "2021-11-04T04:24:01.000000Z",
-                                    "updated_at": "2021-11-04T04:58:31.000000Z"
+                                    "created_at": "2021-11-09T04:52:37.000000Z",
+                                    "updated_at": "2021-11-10T09:09:42.000000Z"
                                 },
                                 "_response_status": {
                                     "success": true,
-                                    "code": 201,
+                                    "code": 200,
                                     "message": "Slider successfully update",
                                     "query_time": 0
                                 }
@@ -1189,7 +1413,7 @@
         },
         "/public/sliders/{SliderId}": {
             "get": {
-                "summary": "get_one",
+                "summary": "get a public slider",
                 "description": "API endpoint to get a specified Slider.A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
@@ -1213,31 +1437,39 @@
                                 "schema": {
                                     "$ref": "#/components/schemas/Slider"
                                 },
-                                "example": {
+                                "example":{
                                     "data": {
                                         "id": 1,
+                                        "show_in": 1,
+                                        "show_in_label": "Nise3",
                                         "institute_id": 1,
-                                        "organization_id": 1,
-                                        "title": "New Title",
-                                        "sub_title": "No subtitle",
+                                        "organization_id": 4,
+                                        "institute_title": "Julie Ortiz II",
+                                        "institute_title_en": "Julie Ortiz II",
+                                        "organization_title": "Schiller-VonRueden",
+                                        "organization_title_en": "Schiller-VonRueden",
+                                        "industry_association_id": 1,
                                         "is_button_available": 1,
-                                        "button_text": "new field",
-                                        "link": "new link",
+                                        "link": "akjskjasjlksj",
                                         "slider_images": [
-                                            "sssss"
+                                            "aasasas"
                                         ],
+                                        "title": "abc",
+                                        "sub_title": "abc",
+                                        "button_text": "bbbbbb",
                                         "alt_title": null,
+                                        "banner_template_code": null,
                                         "banner_template": null,
-                                        "row_status": 0,
+                                        "row_status": 1,
                                         "created_by": null,
                                         "updated_by": null,
-                                        "created_at": "2021-11-04T04:24:01.000000Z",
-                                        "updated_at": "2021-11-04T04:24:01.000000Z"
+                                        "created_at": "2021-11-09T04:52:37.000000Z",
+                                        "updated_at": "2021-11-10T09:09:42.000000Z"
                                     },
                                     "_response_status": {
                                         "success": true,
                                         "code": 200,
-                                        "message": "Slider details",
+                                        "message": null,
                                         "query_time": 0
                                     }
                                 }
@@ -1253,9 +1485,11 @@
 
 
 
+
+
         "/public/faqs": {
             "get": {
-                "summary": "Get All faqs",
+                "summary": "Get All public faqs",
                 "description": "API endpoint to get the list of Sliders.A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
@@ -1757,7 +1991,7 @@
         },
         "/public/faqs/{faqId}": {
             "get": {
-                "summary": "Get All faqs",
+                "summary": "Get a public faq by Id",
                 "description": "API endpoint to get the list of Sliders.A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
@@ -1826,12 +2060,9 @@
                 ]
             }
         },
-
-
-
         "/public/gallery-albums": {
             "get": {
-                "summary": "Get All gallery albums",
+                "summary": "Get All public  gallery albums",
                 "description": "API endpoint to get all gallery image.A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
@@ -2237,7 +2468,7 @@
         },
         "/public/gallery-albums/{galleryAlbumId}": {
             "get": {
-                "summary": "Get All gallery albums",
+                "summary": "Get a public gallery albums",
                 "description": "API endpoint to get all gallery image.A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
@@ -2373,13 +2604,9 @@
                 ]
             }
         },
-
-
-
-
         "/public/gallery-images-videos": {
             "get": {
-                "summary": "Get all gallery image videos",
+                "summary": "Get all public gallery image videos",
                 "description": "API endpoint to get the list of gallery-images-videos.A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
@@ -2772,7 +2999,7 @@
         },
         "/public/gallery-images-videos/{galleryImagesVideoId}": {
             "get": {
-                "summary": "Get all gallery image videos",
+                "summary": "Get a public gallery image video by Id",
                 "description": "API endpoint to get the list of gallery-images-videos.A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
@@ -2909,12 +3136,9 @@
                 ]
             }
         },
-
-
-
         "/public/static-pages": {
             "get": {
-                "summary": "Get all static page",
+                "summary": "Get all public static page",
                 "description": "API endpoint to get all a Static Page.A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
@@ -3221,7 +3445,7 @@
         },
         "/public/static-pages/{staticPagesId}": {
             "get": {
-                "summary": "Get all static page",
+                "summary": "Get a public static page by Id",
                 "description": "API endpoint to get all a Static Page.A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
@@ -3249,12 +3473,9 @@
                 ]
             }
         },
-
-
-
         "/public/recent-activities": {
             "get": {
-                "summary": "Get All recent activity",
+                "summary": "Get All public recent activity",
                 "description": "API endpoint to get all recent activities.A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
@@ -3572,7 +3793,7 @@
         },
         "/public/recent-activities/{recentActivityId}": {
             "get": {
-                "summary": "Get All recent activity",
+                "summary": "Get a  recent public activity",
                 "description": "API endpoint to get all recent activities.A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
@@ -3678,9 +3899,6 @@
                 ]
             }
         },
-
-
-
         "/calender-events": {
             "get": {
                 "summary": "Get list of Calender Events",
@@ -4066,12 +4284,9 @@
                 ]
             }
         },
-
-
-
         "/public/notice-or-news": {
             "get": {
-                "summary": "Get all notice or news",
+                "summary": "Get all public notice or news",
                 "description": "API endpoint to all all notice or news.A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
@@ -4367,7 +4582,7 @@
         },
         "/public/notice-or-news/{noticeId}": {
             "get": {
-                "summary": "Get notice by Id",
+                "summary": "Get a public notice by Id",
                 "description": "API endpoint to get a notice .A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
@@ -4505,8 +4720,6 @@
                 ]
             }
         },
-
-
         "/visitor-feedback-suggestions": {
             "get": {
                 "summary": "Get aAll visitor-feedback-suggestion",
@@ -4868,37 +5081,37 @@
             }
         },
         "parameters": {
-            "show_in":{
-                    "name": "show_in",
-                    "in": "query",
-                    "required": false,
-                     "description": "1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry",
-                    "schema": {
-                        "type": "integer",
-                        "enum": [
-                            1,
-                            2,
-                            3,
-                            4
-                        ]
-                    }
-                },
-            "institute_id":{
-                    "name": "institute_id",
-                    "in": "query",
-                    "required": false,
-                    "schema": {
+            "show_in": {
+                "name": "show_in",
+                "in": "query",
+                "required": false,
+                "description": "1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry",
+                "schema": {
+                    "type": "integer",
+                    "enum": [
+                        1,
+                        2,
+                        3,
+                        4
+                    ]
+                }
+            },
+            "institute_id": {
+                "name": "institute_id",
+                "in": "query",
+                "required": false,
+                "schema": {
                     "type": "integer"
-                    }
-                },
-            "industry_association_id":{
-                    "name": "industry_association_id",
-                    "in": "query",
-                    "required": false,
-                    "schema": {
+                }
+            },
+            "industry_association_id": {
+                "name": "industry_association_id",
+                "in": "query",
+                "required": false,
+                "schema": {
                     "type": "integer"
-                    }
-                },
+                }
+            },
             "Accept-Language": {
                 "name": "Accept-Language",
                 "in": "header",
@@ -5073,8 +5286,7 @@
                 "name": "sub_title",
                 "in": "query",
                 "schema": {
-                    "type": "string",
-                    "example": "subtitle"
+                    "type": "string"
                 }
             },
             "sub_title_optional": {
@@ -5324,8 +5536,7 @@
                     "enum": [
                         1,
                         0
-                    ],
-                    "default": 1
+                    ]
                 }
             },
             "title": {
@@ -6062,16 +6273,13 @@
                         "example": "2021-06-03"
                     },
                     "institute_id": {
-                        "type": "integer",
-                        "example": 1
+                        "type": "integer"
                     },
                     "organization_id": {
-                        "type": "integer",
-                        "example": 1
+                        "type": "integer"
                     },
                     "industry_association_id": {
-                        "type": "integer",
-                        "example": 1
+                        "type": "integer"
                     },
                     "content_type": {
                         "type": "integer",
@@ -6227,27 +6435,32 @@
                 "type": "object",
                 "description": "Provide sliders",
                 "properties": {
+                    "show_in": {
+                        "type": "integer",
+                        "description": "1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry",
+                        "enum": [
+                            1,
+                            2,
+                            3,
+                            4
+                        ]
+                    },
                     "title": {
                         "type": "string",
-                        "description": " Title In Bangla",
                         "minLength": 1,
                         "maxLength": 500
                     },
                     "sub_title": {
                         "type": "string",
-                        "description": " Subtitle in Bangla",
                         "minLength": 1,
                         "maxLength": 500
                     },
                     "institute_id": {
                         "type": "integer",
-                        "description": "Institute id",
-                        "example": 1
+                        "description": "Institute id"
                     },
                     "organization_id": {
-                        "type": "integer",
-                        "description": "organization id",
-                        "example": 1
+                        "type": "integer"
                     },
                     "is_button_available": {
                         "type": "integer",
@@ -6258,20 +6471,25 @@
                         ]
                     },
                     "link": {
-                        "type": "string",
-                        "description": "Slider link"
+                        "type": "string"
+
                     },
                     "button_text": {
-                        "type": "string",
-                        "description": "Button text"
+                        "type": "string"
+
                     },
                     "slider_images": {
-                        "type": "string",
-                        "description": "slider images"
+                        "type": "string"
+
                     },
                     "alt_title": {
+                        "type": "string"
+                    },
+                    "banner_template_code": {
                         "type": "string",
-                        "description": "image alt title bn"
+                        "enum": [
+                            "BT_LR" ,"BT_RL","BT_CB"
+                        ]
                     },
                     "row_status": {
                         "type": "integer",
@@ -6279,8 +6497,7 @@
                         "enum": [
                             1,
                             0
-                        ],
-                        "example": 1
+                        ]
                     },
                     "other_language_fields": {
                         "type": "object",
@@ -6288,6 +6505,7 @@
                     }
                 },
                 "required": [
+                    "show_in",
                     "title",
                     "sub_title",
                     "slider_images",
