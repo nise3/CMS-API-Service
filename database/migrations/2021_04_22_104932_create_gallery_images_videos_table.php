@@ -42,8 +42,9 @@ class CreateGalleryImagesVideosTable extends Migration
             $table->text('content_description')->nullable();
             $table->text('content_description_en')->nullable();
 
-            $table->string('image_url', 600)->nullable()->comment('for content_type=Image required');
-            $table->string('video_url', 100)->nullable()->comment('for content_type=Video required');
+            $table->string('content_path', 800)->nullable();
+            $table->string('embedded_url', 800)->nullable();
+            $table->string('embedded_id', 300)->nullable();
             $table->json('content_properties_json')->nullable();
 
             $table->string('content_cover_image_url')->nullable();

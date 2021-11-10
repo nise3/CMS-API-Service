@@ -14,6 +14,11 @@ class RecentActivityFactory extends Factory
     public function definition(): array
     {
         $title = $this->faker->jobTitle();
+        $contentType = $this->faker->randomElement(RecentActivity::CONTENT_TYPES);
+        $content_path = null;
+        if ($contentType == RecentActivity::CONTENT_TYPE_IMAGE) {
+            $content_path = $this->faker->imageUrl();
+        }
         return [
             'title_en' => $title,
             'title' => $title,
@@ -23,8 +28,8 @@ class RecentActivityFactory extends Factory
             'published_at' => Carbon::now(),
             'description_en' => $this->faker->sentence(40),
             'description' => $this->faker->sentence(40),
-            'content_type' => $this->faker->randomElement(RecentActivity::CONTENT_TYPES),
-            "content_path" => $this->faker->sentence(),
+            'content_type' => $contentType,
+            "content_path" => $content_path,
             "content_properties" => $this->faker->sentence()
         ];
     }
