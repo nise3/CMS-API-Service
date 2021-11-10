@@ -6099,13 +6099,17 @@
                         "type": "string",
                         "description": "Content Description"
                     },
-                    "image_url": {
+                    "content_path": {
                         "type": "string",
-                        "description": "for content_type=Image required"
+                        "description": "Required when content_type = image[1]"
                     },
-                    "video_url": {
+                    "embedded_url": {
                         "type": "string",
-                        "description": "for content_type=Video required"
+                        "description": "Required. When content type = Facebook source[2] or  Youtube Source[3] "
+                    },
+                    "embedded_id": {
+                        "type": "integer",
+                        "description": "Required. When content type = Facebook source[2] or  Youtube Source[3] "
                     },
                     "content_properties_json": {
                         "type": "string"
