@@ -44,6 +44,19 @@ class Nise3PartnerController extends Controller
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
 
+
+    /**
+     * @param Request $request
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function read(Request $request, int $id): JsonResponse
+    {
+        $response = new Nise3PartnerResource($this->nise3PartnerService->getOnePartner($id));
+        $response = getResponse($response->toArray($request), $this->startTime, !BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
+        return Response::json($response, ResponseAlias::HTTP_OK);
+    }
+
     /**
      * @param Request $request
      * @return JsonResponse
@@ -55,18 +68,6 @@ class Nise3PartnerController extends Controller
         $filter = $this->nise3PartnerService->filterValidation($request)->validate();
         $response = Nise3PartnerResource::collection($this->nise3PartnerService->getPartnerList($filter))->resource;
         $response = getResponse($response->toArray(), $this->startTime, !BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
-        return Response::json($response, ResponseAlias::HTTP_OK);
-    }
-
-    /**
-     * @param Request $request
-     * @param int $id
-     * @return JsonResponse
-     */
-    public function read(Request $request, int $id): JsonResponse
-    {
-        $response = new Nise3PartnerResource($this->nise3PartnerService->getOnePartner($id));
-        $response = getResponse($response->toArray($request), $this->startTime, !BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
 

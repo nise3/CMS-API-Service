@@ -49,21 +49,6 @@ class NoticeOrNewsController extends Controller
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
 
-    /**
-     * @param Request $request
-     * @return JsonResponse
-     */
-    public function clientSideGetList(Request $request): JsonResponse
-    {
-        $request->offsetSet(BaseModel::IS_COLLECTION_KEY, BaseModel::IS_COLLECTION_FLAG);
-        $filter = $this->noticeOrNewsService->filterValidator($request)->validate();
-        $filter[BaseModel::IS_CLIENT_SITE_RESPONSE_KEY] = BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG;
-        $noticeOrNewsList = $this->noticeOrNewsService->getNoticeOrNewsServiceList($filter, $this->startTime);
-        $request->offsetSet(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID, CmsGlobalConfigService::getOrganizationOrInstituteOrIndustryAssociationTitle($noticeOrNewsList->toArray()['data'] ?? $noticeOrNewsList->toArray()));
-        $response = NoticeOrNewsResource::collection($noticeOrNewsList)->resource;
-        $response = getResponse($response->toArray(), $this->startTime, !BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
-        return Response::json($response, ResponseAlias::HTTP_OK);
-    }
 
     /**
      * @param Request $request
@@ -79,6 +64,21 @@ class NoticeOrNewsController extends Controller
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
 
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function clientSideGetList(Request $request): JsonResponse
+    {
+        $request->offsetSet(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY, BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG);
+        $filter = $this->noticeOrNewsService->filterValidator($request)->validate();
+        $filter[BaseModel::IS_CLIENT_SITE_RESPONSE_KEY] = BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG;
+        $noticeOrNewsList = $this->noticeOrNewsService->getNoticeOrNewsServiceList($filter, $this->startTime);
+        $request->offsetSet(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID, CmsGlobalConfigService::getOrganizationOrInstituteOrIndustryAssociationTitle($noticeOrNewsList->toArray()['data'] ?? $noticeOrNewsList->toArray()));
+        $response = NoticeOrNewsResource::collection($noticeOrNewsList)->resource;
+        $response = getResponse($response->toArray(), $this->startTime, !BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
+        return Response::json($response, ResponseAlias::HTTP_OK);
+    }
 
     /**
      * Display the specified resource from client site.
@@ -89,6 +89,7 @@ class NoticeOrNewsController extends Controller
      */
     public function clientSideRead(Request $request, int $id): JsonResponse
     {
+        $request->offsetSet(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY, BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG);
         $noticeOrNews = $this->noticeOrNewsService->getOneNoticeOrNewsService($id);
         $response = new NoticeOrNewsResource($noticeOrNews);
         $request->offsetSet(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID, CmsGlobalConfigService::getOrganizationOrInstituteOrIndustryAssociationTitle($noticeOrNews->toArray()));
