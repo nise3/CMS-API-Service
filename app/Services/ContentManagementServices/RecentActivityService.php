@@ -395,12 +395,6 @@ class RecentActivityService
 
 
         ];
-        if (!empty($requestData['content_type']) && $requestData['content_type'] == RecentActivity::CONTENT_TYPE_YOUTUBE_VIDEO) {
-            $rules['embedded_id'] = [
-                'required',
-                'max:300'
-            ];
-        }
 
         if (!empty($requestData['content_type']) &&
             ($requestData['content_type'] == RecentActivity::CONTENT_TYPE_FACEBOOK_VIDEO || $requestData['content_type'] == RecentActivity::CONTENT_TYPE_YOUTUBE_VIDEO)) {
@@ -408,6 +402,10 @@ class RecentActivityService
                 'required',
                 'string',
                 'max:800'
+            ];
+            $rules['embedded_id'] = [
+                'required',
+                'max:300'
             ];
         }
         $rules = array_merge($rules, BaseModel::OTHER_LANGUAGE_VALIDATION_RULES);
