@@ -13,19 +13,23 @@ class GalleryImageVideoFactory extends Factory
     public function definition(): array
     {
         $title = $this->faker->jobTitle();
-        $contentType = $this->faker->randomElement([1, 2]);
+        $contentType = $this->faker->randomElement(GalleryImageVideo::CONTENT_TYPES);
         $videoType = null;
-        if ($contentType == 2) {
-            $videoType = $this->faker->randomElement([1, 2]);
+        $content_path = null;
+        if ($contentType == GalleryImageVideo::CONTENT_TYPE_IMAGE) {
+            $content_path = $this->faker->imageUrl();
+        } elseif ($contentType == GalleryImageVideo::CONTENT_TYPE_VIDEO) {
+            $videoType = $this->faker->randomElement(GalleryImageVideo::VIDEO_TYPES);
         }
         return [
-            'featured'=>$this->faker->boolean(),
+            'featured' => $this->faker->boolean(),
             'published_at' => Carbon::now(),
             'content_type' => $contentType,
-            'video_type' =>$videoType,
+            'video_type' => $videoType,
             'institute_id' => $this->faker->numberBetween(1, 10),
             'organization_id' => $this->faker->numberBetween(1, 10),
             'industry_association_id' => $this->faker->numberBetween(1, 10),
+            'content_path' => $content_path,
             'content_title' => $this->faker->jobTitle(),
             'content_title_en' => $this->faker->jobTitle(),
             'content_description' => $this->faker->realText(),
