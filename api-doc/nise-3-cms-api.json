@@ -2296,7 +2296,41 @@
                         "description": "successfull",
                         "content": {
                             "application/json": {
-                                "example": {}
+                                "example": {
+                                    "data": {
+                                        "id": 3,
+                                        "parent_gallery_album_id": null,
+                                        "featured": 0,
+                                        "show_in": 4,
+                                        "album_type": 2,
+                                        "published_at": "2021-11-10 04:40:41",
+                                        "archived_at": null,
+                                        "institute_id": null,
+                                        "organization_id": 6,
+                                        "industry_association_id": 2,
+                                        "batch_id": 7,
+                                        "program_id": 9,
+                                        "title": "Cutting Machine Operator",
+                                        "title_en": "Cutting Machine Operator",
+                                        "main_image_path": null,
+                                        "thumb_image_path": null,
+                                        "grid_image_path": null,
+                                        "image_alt_title": "Natus nobis.",
+                                        "image_alt_title_en": "Veritatis.",
+                                        "row_status": 1,
+                                        "created_by": null,
+                                        "updated_by": null,
+                                        "created_at": "2021-11-09T04:52:36.000000Z",
+                                        "updated_at": "2021-11-10T04:40:41.000000Z",
+                                        "deleted_at": null
+                                    },
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 201,
+                                        "message": "Gallery Album published successfully",
+                                        "query_time": 0
+                                    }
+                                }
                             }
                         }
                     }
