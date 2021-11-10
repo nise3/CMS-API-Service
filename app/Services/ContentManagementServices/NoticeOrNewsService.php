@@ -36,6 +36,7 @@ class NoticeOrNewsService
         $instituteId = $request['institute_id'] ?? "";
         $organizationId = $request['organization_id'] ?? "";
         $industryAssociationId = $request['industry_association_id'] ?? "";
+        $showIn = $request['show_in'] ?? "";
         $isRequestFromClientSide = !empty($request[BaseModel::IS_CLIENT_SITE_RESPONSE_KEY]);
 
         /** @var Builder $noticeOrNewsBuilder */
@@ -97,6 +98,10 @@ class NoticeOrNewsService
 
         if (is_numeric($industryAssociationId)) {
             $noticeOrNewsBuilder->where('notice_or_news.industry_association_id', '=', $industryAssociationId);
+        }
+
+        if (is_numeric($showIn)) {
+            $noticeOrNewsBuilder->where('notice_or_news.show_in', '=', $showIn);
         }
 
 
@@ -288,6 +293,7 @@ class NoticeOrNewsService
             'institute_id' => 'nullable|integer|gt:0',
             'organization_id' => 'nullable|integer|gt:0',
             'industry_association_id' => 'nullable|integer|gt:0',
+            'show_in' => 'nullable|integer|gt:0',
             'order' => [
                 'nullable',
                 'string',
