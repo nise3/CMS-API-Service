@@ -2534,7 +2534,7 @@
         },
         "/gallery-albums/publish-or-archive/{galleryAlbumId}": {
             "post": {
-                "summary": "Create a new published or archived gallery-album",
+                "summary": "Published/Archived gallery-album",
                 "description": "API endpoint to create  a new published or archived gallery-album.A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
@@ -2711,34 +2711,78 @@
                         "description": "successfull",
                         "content": {
                             "application/json": {
-                                "example": {
+                                "example":{
+                                    "order": "ASC",
                                     "data": [
                                         {
-                                            "gallery_album_id": "1",
-                                            "featured": "1",
-                                            "institute_id": "1",
-                                            "organization_id": "1",
-                                            "content_type": "2",
-                                            "video_type": "1",
-                                            "content_title": "newtitle",
-                                            "content_description": null,
+                                            "id": 9,
+                                            "gallery_album_id": 9,
+                                            "featured": 0,
+                                            "published_at": "2021-11-10 07:48:00",
+                                            "archived_at": null,
+                                            "institute_id": 2,
+                                            "organization_id": 2,
+                                            "industry_association_id": 10,
+                                            "institute_title": "Savion Keeling Sr.",
+                                            "institute_title_en": "Savion Keeling Sr.",
+                                            "organization_title": "Armstrong-Buckridge",
+                                            "organization_title_en": "Armstrong-Buckridge",
+                                            "content_type": 1,
+                                            "video_type": null,
+                                            "content_title": "Surgeon",
+                                            "content_description": "The Duchess took no notice of them attempted to explain the paper. 'If there's no meaning in it,' said Five, 'and I'll tell him--it was for bringing the cook and the second time round, she found.",
+                                            "content_path": "https://via.placeholder.com/640x480.png/008800?text=iure",
+                                            "embedded_url": null,
+                                            "embedded_id": null,
                                             "content_properties_json": null,
-                                            "image_url": null,
-                                            "video_url": "ddddd",
                                             "content_cover_image_url": null,
                                             "content_grid_image_url": null,
-                                            "content_thumb_image_url": null,
-                                            "alt_title": null,
-                                            "row_status": "1",
-                                            "updated_at": "2021-11-04T07:52:27.000000Z",
-                                            "created_at": "2021-11-04T07:52:27.000000Z",
-                                            "id": 1
+                                            "alt_title": "I was sent for.' 'You ought to have got altered.' 'It is a very small cake, on which the words all coming different, and then they wouldn't be in Bill's place for a little girl,' said Alice, in a.",
+                                            "row_status": 1,
+                                            "published_by": null,
+                                            "archived_by": null,
+                                            "created_by": null,
+                                            "updated_by": null,
+                                            "created_at": "2021-11-10T07:48:00.000000Z",
+                                            "updated_at": "2021-11-10T07:48:00.000000Z"
+                                        },
+                                        {
+                                            "id": 10,
+                                            "gallery_album_id": 10,
+                                            "featured": 0,
+                                            "published_at": "2021-11-10 07:48:00",
+                                            "archived_at": null,
+                                            "institute_id": 6,
+                                            "organization_id": 5,
+                                            "industry_association_id": 3,
+                                            "institute_title": "",
+                                            "institute_title_en": "",
+                                            "organization_title": "Stamm-Ortiz",
+                                            "organization_title_en": "Stamm-Ortiz",
+                                            "content_type": 2,
+                                            "video_type": 1,
+                                            "content_title": "Physical Scientist",
+                                            "content_description": "March Hare. 'Sixteenth,' added the Gryphon, and the shrill voice of the house down!' said the King; and the Queen put on one knee as he came, 'Oh! the Duchess, digging her sharp little chin. 'I've a.",
+                                            "content_path": null,
+                                            "embedded_url": null,
+                                            "embedded_id": null,
+                                            "content_properties_json": null,
+                                            "content_cover_image_url": null,
+                                            "content_grid_image_url": null,
+                                            "alt_title": "THAT. Then again--\"BEFORE SHE HAD THIS FIT--\" you never had fits, my dear, and that is enough,' Said his father; 'don't give yourself airs! Do you think you could draw treacle out of the wood for.",
+                                            "row_status": 1,
+                                            "published_by": null,
+                                            "archived_by": null,
+                                            "created_by": null,
+                                            "updated_by": null,
+                                            "created_at": "2021-11-10T07:48:00.000000Z",
+                                            "updated_at": "2021-11-10T07:48:00.000000Z"
                                         }
                                     ],
                                     "_response_status": {
                                         "success": true,
-                                        "code": 201,
-                                        "message": "GalleryImageVideo is Successfully added",
+                                        "code": 200,
+                                        "message": null,
                                         "query_time": 0
                                     }
                                 }
@@ -3061,7 +3105,7 @@
         },
         "/gallery-images-videos/publish-or-archive/{galleryImagesVideoId}": {
             "post": {
-                "summary": "Create a new archived/published gallery image video",
+                "summary": "Archived/Published gallery-image-video",
                 "description": "API endpoint to create a new archived/published gallery image video.A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
@@ -3559,7 +3603,86 @@
                     "200": {
                         "description": "successful",
                         "content": {
-                            "application/json": {}
+                            "application/json": {
+                                "example": {
+                                    "order": "ASC",
+                                    "data": [
+                                        {
+                                            "id": 9,
+                                            "show_in": 2,
+                                            "show_in_label": "Youth",
+                                            "activity_date": null,
+                                            "published_at": "2021-11-10 07:48:01",
+                                            "archived_at": null,
+                                            "institute_id": 6,
+                                            "organization_id": 8,
+                                            "institute_title": "",
+                                            "institute_title_en": "",
+                                            "organization_title": "Nader, Considine and Fahey",
+                                            "organization_title_en": "Nader, Considine and Fahey",
+                                            "industry_association_id": null,
+                                            "title": "Welder-Fitter",
+                                            "content_type": 3,
+                                            "content_path": null,
+                                            "embedded_url": null,
+                                            "embedded_id": null,
+                                            "content_properties": "Et eos quibusdam eaque.",
+                                            "collage_image_path": null,
+                                            "collage_position": null,
+                                            "thumb_image_path": null,
+                                            "grid_image_path": null,
+                                            "image_alt_title": null,
+                                            "description": "Quia rerum libero sunt atque est nulla exercitationem ut doloremque aut et quos blanditiis numquam impedit et sunt quo et id illum architecto doloremque nobis nihil perspiciatis optio maxime doloribus sed.",
+                                            "row_status": null,
+                                            "published_by": null,
+                                            "archived_by": null,
+                                            "updated_by": null,
+                                            "created_at": "2021-11-10T07:48:01.000000Z",
+                                            "updated_at": "2021-11-10T07:48:01.000000Z"
+                                        },
+                                        {
+                                            "id": 10,
+                                            "show_in": 3,
+                                            "show_in_label": "Training Service Provider(TSP)",
+                                            "activity_date": null,
+                                            "published_at": "2021-11-10 07:48:01",
+                                            "archived_at": null,
+                                            "institute_id": 9,
+                                            "organization_id": 10,
+                                            "institute_title": "",
+                                            "institute_title_en": "",
+                                            "organization_title": "Krajcik, Schaefer and Gulgowski",
+                                            "organization_title_en": "Krajcik, Schaefer and Gulgowski",
+                                            "industry_association_id": null,
+                                            "title": "Environmental Compliance Inspector",
+                                            "content_type": 1,
+                                            "content_path": "https://via.placeholder.com/640x480.png/00bbff?text=voluptas",
+                                            "embedded_url": null,
+                                            "embedded_id": null,
+                                            "content_properties": "Omnis perspiciatis quia dolorem debitis quia.",
+                                            "collage_image_path": null,
+                                            "collage_position": null,
+                                            "thumb_image_path": null,
+                                            "grid_image_path": null,
+                                            "image_alt_title": null,
+                                            "description": "Voluptatem et omnis reprehenderit placeat esse fugiat odio occaecati sunt ut sed qui enim ut reiciendis quidem est quo esse maiores nihil magni quisquam praesentium sint eius labore perferendis quae asperiores eius quas ab quisquam at eius qui quia et ea impedit est dolor cupiditate ipsa facilis facere quo eum quos iste rerum dignissimos.",
+                                            "row_status": null,
+                                            "published_by": null,
+                                            "archived_by": null,
+                                            "updated_by": null,
+                                            "created_at": "2021-11-10T07:48:01.000000Z",
+                                            "updated_at": "2021-11-10T07:48:01.000000Z"
+                                        }
+                                    ],
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "message": null,
+                                        "query_time": 0
+                                    }
+
+                                }
+                            }
                         }
                     }
                 },
@@ -3641,32 +3764,49 @@
                             "application/json": {
                                 "example": {
                                     "data": {
-                                        "id": 1,
-                                        "show_in": 0,
+                                        "id": 2,
+                                        "show_in": 3,
+                                        "show_in_label": "Training Service Provider(TSP)",
                                         "activity_date": null,
-                                        "published_at": null,
+                                        "published_at": "2021-11-10 07:48:01",
                                         "archived_at": null,
-                                        "institute_id": null,
-                                        "organization_id": null,
+                                        "institute_id": 1,
+                                        "organization_id": 8,
+                                        "institute_title": "Chester Koss",
+                                        "institute_title_en": "Chester Koss",
+                                        "organization_title": "Nader, Considine and Fahey",
+                                        "organization_title_en": "Nader, Considine and Fahey",
                                         "industry_association_id": null,
-                                        "title": "aaa",
+                                        "title": "Mail Machine Operator",
                                         "content_type": 2,
                                         "content_path": null,
                                         "embedded_url": null,
                                         "embedded_id": null,
-                                        "content_properties": null,
+                                        "content_properties": "Tenetur ea iusto error voluptates eum nihil.",
                                         "collage_image_path": null,
                                         "collage_position": null,
                                         "thumb_image_path": null,
                                         "grid_image_path": null,
                                         "image_alt_title": null,
-                                        "description": null,
+                                        "description": "Delectus dolorem aut minus odio quos placeat qui rerum autem ea at quis nam rerum laborum laudantium nobis est vel aut inventore et ipsum et nisi a quis tenetur ut similique ut sint.",
+                                        "other_language_fields": {
+                                            "hi": {
+                                                "title": "अगर आप किसी एग्जाम की तैयारी ",
+                                                "image_alt_title": "भारत का इतिहासं",
+                                                "description": "भारत का इतिहासं"
+                                            },
+                                            "te": {
+                                                "title": "భారతదేశ చరిత్ర",
+                                                "image_alt_title": "భారతదేశ చరిత్ర",
+                                                "description": "భారతదేశ చరిత్ర"
+                                            }
+                                        },
                                         "row_status": null,
                                         "published_by": null,
                                         "archived_by": null,
                                         "updated_by": null,
-                                        "created_at": "2021-11-04T12:31:57.000000Z",
-                                        "updated_at": "2021-11-04T12:31:57.000000Z"
+                                        "created_at": "2021-11-10T07:48:01.000000Z",
+                                        "updated_at": "2021-11-10T07:48:01.000000Z"
                                     },
                                     "_response_status": {
                                         "success": true,
@@ -3822,8 +3962,8 @@
             }
         },
         "/recent-activities/publish-or-archive/{recentActivityId}": {
-            "post": {
-                "summary": "create a new archived/published recent-activity",
+            "put": {
+                "summary": "Archived/Published recent-activity",
                 "description": "API endpoint to create a new archived/published recent-activity.A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
@@ -4645,8 +4785,8 @@
             }
         },
         "/notice-or-news/publish-or-archive/{noticeId}": {
-            "post": {
-                "summary": "Create a new archived/published noticeOrNews",
+            "put": {
+                "summary": "Archived/Published noticeOrNews",
                 "description": "API endpoint to create a new archived/published noticeOrNews.A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
