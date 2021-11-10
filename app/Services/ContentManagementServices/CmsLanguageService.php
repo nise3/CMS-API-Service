@@ -3,10 +3,8 @@
 namespace App\Services\ContentManagementServices;
 
 use App\Models\CmsLanguage;
-use App\Models\LanguageCode;
 use App\Models\LanguageConfig;
 use App\Services\Common\LanguageCodeService;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Cache;
@@ -20,9 +18,9 @@ class CmsLanguageService
     /**
      * @param JsonResource $model
      * @param string $languageColumnName
-     * @return string
+     * @return string|null
      */
-    public function getLanguageValue(JsonResource $model, string $languageColumnName): string
+    public function getLanguageValue(JsonResource $model, string $languageColumnName): string | null
     {
         $languageCode = strtolower(request()->server('HTTP_ACCEPT_LANGUAGE'));
         $response = "";
@@ -117,7 +115,8 @@ class CmsLanguageService
     }
 
     /**
-     * @param Model $model
+     * @param string $tableName
+     * @param int $keyId
      * @param string $languageCode
      * @param string $columnName
      * @return bool
