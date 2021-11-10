@@ -33,6 +33,9 @@ class NoticeOrNewsService
         $pageSize = $request['page_size'] ?? "";
         $rowStatus = $request['row_status'] ?? "";
         $order = $request['order'] ?? "ASC";
+        $instituteId = $request['institute_id'] ?? "";
+        $organizationId = $request['organization_id'] ?? "";
+        $industryAssociationId = $request['industry_association_id'] ?? "";
         $isRequestFromClientSide = !empty($request[BaseModel::IS_CLIENT_SITE_RESPONSE_KEY]);
 
         /** @var Builder $noticeOrNewsBuilder */
@@ -83,6 +86,19 @@ class NoticeOrNewsService
                 $builder->orWhereDate('notice_or_news.archived_at', '>=', $startTime);
             });
         }
+
+        if (is_numeric($instituteId)) {
+            $noticeOrNewsBuilder->where('notice_or_news.institute_id', '=', $instituteId);
+        }
+
+        if (is_numeric($organizationId)) {
+            $noticeOrNewsBuilder->where('notice_or_news.organization_id', '=', $organizationId);
+        }
+
+        if (is_numeric($industryAssociationId)) {
+            $noticeOrNewsBuilder->where('notice_or_news.industry_association_id', '=', $industryAssociationId);
+        }
+
 
         /** @var Collection $noticeOrNews */
         if (is_numeric($paginate) || is_numeric($pageSize)) {
@@ -269,6 +285,9 @@ class NoticeOrNewsService
             'title' => 'nullable|max:500|min:2',
             'page' => 'nullable|integer|gt:0',
             'page_size' => 'nullable|integer|gt:0',
+            'institute_id' => 'nullable|integer|gt:0',
+            'organization_id' => 'nullable|integer|gt:0',
+            'industry_association_id' => 'nullable|integer|gt:0',
             'order' => [
                 'nullable',
                 'string',
