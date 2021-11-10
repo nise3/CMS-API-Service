@@ -2533,7 +2533,7 @@
             }
         },
         "/gallery-albums/publish-or-archive/{galleryAlbumId}": {
-            "post": {
+            "put": {
                 "summary": "Published/Archived gallery-album",
                 "description": "API endpoint to create  a new published or archived gallery-album.A successful request response will show 200 HTTP status code",
                 "parameters": [
@@ -3104,7 +3104,7 @@
             }
         },
         "/gallery-images-videos/publish-or-archive/{galleryImagesVideoId}": {
-            "post": {
+            "put": {
                 "summary": "Archived/Published gallery-image-video",
                 "description": "API endpoint to create a new archived/published gallery image video.A successful request response will show 200 HTTP status code",
                 "parameters": [
@@ -3517,6 +3517,8 @@
                 ]
             }
         },
+
+
         "/public/recent-activities": {
             "get": {
                 "summary": "Get All public recent activity",
@@ -3557,7 +3559,52 @@
                     "200": {
                         "description": "successfull",
                         "content": {
-                            "application/json": {}
+                            "application/json": {
+                                "example": {
+                                    "order": "ASC",
+                                    "data": [
+                                        {
+                                            "id": 10,
+                                            "show_in": 2,
+                                            "show_in_label": "Youth",
+                                            "activity_date": null,
+                                            "published_at": "2021-11-10 10:31:18",
+                                            "archived_at": null,
+                                            "institute_id": 1,
+                                            "organization_id": 6,
+                                            "institute_title": "Chester Koss",
+                                            "institute_title_en": "Chester Koss",
+                                            "organization_title": "Kessler-Kirlin",
+                                            "organization_title_en": "Kessler-Kirlin",
+                                            "industry_association_id": null,
+                                            "title": "Inspector",
+                                            "content_type": 1,
+                                            "content_path": "https://via.placeholder.com/640x480.png/002211?text=temporibus",
+                                            "embedded_url": null,
+                                            "embedded_id": null,
+                                            "content_properties": "Eos reiciendis maxime quasi nemo sapiente voluptatem.",
+                                            "collage_image_path": null,
+                                            "collage_position": null,
+                                            "thumb_image_path": null,
+                                            "grid_image_path": null,
+                                            "image_alt_title": null,
+                                            "description": "Qui rerum nihil dolor nihil qui aut non et aspernatur quo explicabo et sit itaque quia quaerat aut illo illum voluptatibus omnis eos iusto est atque tempore quos veniam sunt in aut nemo adipisci laborum nesciunt sint corrupti quo dolore impedit officia qui molestias nisi.",
+                                            "row_status": null,
+                                            "published_by": null,
+                                            "archived_by": null,
+                                            "updated_by": null,
+                                            "created_at": "2021-11-10T10:31:18.000000Z",
+                                            "updated_at": "2021-11-10T10:31:18.000000Z"
+                                        }
+                                    ],
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "message": null,
+                                        "query_time": 0
+                                    }
+                                }
+                            }
                         }
                     }
                 },
@@ -4039,6 +4086,8 @@
                 ]
             }
         },
+
+
         "/calender-events": {
             "get": {
                 "summary": "Get list of Calender Events",
