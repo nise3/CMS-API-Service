@@ -408,14 +408,14 @@
                 ]
             }
         },
-
-
-        "/nise3-partners": {
+        "/public/nise3-partners": {
             "get": {
                 "summary": "Get All Partners",
                 "description": "Get The list of all partners of Nise3",
                 "parameters": [
-
+                    {
+                        "$ref": "#/components/parameters/Accept-Language"
+                    },
                     {
                         "$ref": "#/components/parameters/title_optional"
                     },
@@ -437,9 +437,6 @@
                         "description": "Successful",
                         "content": {
                             "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/nise3_partner"
-                                },
                                 "example": {
                                     "order": "asc",
                                     "data": [
@@ -454,6 +451,91 @@
                                         "success": true,
                                         "code": 200,
                                         "query_time": "1 second before"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Nise3 partners"
+                ]
+            }
+        },
+        "/nise3-partners": {
+            "get": {
+                "summary": "Get All Partners",
+                "description": "Get The list of all partners of Nise3",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/title_optional"
+                    },
+                    {
+                        "$ref": "#/components/parameters/row_status"
+                    },
+                    {
+                        "$ref": "#/components/parameters/order"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page_size"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "order": "ASC",
+                                    "data": [
+                                        {
+                                            "id": 1,
+                                            "title": "Oldie",
+                                            "main_image_path": null,
+                                            "thumb_image_path": null,
+                                            "grid_image_path": null,
+                                            "domain": null,
+                                            "image_alt_title": null,
+                                            "other_language_fields": {
+                                                "hi": {
+                                                    "title": "హమారా ఆంగ్రేజీ సే బాంగ్లా అనువాద ఉపకరణ అనువాద ఏపీ ద్వార సంచలనం. మీరు టెక్స్ట్ క్షేత్రం ప్రతి టైప్ కరణ షురూ కర సకటే ఉంది"
+                                                }
+                                            },
+                                            "row_status": 1,
+                                            "created_by": null,
+                                            "updated_by": null,
+                                            "created_at": "2021-11-09T06:09:01.000000Z",
+                                            "updated_at": "2021-11-09T06:09:01.000000Z"
+                                        },
+                                        {
+                                            "id": 3,
+                                            "title": "AAASSSDDD",
+                                            "main_image_path": null,
+                                            "thumb_image_path": null,
+                                            "grid_image_path": null,
+                                            "domain": null,
+                                            "image_alt_title": null,
+                                            "other_language_fields": {
+                                                "hi": {
+                                                    "title": "हमारा अंग्रेजी से बांग्ला अनुवाद उपकरण",
+                                                    "image_alt_title": "हमारा अंग्रेजी से बांग्ला अनुवाद उपकरण"
+                                                }
+                                            },
+                                            "row_status": 1,
+                                            "created_by": null,
+                                            "updated_by": null,
+                                            "created_at": "2021-11-09T10:19:39.000000Z",
+                                            "updated_at": "2021-11-09T10:19:39.000000Z"
+                                        }
+                                    ],
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "message": null,
+                                        "query_time": 0
                                     }
                                 }
                             }
@@ -483,33 +565,29 @@
                             "application/json": {
                                 "example": {
                                     "data": {
-                                        "id": 13,
-                                        "title": "Title in Native",
+                                        "id": 3,
+                                        "title": "AAASSSDDD",
                                         "main_image_path": null,
                                         "thumb_image_path": null,
                                         "grid_image_path": null,
                                         "domain": null,
-                                        "image_alt_title": "Image alter title in Native",
+                                        "image_alt_title": null,
                                         "other_language_fields": {
                                             "hi": {
-                                                "title": "Title in hindi",
-                                                "image_alt_title": "Image Alter Title in Hindi"
-                                            },
-                                            "te": {
-                                                "title": "Title in Telegu",
-                                                "image_alt_title": "Image alter title in Telegu"
+                                                "title": "हमारा अंग्रेजी से बांग्ला अनुवाद उपकरण",
+                                                "image_alt_title": "हमारा अंग्रेजी से बांग्ला अनुवाद उपकरण"
                                             }
                                         },
-                                        "row_status": null,
+                                        "row_status": "1",
                                         "created_by": null,
                                         "updated_by": null,
-                                        "created_at": "2021-11-09T05:58:46.000000Z",
-                                        "updated_at": "2021-11-09T05:58:46.000000Z"
+                                        "created_at": "2021-11-09T10:19:39.000000Z",
+                                        "updated_at": "2021-11-09T10:19:39.000000Z"
                                     },
                                     "_response_status": {
                                         "success": true,
                                         "code": 201,
-                                        "message": "Faq successfully added",
+                                        "message": "Nise3 Partner successfully added",
                                         "query_time": 0
                                     }
                                 }
@@ -544,18 +622,24 @@
                                 "example": {
                                     "order": "ASC",
                                     "data": {
-                                        "id": 1,
-                                        "title": "newtitle",
-                                        "main_image_path": "https://en.as.com/en/2021/11/01/soccer/1635749055_402801.html",
-                                        "thumb_image_path": "https://en.as.com/en/2021/11/01/soccer/1635749055_402801.html",
-                                        "grid_image_path": "https://en.as.com/en/2021/11/01/soccer/1635749055_402801.html",
+                                        "id": 3,
+                                        "title": "AAASSSDDD",
+                                        "main_image_path": null,
+                                        "thumb_image_path": null,
+                                        "grid_image_path": null,
                                         "domain": null,
                                         "image_alt_title": null,
+                                        "other_language_fields": {
+                                            "hi": {
+                                                "title": "हमारा अंग्रेजी से बांग्ला अनुवाद उपकरण",
+                                                "image_alt_title": "हमारा अंग्रेजी से बांग्ला अनुवाद उपकरण"
+                                            }
+                                        },
                                         "row_status": 1,
                                         "created_by": null,
                                         "updated_by": null,
-                                        "created_at": "2021-11-04T10:46:39.000000Z",
-                                        "updated_at": "2021-11-04T10:46:39.000000Z"
+                                        "created_at": "2021-11-09T10:19:39.000000Z",
+                                        "updated_at": "2021-11-09T10:19:39.000000Z"
                                     },
                                     "_response_status": {
                                         "success": true,
@@ -719,8 +803,59 @@
                 ]
             }
         },
-
-
+        "/public/sliders": {
+            "get": {
+                "summary": "Get All sliders",
+                "description": "Get All the sliders",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/Accept-Language"
+                    },
+                    {
+                        "$ref": "#/components/parameters/title_optional"
+                    },
+                    {
+                        "$ref": "#/components/parameters/sub_title"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page_size"
+                    },
+                    {
+                        "$ref": "#/components/parameters/row_status"
+                    },
+                    {
+                        "$ref": "#/components/parameters/order"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Slider"
+                                },
+                                "example": {
+                                    "order": "asc",
+                                    "data": [],
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "query_time": "1 second before"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Sliders"
+                ]
+            }
+        },
         "/sliders": {
             "get": {
                 "summary": "Get All sliders",
@@ -789,24 +924,41 @@
                             "appication/json": {
                                 "example": {
                                     "data": {
-                                        "id": 1,
+                                        "id": 11,
+                                        "show_in": "1",
+                                        "show_in_label": "Nise3",
                                         "institute_id": "1",
-                                        "organization_id": "1",
-                                        "title": "New Title",
-                                        "sub_title": "No subtitle",
+                                        "organization_id": null,
+                                        "industry_association_id": null,
                                         "is_button_available": "1",
-                                        "button_text": "new field",
-                                        "link": "new link",
+                                        "link": "akjskjasjlksj",
                                         "slider_images": [
-                                            "sssss"
+                                            "image1",
+                                            "image2"
                                         ],
-                                        "alt_title": null,
+                                        "institute_title": "",
+                                        "institute_title_en": "",
+                                        "organization_title": "",
+                                        "organization_title_en": "",
+                                        "title": "aaa",
+                                        "sub_title": "vv",
+                                        "alt_title": "atr_text",
+                                        "button_text": "aaaaaaaaaaaaaaaaa",
+                                        "other_language_fields": {
+                                            "hi": {
+                                                "title": "हमारा अंग्रेजी से बांग्ला अनुवाद उपकरण",
+                                                "sub_title": "हमारा अंग्रेजी से बांग्ला अनुवाद उपकरण",
+                                                "alt_title": "हमारा अंग्रेजी से बांग्ला अनुवाद उपकरण",
+                                                "button_text": "अंग्रेजी"
+                                            }
+                                        },
+                                        "banner_template_code": null,
                                         "banner_template": null,
-                                        "row_status": "0",
+                                        "row_status": "1",
                                         "created_by": null,
                                         "updated_by": null,
-                                        "created_at": "2021-11-04T04:24:01.000000Z",
-                                        "updated_at": "2021-11-04T04:24:01.000000Z"
+                                        "created_at": "2021-11-09T10:02:03.000000Z",
+                                        "updated_at": "2021-11-09T10:02:03.000000Z"
                                     },
                                     "_response_status": {
                                         "success": true,
@@ -829,7 +981,6 @@
                 "summary": "get_one",
                 "description": "API endpoint to get a specified Slider.A successful request response will show 200 HTTP status code",
                 "parameters": [
-
                     {
                         "in": "path",
                         "name": "SliderId",
@@ -1075,14 +1226,14 @@
                 ]
             }
         },
-
-
-        "/faqs": {
+        "/public/faqs": {
             "get": {
                 "summary": "Get All faqs",
                 "description": "API endpoint to get the list of Sliders.A successful request response will show 200 HTTP status code",
                 "parameters": [
-
+                    {
+                        "$ref": "#/components/parameters/Accept-Language"
+                    },
                     {
                         "name": "question",
                         "in": "query",
@@ -1184,7 +1335,155 @@
                                         {
                                             "id": 1,
                                             "show_in": 7,
-                                            "show_in_label":  "Show in Nise3",
+                                            "show_in_label": "Show in Nise3",
+                                            "institute_id": 1,
+                                            "industry_association_id": 1,
+                                            "organization_id": 5,
+                                            "question": "I was thinking I should be like then?' And she began fancying the sort of people live about here?'.",
+                                            "answer": "Hatter, 'you wouldn't talk about her and to hear..",
+                                            "row_status": 1,
+                                            "created_by": null,
+                                            "updated_by": null,
+                                            "created_at": "2021-11-03T12:58:59.000000Z",
+                                            "updated_at": "2021-11-03T12:58:59.000000Z"
+                                        },
+                                        {
+                                            "id": 2,
+                                            "show_in": 1,
+                                            "institute_id": 0,
+                                            "industry_association_id": 0,
+                                            "organization_id": 9,
+                                            "question": "March Hare. 'Then it wasn't trouble enough hatching the eggs.",
+                                            "row_status": 1,
+                                            "created_by": null,
+                                            "updated_by": null,
+                                            "created_at": "2021-11-03T12:58:59.000000Z",
+                                            "updated_at": "2021-11-03T12:58:59.000000Z"
+                                        }
+                                    ],
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "message": null,
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "faqs"
+                ]
+            }
+        },
+        "/faqs": {
+            "get": {
+                "summary": "Get All faqs",
+                "description": "API endpoint to get the list of Sliders.A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "name": "question",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "answer",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "show_in",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "institute_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "industry_association_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "organization_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "page_size",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "order",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "ASC",
+                                "DESC"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "row_status",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "description": "1=>Active 0=>InActive",
+                            "enum": [
+                                1,
+                                0
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get list of all faqs",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "order": "ASC",
+                                    "data": [
+                                        {
+                                            "id": 1,
+                                            "show_in": 7,
+                                            "show_in_label": "Show in Nise3",
                                             "institute_id": 1,
                                             "industry_association_id": 1,
                                             "organization_id": 5,
@@ -1244,16 +1543,31 @@
                             "application/json": {
                                 "example": {
                                     "data": {
-                                        "show_in": "1",
-                                        "institute_id": null,
-                                        "industry_association_id": null,
-                                        "organization_id": null,
-                                        "question": "New Question",
-                                        "answer": "New Answer",
-                                        "row_status": "0",
-                                        "updated_at": "2021-11-04T06:03:46.000000Z",
-                                        "created_at": "2021-11-04T06:03:46.000000Z",
-                                        "id": 21
+                                        "id": 22,
+                                        "show_in": "3",
+                                        "show_in_label": "Training Service Provider(TSP)",
+                                        "institute_id": "1",
+                                        "industry_association_id": "1",
+                                        "organization_id": "1",
+                                        "institute_title": "",
+                                        "institute_title_en": "",
+                                        "industry_association_title": "",
+                                        "industry_association_title_en": "",
+                                        "organization_title": "",
+                                        "organization_title_en": "",
+                                        "question": "আমাদের ইংরেজি থেকে বাংলা অনুবাদ টুলটি দ্বারা চালিত",
+                                        "answer": "আমাদের ইংরেজি থেকে বাংলা অনুবাদ টুলটি দ্বারা চালিত। আপনি বাম হাতের পাঠ্য এলাকায় টাইপ করা শুরু করতে পারেন এবং তারপরে \"অনুবাদ\" বোতামে ক্লিক করুন৷ আমাদের অ্যাপ তখন আপনার ইংরেজি শব্দ, বাক্যাংশ বা বাক্যকে বাংলায় অনুবাদ করে",
+                                        "other_language_fields": {
+                                            "hi": {
+                                                "question": "हमारा अंग्रेजी से बांग्ला अनुवाद उपकरण",
+                                                "answer": "हमारा अंग्रेजी से बांग्ला अनुवाद उपकरण अनुवाद एपीआई द्वारा संचालित है। आप बाएं हाथ के टेक्स्ट क्षेत्र पर टाइप करना शुरू कर सकते हैं और फिर \"अनुवाद\" बटन पर क्लिक कर सकते हैं। हमारा ऐप तब आपके अंग्रेजी शब्द, वाक्यांश या वाक्य का बंगाली में अनुवाद करता है"
+                                            }
+                                        },
+                                        "row_status": null,
+                                        "created_by": null,
+                                        "updated_by": null,
+                                        "created_at": "2021-11-09T09:55:22.000000Z",
+                                        "updated_at": "2021-11-09T09:55:22.000000Z"
                                     },
                                     "_response_status": {
                                         "success": true,
@@ -1442,7 +1756,7 @@
                                         {
                                             "id": 1,
                                             "show_in": 1,
-                                            "show_in_label":  "Show in Nise3",
+                                            "show_in_label": "Show in Nise3",
                                             "institute_id": 1,
                                             "industry_association_id": 1,
                                             "organization_id": 5,
@@ -1457,7 +1771,7 @@
                                         {
                                             "id": 2,
                                             "show_in": 1,
-                                            "show_in_label":  "Show in Nise3",
+                                            "show_in_label": "Show in Nise3",
                                             "institute_id": 0,
                                             "industry_association_id": 0,
                                             "organization_id": 9,
@@ -1485,14 +1799,84 @@
                 ]
             }
         },
-
-
+        "/public/gallery-albums": {
+            "get": {
+                "summary": "Get All gallery albums",
+                "description": "API endpoint to get all gallery image.A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/Accept-Language"
+                    },
+                    {
+                        "$ref": "#/components/parameters/title_optional"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page_size"
+                    },
+                    {
+                        "$ref": "#/components/parameters/row_status"
+                    },
+                    {
+                        "$ref": "#/components/parameters/order"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get All gallery albums",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "order": "ASC",
+                                    "data": [
+                                        {
+                                            "id": 1,
+                                            "parent_gallery_album_id": null,
+                                            "featured": 1,
+                                            "show_in": 1,
+                                            "album_type": 1,
+                                            "published_at": null,
+                                            "archived_at": null,
+                                            "institute_id": null,
+                                            "organization_id": null,
+                                            "industry_association_id": null,
+                                            "batch_id": null,
+                                            "program_id": null,
+                                            "title": "NewTitle",
+                                            "main_image_path": null,
+                                            "thumb_image_path": null,
+                                            "grid_image_path": null,
+                                            "image_alt_title": null,
+                                            "row_status": 1,
+                                            "created_by": null,
+                                            "updated_by": null,
+                                            "created_at": "2021-11-04T06:55:37.000000Z",
+                                            "updated_at": "2021-11-04T06:55:37.000000Z"
+                                        }
+                                    ],
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "message": null,
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Gallery-Album"
+                ]
+            }
+        },
         "/gallery-albums": {
             "get": {
                 "summary": "Get All gallery albums",
                 "description": "API endpoint to get all gallery image.A successful request response will show 200 HTTP status code",
                 "parameters": [
-
                     {
                         "$ref": "#/components/parameters/title_optional"
                     },
@@ -1574,7 +1958,7 @@
                         "description": "Successfully created gallery-album",
                         "content": {
                             "application/json": {
-                                "example":{
+                                "example": {
                                     "data": {
                                         "id": 11,
                                         "parent_gallery_album_id": null,
@@ -1715,7 +2099,6 @@
                             "type": "integer"
                         }
                     }
-
                 ],
                 "responses": {
                     "200": {
@@ -1864,8 +2247,144 @@
                 ]
             }
         },
-
-
+        "/gallery-albums/publish-or-archive/{galleryAlbumId}": {
+            "post": {
+                "summary": "Create a new published or archived gallery-album",
+                "description": "API endpoint to create  a new published or archived gallery-album.A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "name": "galleryAlbumId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PublishOrArchive"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successfull",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "data": {
+                                        "id": 3,
+                                        "parent_gallery_album_id": null,
+                                        "featured": 0,
+                                        "show_in": 4,
+                                        "album_type": 2,
+                                        "published_at": "2021-11-10 04:40:41",
+                                        "archived_at": null,
+                                        "institute_id": null,
+                                        "organization_id": 6,
+                                        "industry_association_id": 2,
+                                        "batch_id": 7,
+                                        "program_id": 9,
+                                        "title": "Cutting Machine Operator",
+                                        "title_en": "Cutting Machine Operator",
+                                        "main_image_path": null,
+                                        "thumb_image_path": null,
+                                        "grid_image_path": null,
+                                        "image_alt_title": "Natus nobis.",
+                                        "image_alt_title_en": "Veritatis.",
+                                        "row_status": 1,
+                                        "created_by": null,
+                                        "updated_by": null,
+                                        "created_at": "2021-11-09T04:52:36.000000Z",
+                                        "updated_at": "2021-11-10T04:40:41.000000Z",
+                                        "deleted_at": null
+                                    },
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 201,
+                                        "message": "Gallery Album published successfully",
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Gallery-Album"
+                ]
+            }
+        },
+        "/public/gallery-images-videos": {
+            "get": {
+                "summary": "Get all gallery image videos",
+                "description": "API endpoint to get the list of gallery-images-videos.A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/Accept-Language"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page_size"
+                    },
+                    {
+                        "$ref": "#/components/parameters/row_status"
+                    },
+                    {
+                        "$ref": "#/components/parameters/order"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successfull",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "data": [
+                                        {
+                                            "gallery_album_id": "1",
+                                            "featured": "1",
+                                            "institute_id": "1",
+                                            "organization_id": "1",
+                                            "content_type": "2",
+                                            "video_type": "1",
+                                            "content_title": "newtitle",
+                                            "content_description": null,
+                                            "content_properties_json": null,
+                                            "image_url": null,
+                                            "video_url": "ddddd",
+                                            "content_cover_image_url": null,
+                                            "content_grid_image_url": null,
+                                            "content_thumb_image_url": null,
+                                            "alt_title": null,
+                                            "row_status": "1",
+                                            "updated_at": "2021-11-04T07:52:27.000000Z",
+                                            "created_at": "2021-11-04T07:52:27.000000Z",
+                                            "id": 1
+                                        }
+                                    ],
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 201,
+                                        "message": "GalleryImageVideo is Successfully added",
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "gallery-images-videos"
+                ]
+            }
+        },
         "/gallery-images-videos": {
             "get": {
                 "summary": "Get all gallery image videos",
@@ -1946,7 +2465,7 @@
                         "content": {
                             "application/json": {
                                 "example": {
-                                    "data":{
+                                    "data": {
                                         "data": {
                                             "id": 14,
                                             "gallery_album_id": "1",
@@ -2089,7 +2608,6 @@
                             "type": "integer"
                         }
                     }
-
                 ],
                 "responses": {
                     "200": {
@@ -2192,7 +2710,6 @@
                     {
                         "$ref": "#/components/parameters/Accept-Language"
                     }
-
                 ],
                 "responses": {
                     "200": {
@@ -2239,13 +2756,125 @@
                 ]
             }
         },
-
+        "/gallery-images-videos/publish-or-archive/{galleryImagesVideoId}": {
+            "post": {
+                "summary": "Create a new archived/published gallery image video",
+                "description": "API endpoint to create a new archived/published gallery image video.A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "name": "galleryImagesVideoId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PublishOrArchive"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successfull",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "data": {
+                                        "id": 1,
+                                        "gallery_album_id": 1,
+                                        "featured": 1,
+                                        "published_at": "2021-11-10 04:59:58",
+                                        "archived_at": null,
+                                        "institute_id": 8,
+                                        "organization_id": 9,
+                                        "industry_association_id": 7,
+                                        "content_type": 2,
+                                        "video_type": 1,
+                                        "content_title": "Industrial Equipment Maintenance",
+                                        "content_title_en": "Woodworker",
+                                        "content_description": "I like\"!' 'You might just as well as if a dish or kettle had been anxiously looking across the field after it, 'Mouse dear! Do come back and see after some executions I have none, Why, I do hope.",
+                                        "content_description_en": "I hadn't cried so much!' said Alice, whose thoughts were still running on the trumpet, and then all the players, except the Lizard, who seemed ready to talk about her any more HERE.' 'But then,'.",
+                                        "image_url": null,
+                                        "video_url": null,
+                                        "content_properties_json": null,
+                                        "content_cover_image_url": null,
+                                        "content_grid_image_url": null,
+                                        "content_thumb_image_url": null,
+                                        "alt_title": "Alice, 'and those twelve creatures,' (she was obliged to have finished,' said the Gryphon interrupted in a helpless sort of idea that they would die. 'The trial cannot proceed,' said the King in a.",
+                                        "alt_title_en": "Communications Equipment Operator",
+                                        "row_status": 1,
+                                        "published_by": null,
+                                        "archived_by": null,
+                                        "created_by": null,
+                                        "updated_by": null,
+                                        "created_at": "2021-11-09T04:52:36.000000Z",
+                                        "updated_at": "2021-11-10T04:59:58.000000Z",
+                                        "deleted_at": null
+                                    },
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 201,
+                                        "message": "GalleryImageVideo published successfully",
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "gallery-images-videos"
+                ]
+            }
+        },
+        "/public/static-pages": {
+            "get": {
+                "summary": "Get all static page",
+                "description": "API endpoint to get all a Static Page.A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/Accept-Language"
+                    },
+                    {
+                        "$ref": "#/components/parameters/title_optional"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page_size"
+                    },
+                    {
+                        "$ref": "#/components/parameters/order"
+                    },
+                    {
+                        "$ref": "#/components/parameters/row_status"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successfull",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                },
+                "tags": [
+                    "static-pages"
+                ]
+            }
+        },
         "/static-pages": {
             "get": {
                 "summary": "Get all static page",
                 "description": "API endpoint to get all a Static Page.A successful request response will show 200 HTTP status code",
                 "parameters": [
-
                     {
                         "$ref": "#/components/parameters/title_optional"
                     },
@@ -2293,18 +2922,35 @@
                             "application/json": {
                                 "example": {
                                     "data": {
+                                        "id": 29,
                                         "content_type": "1",
                                         "show_in": "1",
-                                        "content_slug_or_id": "1",
-                                        "institute_id": null,
+                                        "show_in_label": "Nise3",
+                                        "industry_association_id": null,
+                                        "content_slug_or_id": "aaaaaaaaa",
+                                        "institute_id": "1",
                                         "organization_id": null,
-                                        "title": "NewTitle",
+                                        "title": "aaaaaaaaaaa",
                                         "sub_title": null,
                                         "contents": null,
+                                        "institute_title": "",
+                                        "institute_title_en": "",
+                                        "industry_association_title": "",
+                                        "industry_association_title_en": "",
+                                        "organization_title": "",
+                                        "organization_title_en": "",
+                                        "other_language_fields": {
+                                            "hi": {
+                                                "title": "asjdkjakdjajdja",
+                                                "sub_title": "aaaaaaaaaaaa",
+                                                "contents": "asjdkjakdjajdja"
+                                            }
+                                        },
                                         "row_status": "1",
-                                        "updated_at": "2021-11-04T11:29:41.000000Z",
-                                        "created_at": "2021-11-04T11:29:41.000000Z",
-                                        "id": 1
+                                        "created_by": null,
+                                        "updated_by": null,
+                                        "created_at": "2021-11-09T11:28:46.000000Z",
+                                        "updated_at": "2021-11-09T11:28:46.000000Z"
                                     },
                                     "_response_status": {
                                         "success": true,
@@ -2500,7 +3146,43 @@
                 ]
             }
         },
-
+        "/public/recent-activities": {
+            "get": {
+                "summary": "Get All recent activity",
+                "description": "API endpoint to get all recent activities.A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/Accept-Language"
+                    },
+                    {
+                        "$ref": "#/components/parameters/title_optional"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page_size"
+                    },
+                    {
+                        "$ref": "#/components/parameters/order"
+                    },
+                    {
+                        "$ref": "#/components/parameters/row_status"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successfull",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                },
+                "tags": [
+                    "recent-activities"
+                ]
+            }
+        },
         "/recent-activities": {
             "get": {
                 "summary": "Get All recent activity",
@@ -2524,7 +3206,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "successfull",
+                        "description": "successful",
                         "content": {
                             "application/json": {}
                         }
@@ -2788,7 +3470,84 @@
                 ]
             }
         },
-
+        "/recent-activities/publish-or-archive/{recentActivityId}": {
+            "post": {
+                "summary": "create a new archived/published recent-activity",
+                "description": "API endpoint to create a new archived/published recent-activity.A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "name": "recentActivityId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PublishOrArchive"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "succesfull",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "data": {
+                                        "id": 2,
+                                        "show_in": 0,
+                                        "activity_date": null,
+                                        "published_at": "2021-11-10 05:02:56",
+                                        "archived_at": null,
+                                        "institute_id": 6,
+                                        "organization_id": 8,
+                                        "industry_association_id": null,
+                                        "title_en": "Technical Specialist",
+                                        "title": "Technical Specialist",
+                                        "content_type": 3,
+                                        "content_path": "Neque dolor quasi in in ipsam vero.",
+                                        "embedded_url": null,
+                                        "embedded_id": null,
+                                        "content_properties": "Ipsum sequi quod sit rerum aliquid doloribus autem.",
+                                        "collage_image_path": null,
+                                        "collage_position": null,
+                                        "thumb_image_path": null,
+                                        "grid_image_path": null,
+                                        "image_alt_title_en": null,
+                                        "image_alt_title": null,
+                                        "description_en": "Dolore quis eos occaecati laboriosam cumque nesciunt ipsam ut rerum quisquam dolor culpa quis illum qui voluptatibus iure sed atque velit est dolorem est mollitia eligendi fuga nulla illum voluptatem magni qui occaecati voluptatem id.",
+                                        "description": "Voluptatem molestiae mollitia praesentium possimus laborum autem eligendi rerum molestias ut non et enim ipsa nihil hic ex dolorum sunt nulla ut quae veritatis pariatur molestiae sit accusantium voluptates id magnam odit aut odio libero nesciunt est doloremque ea excepturi quia eum recusandae distinctio ipsam est consequatur ea consequatur et harum.",
+                                        "row_status": 1,
+                                        "published_by": null,
+                                        "archived_by": null,
+                                        "created_by": null,
+                                        "updated_by": null,
+                                        "created_at": "2021-11-09T04:52:38.000000Z",
+                                        "updated_at": "2021-11-10T05:02:56.000000Z",
+                                        "deleted_at": null
+                                    },
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 201,
+                                        "message": "RecentActivity published successfully",
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "recent-activities"
+                ]
+            }
+        },
         "/calender-events": {
             "get": {
                 "summary": "Get list of Calender Events",
@@ -3174,13 +3933,42 @@
                 ]
             }
         },
-
+        "/public/notice-or-news": {
+            "get": {
+                "summary": "Get all notice or news",
+                "description": "API endpoint to all all notice or news.A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/Accept-Language"
+                    },
+                    {
+                        "$ref": "#/components/parameters/title_optional"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page_size"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successfull",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                },
+                "tags": [
+                    "notice-or-news"
+                ]
+            }
+        },
         "/notice-or-news": {
             "get": {
                 "summary": "Get all notice or news",
                 "description": "API endpoint to all all notice or news.A successful request response will show 200 HTTP status code",
                 "parameters": [
-
                     {
                         "$ref": "#/components/parameters/title_optional"
                     },
@@ -3481,8 +4269,82 @@
                 ]
             }
         },
-
-
+        "/notice-or-news/publish-or-archive/{noticeId}": {
+            "post": {
+                "summary": "Create a new archived/published noticeOrNews",
+                "description": "API endpoint to create a new archived/published noticeOrNews.A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "name": "noticeId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PublishOrArchive"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successfull",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NoticeOrNews"
+                                },
+                                "example": {
+                                    "data": {
+                                        "id": 1,
+                                        "type": 2,
+                                        "show_in": 4,
+                                        "published_at": "2021-11-10 05:00:41",
+                                        "archived_at": null,
+                                        "title_en": "Keyboard Instrument Repairer and Tuner",
+                                        "title": "Keyboard Instrument Repairer and Tuner",
+                                        "institute_id": 3,
+                                        "organization_id": 4,
+                                        "industry_association_id": 6,
+                                        "details": "Cupiditate quisquam quis illo amet praesentium architecto rerum sunt explicabo ipsum et omnis ipsam magni iste aliquam reiciendis sunt ut voluptatem sunt laboriosam nobis non magnam enim quo perferendis consequatur minima fugit expedita quae neque repudiandae omnis ex rerum harum quia quasi nam soluta exercitationem laboriosam culpa harum quasi deserunt aut enim expedita quia et voluptatem.",
+                                        "details_en": "Et natus aliquam aliquam officiis odio repellat sapiente temporibus id saepe libero tempora qui est fugiat non corporis sunt deleniti rerum recusandae nesciunt exercitationem ad rem quo vel ratione voluptates dolores ipsum omnis quisquam nihil eos sit autem esse natus voluptatem facere est aspernatur dolorum.",
+                                        "main_image_path": null,
+                                        "grid_image_path": null,
+                                        "thumb_image_path": null,
+                                        "image_alt_title_en": "voluptatem",
+                                        "image_alt_title": "voluptatum",
+                                        "file_path": "Velit laboriosam earum enim quia molestiae ipsam vel.",
+                                        "file_alt_title_en": "sit",
+                                        "file_alt_title": "labore",
+                                        "row_status": 1,
+                                        "created_by": null,
+                                        "updated_by": null,
+                                        "created_at": "2021-11-09T04:52:38.000000Z",
+                                        "updated_at": "2021-11-10T05:00:41.000000Z",
+                                        "deleted_at": null
+                                    },
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 201,
+                                        "message": "NoticeOrNews published successfully",
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "notice-or-news"
+                ]
+            }
+        },
         "/visitor-feedback-suggestions": {
             "get": {
                 "summary": "Get aAll visitor-feedback-suggestion",
@@ -3685,7 +4547,6 @@
                 ]
             }
         },
-
         "/cms-global-config": {
             "get": {
                 "summary": "Get All cms-global-config",
@@ -3843,7 +4704,10 @@
                 "schema": {
                     "type": "string",
                     "enum": [
-                        "bn" ,"en" ,"hi","te"
+                        "bn",
+                        "en",
+                        "hi",
+                        "te"
                     ]
                 }
             },
@@ -4636,6 +5500,22 @@
             }
         },
         "schemas": {
+            "PublishOrArchive": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "integer",
+                        "description": "1=>published 0=> archived",
+                        "enum": [
+                            0,
+                            1
+                        ]
+                    }
+                },
+                "required": [
+                    "status"
+                ]
+            },
             "CalendarEvent": {
                 "type": "object",
                 "description": "Provide Calendar Events data",
@@ -4735,6 +5615,12 @@
                     "archived_by": {
                         "type": "string"
                     },
+                    "archived_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "Archive date",
+                        "example": "2021-06-03"
+                    },
                     "row_status": {
                         "type": "integer",
                         "description": "1=>Active 0=>Inactive",
@@ -4776,7 +5662,6 @@
                 "type": "object",
                 "description": "Provide the Loc Division",
                 "properties": {
-
                     "title": {
                         "type": "string",
                         "description": "Division Title In Bengali",
@@ -5041,8 +5926,6 @@
                     "content_thumb_image_url": {
                         "type": "string"
                     },
-
-
                     "alt_title": {
                         "type": "string",
                         "description": "alternate title for content"
@@ -5219,7 +6102,6 @@
                 "type": "object",
                 "description": "Provide the partner information",
                 "properties": {
-
                     "title": {
                         "type": "string"
                     },
@@ -5317,6 +6199,18 @@
                         "type": "string",
                         "description": "alt file title in Bengali"
                     },
+                    "published_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "publish date",
+                        "example": "2021-04-03"
+                    },
+                    "archived_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "Archive date",
+                        "example": "2021-06-03"
+                    },
                     "row_status": {
                         "type": "integer",
                         "description": "activation status",
@@ -5342,17 +6236,9 @@
                 "properties": {
                     "title": {
                         "type": "string",
-                        "description": " Title In Bengali",
+                        "description": " Title",
                         "minLength": 1,
                         "maxLength": 500
-                    },
-                    "institute_id": {
-                        "type": "integer",
-                        "description": "Required when you give show_in = 3"
-                    },
-                    "organization_id": {
-                        "type": "integer",
-                        "description": "Required when you give show_in = 4"
                     },
                     "show_in": {
                         "type": "integer",
@@ -5364,6 +6250,14 @@
                             4
                         ],
                         "example": 1
+                    },
+                    "institute_id": {
+                        "type": "integer",
+                        "description": "Required when you give show_in = TSP"
+                    },
+                    "organization_id": {
+                        "type": "integer",
+                        "description": "Required when you give show_in = Industry"
                     },
                     "description": {
                         "type": "string",
@@ -5412,12 +6306,25 @@
                         "type": "string",
                         "description": "content_properties"
                     },
+                    "embedded_url": {
+                        "type": "string",
+                        "description": "Required. When content type = Facebook source[2] or  Youtube Source[3] "
+                    },
                     "embedded_id": {
                         "type": "integer",
-                        "description": "Required. When content type ==3 "
+                        "description": "Required. When content type = Facebook source[2] or  Youtube Source[3] "
                     },
-                    "embedded_url": {
-                        "type": "string"
+                    "published_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "publish date",
+                        "example": "2021-04-03"
+                    },
+                    "archived_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "Archive date",
+                        "example": "2021-06-03"
                     },
                     "row_status": {
                         "type": "integer",
@@ -5435,7 +6342,8 @@
                 },
                 "required": [
                     "title",
-                    "content_type"
+                    "content_type",
+                    "show_in"
                 ]
             },
             "tags": {
