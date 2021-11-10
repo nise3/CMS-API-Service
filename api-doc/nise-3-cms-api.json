@@ -2784,7 +2784,7 @@
             }
         },
 
-        "/gallery-images-videos/publish-or-archive/{id}": {
+        "/gallery-images-videos/publish-or-archive/{galleryImagesVideoId}": {
             "post": {
                 "summary": "Create a new archived/published gallery image video",
                 "description": "API endpoint to create a new archived/published gallery image video.A successful request response will show 200 HTTP status code",
@@ -2812,7 +2812,46 @@
                         "description": "successfull",
                         "content": {
                             "application/json": {
-                                "example": {}
+                                "example": {
+                                    "data": {
+                                        "id": 1,
+                                        "gallery_album_id": 1,
+                                        "featured": 1,
+                                        "published_at": "2021-11-10 04:59:58",
+                                        "archived_at": null,
+                                        "institute_id": 8,
+                                        "organization_id": 9,
+                                        "industry_association_id": 7,
+                                        "content_type": 2,
+                                        "video_type": 1,
+                                        "content_title": "Industrial Equipment Maintenance",
+                                        "content_title_en": "Woodworker",
+                                        "content_description": "I like\"!' 'You might just as well as if a dish or kettle had been anxiously looking across the field after it, 'Mouse dear! Do come back and see after some executions I have none, Why, I do hope.",
+                                        "content_description_en": "I hadn't cried so much!' said Alice, whose thoughts were still running on the trumpet, and then all the players, except the Lizard, who seemed ready to talk about her any more HERE.' 'But then,'.",
+                                        "image_url": null,
+                                        "video_url": null,
+                                        "content_properties_json": null,
+                                        "content_cover_image_url": null,
+                                        "content_grid_image_url": null,
+                                        "content_thumb_image_url": null,
+                                        "alt_title": "Alice, 'and those twelve creatures,' (she was obliged to have finished,' said the Gryphon interrupted in a helpless sort of idea that they would die. 'The trial cannot proceed,' said the King in a.",
+                                        "alt_title_en": "Communications Equipment Operator",
+                                        "row_status": 1,
+                                        "published_by": null,
+                                        "archived_by": null,
+                                        "created_by": null,
+                                        "updated_by": null,
+                                        "created_at": "2021-11-09T04:52:36.000000Z",
+                                        "updated_at": "2021-11-10T04:59:58.000000Z",
+                                        "deleted_at": null
+                                    },
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 201,
+                                        "message": "GalleryImageVideo published successfully",
+                                        "query_time": 0
+                                    }
+                                }
                             }
                         }
                     }
@@ -3494,7 +3533,47 @@
                         "description": "succesfull",
                         "content": {
                             "application/json": {
-                                "example": {}
+                                "example": {
+                                    "data": {
+                                        "id": 2,
+                                        "show_in": 0,
+                                        "activity_date": null,
+                                        "published_at": "2021-11-10 05:02:56",
+                                        "archived_at": null,
+                                        "institute_id": 6,
+                                        "organization_id": 8,
+                                        "industry_association_id": null,
+                                        "title_en": "Technical Specialist",
+                                        "title": "Technical Specialist",
+                                        "content_type": 3,
+                                        "content_path": "Neque dolor quasi in in ipsam vero.",
+                                        "embedded_url": null,
+                                        "embedded_id": null,
+                                        "content_properties": "Ipsum sequi quod sit rerum aliquid doloribus autem.",
+                                        "collage_image_path": null,
+                                        "collage_position": null,
+                                        "thumb_image_path": null,
+                                        "grid_image_path": null,
+                                        "image_alt_title_en": null,
+                                        "image_alt_title": null,
+                                        "description_en": "Dolore quis eos occaecati laboriosam cumque nesciunt ipsam ut rerum quisquam dolor culpa quis illum qui voluptatibus iure sed atque velit est dolorem est mollitia eligendi fuga nulla illum voluptatem magni qui occaecati voluptatem id.",
+                                        "description": "Voluptatem molestiae mollitia praesentium possimus laborum autem eligendi rerum molestias ut non et enim ipsa nihil hic ex dolorum sunt nulla ut quae veritatis pariatur molestiae sit accusantium voluptates id magnam odit aut odio libero nesciunt est doloremque ea excepturi quia eum recusandae distinctio ipsam est consequatur ea consequatur et harum.",
+                                        "row_status": 1,
+                                        "published_by": null,
+                                        "archived_by": null,
+                                        "created_by": null,
+                                        "updated_by": null,
+                                        "created_at": "2021-11-09T04:52:38.000000Z",
+                                        "updated_at": "2021-11-10T05:02:56.000000Z",
+                                        "deleted_at": null
+                                    },
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 201,
+                                        "message": "RecentActivity published successfully",
+                                        "query_time": 0
+                                    }
+                                }
                             }
                         }
                     }
@@ -4262,7 +4341,42 @@
                                 "schema": {
                                     "$ref": "#/components/schemas/NoticeOrNews"
                                 },
-                                "example": {}
+                                "example": {
+                                    "data": {
+                                        "id": 1,
+                                        "type": 2,
+                                        "show_in": 4,
+                                        "published_at": "2021-11-10 05:00:41",
+                                        "archived_at": null,
+                                        "title_en": "Keyboard Instrument Repairer and Tuner",
+                                        "title": "Keyboard Instrument Repairer and Tuner",
+                                        "institute_id": 3,
+                                        "organization_id": 4,
+                                        "industry_association_id": 6,
+                                        "details": "Cupiditate quisquam quis illo amet praesentium architecto rerum sunt explicabo ipsum et omnis ipsam magni iste aliquam reiciendis sunt ut voluptatem sunt laboriosam nobis non magnam enim quo perferendis consequatur minima fugit expedita quae neque repudiandae omnis ex rerum harum quia quasi nam soluta exercitationem laboriosam culpa harum quasi deserunt aut enim expedita quia et voluptatem.",
+                                        "details_en": "Et natus aliquam aliquam officiis odio repellat sapiente temporibus id saepe libero tempora qui est fugiat non corporis sunt deleniti rerum recusandae nesciunt exercitationem ad rem quo vel ratione voluptates dolores ipsum omnis quisquam nihil eos sit autem esse natus voluptatem facere est aspernatur dolorum.",
+                                        "main_image_path": null,
+                                        "grid_image_path": null,
+                                        "thumb_image_path": null,
+                                        "image_alt_title_en": "voluptatem",
+                                        "image_alt_title": "voluptatum",
+                                        "file_path": "Velit laboriosam earum enim quia molestiae ipsam vel.",
+                                        "file_alt_title_en": "sit",
+                                        "file_alt_title": "labore",
+                                        "row_status": 1,
+                                        "created_by": null,
+                                        "updated_by": null,
+                                        "created_at": "2021-11-09T04:52:38.000000Z",
+                                        "updated_at": "2021-11-10T05:00:41.000000Z",
+                                        "deleted_at": null
+                                    },
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 201,
+                                        "message": "NoticeOrNews published successfully",
+                                        "query_time": 0
+                                    }
+                                }
                             }
                         }
                     }
