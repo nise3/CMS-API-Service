@@ -23,9 +23,10 @@ class RecentActivityService
 
     /**
      * @param array $request
+     * @param null $startTime
      * @return Collection|LengthAwarePaginator|array
      */
-    public function getRecentActivityList(array $request): Collection|LengthAwarePaginator|array
+    public function getRecentActivityList(array $request, $startTime = null): Collection|LengthAwarePaginator|array
     {
         $titleEn = $request['title_en'] ?? "";
         $titleBn = $request['title'] ?? "";
@@ -33,6 +34,7 @@ class RecentActivityService
         $pageSize = $request['page_size'] ?? "";
         $rowStatus = $request['row_status'] ?? "";
         $order = $request['order'] ?? "ASC";
+        $isRequestFromClientSide = !empty($request[BaseModel::IS_CLIENT_SITE_RESPONSE_KEY]);
 
 
         /** @var  Builder $recentActivityBuilder */
@@ -74,6 +76,14 @@ class RecentActivityService
         }
         if (!empty($titleBn)) {
             $recentActivityBuilder->where('recent_activities.title', 'like', '%' . $titleBn . '%');
+        }
+
+        if($isRequestFromClientSide){
+            $recentActivityBuilder->whereDate('recent_activities.published_at', '<=', $startTime);
+            $recentActivityBuilder->where(function ($builder) use ($startTime){
+                $builder->whereNull('recent_activities.archived_at');
+                $builder->orWhereDate('recent_activities.archived_at', '>=', $startTime);
+            });
         }
 
 
@@ -385,12 +395,6 @@ class RecentActivityService
 
 
         ];
-        if (!empty($requestData['content_type']) && $requestData['content_type'] == RecentActivity::CONTENT_TYPE_YOUTUBE_VIDEO) {
-            $rules['embedded_id'] = [
-                'required',
-                'max:300'
-            ];
-        }
 
         if (!empty($requestData['content_type']) &&
             ($requestData['content_type'] == RecentActivity::CONTENT_TYPE_FACEBOOK_VIDEO || $requestData['content_type'] == RecentActivity::CONTENT_TYPE_YOUTUBE_VIDEO)) {
@@ -398,6 +402,10 @@ class RecentActivityService
                 'required',
                 'string',
                 'max:800'
+            ];
+            $rules['embedded_id'] = [
+                'required',
+                'max:300'
             ];
         }
         $rules = array_merge($rules, BaseModel::OTHER_LANGUAGE_VALIDATION_RULES);
