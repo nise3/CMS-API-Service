@@ -108,7 +108,6 @@ class NoticeOrNewsController extends Controller
         $message = "NoticeOrNews successfully added";
         $otherLanguagePayload = $validated['other_language_fields'] ?? [];
         $isLanguage = (bool)count(array_intersect(array_keys($otherLanguagePayload), LanguageCodeService::getLanguageCode()));
-
         DB::beginTransaction();
         try {
             $noticeOrNews = $this->noticeOrNewsService->store($validated);
@@ -125,13 +124,13 @@ class NoticeOrNewsController extends Controller
                                 "column_name" => $fillableColumn,
                                 "column_value" => $languageValidatedData[$fillableColumn]
                             ];
-                            app(CmsLanguageService::class)->store($languageFillablePayload);
                         }
                     }
                 }
-
+                app(CmsLanguageService::class)->store($languageFillablePayload);
             }
-            $response = getResponse($noticeOrNews->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
+            $response = new NoticeOrNewsResource($noticeOrNews);
+            $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
             DB::commit();
         } catch (Throwable $e) {
             DB::rollBack();
@@ -160,32 +159,32 @@ class NoticeOrNewsController extends Controller
         DB::beginTransaction();
         try {
             $noticeOrNews = $this->noticeOrNewsService->update($noticeOrNews, $validatedData);
-            if ($isLanguage) {
-
-                foreach ($otherLanguagePayload as $key => $value) {
-                    $languageValidatedData = $this->noticeOrNewsService->languageFieldValidator($value, $key)->validate();
-                    foreach (NoticeOrNews::NOTICE_OR_NEWS_LANGUAGE_FILLABLE as $fillableColumn) {
-                        if (isset($languageValidatedData[$fillableColumn])) {
-                            $languageFillablePayload = [
-                                "table_name" => $noticeOrNews->getTable(),
-                                "key_id" => $noticeOrNews->id,
-                                "lang_code" => $key,
-                                "column_name" => $fillableColumn,
-                                "column_value" => $languageValidatedData[$fillableColumn]
-                            ];
-                            app(CmsLanguageService::class)->createOrUpdate($languageFillablePayload);
-                            CmsLanguageService::languageCacheClearByKey($noticeOrNews->getTable(), $noticeOrNews->id, $key, $fillableColumn);
-                        }
+            $languageFillablePayload = [];
+            foreach ($otherLanguagePayload as $key => $value) {
+                $languageValidatedData = $this->noticeOrNewsService->languageFieldValidator($value, $key)->validate();
+                foreach (NoticeOrNews::NOTICE_OR_NEWS_LANGUAGE_FILLABLE as $fillableColumn) {
+                    if (isset($languageValidatedData[$fillableColumn])) {
+                        $languageFillablePayload[] = [
+                            "table_name" => $noticeOrNews->getTable(),
+                            "key_id" => $noticeOrNews->id,
+                            "lang_code" => $key,
+                            "column_name" => $fillableColumn,
+                            "column_value" => $languageValidatedData[$fillableColumn]
+                        ];
+                        CmsLanguageService::languageCacheClearByKey($noticeOrNews->getTable(), $noticeOrNews->id, $key, $fillableColumn);
                     }
                 }
-
             }
-            $response = getResponse($noticeOrNews->toArray(), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK, $message);
+
+            app(CmsLanguageService::class)->createOrUpdate($languageFillablePayload, $noticeOrNews->id);
+            $response = new NoticeOrNewsResource($noticeOrNews);
+            $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK, $message);
             DB::commit();
         } catch (Throwable $e) {
             DB::rollBack();
             throw $e;
         }
+
 
         return Response::json($response, ResponseAlias::HTTP_OK);
     }

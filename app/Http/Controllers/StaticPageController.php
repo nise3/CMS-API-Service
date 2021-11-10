@@ -144,15 +144,13 @@ class StaticPageController extends Controller
                                 "column_name" => $fillableColumn,
                                 "column_value" => $languageValidatedData[$fillableColumn]
                             ];
-                            app(CmsLanguageService::class)->store($languageFillablePayload);
                         }
 
                     }
                 }
-
+                app(CmsLanguageService::class)->store($languageFillablePayload);
             }
-//            dd($staticPageData);
-            $response=new StaticPageResource($staticPageData);
+            $response = new StaticPageResource($staticPageData);
             $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
             DB::commit();
         } catch (Throwable $e) {
@@ -178,32 +176,28 @@ class StaticPageController extends Controller
         $validatedData = $this->staticPageService->validator($request, $id)->validate();
         $message = "Static Page is successfully updated";
         $otherLanguagePayload = $validatedData['other_language_fields'] ?? [];
-        $isLanguage = (bool)count(array_intersect(array_keys($otherLanguagePayload), LanguageCodeService::getLanguageCode()));
-
         DB::beginTransaction();
         try {
             $staticPageData = $this->staticPageService->update($staticPage, $validatedData);
-            if ($isLanguage) {
-                foreach ($otherLanguagePayload as $key => $value) {
-                    $languageValidatedData = $this->staticPageService->languageFieldValidator($value, $key)->validate();
-                    foreach (StaticPage::STATIC_PAGE_LANGUAGE_FILLABLE as $fillableColumn) {
-                        if (isset($languageValidatedData[$fillableColumn])) {
-                            $languageFillablePayload = [
-                                "table_name" => $staticPageData->getTable(),
-                                "key_id" => $staticPageData->id,
-                                "lang_code" => $key,
-                                "column_name" => $fillableColumn,
-                                "column_value" => $languageValidatedData[$fillableColumn]
-                            ];
-                            app(CmsLanguageService::class)->createOrUpdate($languageFillablePayload);
-                            CmsLanguageService::languageCacheClearByKey($staticPageData->getTable(), $staticPageData->id, $key, $fillableColumn);
-                        }
+            $languageFillablePayload = [];
+            foreach ($otherLanguagePayload as $key => $value) {
+                $languageValidatedData = $this->staticPageService->languageFieldValidator($value, $key)->validate();
+                foreach (StaticPage::STATIC_PAGE_LANGUAGE_FILLABLE as $fillableColumn) {
+                    if (isset($languageValidatedData[$fillableColumn])) {
+                        $languageFillablePayload[] = [
+                            "table_name" => $staticPageData->getTable(),
+                            "key_id" => $staticPageData->id,
+                            "lang_code" => $key,
+                            "column_name" => $fillableColumn,
+                            "column_value" => $languageValidatedData[$fillableColumn]
+                        ];
+                        CmsLanguageService::languageCacheClearByKey($staticPageData->getTable(), $staticPageData->id, $key, $fillableColumn);
                     }
                 }
-
             }
-
-            $response = getResponse($staticPageData->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
+            app(CmsLanguageService::class)->createOrUpdate($languageFillablePayload, $staticPageData->id);
+            $response = new StaticPageResource($staticPageData);
+            $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
             DB::commit();
         } catch (Throwable $e) {
             DB::rollBack();

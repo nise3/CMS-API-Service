@@ -177,7 +177,6 @@ class GalleryImageVideoController extends Controller
         $validatedData = $this->galleryImageVideoService->validator($request, $id)->validate();
         $message = "GalleryImageVideo Update is Successfully Done";
         $otherLanguagePayload = $validatedData['other_language_fields'] ?? [];
-        $isLanguage = (bool)count(array_intersect(array_keys($otherLanguagePayload), LanguageCodeService::getLanguageCode()));
         DB::beginTransaction();
         try {
             $galleryImageVideo = $this->galleryImageVideoService->update($galleryImageVideo, $validatedData);
