@@ -1250,6 +1250,9 @@
                 ]
             }
         },
+
+
+
         "/public/faqs": {
             "get": {
                 "summary": "Get All faqs",
@@ -1823,11 +1826,26 @@
                 ]
             }
         },
+
+
+
         "/public/gallery-albums": {
             "get": {
                 "summary": "Get All gallery albums",
                 "description": "API endpoint to get all gallery image.A successful request response will show 200 HTTP status code",
                 "parameters": [
+                    {
+                        "$ref": "#/components/parameters/show_in"
+                    },
+                    {
+                        "$ref": "#/components/parameters/institute_id"
+                    },
+                    {
+                        "$ref": "#/components/parameters/industry_association_id"
+                    },
+                    {
+                        "$ref": "#/components/parameters/organization_id"
+                    },
                     {
                         "$ref": "#/components/parameters/Accept-Language"
                     },
@@ -1901,6 +1919,18 @@
                 "summary": "Get All gallery albums",
                 "description": "API endpoint to get all gallery image.A successful request response will show 200 HTTP status code",
                 "parameters": [
+                    {
+                        "$ref": "#/components/parameters/show_in"
+                    },
+                    {
+                        "$ref": "#/components/parameters/institute_id"
+                    },
+                    {
+                        "$ref": "#/components/parameters/industry_association_id"
+                    },
+                    {
+                        "$ref": "#/components/parameters/organization_id"
+                    },
                     {
                         "$ref": "#/components/parameters/title_optional"
                     },
@@ -2343,11 +2373,24 @@
                 ]
             }
         },
+
+
+
+
         "/public/gallery-images-videos": {
             "get": {
                 "summary": "Get all gallery image videos",
                 "description": "API endpoint to get the list of gallery-images-videos.A successful request response will show 200 HTTP status code",
                 "parameters": [
+                    {
+                        "$ref": "#/components/parameters/institute_id"
+                    },
+                    {
+                        "$ref": "#/components/parameters/industry_association_id"
+                    },
+                    {
+                        "$ref": "#/components/parameters/organization_id"
+                    },
                     {
                         "$ref": "#/components/parameters/Accept-Language"
                     },
@@ -2414,6 +2457,15 @@
                 "summary": "Get all gallery image videos",
                 "description": "API endpoint to get the list of gallery-images-videos.A successful request response will show 200 HTTP status code",
                 "parameters": [
+                    {
+                        "$ref": "#/components/parameters/institute_id"
+                    },
+                    {
+                        "$ref": "#/components/parameters/industry_association_id"
+                    },
+                    {
+                        "$ref": "#/components/parameters/organization_id"
+                    },
                     {
                         "$ref": "#/components/parameters/page"
                     },
@@ -2857,11 +2909,26 @@
                 ]
             }
         },
+
+
+
         "/public/static-pages": {
             "get": {
                 "summary": "Get all static page",
                 "description": "API endpoint to get all a Static Page.A successful request response will show 200 HTTP status code",
                 "parameters": [
+                    {
+                        "$ref": "#/components/parameters/show_in"
+                    },
+                    {
+                        "$ref": "#/components/parameters/institute_id"
+                    },
+                    {
+                        "$ref": "#/components/parameters/industry_association_id"
+                    },
+                    {
+                        "$ref": "#/components/parameters/organization_id"
+                    },
                     {
                         "$ref": "#/components/parameters/Accept-Language"
                     },
@@ -2899,6 +2966,18 @@
                 "summary": "Get all static page",
                 "description": "API endpoint to get all a Static Page.A successful request response will show 200 HTTP status code",
                 "parameters": [
+                    {
+                        "$ref": "#/components/parameters/show_in"
+                    },
+                    {
+                        "$ref": "#/components/parameters/institute_id"
+                    },
+                    {
+                        "$ref": "#/components/parameters/industry_association_id"
+                    },
+                    {
+                        "$ref": "#/components/parameters/organization_id"
+                    },
                     {
                         "$ref": "#/components/parameters/title_optional"
                     },
@@ -3170,11 +3249,26 @@
                 ]
             }
         },
+
+
+
         "/public/recent-activities": {
             "get": {
                 "summary": "Get All recent activity",
                 "description": "API endpoint to get all recent activities.A successful request response will show 200 HTTP status code",
                 "parameters": [
+                    {
+                        "$ref": "#/components/parameters/show_in"
+                    },
+                    {
+                        "$ref": "#/components/parameters/institute_id"
+                    },
+                    {
+                        "$ref": "#/components/parameters/industry_association_id"
+                    },
+                    {
+                        "$ref": "#/components/parameters/organization_id"
+                    },
                     {
                         "$ref": "#/components/parameters/Accept-Language"
                     },
@@ -3212,6 +3306,18 @@
                 "summary": "Get All recent activity",
                 "description": "API endpoint to get all recent activities.A successful request response will show 200 HTTP status code",
                 "parameters": [
+                    {
+                        "$ref": "#/components/parameters/show_in"
+                    },
+                    {
+                        "$ref": "#/components/parameters/institute_id"
+                    },
+                    {
+                        "$ref": "#/components/parameters/industry_association_id"
+                    },
+                    {
+                        "$ref": "#/components/parameters/organization_id"
+                    },
                     {
                         "$ref": "#/components/parameters/title_optional"
                     },
@@ -3572,6 +3678,9 @@
                 ]
             }
         },
+
+
+
         "/calender-events": {
             "get": {
                 "summary": "Get list of Calender Events",
@@ -3957,11 +4066,26 @@
                 ]
             }
         },
+
+
+
         "/public/notice-or-news": {
             "get": {
                 "summary": "Get all notice or news",
                 "description": "API endpoint to all all notice or news.A successful request response will show 200 HTTP status code",
                 "parameters": [
+                    {
+                        "$ref": "#/components/parameters/show_in"
+                    },
+                    {
+                        "$ref": "#/components/parameters/institute_id"
+                    },
+                    {
+                        "$ref": "#/components/parameters/industry_association_id"
+                    },
+                    {
+                        "$ref": "#/components/parameters/organization_id"
+                    },
                     {
                         "$ref": "#/components/parameters/Accept-Language"
                     },
@@ -3993,6 +4117,18 @@
                 "summary": "Get all notice or news",
                 "description": "API endpoint to all all notice or news.A successful request response will show 200 HTTP status code",
                 "parameters": [
+                    {
+                        "$ref": "#/components/parameters/show_in"
+                    },
+                    {
+                        "$ref": "#/components/parameters/institute_id"
+                    },
+                    {
+                        "$ref": "#/components/parameters/industry_association_id"
+                    },
+                    {
+                        "$ref": "#/components/parameters/organization_id"
+                    },
                     {
                         "$ref": "#/components/parameters/title_optional"
                     },
@@ -4369,11 +4505,22 @@
                 ]
             }
         },
+
+
         "/visitor-feedback-suggestions": {
             "get": {
                 "summary": "Get aAll visitor-feedback-suggestion",
                 "description": "API endpoint to create a visitor-feedback-suggestion.A successful request response will show 200 HTTP status code",
                 "parameters": [
+                    {
+                        "$ref": "#/components/parameters/institute_id"
+                    },
+                    {
+                        "$ref": "#/components/parameters/industry_association_id"
+                    },
+                    {
+                        "$ref": "#/components/parameters/organization_id"
+                    },
                     {
                         "$ref": "#/components/parameters/name_optional"
                     },
