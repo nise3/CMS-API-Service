@@ -76,9 +76,9 @@ class NoticeOrNewsService
             $noticeOrNewsBuilder->where('notice_or_news.title', 'like', '%' . $titleBn . '%');
         }
 
-        if($isRequestFromClientSide){
+        if ($isRequestFromClientSide) {
             $noticeOrNewsBuilder->whereDate('notice_or_news.published_at', '<=', $startTime);
-            $noticeOrNewsBuilder->where(function ($builder) use ($startTime){
+            $noticeOrNewsBuilder->where(function ($builder) use ($startTime) {
                 $builder->whereNull('notice_or_news.archived_at');
                 $builder->orWhereDate('notice_or_news.archived_at', '>=', $startTime);
             });
@@ -175,20 +175,39 @@ class NoticeOrNewsService
     }
 
     /**
-     * @param Request $request
+     * @param array $data
      * @param NoticeOrNews $noticeOrNews
      * @return NoticeOrNews
+     * @throws \Throwable
      */
-    public function publishOrArchive(Request $request, NoticeOrNews $noticeOrNews): NoticeOrNews
+    public function publishOrArchiveNoticeOrNews(array $data, NoticeOrNews $noticeOrNews): NoticeOrNews
     {
-        if ($request->input('status') == 1) {
+        if ($data['status'] == BaseModel::STATUS_PUBLISH) {
             $noticeOrNews->published_at = Carbon::now()->format('Y-m-d H:i:s');
             $noticeOrNews->archived_at = null;
-        } else {
+        }
+        if ($data['status'] == BaseModel::STATUS_ARCHIVE) {
             $noticeOrNews->archived_at = Carbon::now()->format('Y-m-d H:i:s');
         }
-        $noticeOrNews->save();
+        $noticeOrNews->saveOrFail();
+
         return $noticeOrNews;
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    public function publishOrArchiveValidator(Request $request): \Illuminate\Contracts\Validation\Validator
+    {
+        $rules = [
+            'status' => [
+                'integer',
+                Rule::in(BaseModel::PUBLISH_OR_ARCHIVE_STATUSES)
+            ]
+
+        ];
+        return Validator::make($request->all(), $rules);
     }
 
     public function languageFieldValidator(array $request, string $languageCode): \Illuminate\Contracts\Validation\Validator
