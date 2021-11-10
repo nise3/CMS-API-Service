@@ -5487,8 +5487,7 @@
                     "enum": [
                         1,
                         2
-                    ],
-                    "example": 1
+                    ]
                 }
             },
             "content_title_optional": {
@@ -5980,8 +5979,8 @@
                 "required": false,
                 "style": "form",
                 "schema": {
-                    "type": "string",
-                    "example": "Lorem Ipsum is simply dummy text of the printing and typesetting industry"
+                    "type": "string"
+
                 }
             },
             "description": {
@@ -5990,8 +5989,7 @@
                 "required": false,
                 "style": "form",
                 "schema": {
-                    "type": "string",
-                    "example": "Lorem Ipsum is simply dummy text of the printing and typesetting industry"
+                    "type": "string"
                 }
             },
             "mobile": {
@@ -6162,8 +6160,7 @@
                     "archived_at": {
                         "type": "string",
                         "format": "date-time",
-                        "description": "Archive date",
-                        "example": "2021-06-03"
+                        "description": "Archive date"
                     },
                     "row_status": {
                         "type": "integer",
@@ -6171,8 +6168,7 @@
                         "enum": [
                             0,
                             1
-                        ],
-                        "example": 1
+                        ]
                     }
                 },
                 "required": [
@@ -6290,8 +6286,7 @@
                             2,
                             3,
                             4
-                        ],
-                        "example": 1
+                        ]
                     },
                     "title": {
                         "type": "string",
@@ -6340,8 +6335,7 @@
                         "enum": [
                             0,
                             1
-                        ],
-                        "example": 1
+                        ]
                     },
                     "album_type": {
                         "type": "integer",
@@ -6350,8 +6344,7 @@
                             1,
                             2,
                             3
-                        ],
-                        "example": 1
+                        ]
                     },
                     "published_at": {
                         "type": "string",
@@ -6367,8 +6360,7 @@
                         "enum": [
                             1,
                             0
-                        ],
-                        "example": 1
+                        ]
                     },
                     "other_language_fields": {
                         "type": "object",
@@ -6389,8 +6381,7 @@
                 "properties": {
                     "gallery_album_id": {
                         "type": "integer",
-                        "description": "gallery category id",
-                        "example": 1
+                        "description": "gallery category id"
                     },
                     "featured": {
                         "type": "integer",
@@ -6403,14 +6394,12 @@
                     "published_at": {
                         "type": "string",
                         "format": "date-time",
-                        "description": "publish date",
-                        "example": "2021-04-03"
+                        "description": "publish date"
                     },
                     "archived_at": {
                         "type": "string",
                         "format": "date-time",
-                        "description": "Archive date",
-                        "example": "2021-06-03"
+                        "description": "Archive date"
                     },
                     "institute_id": {
                         "type": "integer"
@@ -6436,8 +6425,7 @@
                         "enum": [
                             1,
                             2
-                        ],
-                        "example": 1
+                        ]
                     },
                     "content_title": {
                         "type": "string",
@@ -6453,11 +6441,11 @@
                     },
                     "embedded_url": {
                         "type": "string",
-                        "description": "Required. When content type = Facebook source[2] or  Youtube Source[3] "
+                        "description": "Required. When content type = Video "
                     },
                     "embedded_id": {
                         "type": "integer",
-                        "description": "Required. When content type = Facebook source[2] or  Youtube Source[3] "
+                        "description": "Required. When content type = Video "
                     },
                     "content_properties_json": {
                         "type": "string"
@@ -6481,8 +6469,7 @@
                         "enum": [
                             1,
                             0
-                        ],
-                        "example": 1
+                        ]
                     },
                     "other_language_fields": {
                         "type": "object",
@@ -6555,8 +6542,7 @@
                         "enum": [
                             1,
                             0
-                        ],
-                        "example": 1
+                        ]
                     },
                     "other_language_fields": {
                         "type": "object",
@@ -6681,8 +6667,7 @@
                         "enum": [
                             0,
                             1
-                        ],
-                        "example": 1
+                        ]
                     },
                     "other_language_fields": {
                         "type": "object",
@@ -6757,14 +6742,12 @@
                     "published_at": {
                         "type": "string",
                         "format": "date-time",
-                        "description": "publish date",
-                        "example": "2021-04-03"
+                        "description": "publish date"
                     },
                     "archived_at": {
                         "type": "string",
                         "format": "date-time",
-                        "description": "Archive date",
-                        "example": "2021-06-03"
+                        "description": "Archive date"
                     },
                     "row_status": {
                         "type": "integer",
@@ -6772,8 +6755,7 @@
                         "enum": [
                             1,
                             0
-                        ],
-                        "example": 1
+                        ]
                     },
                     "other_language_fields": {
                         "type": "object",
@@ -6803,8 +6785,7 @@
                             2,
                             3,
                             4
-                        ],
-                        "example": 1
+                        ]
                     },
                     "institute_id": {
                         "type": "integer",
@@ -6872,14 +6853,12 @@
                     "published_at": {
                         "type": "string",
                         "format": "date-time",
-                        "description": "publish date",
-                        "example": "2021-04-03"
+                        "description": "publish date"
                     },
                     "archived_at": {
                         "type": "string",
                         "format": "date-time",
-                        "description": "Archive date",
-                        "example": "2021-06-03"
+                        "description": "Archive date"
                     },
                     "row_status": {
                         "type": "integer",
@@ -6887,8 +6866,7 @@
                         "enum": [
                             1,
                             0
-                        ],
-                        "example": 1
+                        ]
                     },
                     "other_language_fields": {
                         "type": "object",
@@ -7041,16 +7019,13 @@
                         "description": "Recent activities",
                         "properties": {
                             "success": {
-                                "type": "boolean",
-                                "example": false
+                                "type": "boolean"
                             },
                             "code": {
-                                "type": "integer",
-                                "example": 400
+                                "type": "integer"
                             },
                             "message": {
-                                "type": "string",
-                                "example": "Invalid Request Format"
+                                "type": "string"
                             },
                             "query_time": {
                                 "type": "integer"
