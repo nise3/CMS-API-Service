@@ -4,7 +4,6 @@ namespace App\Http\Resources;
 
 use App\Models\BaseModel;
 use App\Models\GalleryImageVideo;
-use App\Services\Common\LanguageCodeService;
 use App\Services\ContentManagementServices\CmsLanguageService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -32,6 +31,10 @@ class GalleryImageVideoResource extends JsonResource
             "institute_id" => $this->institute_id,
             "organization_id" => $this->organization_id,
             "industry_association_id" => $this->industry_association_id,
+            "institute_title" => $request->get(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID)[BaseModel::INSTITUTE_SERVICE][$this->institute_id]['title'] ?? "",
+            "institute_title_en" => $request->get(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID)[BaseModel::INSTITUTE_SERVICE][$this->institute_id]['title_en'] ?? "",
+            "organization_title" => $request->get(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID)[BaseModel::ORGANIZATION_SERVICE][$this->organization_id]['title'] ?? "",
+            "organization_title_en" => $request->get(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID)[BaseModel::ORGANIZATION_SERVICE][$this->organization_id]['title_en'] ?? "",
             "content_type" => $this->content_type,
             "video_type" => $this->video_type,
             "content_title" => $this->content_title,
@@ -48,12 +51,6 @@ class GalleryImageVideoResource extends JsonResource
             $response['content_description'] = app(CmsLanguageService::class)->getLanguageValue($this, GalleryImageVideo::LANGUAGE_ATTR_CONTENT_DESCRIPTION);
             $response['alt_title'] = app(CmsLanguageService::class)->getLanguageValue($this, GalleryImageVideo::LANGUAGE_ATTR_ALT_TITLE);
         } else {
-            $response['institute_title'] = "";
-            $response['institute_title_en'] = "";
-            $response['industry_association_title'] = "";
-            $response['industry_association_title_en'] = "";
-            $response['organization_title'] = "";
-            $response['organization_title_en'] = "";
             $response['content_title'] = $this->content_title;
             $response['content_description'] = $this->content_description;
             $response['alt_title'] = $this->alt_title;

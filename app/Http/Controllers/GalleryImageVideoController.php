@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Resources\GalleryImageVideoResource;
 use App\Models\BaseModel;
 use App\Models\GalleryImageVideo;
+use App\Services\Common\CmsGlobalConfigService;
 use App\Services\Common\LanguageCodeService;
 use App\Services\ContentManagementServices\CmsLanguageService;
 use App\Services\ContentManagementServices\GalleryImageVideoService;
+use Illuminate\Http\Client\RequestException;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
@@ -45,26 +47,51 @@ class GalleryImageVideoController extends Controller
      * @param Request $request
      * @return JsonResponse
      * @throws ValidationException
+     * @throws RequestException
      */
     public function getList(Request $request): JsonResponse
     {
         $request->offsetSet(BaseModel::IS_COLLECTION_KEY, BaseModel::IS_COLLECTION_FLAG);
         $filter = $this->galleryImageVideoService->filterValidator($request)->validate();
-        $response = GalleryImageVideoResource::collection($this->galleryImageVideoService->getGalleryImageVideoList($filter))->resource;
+        $galleryImageVideoList = $this->galleryImageVideoService->getGalleryImageVideoList($filter);
+        $request->offsetSet(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID, CmsGlobalConfigService::getOrganizationOrInstituteOrIndustryAssociationTitle($galleryImageVideoList->toArray()['data'] ?? $galleryImageVideoList->toArray()));
+        $response = GalleryImageVideoResource::collection($galleryImageVideoList)->resource;
         $response = getResponse($response->toArray(), $this->startTime, !BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
 
     /**
-     * Display the specified resource.
+     * @param Request $request
+     * @return JsonResponse
+     * @throws ValidationException
+     * @throws RequestException
+     */
+    public function clientSideGetList(Request $request): JsonResponse
+    {
+        $request->offsetSet(BaseModel::IS_COLLECTION_KEY, BaseModel::IS_COLLECTION_FLAG);
+        $filter = $this->galleryImageVideoService->filterValidator($request)->validate();
+        $filter[BaseModel::IS_CLIENT_SITE_RESPONSE_KEY] = BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG;
+        $galleryImageVideoList = $this->galleryImageVideoService->getGalleryImageVideoList($filter, $this->startTime);
+        $request->offsetSet(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID, CmsGlobalConfigService::getOrganizationOrInstituteOrIndustryAssociationTitle($galleryImageVideoList->toArray()['data'] ?? $galleryImageVideoList->toArray()));
+        $response = GalleryImageVideoResource::collection($galleryImageVideoList)->resource;
+        $response = getResponse($response->toArray(), $this->startTime, !BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
+        return Response::json($response, ResponseAlias::HTTP_OK);
+    }
+
+    /**
+     * Display the specified resource.$galleryImageVideoList
      *
+     * @param Request $request
      * @param int $id
      * @return JsonResponse
+     * @throws RequestException
      */
-    public function read(int $id): JsonResponse
+    public function read(Request $request, int $id): JsonResponse
     {
-        $response = new GalleryImageVideoResource($this->galleryImageVideoService->getOneGalleryImageVideo($id));
-        $response = getResponse($response->toArray(request()), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
+        $galleryImageVideo = $this->galleryImageVideoService->getOneGalleryImageVideo($id);
+        $response = new  GalleryImageVideoResource($galleryImageVideo);
+        $request->offsetSet(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID, CmsGlobalConfigService::getOrganizationOrInstituteOrIndustryAssociationTitle($galleryImageVideo->toArray()));
+        $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
 
@@ -75,11 +102,14 @@ class GalleryImageVideoController extends Controller
      * @param Request $request
      * @param int $id
      * @return JsonResponse
+     * @throws RequestException
      */
     public function clientSideRead(Request $request, int $id): JsonResponse
     {
         $request->offsetSet(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY, BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG);
-        $response = new GalleryImageVideoResource($this->galleryImageVideoService->getOneGalleryImageVideo($id));
+        $galleryImageVideo = $this->galleryImageVideoService->getOneGalleryImageVideo($id);
+        $request->offsetSet(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID, CmsGlobalConfigService::getOrganizationOrInstituteOrIndustryAssociationTitle($galleryImageVideo->toArray()));
+        $response = new GalleryImageVideoResource($galleryImageVideo);
         $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
         return Response::json($response, ResponseAlias::HTTP_OK);
     }

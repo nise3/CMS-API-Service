@@ -3,9 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Models\BaseModel;
-use App\Models\Faq;
 use App\Models\Slider;
-use App\Services\Common\LanguageCodeService;
 use App\Services\ContentManagementServices\CmsLanguageService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -27,6 +25,10 @@ class SliderResource extends JsonResource
             "show_in_label" => BaseModel::SHOW_INS[$this->show_in],
             "institute_id" => $this->institute_id,
             "organization_id" => $this->organization_id,
+            "institute_title" => $request->get(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID)[BaseModel::INSTITUTE_SERVICE][$this->institute_id]['title'] ?? "",
+            "institute_title_en" => $request->get(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID)[BaseModel::INSTITUTE_SERVICE][$this->institute_id]['title_en'] ?? "",
+            "organization_title" => $request->get(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID)[BaseModel::ORGANIZATION_SERVICE][$this->organization_id]['title'] ?? "",
+            "organization_title_en" => $request->get(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID)[BaseModel::ORGANIZATION_SERVICE][$this->organization_id]['title_en'] ?? "",
             "industry_association_id" => $this->industry_association_id,
             "is_button_available" => $this->is_button_available,
             "link" => $this->link,
@@ -39,10 +41,6 @@ class SliderResource extends JsonResource
             $response['button_text'] = app(CmsLanguageService::class)->getLanguageValue($this, Slider::SLIDER_LANGUAGE_ATTR_BUTTON_TEXT);
             $response['alt_title'] = app(CmsLanguageService::class)->getLanguageValue($this, Slider::SLIDER_LANGUAGE_ATTR_ALT_TITLE);
         } else {
-            $response['institute_title'] = "";
-            $response['institute_title_en'] = "";
-            $response['organization_title'] = "";
-            $response['organization_title_en'] = "";
             $response['title'] = $this->title;
             $response['sub_title'] = $this->sub_title;
             $response['alt_title'] = $this->alt_title;
