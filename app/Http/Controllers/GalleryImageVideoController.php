@@ -181,25 +181,25 @@ class GalleryImageVideoController extends Controller
         DB::beginTransaction();
         try {
             $galleryImageVideo = $this->galleryImageVideoService->update($galleryImageVideo, $validatedData);
-            if ($isLanguage) {
-                foreach ($otherLanguagePayload as $key => $value) {
-                    $languageValidatedData = $this->galleryImageVideoService->languageFieldValidator($value, $key)->validate();
-                    foreach (GalleryImageVideo::GALLERY_IMAGE_VIDEO_LANGUAGE_FILLABLE as $fillableColumn) {
-                        if (!empty($languageValidatedData[$fillableColumn])) {
-                            $languageFillablePayload = [
-                                "table_name" => $galleryImageVideo->getTable(),
-                                "key_id" => $galleryImageVideo->id,
-                                "lang_code" => $key,
-                                "column_name" => $fillableColumn,
-                                "column_value" => $languageValidatedData[$fillableColumn]
-                            ];
-                            app(CmsLanguageService::class)->createOrUpdate($languageFillablePayload);
-                            CmsLanguageService::languageCacheClearByKey($galleryImageVideo->getTable(), $galleryImageVideo->id, $key, $fillableColumn);
-                        }
+            $languageFillablePayload = [];
+            foreach ($otherLanguagePayload as $key => $value) {
+                $languageValidatedData = $this->galleryImageVideoService->languageFieldValidator($value, $key)->validate();
+                foreach (GalleryImageVideo::GALLERY_IMAGE_VIDEO_LANGUAGE_FILLABLE as $fillableColumn) {
+                    if (!empty($languageValidatedData[$fillableColumn])) {
+                        $languageFillablePayload[] = [
+                            "table_name" => $galleryImageVideo->getTable(),
+                            "key_id" => $galleryImageVideo->id,
+                            "lang_code" => $key,
+                            "column_name" => $fillableColumn,
+                            "column_value" => $languageValidatedData[$fillableColumn]
+                        ];
+                        CmsLanguageService::languageCacheClearByKey($galleryImageVideo->getTable(), $galleryImageVideo->id, $key, $fillableColumn);
                     }
                 }
             }
-            $response = getResponse($galleryImageVideo->toArray(), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK, $message);
+            app(CmsLanguageService::class)->createOrUpdate($languageFillablePayload,$galleryImageVideo->id);
+            $response = new GalleryImageVideoResource($galleryImageVideo);
+            $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK, $message);
             DB::commit();
         } catch (Throwable $e) {
             DB::rollBack();

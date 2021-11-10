@@ -169,24 +169,23 @@ class SliderController extends Controller
         DB::beginTransaction();
         try {
             $slider = $this->sliderService->update($slider, $validatedData);
-            if ($isLanguage) {
-                foreach ($otherLanguagePayload as $key => $value) {
-                    $languageValidatedData = $this->sliderService->languageFieldValidator($value, $key)->validate();
-                    foreach (Slider::SLIDER_LANGUAGE_FIELDS as $fillableColumn) {
-                        if (isset($languageValidatedData[$fillableColumn])) {
-                            $languageFillablePayload = [
-                                "table_name" => $slider->getTable(),
-                                "key_id" => $slider->id,
-                                "lang_code" => $key,
-                                "column_name" => $fillableColumn,
-                                "column_value" => $languageValidatedData[$fillableColumn]
-                            ];
-                            app(CmsLanguageService::class)->createOrUpdate($languageFillablePayload);
-                            CmsLanguageService::languageCacheClearByKey($slider->getTable(), $slider->id, $key, $fillableColumn);
-                        }
+            $languageFillablePayload = [];
+            foreach ($otherLanguagePayload as $key => $value) {
+                $languageValidatedData = $this->sliderService->languageFieldValidator($value, $key)->validate();
+                foreach (Slider::SLIDER_LANGUAGE_FIELDS as $fillableColumn) {
+                    if (isset($languageValidatedData[$fillableColumn])) {
+                        $languageFillablePayload[] = [
+                            "table_name" => $slider->getTable(),
+                            "key_id" => $slider->id,
+                            "lang_code" => $key,
+                            "column_name" => $fillableColumn,
+                            "column_value" => $languageValidatedData[$fillableColumn]
+                        ];
+                        CmsLanguageService::languageCacheClearByKey($slider->getTable(), $slider->id, $key, $fillableColumn);
                     }
                 }
             }
+            app(CmsLanguageService::class)->createOrUpdate($languageFillablePayload, $slider->id);
             $response = new SliderResource($slider);
             $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK, $message);
             DB::commit();

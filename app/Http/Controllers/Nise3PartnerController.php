@@ -149,25 +149,23 @@ class Nise3PartnerController extends Controller
         DB::beginTransaction();
         try {
             $nise3Partner = $this->nise3PartnerService->update($nise3Partner, $validatedData);
-            if ($isLanguage) {
-
-                foreach ($otherLanguagePayload as $key => $value) {
-                    $languageValidatedData = $this->nise3PartnerService->languageFieldValidator($value, $key)->validate();
-                    foreach (Nise3Partner::NISE_3_PARTNER_LANGUAGE_FIELDS as $fillableColumn) {
-                        if (isset($languageValidatedData[$fillableColumn])) {
-                            $languageFillablePayload = [
-                                "table_name" => $nise3Partner->getTable(),
-                                "key_id" => $nise3Partner->id,
-                                "lang_code" => $key,
-                                "column_name" => $fillableColumn,
-                                "column_value" => $languageValidatedData[$fillableColumn]
-                            ];
-                            CmsLanguageService::languageCacheClearByKey($nise3Partner->getTable(), $nise3Partner->id, $key, $fillableColumn);
-                            app(CmsLanguageService::class)->createOrUpdate($languageFillablePayload);
-                        }
+            $languageFillablePayload = [];
+            foreach ($otherLanguagePayload as $key => $value) {
+                $languageValidatedData = $this->nise3PartnerService->languageFieldValidator($value, $key)->validate();
+                foreach (Nise3Partner::NISE_3_PARTNER_LANGUAGE_FIELDS as $fillableColumn) {
+                    if (isset($languageValidatedData[$fillableColumn])) {
+                        $languageFillablePayload[] = [
+                            "table_name" => $nise3Partner->getTable(),
+                            "key_id" => $nise3Partner->id,
+                            "lang_code" => $key,
+                            "column_name" => $fillableColumn,
+                            "column_value" => $languageValidatedData[$fillableColumn]
+                        ];
+                        CmsLanguageService::languageCacheClearByKey($nise3Partner->getTable(), $nise3Partner->id, $key, $fillableColumn);
                     }
                 }
             }
+            app(CmsLanguageService::class)->createOrUpdate($languageFillablePayload, $nise3Partner->id);
             $response = new Nise3PartnerResource($nise3Partner);
             $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK, $message);
             DB::commit();
