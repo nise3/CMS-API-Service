@@ -408,7 +408,6 @@
                 ]
             }
         },
-
         "/public/nise3-partners": {
             "get": {
                 "summary": "Get All Partners",
@@ -468,7 +467,6 @@
                 "summary": "Get All Partners",
                 "description": "Get The list of all partners of Nise3",
                 "parameters": [
-
                     {
                         "$ref": "#/components/parameters/title_optional"
                     },
@@ -490,7 +488,7 @@
                         "description": "Successful",
                         "content": {
                             "application/json": {
-                                "example":{
+                                "example": {
                                     "order": "ASC",
                                     "data": [
                                         {
@@ -565,7 +563,7 @@
                         "description": "Successful",
                         "content": {
                             "application/json": {
-                                "example":{
+                                "example": {
                                     "data": {
                                         "id": 3,
                                         "title": "AAASSSDDD",
@@ -621,7 +619,7 @@
                         "description": "successfull",
                         "content": {
                             "application/json": {
-                                "example":{
+                                "example": {
                                     "order": "ASC",
                                     "data": {
                                         "id": 3,
@@ -751,7 +749,6 @@
                 ]
             }
         },
-
         "/public/nise3-partners/{partnerId}": {
             "get": {
                 "summary": "Get partner by Id",
@@ -806,10 +803,6 @@
                 ]
             }
         },
-
-
-
-
         "/public/sliders": {
             "get": {
                 "summary": "Get All sliders",
@@ -929,7 +922,7 @@
                         "description": "Slider Created",
                         "content": {
                             "appication/json": {
-                                "example":{
+                                "example": {
                                     "data": {
                                         "id": 11,
                                         "show_in": "1",
@@ -988,7 +981,6 @@
                 "summary": "get_one",
                 "description": "API endpoint to get a specified Slider.A successful request response will show 200 HTTP status code",
                 "parameters": [
-
                     {
                         "in": "path",
                         "name": "SliderId",
@@ -1171,7 +1163,6 @@
                 ]
             }
         },
-
         "/public/sliders/{SliderId}": {
             "get": {
                 "summary": "get_one",
@@ -1235,8 +1226,6 @@
                 ]
             }
         },
-
-
         "/public/faqs": {
             "get": {
                 "summary": "Get All faqs",
@@ -1245,7 +1234,6 @@
                     {
                         "$ref": "#/components/parameters/Accept-Language"
                     },
-
                     {
                         "name": "question",
                         "in": "query",
@@ -1347,7 +1335,7 @@
                                         {
                                             "id": 1,
                                             "show_in": 7,
-                                            "show_in_label":  "Show in Nise3",
+                                            "show_in_label": "Show in Nise3",
                                             "institute_id": 1,
                                             "industry_association_id": 1,
                                             "organization_id": 5,
@@ -1394,7 +1382,6 @@
                 "summary": "Get All faqs",
                 "description": "API endpoint to get the list of Sliders.A successful request response will show 200 HTTP status code",
                 "parameters": [
-
                     {
                         "name": "question",
                         "in": "query",
@@ -1496,7 +1483,7 @@
                                         {
                                             "id": 1,
                                             "show_in": 7,
-                                            "show_in_label":  "Show in Nise3",
+                                            "show_in_label": "Show in Nise3",
                                             "institute_id": 1,
                                             "industry_association_id": 1,
                                             "organization_id": 5,
@@ -1741,7 +1728,6 @@
                 ]
             }
         },
-
         "/public/faqs/{faqId}": {
             "get": {
                 "summary": "Get All faqs",
@@ -1770,7 +1756,7 @@
                                         {
                                             "id": 1,
                                             "show_in": 1,
-                                            "show_in_label":  "Show in Nise3",
+                                            "show_in_label": "Show in Nise3",
                                             "institute_id": 1,
                                             "industry_association_id": 1,
                                             "organization_id": 5,
@@ -1785,7 +1771,7 @@
                                         {
                                             "id": 2,
                                             "show_in": 1,
-                                            "show_in_label":  "Show in Nise3",
+                                            "show_in_label": "Show in Nise3",
                                             "institute_id": 0,
                                             "industry_association_id": 0,
                                             "organization_id": 9,
@@ -1813,8 +1799,6 @@
                 ]
             }
         },
-
-
         "/public/gallery-albums": {
             "get": {
                 "summary": "Get All gallery albums",
@@ -1823,7 +1807,6 @@
                     {
                         "$ref": "#/components/parameters/Accept-Language"
                     },
-
                     {
                         "$ref": "#/components/parameters/title_optional"
                     },
@@ -1888,14 +1871,12 @@
                     "Gallery-Album"
                 ]
             }
-
         },
         "/gallery-albums": {
             "get": {
                 "summary": "Get All gallery albums",
                 "description": "API endpoint to get all gallery image.A successful request response will show 200 HTTP status code",
                 "parameters": [
-
                     {
                         "$ref": "#/components/parameters/title_optional"
                     },
@@ -1977,7 +1958,7 @@
                         "description": "Successfully created gallery-album",
                         "content": {
                             "application/json": {
-                                "example":{
+                                "example": {
                                     "data": {
                                         "id": 11,
                                         "parent_gallery_album_id": null,
@@ -2118,7 +2099,6 @@
                             "type": "integer"
                         }
                     }
-
                 ],
                 "responses": {
                     "200": {
@@ -2267,7 +2247,6 @@
                 ]
             }
         },
-
         "/gallery-albums/publish-or-archive/{galleryAlbumId}": {
             "post": {
                 "summary": "Create a new published or archived gallery-album",
@@ -2340,10 +2319,6 @@
                 ]
             }
         },
-
-
-
-
         "/public/gallery-images-videos": {
             "get": {
                 "summary": "Get all gallery image videos",
@@ -2490,7 +2465,7 @@
                         "content": {
                             "application/json": {
                                 "example": {
-                                    "data":{
+                                    "data": {
                                         "data": {
                                             "id": 14,
                                             "gallery_album_id": "1",
@@ -2633,7 +2608,6 @@
                             "type": "integer"
                         }
                     }
-
                 ],
                 "responses": {
                     "200": {
@@ -2736,7 +2710,6 @@
                     {
                         "$ref": "#/components/parameters/Accept-Language"
                     }
-
                 ],
                 "responses": {
                     "200": {
@@ -2783,7 +2756,6 @@
                 ]
             }
         },
-
         "/gallery-images-videos/publish-or-archive/{galleryImagesVideoId}": {
             "post": {
                 "summary": "Create a new archived/published gallery image video",
@@ -2861,9 +2833,6 @@
                 ]
             }
         },
-
-
-
         "/public/static-pages": {
             "get": {
                 "summary": "Get all static page",
@@ -2872,7 +2841,6 @@
                     {
                         "$ref": "#/components/parameters/Accept-Language"
                     },
-
                     {
                         "$ref": "#/components/parameters/title_optional"
                     },
@@ -2907,7 +2875,6 @@
                 "summary": "Get all static page",
                 "description": "API endpoint to get all a Static Page.A successful request response will show 200 HTTP status code",
                 "parameters": [
-
                     {
                         "$ref": "#/components/parameters/title_optional"
                     },
@@ -2953,7 +2920,7 @@
                         "description": "successfull",
                         "content": {
                             "application/json": {
-                                "example":{
+                                "example": {
                                     "data": {
                                         "id": 29,
                                         "content_type": "1",
@@ -3149,7 +3116,6 @@
                 ]
             }
         },
-
         "/public/static-pages/{staticPagesId}": {
             "get": {
                 "summary": "Get all static page",
@@ -3180,7 +3146,6 @@
                 ]
             }
         },
-
         "/public/recent-activities": {
             "get": {
                 "summary": "Get All recent activity",
@@ -3241,7 +3206,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "successfull",
+                        "description": "successful",
                         "content": {
                             "application/json": {}
                         }
@@ -3505,7 +3470,7 @@
                 ]
             }
         },
-        "/recent-activities/publish-or-archive/{recentActivityId}":{
+        "/recent-activities/publish-or-archive/{recentActivityId}": {
             "post": {
                 "summary": "create a new archived/published recent-activity",
                 "description": "API endpoint to create a new archived/published recent-activity.A successful request response will show 200 HTTP status code",
@@ -3583,8 +3548,6 @@
                 ]
             }
         },
-
-
         "/calender-events": {
             "get": {
                 "summary": "Get list of Calender Events",
@@ -3970,8 +3933,6 @@
                 ]
             }
         },
-
-
         "/public/notice-or-news": {
             "get": {
                 "summary": "Get all notice or news",
@@ -3980,7 +3941,6 @@
                     {
                         "$ref": "#/components/parameters/Accept-Language"
                     },
-
                     {
                         "$ref": "#/components/parameters/title_optional"
                     },
@@ -4009,7 +3969,6 @@
                 "summary": "Get all notice or news",
                 "description": "API endpoint to all all notice or news.A successful request response will show 200 HTTP status code",
                 "parameters": [
-
                     {
                         "$ref": "#/components/parameters/title_optional"
                     },
@@ -4386,8 +4345,6 @@
                 ]
             }
         },
-
-
         "/visitor-feedback-suggestions": {
             "get": {
                 "summary": "Get aAll visitor-feedback-suggestion",
@@ -4590,7 +4547,6 @@
                 ]
             }
         },
-
         "/cms-global-config": {
             "get": {
                 "summary": "Get All cms-global-config",
@@ -4748,7 +4704,10 @@
                 "schema": {
                     "type": "string",
                     "enum": [
-                        "bn" ,"en" ,"hi","te"
+                        "bn",
+                        "en",
+                        "hi",
+                        "te"
                     ]
                 }
             },
@@ -5548,7 +5507,8 @@
                         "type": "integer",
                         "description": "1=>published 0=> archived",
                         "enum": [
-                            0 , 1
+                            0,
+                            1
                         ]
                     }
                 },
@@ -5702,7 +5662,6 @@
                 "type": "object",
                 "description": "Provide the Loc Division",
                 "properties": {
-
                     "title": {
                         "type": "string",
                         "description": "Division Title In Bengali",
@@ -5967,8 +5926,6 @@
                     "content_thumb_image_url": {
                         "type": "string"
                     },
-
-
                     "alt_title": {
                         "type": "string",
                         "description": "alternate title for content"
@@ -6145,7 +6102,6 @@
                 "type": "object",
                 "description": "Provide the partner information",
                 "properties": {
-
                     "title": {
                         "type": "string"
                     },
@@ -6280,17 +6236,9 @@
                 "properties": {
                     "title": {
                         "type": "string",
-                        "description": " Title In Bengali",
+                        "description": " Title",
                         "minLength": 1,
                         "maxLength": 500
-                    },
-                    "institute_id": {
-                        "type": "integer",
-                        "description": "Required when you give show_in = 3"
-                    },
-                    "organization_id": {
-                        "type": "integer",
-                        "description": "Required when you give show_in = 4"
                     },
                     "show_in": {
                         "type": "integer",
@@ -6302,6 +6250,14 @@
                             4
                         ],
                         "example": 1
+                    },
+                    "institute_id": {
+                        "type": "integer",
+                        "description": "Required when you give show_in = TSP"
+                    },
+                    "organization_id": {
+                        "type": "integer",
+                        "description": "Required when you give show_in = Industry"
                     },
                     "description": {
                         "type": "string",
@@ -6350,9 +6306,13 @@
                         "type": "string",
                         "description": "content_properties"
                     },
+                    "embedded_url": {
+                        "type": "string",
+                        "description": "Required. When content type = Facebook source[2] or  Youtube Source[3] "
+                    },
                     "embedded_id": {
                         "type": "integer",
-                        "description": "Required. When content type ==3 "
+                        "description": "Required. When content type = Facebook source[2] or  Youtube Source[3] "
                     },
                     "published_at": {
                         "type": "string",
@@ -6365,9 +6325,6 @@
                         "format": "date-time",
                         "description": "Archive date",
                         "example": "2021-06-03"
-                    },
-                    "embedded_url": {
-                        "type": "string"
                     },
                     "row_status": {
                         "type": "integer",
@@ -6385,7 +6342,8 @@
                 },
                 "required": [
                     "title",
-                    "content_type"
+                    "content_type",
+                    "show_in"
                 ]
             },
             "tags": {
