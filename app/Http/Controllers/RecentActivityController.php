@@ -119,7 +119,6 @@ class RecentActivityController extends Controller
         $validated = $this->recentActivityService->validator($request)->validate();
         $message = "Recent Activity is Successfully added";
         $otherLanguagePayload = $validated['other_language_fields'] ?? [];
-
         $isLanguage = (bool)count(array_intersect(array_keys($otherLanguagePayload), LanguageCodeService::getLanguageCode()));
         DB::beginTransaction();
         try {
@@ -137,18 +136,14 @@ class RecentActivityController extends Controller
                                 "column_name" => $fillableColumn,
                                 "column_value" => $languageValidatedData[$fillableColumn]
                             ];
-                            app(CmsLanguageService::class)->store($languageFillablePayload);
                         }
                     }
 
                 }
-
+                app(CmsLanguageService::class)->store($languageFillablePayload);
             }
-
-
-
             $response = new RecentActivityResource($recentActivity);
-            $response = getResponse($recentActivity->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
+            $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
             DB::commit();
         } catch (Throwable $e) {
             DB::rollBack();
@@ -173,30 +168,31 @@ class RecentActivityController extends Controller
         $validated = $this->recentActivityService->validator($request, $id)->validate();
         $message = "Recent Activity is Successfully Updated";
         $otherLanguagePayload = $validated['other_language_fields'] ?? [];
-        $isLanguage = (bool)count(array_intersect(array_keys($otherLanguagePayload), LanguageCodeService::getLanguageCode()));
+
         DB::beginTransaction();
         try {
             $recentActivity = $this->recentActivityService->update($recentActivity, $validated);
-            if ($isLanguage) {
-                foreach ($otherLanguagePayload as $key => $value) {
-                    $languageValidatedData = $this->recentActivityService->languageFieldValidator($value, $key)->validate();
-                    foreach (RecentActivity::RECENT_ACTIVITY_LANGUAGE_FILLABLE as $fillableColumn) {
-                        if (isset($languageValidatedData[$fillableColumn])) {
-                            $languageFillablePayload = [
-                                "table_name" => $recentActivity->getTable(),
-                                "key_id" => $recentActivity->id,
-                                "lang_code" => $key,
-                                "column_name" => $fillableColumn,
-                                "column_value" => $languageValidatedData[$fillableColumn]
-                            ];
-                            app(CmsLanguageService::class)->store($languageFillablePayload);
-                            CmsLanguageService::languageCacheClearByKey($recentActivity->getTable(), $recentActivity->id, $key, $fillableColumn);
-                        }
-                    }
+            $languageFillablePayload = [];
+            foreach ($otherLanguagePayload as $key => $value) {
+                $languageValidatedData = $this->recentActivityService->languageFieldValidator($value, $key)->validate();
+                foreach (RecentActivity::RECENT_ACTIVITY_LANGUAGE_FILLABLE as $fillableColumn) {
+                    if (isset($languageValidatedData[$fillableColumn])) {
+                        $languageFillablePayload[] = [
+                            "table_name" => $recentActivity->getTable(),
+                            "key_id" => $recentActivity->id,
+                            "lang_code" => $key,
+                            "column_name" => $fillableColumn,
+                            "column_value" => $languageValidatedData[$fillableColumn]
+                        ];
 
+                        CmsLanguageService::languageCacheClearByKey($recentActivity->getTable(), $recentActivity->id, $key, $fillableColumn);
+                    }
                 }
+
             }
-            $response = getResponse($recentActivity->toArray(), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
+            app(CmsLanguageService::class)->createOrUpdate($languageFillablePayload, $recentActivity->id);
+            $response = new RecentActivityResource($recentActivity);
+            $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
             DB::commit();
         } catch (Throwable $e) {
             DB::rollBack();
