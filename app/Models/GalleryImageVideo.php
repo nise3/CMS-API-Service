@@ -26,8 +26,9 @@ use Illuminate\Support\Collection;
  * @property string|null content_title_en
  * @property string|null content_description
  * @property string|null content_description_en
- * @property string|null $image_url
- * @property string|null $video_url
+ * @property string|null content_path
+ * @property string|null embedded_url
+ * @property string|null embedded_id
  * @property string|null $content_properties_json
  * @property string|null $content_grid_image_url
  * @property string|null $content_cover_image_url
