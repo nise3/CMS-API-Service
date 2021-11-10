@@ -89,8 +89,9 @@ class NoticeOrNewsController extends Controller
      */
     public function clientSideRead(Request $request, int $id): JsonResponse
     {
-        $request->offsetSet(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY, BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG);
-        $response = new NoticeOrNewsResource($this->noticeOrNewsService->getOneNoticeOrNewsService($id));
+        $noticeOrNews = $this->noticeOrNewsService->getOneNoticeOrNewsService($id);
+        $response = new NoticeOrNewsResource($noticeOrNews);
+        $request->offsetSet(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID, CmsGlobalConfigService::getOrganizationOrInstituteOrIndustryAssociationTitle($galleryImageVideo->toArray()));
         $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
