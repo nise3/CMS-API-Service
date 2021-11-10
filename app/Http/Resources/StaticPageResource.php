@@ -25,6 +25,10 @@ class StaticPageResource extends JsonResource
             "show_in" => $this->show_in,
             "show_in_label" => BaseModel::SHOW_INS[$this->show_in],
             "industry_association_id" => $this->industry_association_id,
+            "institute_title" => $request->get(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID)[BaseModel::INSTITUTE_SERVICE][$this->institute_id]['title'] ?? "",
+            "institute_title_en" => $request->get(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID)[BaseModel::INSTITUTE_SERVICE][$this->institute_id]['title_en'] ?? "",
+            "organization_title" => $request->get(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID)[BaseModel::ORGANIZATION_SERVICE][$this->organization_id]['title'] ?? "",
+            "organization_title_en" => $request->get(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID)[BaseModel::ORGANIZATION_SERVICE][$this->organization_id]['title_en'] ?? "",
             "content_slug_or_id" => $this->content_slug_or_id,
             "institute_id" => $this->institute_id,
             "organization_id" => $this->organization_id,
@@ -38,12 +42,6 @@ class StaticPageResource extends JsonResource
             $response['sub_title'] = app(CmsLanguageService::class)->getLanguageValue($this, StaticPage::LANGUAGE_ATTR_SUB_TITLE);
             $response['contents'] = app(CmsLanguageService::class)->getLanguageValue($this, StaticPage::LANGUAGE_ATTR_CONTENTS);
         } else {
-            $response['institute_title'] = "";
-            $response['institute_title_en'] = "";
-            $response['industry_association_title'] = "";
-            $response['industry_association_title_en'] = "";
-            $response['organization_title'] = "";
-            $response['organization_title_en'] = "";
             $response['title'] = $this->title;
             $response['sub_title'] = $this->sub_title;
             $response['contents'] = $this->contents;
