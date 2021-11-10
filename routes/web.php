@@ -48,10 +48,10 @@ $router->group(['prefix' => 'api/v1', 'as' => 'api.v1'], function () use ($route
 
 
     /** publish or archive  */
-    $router->post('gallery-albums/publish-or-archive/{id}', ["as" => "gallery.albums.publish.archive", "uses" => "GalleryAlbumController@publishOrArchive"]);
-    $router->post('gallery-images-videos/publish-or-archive/{id}', ["as" => "gallery.images.videos.publish.archive", "uses" => "GalleryImageVideoController@publishOrArchive"]);
-    $router->post('notice-or-news/publish-or-archive/{id}', ["as" => "notice.news.publish.archive", "uses" => "NoticeOrNewsController@publishOrArchive"]);
-    $router->post('recent-activities/publish-or-archive/{id}', ["as" => "recent.activities.publish.archive", "uses" => "RecentActivityController@publishOrArchive"]);
+    $router->put('gallery-albums/publish-or-archive/{id}', ["as" => "gallery.albums.publish.archive", "uses" => "GalleryAlbumController@publishOrArchive"]);
+    $router->put('gallery-images-videos/publish-or-archive/{id}', ["as" => "gallery.images.videos.publish.archive", "uses" => "GalleryImageVideoController@publishOrArchive"]);
+    $router->put('notice-or-news/publish-or-archive/{id}', ["as" => "notice.news.publish.archive", "uses" => "NoticeOrNewsController@publishOrArchive"]);
+    $router->put('recent-activities/publish-or-archive/{id}', ["as" => "recent.activities.publish.archive", "uses" => "RecentActivityController@publishOrArchive"]);
 
 
     $router->group(['prefix' => 'public', 'as' => 'public'], function () use ($router) {

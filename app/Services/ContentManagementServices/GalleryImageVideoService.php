@@ -374,8 +374,7 @@ class GalleryImageVideoService
                 Rule::in([BaseModel::ROW_STATUS_ACTIVE, BaseModel::ROW_STATUS_INACTIVE]),
             ]
         ];
-        if (!empty($requestData['video_type']) &&
-            ($requestData['video_type'] == GalleryImageVideo::VIDEO_TYPE_YOUTUBE || $requestData['video_type'] == GalleryImageVideo::VIDEO_TYPE_FACEBOOK)) {
+        if (!empty($requestData['content_type']) && $requestData['content_type'] == GalleryImageVideo::CONTENT_TYPE_VIDEO && !empty($requestData['video_type'])) {
             $rules['embedded_url'] = [
                 'required',
                 'string',
