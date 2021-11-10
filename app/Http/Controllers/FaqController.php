@@ -172,13 +172,11 @@ class FaqController extends Controller implements ResourceInterface
         DB::beginTransaction();
         try {
             $faq = $this->faqService->update($faq, $validatedData);
-            if ($isLanguage) {
-                CmsLanguage::where('key_id', $faq->id)->delete();
                 $languageFillablePayload = [];
                 foreach ($otherLanguagePayload as $key => $value) {
                     $languageValidatedData = $this->faqService->languageFieldValidator($value, $key)->validate();
                     foreach (Faq::FAQ_LANGUAGE_FILLABLE as $fillableColumn) {
-                        if (!empty($languageValidatedData[$fillableColumn])) {
+                        if (isset($languageValidatedData[$fillableColumn])) {
                             $languageFillablePayload[] = [
                                 "table_name" => $faq->getTable(),
                                 "key_id" => $faq->id,
@@ -190,8 +188,7 @@ class FaqController extends Controller implements ResourceInterface
                         }
                     }
                 }
-                app(CmsLanguageService::class)->store($languageFillablePayload);
-            }
+                app(CmsLanguageService::class)->createOrUpdate($languageFillablePayload,$faq->id);
             $response = new FaqResource($faq);
             $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
             DB::commit();

@@ -88,18 +88,13 @@ class CmsLanguageService
 
     /**
      * @param array $data
+     * @param int $keyId
      * @return mixed
      */
-    public function createOrUpdate(array $data): CmsLanguage
+    public function createOrUpdate(array $data, int $keyId):bool
     {
-        return CmsLanguage::updateOrCreate(
-            [
-                "key_id" => $data['key_id'],
-                "lang_code" => $data['lang_code'],
-                "column_name" => $data['column_name']
-            ],
-            $data
-        );
+        $cmsLanguage = CmsLanguage::where('key_id', $keyId)->delete();
+        return CmsLanguage::insert($data);
     }
 
     /**
