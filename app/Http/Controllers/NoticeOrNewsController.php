@@ -155,7 +155,7 @@ class NoticeOrNewsController extends Controller
         $validatedData = $this->noticeOrNewsService->validator($request, $id)->validate();
         $message = "NoticeOrNews Update Successfully Done";
         $otherLanguagePayload = $validatedData['other_language_fields'] ?? [];
-        $isLanguage = (bool)count(array_intersect(array_keys($otherLanguagePayload), LanguageCodeService::getLanguageCode()));
+
         DB::beginTransaction();
         try {
             $noticeOrNews = $this->noticeOrNewsService->update($noticeOrNews, $validatedData);
@@ -184,7 +184,6 @@ class NoticeOrNewsController extends Controller
             DB::rollBack();
             throw $e;
         }
-
 
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
