@@ -5,6 +5,7 @@ namespace App\Models;
 
 use App\Traits\Scopes\ScopeRowStatusTrait;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -44,7 +45,6 @@ use Illuminate\Support\Collection;
  * @property Carbon|null updated_at
  * @property Carbon|null deleted_at
  * @property  Collection cmsLanguages
-
  */
 class GalleryImageVideo extends BaseModel
 {
@@ -93,6 +93,11 @@ class GalleryImageVideo extends BaseModel
     public function cmsLanguages(): HasMany
     {
         return $this->hasMany(CmsLanguage::class, 'key_id', "id");
+    }
+
+    public function galleryAlbum(): BelongsTo
+    {
+        return $this->belongsTo(GalleryAlbum::class);
     }
 
 }

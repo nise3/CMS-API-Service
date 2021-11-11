@@ -25,10 +25,6 @@ class CreateGalleryImagesVideosTable extends Migration
             $table->dateTime('published_at')->nullable();
             $table->dateTime('archived_at')->nullable();
 
-            $table->unsignedInteger('institute_id')->nullable();
-            $table->unsignedInteger('organization_id')->nullable();
-            $table->unsignedInteger('industry_association_id')->nullable();
-
             $table->unsignedTinyInteger('content_type')
                 ->default(1)
                 ->comment('Image => 1, Video => 2');
