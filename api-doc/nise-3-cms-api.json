@@ -3684,7 +3684,7 @@
                                             "grid_image_path": null,
                                             "image_alt_title": null,
                                             "description": "Quia rerum libero sunt atque est nulla exercitationem ut doloremque aut et quos blanditiis numquam impedit et sunt quo et id illum architecto doloremque nobis nihil perspiciatis optio maxime doloribus sed.",
-                                            "row_status": null,
+                                            "row_status": 1,
                                             "published_by": null,
                                             "archived_by": null,
                                             "updated_by": null,
@@ -3717,7 +3717,7 @@
                                             "grid_image_path": null,
                                             "image_alt_title": null,
                                             "description": "Voluptatem et omnis reprehenderit placeat esse fugiat odio occaecati sunt ut sed qui enim ut reiciendis quidem est quo esse maiores nihil magni quisquam praesentium sint eius labore perferendis quae asperiores eius quas ab quisquam at eius qui quia et ea impedit est dolor cupiditate ipsa facilis facere quo eum quos iste rerum dignissimos.",
-                                            "row_status": null,
+                                            "row_status": 1,
                                             "published_by": null,
                                             "archived_by": null,
                                             "updated_by": null,
@@ -3873,7 +3873,7 @@
                                                 "description": "భారతదేశ చరిత్ర"
                                             }
                                         },
-                                        "row_status": null,
+                                        "row_status": 1,
                                         "published_by": null,
                                         "archived_by": null,
                                         "updated_by": null,
