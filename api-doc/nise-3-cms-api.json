@@ -2817,46 +2817,41 @@
                             "application/json": {
                                 "example": {
                                     "data": {
-                                        "data": {
-                                            "id": 14,
-                                            "gallery_album_id": "1",
-                                            "featured": "1",
-                                            "published_at": null,
-                                            "archived_at": null,
-                                            "institute_id": "1",
-                                            "organization_id": null,
-                                            "industry_association_id": null,
-                                            "content_type": "1",
-                                            "video_type": null,
-                                            "content_title": "image ccccc dddddd ddddd",
-                                            "content_description": null,
-                                            "image_url": "1",
-                                            "video_url": null,
-                                            "content_properties_json": null,
-                                            "content_cover_image_url": null,
-                                            "content_grid_image_url": null,
-                                            "alt_title": null,
-                                            "institute_title": "",
-                                            "institute_title_en": "",
-                                            "industry_association_title": "",
-                                            "industry_association_title_en": "",
-                                            "organization_title": "",
-                                            "organization_title_en": "",
-                                            "other_language_fields": {
-                                                "hi": {
-                                                    "alt_title": "aaaaaaaaaaaa",
-                                                    "content_title": "हमारा अंग्रेजी से बांग्ला अनुवाद उपकरण",
-                                                    "content_description": "asjdkjakdjajdja"
-                                                }
-                                            },
-                                            "row_status": null,
-                                            "published_by": null,
-                                            "archived_by": null,
-                                            "created_by": null,
-                                            "updated_by": null,
-                                            "created_at": "2021-11-09T09:05:53.000000Z",
-                                            "updated_at": "2021-11-09T09:05:53.000000Z"
-                                        }
+                                        "id": 14,
+                                        "gallery_album_id": "1",
+                                        "featured": "1",
+                                        "published_at": null,
+                                        "archived_at": null,
+                                        "content_type": "1",
+                                        "video_type": null,
+                                        "content_title": "image ccccc dddddd ddddd",
+                                        "content_description": null,
+                                        "image_url": "1",
+                                        "video_url": null,
+                                        "content_properties_json": null,
+                                        "content_cover_image_url": null,
+                                        "content_grid_image_url": null,
+                                        "alt_title": null,
+                                        "institute_title": "",
+                                        "institute_title_en": "",
+                                        "industry_association_title": "",
+                                        "industry_association_title_en": "",
+                                        "organization_title": "",
+                                        "organization_title_en": "",
+                                        "other_language_fields": {
+                                            "hi": {
+                                                "alt_title": "aaaaaaaaaaaa",
+                                                "content_title": "हमारा अंग्रेजी से बांग्ला अनुवाद उपकरण",
+                                                "content_description": "asjdkjakdjajdja"
+                                            }
+                                        },
+                                        "row_status": null,
+                                        "published_by": null,
+                                        "archived_by": null,
+                                        "created_by": null,
+                                        "updated_by": null,
+                                        "created_at": "2021-11-09T09:05:53.000000Z",
+                                        "updated_at": "2021-11-09T09:05:53.000000Z"
                                     },
                                     "_response_status": {
                                         "success": true,
@@ -2909,9 +2904,6 @@
                                         "featured": "1",
                                         "published_at": null,
                                         "archived_at": null,
-                                        "institute_id": "1",
-                                        "organization_id": "1",
-                                        "industry_association_id": null,
                                         "content_type": "1",
                                         "video_type": "1",
                                         "content_title": "Trivium",
@@ -3142,9 +3134,6 @@
                                         "featured": 1,
                                         "published_at": "2021-11-10 04:59:58",
                                         "archived_at": null,
-                                        "institute_id": 8,
-                                        "organization_id": 9,
-                                        "industry_association_id": 7,
                                         "content_type": 2,
                                         "video_type": 1,
                                         "content_title": "Industrial Equipment Maintenance",
@@ -6652,15 +6641,6 @@
                         "type": "string",
                         "format": "date-time",
                         "description": "Archive date"
-                    },
-                    "institute_id": {
-                        "type": "integer"
-                    },
-                    "organization_id": {
-                        "type": "integer"
-                    },
-                    "industry_association_id": {
-                        "type": "integer"
                     },
                     "content_type": {
                         "type": "integer",
