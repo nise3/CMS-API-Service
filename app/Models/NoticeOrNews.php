@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\Scopes\ScopeRowStatusTrait;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -38,7 +39,7 @@ use Illuminate\Support\Collection;
  */
 class NoticeOrNews extends BaseModel
 {
-    use SoftDeletes, HasFactory;
+    use SoftDeletes, HasFactory, ScopeRowStatusTrait;
 
     protected $guarded = BaseModel::COMMON_GUARDED_FIELDS_SIMPLE_SOFT_DELETE;
     public const TYPE_NOTICE = 1;

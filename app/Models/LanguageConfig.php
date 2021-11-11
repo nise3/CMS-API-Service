@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\Common\LanguageCodeService;
 use Illuminate\Support\Facades\Cache;
 
 class LanguageConfig extends BaseModel
@@ -18,7 +19,7 @@ class LanguageConfig extends BaseModel
      */
     public static function isNative(string $languageCode): bool
     {
-        if (!$languageCode) {
+        if (!$languageCode||!in_array($languageCode,LanguageCodeService::getLanguageCode())) {
             return true;
         }
         //TODO: need to flush after updating native flag

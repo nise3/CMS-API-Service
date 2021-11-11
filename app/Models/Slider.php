@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\Scopes\ScopeRowStatusTrait;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -32,7 +33,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Slider extends BaseModel
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, ScopeRowStatusTrait;
 
     protected $casts = [
         'slider_images' => 'array',

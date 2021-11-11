@@ -23,6 +23,7 @@ class NoticeOrNewsService
 
     /**
      * @param array $request
+     * @param null $startTime
      * @return Collection|LengthAwarePaginator|array
      */
     public function getNoticeOrNewsServiceList(array $request, $startTime = null): Collection|LengthAwarePaginator|array
@@ -80,12 +81,14 @@ class NoticeOrNewsService
             $noticeOrNewsBuilder->where('notice_or_news.title', 'like', '%' . $titleBn . '%');
         }
 
-        if ($isRequestFromClientSide) {
+        if ($isRequestFromClientSide) { // If request fro client side
             $noticeOrNewsBuilder->whereDate('notice_or_news.published_at', '<=', $startTime);
             $noticeOrNewsBuilder->where(function ($builder) use ($startTime) {
                 $builder->whereNull('notice_or_news.archived_at');
                 $builder->orWhereDate('notice_or_news.archived_at', '>=', $startTime);
             });
+
+            $noticeOrNewsBuilder->active();
         }
 
         if (is_numeric($instituteId)) {
@@ -154,8 +157,6 @@ class NoticeOrNewsService
 
         /** @var Collection $noticeOrNews */
         return $noticeOrNewsBuilder->firstOrFail();
-
-
     }
 
 

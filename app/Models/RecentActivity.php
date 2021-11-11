@@ -3,6 +3,7 @@
 namespace App\Models;
 
 
+use App\Traits\Scopes\ScopeRowStatusTrait;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -47,7 +48,7 @@ use Illuminate\Support\Collection;
 class RecentActivity extends BaseModel
 {
 
-    use SoftDeletes, HasFactory;
+    use SoftDeletes, HasFactory, ScopeRowStatusTrait;
 
     public const CONTENT_TYPE_IMAGE = 1;
     public const CONTENT_TYPE_FACEBOOK_VIDEO = 2;

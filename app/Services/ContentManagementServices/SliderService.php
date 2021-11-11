@@ -38,6 +38,7 @@ class SliderService
         $organizationId = $request['organization_id'] ?? "";
         $industryAssociationId = $request['industry_association_id'] ?? "";
         $showIn = $request['show_in'] ?? "";
+        $isRequestFromClientSide = !empty($request[BaseModel::IS_CLIENT_SITE_RESPONSE_KEY]);
 
         /** @var Builder $sliderBuilder */
 
@@ -64,6 +65,10 @@ class SliderService
 
         ]);
         $sliderBuilder->orderBy('sliders.id', $order);
+
+        if ($isRequestFromClientSide) {
+            $sliderBuilder->active();
+        }
 
         if (is_numeric($rowStatus)) {
             $sliderBuilder->where('sliders.row_status', $rowStatus);
@@ -235,7 +240,7 @@ class SliderService
         }
         $customMessage = [
             'row_status.in' => 'The :attribute must be within 1 or 0.[30000]',
-            "banner_template_code.in"=>"The :attribute must be with in ".implode(", ",array_keys(Slider::BANNER_TEMPLATE_TYPES)).".[30000]"
+            "banner_template_code.in" => "The :attribute must be with in " . implode(", ", array_keys(Slider::BANNER_TEMPLATE_TYPES)) . ".[30000]"
         ];
         $rules = [
             'show_in' => [

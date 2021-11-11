@@ -32,6 +32,7 @@ class StaticPageService
         $organizationId = $request['organization_id'] ?? "";
         $industryAssociationId = $request['industry_association_id'] ?? "";
         $showIn = $request['show_in'] ?? "";
+        $isRequestFromClientSide = !empty($request[BaseModel::IS_CLIENT_SITE_RESPONSE_KEY]);
 
         /** @var Builder $staticPageBuilder */
         $staticPageBuilder = StaticPage::select([
@@ -55,6 +56,10 @@ class StaticPageService
             'static_pages_and_block.updated_at'
         ]);
         $staticPageBuilder->orderBy('static_pages_and_block.id', $order);
+
+        if ($isRequestFromClientSide) {
+            $staticPageBuilder->active();
+        }
 
         if (is_numeric($rowStatus)) {
             $staticPageBuilder->where('static_pages_and_block.row_status', $rowStatus);

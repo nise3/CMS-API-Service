@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\Scopes\ScopeRowStatusTrait;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -35,7 +36,7 @@ use Illuminate\Support\Collection;
  */
 class StaticPage extends BaseModel
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, ScopeRowStatusTrait;
 
     const CONTENT_TYPE_BLOCK = 1;
     const CONTENT_TYPE_STATIC_PAGE = 2;

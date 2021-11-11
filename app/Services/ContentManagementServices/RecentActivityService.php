@@ -102,6 +102,8 @@ class RecentActivityService
                 $builder->whereNull('recent_activities.archived_at');
                 $builder->orWhereDate('recent_activities.archived_at', '>=', $startTime);
             });
+
+            $recentActivityBuilder->active();
         }
 
 
