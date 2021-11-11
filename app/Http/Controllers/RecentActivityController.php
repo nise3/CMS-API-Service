@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 
-use App\Http\Resources\GalleryImageVideoResource;
 use App\Http\Resources\RecentActivityResource;
 use App\Models\BaseModel;
 use App\Models\RecentActivity;
