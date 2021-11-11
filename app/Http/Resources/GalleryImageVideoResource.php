@@ -23,7 +23,7 @@ class GalleryImageVideoResource extends JsonResource
     public function toArray($request): array
     {
         /** @var GalleryImageVideo $this */
-        $galleryAlbumData = $this->galleryAlbum()->select('title', 'title_en')->firstOrFail()->toArray();
+        $galleryAlbumData = $this->galleryAlbum()->select('title')->firstOrFail()->toArray();
         $response = [
             "id" => $this->id,
             "gallery_album_id" => $this->gallery_album_id,
