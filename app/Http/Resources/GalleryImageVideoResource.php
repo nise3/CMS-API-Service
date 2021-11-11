@@ -28,7 +28,6 @@ class GalleryImageVideoResource extends JsonResource
             "id" => $this->id,
             "gallery_album_id" => $this->gallery_album_id,
             "gallery_album_title" => $galleryAlbumData['title'],
-            "gallery_album_title_en" => $galleryAlbumData['title_en'],
             "featured" => $this->featured,
             'published_at' => $this->published_at,
             'archived_at' => $this->archived_at,
