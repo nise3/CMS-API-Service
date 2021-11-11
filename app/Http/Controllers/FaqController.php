@@ -5,11 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\CustomInterfaces\Contract\ResourceInterface;
 use App\Http\Resources\FaqResource;
 use App\Models\BaseModel;
-use App\Models\CmsLanguage;
 use App\Models\Faq;
-use App\Models\LanguageCode;
-use App\Models\LanguageConfig;
-use App\Models\Slider;
 use App\Services\Common\CmsGlobalConfigService;
 use App\Services\Common\LanguageCodeService;
 use App\Services\ContentManagementServices\CmsLanguageService;
@@ -54,26 +50,6 @@ class FaqController extends Controller implements ResourceInterface
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
 
-
-
-
-    /**
-     * Display the specified resource.
-     *
-     * @param Request $request
-     * @param int $id
-     * @return JsonResponse
-     * @throws RequestException
-     */
-    public function read(Request $request, int $id): JsonResponse
-    {
-        $faq = $this->faqService->getOneFaq($id);
-        $request->offsetSet(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID, CmsGlobalConfigService::getOrganizationOrInstituteOrIndustryAssociationTitle($faq->toArray()));
-        $response = new FaqResource($faq);
-        $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
-        return Response::json($response, ResponseAlias::HTTP_OK);
-    }
-
     /**
      * @param Request $request
      * @return JsonResponse
@@ -89,6 +65,23 @@ class FaqController extends Controller implements ResourceInterface
         $request->offsetSet(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID, CmsGlobalConfigService::getOrganizationOrInstituteOrIndustryAssociationTitle($faqList->toArray()['data'] ?? $faqList->toArray()));
         $response = FaqResource::collection($faqList)->resource;
         $response = getResponse($response->toArray(), $this->startTime, !BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
+        return Response::json($response, ResponseAlias::HTTP_OK);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param Request $request
+     * @param int $id
+     * @return JsonResponse
+     * @throws RequestException
+     */
+    public function read(Request $request, int $id): JsonResponse
+    {
+        $faq = $this->faqService->getOneFaq($id);
+        $request->offsetSet(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID, CmsGlobalConfigService::getOrganizationOrInstituteOrIndustryAssociationTitle($faq->toArray()));
+        $response = new FaqResource($faq);
+        $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
 

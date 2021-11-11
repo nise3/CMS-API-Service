@@ -33,6 +33,7 @@ class VisitorFeedbackSuggestionService
         $pageSize = $request['page_size'] ?? "";
         $rowStatus = $request['row_status'] ?? "";
         $order = $request['order'] ?? "ASC";
+        $isRequestFromClientSide = !empty($request[BaseModel::IS_CLIENT_SITE_RESPONSE_KEY]);
 
         /** @var Builder $visitorFeedbackSuggestionBuilder */
         $visitorFeedbackSuggestionBuilder = VisitorFeedbackSuggestion::select([
@@ -57,6 +58,10 @@ class VisitorFeedbackSuggestionService
             'visitor_feedbacks_suggestions.updated_at'
         ]);
         $visitorFeedbackSuggestionBuilder->orderBy('visitor_feedbacks_suggestions.id', $order);
+
+        if($isRequestFromClientSide){
+            $visitorFeedbackSuggestionBuilder->active();
+        }
 
         if (is_numeric($rowStatus)) {
             $visitorFeedbackSuggestionBuilder->where('visitor_feedbacks_suggestions.row_status', $rowStatus);

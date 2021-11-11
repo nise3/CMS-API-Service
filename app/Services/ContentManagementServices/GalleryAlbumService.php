@@ -98,6 +98,8 @@ class GalleryAlbumService
                 $builder->whereNull('gallery_albums.archived_at');
                 $builder->orWhereDate('gallery_albums.archived_at', '>=', $startTime);
             });
+
+            $galleryAlbumBuilder->active();
         }
 
         /** @var Collection $galleryAlbums */

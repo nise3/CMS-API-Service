@@ -32,6 +32,7 @@ class FaqService
         $answerEn = $request['answer_en'] ?? "";
         $rowStatus = $request['row_status'] ?? "";
         $order = $request['order'] ?? "ASC";
+        $isRequestFromClientSide = !empty($request[BaseModel::IS_CLIENT_SITE_RESPONSE_KEY]);
 
         /** Optional Parameters for Pagination */
         $page = $request['page'] ?? "";
@@ -54,6 +55,10 @@ class FaqService
         ]);
 
         $faqBuilder->orderBy('faqs.id', $order);
+
+        if($isRequestFromClientSide){
+            $faqBuilder->active();
+        }
 
         if (is_numeric($showIn)) {
             $faqBuilder->where('faqs.show_in', $showIn);

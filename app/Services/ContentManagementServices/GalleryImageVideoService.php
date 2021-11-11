@@ -109,6 +109,8 @@ class GalleryImageVideoService
                 $builder->whereNull('gallery_images_videos.archived_at');
                 $builder->orWhereDate('gallery_images_videos.archived_at', '>=', $startTime);
             });
+
+            $galleryImageVideoBuilder->active();
         }
 
         /** @var Collection $galleries */
