@@ -18,9 +18,6 @@ use Illuminate\Support\Collection;
  * @property int $featured
  * @property Carbon|null $published_at
  * @property Carbon|null $archived_at
- * @property int|null $institute_id
- * @property int|null $organization_id
- * @property int|null $industry_association_id
  * @property int $content_type
  * @property int $video_type
  * @property string|null content_title
