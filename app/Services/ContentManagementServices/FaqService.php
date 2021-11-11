@@ -270,7 +270,7 @@ class FaqService
         return Validator::make($request->all(), [
             'question' => 'nullable|max:191|min:2',
             'question_en' => 'nullable|max:191|min:2',
-            'answer' => 'nullable|min:500|min:2',
+            'answer' => 'nullable|max:500|min:2',
             'answer_en' => 'nullable|min:500|min:2',
             'show_in' => 'nullable|int|gt:0',
             'institute_id' => 'nullable|int|gt:0',
