@@ -20,11 +20,11 @@ class GalleryImageVideoResource extends JsonResource
      */
     public function toArray($request): array
     {
-
         /** @var GalleryImageVideo $this */
         $response = [
             "id" => $this->id,
             "gallery_album_id" => $this->gallery_album_id,
+            "gallery_album_title" =>$this->gallery_album_title,
             "featured" => $this->featured,
             'published_at' => $this->published_at,
             'archived_at' => $this->archived_at,
