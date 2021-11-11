@@ -4,9 +4,11 @@ namespace App\Http\Resources;
 
 use App\Models\BaseModel;
 use App\Models\GalleryImageVideo;
+use App\Models\GalleryAlbum;
 use App\Services\ContentManagementServices\CmsLanguageService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Log;
 
 class GalleryImageVideoResource extends JsonResource
 {
@@ -20,11 +22,13 @@ class GalleryImageVideoResource extends JsonResource
      */
     public function toArray($request): array
     {
-
         /** @var GalleryImageVideo $this */
+        $galleryAlbumData = $this->galleryAlbum()->select('title', 'title_en')->firstOrFail()->toArray();
         $response = [
             "id" => $this->id,
             "gallery_album_id" => $this->gallery_album_id,
+            "gallery_album_title" => $galleryAlbumData['title'],
+            "gallery_album_title_en" => $galleryAlbumData['title_en'],
             "featured" => $this->featured,
             'published_at' => $this->published_at,
             'archived_at' => $this->archived_at,

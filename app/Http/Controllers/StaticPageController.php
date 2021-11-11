@@ -61,6 +61,22 @@ class StaticPageController extends Controller
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
 
+    /**
+     * @throws ValidationException
+     * @throws RequestException
+     */
+    public function clientSideGetList(Request $request): JsonResponse
+    {
+        $request->offsetSet(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY, BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG);
+        $filter = $this->staticPageService->filterValidator($request)->validate();
+        $filter[BaseModel::IS_CLIENT_SITE_RESPONSE_KEY] = BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG;
+        $staticPageList = $this->staticPageService->getAllStaticPages($filter);
+        $request->offsetSet(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID, CmsGlobalConfigService::getOrganizationOrInstituteOrIndustryAssociationTitle($staticPageList->toArray()['data'] ?? $staticPageList->toArray()));
+        $response = StaticPageResource::collection($staticPageList)->resource;
+        $response = getResponse($response->toArray(), $this->startTime, !BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
+        return Response::json($response, ResponseAlias::HTTP_OK);
+    }
+
 
     /**
      * Display the specified resource.
@@ -76,21 +92,6 @@ class StaticPageController extends Controller
         $request->offsetSet(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID, CmsGlobalConfigService::getOrganizationOrInstituteOrIndustryAssociationTitle($staticPage->toArray()));
         $response = new StaticPageResource($staticPage);
         $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
-        return Response::json($response, ResponseAlias::HTTP_OK);
-    }
-
-    /**
-     * @throws ValidationException
-     * @throws RequestException
-     */
-    public function clientSideGetList(Request $request): JsonResponse
-    {
-        $request->offsetSet(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY, BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG);
-        $filter = $this->staticPageService->filterValidator($request)->validate();
-        $staticPageList = $this->staticPageService->getAllStaticPages($filter);
-        $request->offsetSet(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID, CmsGlobalConfigService::getOrganizationOrInstituteOrIndustryAssociationTitle($staticPageList->toArray()['data'] ?? $staticPageList->toArray()));
-        $response = StaticPageResource::collection($staticPageList)->resource;
-        $response = getResponse($response->toArray(), $this->startTime, !BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
 

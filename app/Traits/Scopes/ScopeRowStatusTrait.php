@@ -19,7 +19,8 @@ trait ScopeRowStatusTrait
     public function scopeActive($query): Builder
     {
         /**  @var Builder $query */
-        return $query->where('row_status', BaseModel::ROW_STATUS_ACTIVE);
+        $tableName = $query->getModel()->getTable();
+        return $query->where($tableName.'.row_status', BaseModel::ROW_STATUS_ACTIVE);
     }
 
     public function scopeInactive($query): Builder

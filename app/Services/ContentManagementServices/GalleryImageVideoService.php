@@ -49,9 +49,9 @@ class GalleryImageVideoService
             'gallery_images_videos.featured',
             'gallery_images_videos.published_at',
             'gallery_images_videos.archived_at',
-            'gallery_images_videos.institute_id',
-            'gallery_images_videos.organization_id',
-            'gallery_images_videos.industry_association_id',
+            'gallery_albums.institute_id',
+            'gallery_albums.organization_id',
+            'gallery_albums.industry_association_id',
             'gallery_images_videos.content_type',
             'gallery_images_videos.video_type',
             'gallery_images_videos.content_title',
@@ -87,13 +87,13 @@ class GalleryImageVideoService
             $galleryImageVideoBuilder->where('gallery_images_videos.row_status', $rowStatus);
         }
         if (is_numeric($instituteId)) {
-            $galleryImageVideoBuilder->where('gallery_images_videos.institute_id', $instituteId);
+            $galleryImageVideoBuilder->where('gallery_albums.institute_id', $instituteId);
         }
         if (is_numeric($industryAssociationId)) {
-            $galleryImageVideoBuilder->where('gallery_images_videos.industry_association_id', $industryAssociationId);
+            $galleryImageVideoBuilder->where('gallery_albums.industry_association_id', $industryAssociationId);
         }
         if (is_numeric($organizationId)) {
-            $galleryImageVideoBuilder->where('gallery_images_videos.organization_id', $organizationId);
+            $galleryImageVideoBuilder->where('gallery_albums.organization_id', $organizationId);
         }
 
         if (!empty($contentTitle)) {
@@ -109,6 +109,8 @@ class GalleryImageVideoService
                 $builder->whereNull('gallery_images_videos.archived_at');
                 $builder->orWhereDate('gallery_images_videos.archived_at', '>=', $startTime);
             });
+
+            $galleryImageVideoBuilder->active();
         }
 
         /** @var Collection $galleries */
@@ -139,9 +141,9 @@ class GalleryImageVideoService
             'gallery_images_videos.featured',
             'gallery_images_videos.published_at',
             'gallery_images_videos.archived_at',
-            'gallery_images_videos.institute_id',
-            'gallery_images_videos.organization_id',
-            'gallery_images_videos.industry_association_id',
+            'gallery_albums.institute_id',
+            'gallery_albums.organization_id',
+            'gallery_albums.industry_association_id',
             'gallery_images_videos.content_type',
             'gallery_images_videos.video_type',
             'gallery_images_videos.content_title',
@@ -303,18 +305,6 @@ class GalleryImageVideoService
                 'required',
                 'int',
                 Rule::in(BaseModel::FEATURED)
-            ],
-            'institute_id' => [
-                'nullable',
-                'int'
-            ],
-            'organization_id' => [
-                'nullable',
-                'int'
-            ],
-            'industry_association_id' => [
-                'nullable',
-                'int'
             ],
             'content_type' => [
                 'required',
