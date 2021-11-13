@@ -146,7 +146,7 @@ class GalleryAlbumService
             'gallery_albums.created_at',
             'gallery_albums.updated_at'
         ]);
-        $galleryAlbumBuilder->join('gallery_albums as parent_gallery_albums', function ($join) {
+        $galleryAlbumBuilder->leftjoin('gallery_albums as parent_gallery_albums', function ($join) {
             $join->on('gallery_albums.parent_gallery_album_id', '=', 'parent_gallery_albums.id')
                 ->whereNull('parent_gallery_albums.deleted_at');
 
