@@ -419,32 +419,28 @@ class RecentActivityService
         if (!empty($requestData['show_in']) && !empty($requestData['institute_id']) && $requestData['show_in'] == BaseModel::SHOW_IN_TSP) {
             $rules['collage_position'] = [
                 'nullable',
-                'string',
-                'max:600',
+                'integer',
                 'unique_with:recent_activities,institute_id,deleted_at,' . $id,
                 Rule::in(RecentActivity::AVAILABLE_COLLAGE_POSITIONS)
             ];
         } elseif (!empty($requestData['show_in']) && !empty($requestData['organization_id']) && $requestData['show_in'] == BaseModel::SHOW_IN_INDUSTRY) {
             $rules['collage_position'] = [
                 'nullable',
-                'string',
-                'max:600',
+                'integer',
                 'unique_with:recent_activities,organization_id,deleted_at,' . $id,
                 Rule::in(RecentActivity::AVAILABLE_COLLAGE_POSITIONS)
             ];
         } elseif (!empty($requestData['show_in']) && !empty($requestData['industry_association_id']) && $requestData['show_in'] == BaseModel::SHOW_IN_INDUSTRY_ASSOCIATION) {
             $rules['collage_position'] = [
                 'nullable',
-                'string',
-                'max:600',
+                'integer',
                 'unique_with:recent_activities,industry_association_id,deleted_at,' . $id,
                 Rule::in(RecentActivity::AVAILABLE_COLLAGE_POSITIONS)
             ];
         } else {
             $rules['collage_position'] = [
                 'nullable',
-                'string',
-                'max:600',
+                'integer',
                 Rule::in(RecentActivity::AVAILABLE_COLLAGE_POSITIONS)
             ];
         }
