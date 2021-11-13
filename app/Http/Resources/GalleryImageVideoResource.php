@@ -24,7 +24,7 @@ class GalleryImageVideoResource extends JsonResource
         $response = [
             "id" => $this->id,
             "gallery_album_id" => $this->gallery_album_id,
-            "gallery_album_title" =>$this->gallery_album_title,
+            "gallery_album_title" => $this->gallery_album_title,
             "featured" => $this->featured,
             'published_at' => $this->published_at,
             'archived_at' => $this->archived_at,
@@ -44,7 +44,8 @@ class GalleryImageVideoResource extends JsonResource
             "embedded_id" => $this->embedded_id,
             "content_properties_json" => $this->content_properties_json,
             "content_cover_image_url" => $this->content_cover_image_url,
-            "content_grid_image_url" => $this->content_thumb_image_url,
+            "content_grid_image_url" => $this->content_grid_image_url,
+            "content_thumb_image_url" => $this->content_thumb_image_url,
             "alt_title" => $this->alt_title,
         ];
         if ($request->offsetExists(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY) && $request->get(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY)) {
