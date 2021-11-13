@@ -7126,14 +7126,14 @@
                         "description": "content_image path"
                     },
                     "collage_position": {
-                        "type": "string",
+                        "type": "integer",
                         "enum": [
-                            "1.1",
-                            "1.2.1",
-                            "1.2.2.1",
-                            "1.2.2.2"
+                            1,
+                            2,
+                            3,
+                            4
                         ],
-                        "description": "collage row column position"
+                        "description": "1=> Left, 2=> Right Top, 3=> Right Bottom Left, 4=> Right Bottom Right"
                     },
                     "thumb_image_path": {
                         "type": "string",
