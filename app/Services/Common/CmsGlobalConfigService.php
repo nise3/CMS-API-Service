@@ -36,9 +36,17 @@ class CmsGlobalConfigService
     {
         $organizationIds = [];
         $instituteIds = [];
+        $batchIds = [];
+        $programIds = [];
+        $titleResponse = [];
         $instituteClientUrl = clientUrl(BaseModel::INSTITUTE_URL_CLIENT_TYPE) . BaseModel::GET_INSTITUTE_TITLE_BY_ID__HTTP_CLIENT_ENDPOINT;
+        $instituteClientUrlForBatchAndProgramTitle = clientUrl(BaseModel::INSTITUTE_URL_CLIENT_TYPE) . BaseModel::GET_BATCH_AND_PROGRAM_TITLE_BY_ID_HTTP_CLIENT_ENDPOINT;
         $organizationClientUrl = clientUrl(BaseModel::ORGANIZATION_CLIENT_URL_TYPE) . BaseModel::GET_ORGANIZATION_TITLE_BY_ID_HTTP_CLIENT_ENDPOINT;
 
+        /**
+         * For get_list request execute IF block.
+         * Otherwise, for single get/read execute ELSE block.
+         */
         if (empty($cmsData['id'])) {
             foreach ($cmsData as $cmsDatum) {
                 if (!empty($cmsDatum['organization_id'])) {
@@ -47,7 +55,12 @@ class CmsGlobalConfigService
                 if (!empty($cmsDatum['institute_id'])) {
                     $instituteIds[] = $cmsDatum['institute_id'];
                 }
-
+                if (!empty($cmsDatum['batch_id'])) {
+                    $batchIds[] = $cmsDatum['batch_id'];
+                }
+                if (!empty($cmsDatum['program_id'])) {
+                    $programIds[] = $cmsDatum['program_id'];
+                }
             }
         } else {
             if (!empty($cmsData['organization_id'])) {
@@ -55,6 +68,12 @@ class CmsGlobalConfigService
             }
             if (!empty($cmsData['institute_id'])) {
                 $instituteIds[] = $cmsData['institute_id'];
+            }
+            if (!empty($cmsData['batch_id'])) {
+                $batchIds[] = $cmsData['batch_id'];
+            }
+            if (!empty($cmsData['program_id'])) {
+                $programIds[] = $cmsData['program_id'];
             }
         }
 
@@ -72,6 +91,26 @@ class CmsGlobalConfigService
         })
             ->json('data');
 
+        /** Call to Institute Service for Batch and Program Title */
+        if(($batchIds && count($batchIds) > 0) || ($programIds && count($programIds) > 0)){
+            $batchProgramData = Http::withOptions([
+                'verify' => config("nise3.should_ssl_verify"),
+                'debug' => config('nise3.http_debug'),
+                'timeout' => config("nise3.http_timeout")
+            ])->post($instituteClientUrlForBatchAndProgramTitle, [
+                "batch_ids" => $batchIds,
+                "program_ids" => $programIds
+            ])->throw(function ($response, $e) use ($instituteClientUrlForBatchAndProgramTitle) {
+                Log::debug("Http/Curl call error. Destination:: " . $instituteClientUrlForBatchAndProgramTitle . ' and Response:: ' . json_encode($response));
+                return $e;
+            })
+                ->json('data');
+
+            $titleResponse = [
+                BaseModel::BATCH_AND_PROGRAM_TITLE => $batchProgramData
+            ];
+        }
+
         /** Call to Organization Service for Organization Title */
         $organizationData = Http::withOptions([
             'verify' => config("nise3.should_ssl_verify"),
@@ -84,10 +123,9 @@ class CmsGlobalConfigService
             return $e;
         })->json('data');
 
-        return [
-            BaseModel::INSTITUTE_SERVICE => $instituteData,
-            BaseModel::ORGANIZATION_SERVICE => $organizationData
-        ];
 
+        $titleResponse[BaseModel::INSTITUTE_SERVICE] = $instituteData;
+        $titleResponse[BaseModel::ORGANIZATION_SERVICE] = $organizationData;
+        return $titleResponse;
     }
 }
