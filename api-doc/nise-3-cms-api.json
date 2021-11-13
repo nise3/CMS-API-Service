@@ -408,8 +408,6 @@
                 ]
             }
         },
-
-
         "/public/nise3-partners": {
             "get": {
                 "summary": "Get All Public Partners",
@@ -805,8 +803,6 @@
                 ]
             }
         },
-
-
         "/public/sliders": {
             "get": {
                 "summary": "Get All public sliders",
@@ -854,7 +850,7 @@
                                 "schema": {
                                     "$ref": "#/components/schemas/Slider"
                                 },
-                                "example":{
+                                "example": {
                                     "order": "ASC",
                                     "data": [
                                         {
@@ -1005,10 +1001,9 @@
                                 "schema": {
                                     "$ref": "#/components/schemas/Slider"
                                 },
-                                "example":{
+                                "example": {
                                     "order": "ASC",
                                     "data": [
-
                                         {
                                             "id": 12,
                                             "show_in": 1,
@@ -1129,7 +1124,7 @@
                         "description": "Slider Created",
                         "content": {
                             "appication/json": {
-                                "example":  {
+                                "example": {
                                     "data": {
                                         "id": 13,
                                         "show_in": "1",
@@ -1221,7 +1216,7 @@
                                 "schema": {
                                     "$ref": "#/components/schemas/Slider"
                                 },
-                                "example":{
+                                "example": {
                                     "data": {
                                         "id": 1,
                                         "show_in": 5,
@@ -1291,7 +1286,7 @@
                             "schema": {
                                 "$ref": "#/components/schemas/Slider"
                             },
-                            "example":{
+                            "example": {
                                 "data": {
                                     "id": 1,
                                     "show_in": "1",
@@ -1441,7 +1436,7 @@
                                 "schema": {
                                     "$ref": "#/components/schemas/Slider"
                                 },
-                                "example":{
+                                "example": {
                                     "data": {
                                         "id": 1,
                                         "show_in": 1,
@@ -1486,9 +1481,6 @@
                 ]
             }
         },
-
-
-
         "/public/faqs": {
             "get": {
                 "summary": "Get All public faqs",
@@ -2062,9 +2054,6 @@
                 ]
             }
         },
-
-
-
         "/public/gallery-albums": {
             "get": {
                 "summary": "Get All public  gallery albums",
@@ -2609,9 +2598,6 @@
                 ]
             }
         },
-
-
-
         "/public/gallery-images-videos": {
             "get": {
                 "summary": "Get all public gallery image videos",
@@ -2647,7 +2633,7 @@
                         "description": "successfull",
                         "content": {
                             "application/json": {
-                                "example":{
+                                "example": {
                                     "order": "ASC",
                                     "data": [
                                         {
@@ -2766,7 +2752,7 @@
                         "description": "successfull",
                         "content": {
                             "application/json": {
-                                "example":{
+                                "example": {
                                     "order": "ASC",
                                     "data": [
                                         {
@@ -2868,7 +2854,7 @@
                         "description": "successfull",
                         "content": {
                             "application/json": {
-                                "example":{
+                                "example": {
                                     "data": {
                                         "id": 11,
                                         "gallery_album_id": "1",
@@ -2953,7 +2939,7 @@
                         "description": "successfull",
                         "content": {
                             "application/json": {
-                                "example":{
+                                "example": {
                                     "data": {
                                         "id": 11,
                                         "gallery_album_id": "1",
@@ -3027,7 +3013,7 @@
                         "description": "successfull",
                         "content": {
                             "application/json": {
-                                "example":{
+                                "example": {
                                     "data": {
                                         "id": 11,
                                         "gallery_album_id": 1,
@@ -3140,7 +3126,7 @@
                         "description": "successfull",
                         "content": {
                             "application/json": {
-                                "example":{
+                                "example": {
                                     "data": {
                                         "id": 11,
                                         "gallery_album_id": 1,
@@ -3225,7 +3211,7 @@
                         "description": "successfull",
                         "content": {
                             "application/json": {
-                                "example":{
+                                "example": {
                                     "data": {
                                         "id": 11,
                                         "gallery_album_id": 1,
@@ -3609,8 +3595,6 @@
                 ]
             }
         },
-
-
         "/public/recent-activities": {
             "get": {
                 "summary": "Get All public recent activity",
@@ -3819,7 +3803,6 @@
                                         "message": null,
                                         "query_time": 0
                                     }
-
                                 }
                             }
                         }
@@ -3846,7 +3829,7 @@
                         "description": "successful",
                         "content": {
                             "application/json": {
-                                "example":{
+                                "example": {
                                     "data": {
                                         "id": 12,
                                         "show_in": "1",
@@ -4010,7 +3993,7 @@
                         "description": "success",
                         "content": {
                             "application/json": {
-                                "example":{
+                                "example": {
                                     "data": {
                                         "id": 12,
                                         "show_in": "1",
@@ -4251,8 +4234,6 @@
                 ]
             }
         },
-
-
         "/calender-events": {
             "get": {
                 "summary": "Get list of Calender Events",
@@ -4681,8 +4662,6 @@
                 ]
             }
         },
-
-
         "/notice-or-news": {
             "get": {
                 "summary": "Get all notice or news",
@@ -4715,7 +4694,7 @@
                         "description": "successfull",
                         "content": {
                             "application/json": {
-                                "example":{
+                                "example": {
                                     "order": "ASC",
                                     "data": [
                                         {
@@ -4807,7 +4786,7 @@
                         "description": "succefull",
                         "content": {
                             "application/json": {
-                                "example":{
+                                "example": {
                                     "data": {
                                         "id": 11,
                                         "type": "2",
@@ -4880,7 +4859,7 @@
                         "content": {
                             "application/x-www-form-urlencoded": {
                                 "schema": {
-                                    "example":{
+                                    "example": {
                                         "data": {
                                             "id": 1,
                                             "type": 1,
@@ -4963,7 +4942,7 @@
                         "description": "success",
                         "content": {
                             "application/json": {
-                                "example":{
+                                "example": {
                                     "data": {
                                         "id": 1,
                                         "type": "2",
@@ -5070,7 +5049,7 @@
                         "content": {
                             "application/x-www-form-urlencoded": {
                                 "schema": {
-                                    "example":{
+                                    "example": {
                                         "data": {
                                             "id": 1,
                                             "type": 1,
@@ -5155,7 +5134,7 @@
                                 "schema": {
                                     "$ref": "#/components/schemas/NoticeOrNews"
                                 },
-                                "example":{
+                                "example": {
                                     "data": {
                                         "id": 1,
                                         "type": 1,
@@ -6320,7 +6299,6 @@
                 "style": "form",
                 "schema": {
                     "type": "string"
-
                 }
             },
             "description": {
@@ -6768,7 +6746,7 @@
                     },
                     "content_path": {
                         "type": "string",
-                        "description": "Required when content_type = image[1]"
+                        "description": "Required when content_type = image"
                     },
                     "embedded_url": {
                         "type": "string",
@@ -6929,23 +6907,27 @@
                     },
                     "link": {
                         "type": "string"
-
                     },
                     "button_text": {
                         "type": "string"
-
                     },
                     "slider_images": {
-                        "type": "string"
-
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "[\"image_link1\",\"image_link2\",.........]"
                     },
                     "alt_title": {
                         "type": "string"
                     },
                     "banner_template_code": {
                         "type": "string",
+                        "description": "      BT_LR => \"Banner with text left and image right\",\n        BT_RL => \"Banner with text right and image left\",\n        BT_CB => \"Banner with text center and image background\"",
                         "enum": [
-                            "BT_LR" ,"BT_RL","BT_CB"
+                            "BT_LR",
+                            "BT_RL",
+                            "BT_CB"
                         ]
                     },
                     "row_status": {
@@ -6958,7 +6940,7 @@
                     },
                     "other_language_fields": {
                         "type": "object",
-                        "example": " [\n\n\"hi\"=>[\n\"title\"=>\"सामूहिक बाढ़\",\n\"image_alt_title\"=>\"सामूहिक बाढ़\",\n\n\t]\n\n]"
+                        "example": "\n[\n\n\"hi\"=>[\n\t\"title\"=>\"सामूहिक बाढ़\",\n        \"sub_title\"=>\"सामूहिक बाढ़\",\n\t\"button_text\"=>\"सामूहिक बाढ़\",\n        \"alt_title\"=>\"सामूहिक बाढ़\",\n     ]\n]"
                     }
                 },
                 "required": [
