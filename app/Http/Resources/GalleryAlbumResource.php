@@ -22,6 +22,7 @@ class GalleryAlbumResource extends JsonResource
         $response = [
             "id" => $this->id,
             "parent_gallery_album_id" => $this->parent_gallery_album_id,
+            "parent_gallery_album_title" => $this->parent_gallery_album_title,
             "featured" => $this->featured,
             "show_in" => $this->show_in,
             "show_in_label" => BaseModel::SHOW_INS[$this->show_in],

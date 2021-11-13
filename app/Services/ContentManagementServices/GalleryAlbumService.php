@@ -124,6 +124,7 @@ class GalleryAlbumService
         $galleryAlbumBuilder = GalleryAlbum::select([
             'gallery_albums.id',
             'gallery_albums.parent_gallery_album_id',
+            'parent_gallery_albums.title as parent_gallery_album_title',
             'gallery_albums.featured',
             'gallery_albums.show_in',
             'gallery_albums.album_type',
@@ -145,6 +146,11 @@ class GalleryAlbumService
             'gallery_albums.created_at',
             'gallery_albums.updated_at'
         ]);
+        $galleryAlbumBuilder->join('gallery_albums as parent_gallery_albums', function ($join) {
+            $join->on('gallery_albums.parent_gallery_album_id', '=', 'parent_gallery_albums.id')
+                ->whereNull('parent_gallery_albums.deleted_at');
+
+        });
         $galleryAlbumBuilder->where('gallery_albums.id', $id);
         /** @var GalleryAlbum $GalleryAlbum */
         return $galleryAlbumBuilder->firstOrFail();
