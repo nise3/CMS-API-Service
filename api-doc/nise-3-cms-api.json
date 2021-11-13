@@ -7133,7 +7133,7 @@
                             "1.2.2.1",
                             "1.2.2.2"
                         ],
-                        "description": "collage row column position"
+                        "description": "   \"collage row column position\" \n\n Required with institute_id when show_in => TSP \n\n Required with organization_id when show_in => INDUSTRY"
                     },
                     "thumb_image_path": {
                         "type": "string",
