@@ -313,6 +313,7 @@ class RecentActivityService
      */
     public function validator($request, int $id = null): \Illuminate\Contracts\Validation\Validator
     {
+        $request->offsetSet('deleted_at', null);
         $requestData = $request->all();
         $customMessage = [
             'row_status.in' => 'Row status must be within 1 or 0. [30000]'
@@ -379,12 +380,6 @@ class RecentActivityService
                 'string',
                 'max:600'
             ],
-            'collage_position' => [
-                'nullable',
-                'string',
-                'max:600',
-                Rule::in(RecentActivity::AVAILABLE_COLLAGE_POSITIONS)
-            ],
             'thumb_image_path' => [
                 'nullable',
                 'string',
@@ -420,6 +415,36 @@ class RecentActivityService
                 Rule::in([BaseModel::ROW_STATUS_ACTIVE, BaseModel::ROW_STATUS_INACTIVE]),
             ]
         ];
+
+        if (!empty($requestData['show_in']) && !empty($requestData['institute_id']) && $requestData['show_in'] == BaseModel::SHOW_IN_TSP) {
+            $rules['collage_position'] = [
+                'nullable',
+                'integer',
+                'unique_with:recent_activities,institute_id,deleted_at,' . $id,
+                Rule::in(RecentActivity::AVAILABLE_COLLAGE_POSITIONS)
+            ];
+        } elseif (!empty($requestData['show_in']) && !empty($requestData['organization_id']) && $requestData['show_in'] == BaseModel::SHOW_IN_INDUSTRY) {
+            $rules['collage_position'] = [
+                'nullable',
+                'integer',
+                'unique_with:recent_activities,organization_id,deleted_at,' . $id,
+                Rule::in(RecentActivity::AVAILABLE_COLLAGE_POSITIONS)
+            ];
+        } elseif (!empty($requestData['show_in']) && !empty($requestData['industry_association_id']) && $requestData['show_in'] == BaseModel::SHOW_IN_INDUSTRY_ASSOCIATION) {
+            $rules['collage_position'] = [
+                'nullable',
+                'integer',
+                'unique_with:recent_activities,industry_association_id,deleted_at,' . $id,
+                Rule::in(RecentActivity::AVAILABLE_COLLAGE_POSITIONS)
+            ];
+        } else {
+            $rules['collage_position'] = [
+                'nullable',
+                'integer',
+                Rule::in(RecentActivity::AVAILABLE_COLLAGE_POSITIONS)
+            ];
+        }
+
 
         if (!empty($requestData['content_type']) &&
             ($requestData['content_type'] == RecentActivity::CONTENT_TYPE_FACEBOOK_VIDEO || $requestData['content_type'] == RecentActivity::CONTENT_TYPE_YOUTUBE_VIDEO)) {
