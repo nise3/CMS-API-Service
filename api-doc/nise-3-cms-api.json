@@ -803,14 +803,13 @@
                 ]
             }
         },
+
+
         "/public/sliders": {
             "get": {
                 "summary": "Get All public sliders",
                 "description": "Get All the sliders",
                 "parameters": [
-                    {
-                        "$ref": "#/components/parameters/Accept-Language"
-                    },
                     {
                         "$ref": "#/components/parameters/show_in"
                     },
@@ -822,12 +821,6 @@
                     },
                     {
                         "$ref": "#/components/parameters/organization_id"
-                    },
-                    {
-                        "$ref": "#/components/parameters/title_optional"
-                    },
-                    {
-                        "$ref": "#/components/parameters/sub_title"
                     },
                     {
                         "$ref": "#/components/parameters/page"
@@ -957,10 +950,39 @@
                 ]
             }
         },
+        "/public/sliders/{sliderId}": {
+            "get": {
+                "summary": "Get a public slider",
+                "description": "API endpoint to get a public Slider.A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "sliderId",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successfull",
+                        "content": {
+                            "application/json": {
+                                "example": {}
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Sliders"
+                ]
+            }
+        },
         "/sliders": {
             "get": {
                 "summary": "Get All sliders",
-                "description": "Get All the sliders",
+                "description":"API endpoint to get a private Slider.A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/show_in"
@@ -973,12 +995,6 @@
                     },
                     {
                         "$ref": "#/components/parameters/organization_id"
-                    },
-                    {
-                        "$ref": "#/components/parameters/title_optional"
-                    },
-                    {
-                        "$ref": "#/components/parameters/sub_title"
                     },
                     {
                         "$ref": "#/components/parameters/page"
@@ -1106,58 +1122,158 @@
                 "tags": [
                     "Sliders"
                 ]
+            }
+        },
+
+
+
+
+
+        "/banners": {
+            "get": {
+                "summary": "Get All banners",
+                "description": "Get All the banners",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/show_in"
+                    },
+                    {
+                        "$ref": "#/components/parameters/institute_id"
+                    },
+                    {
+                        "$ref": "#/components/parameters/industry_association_id"
+                    },
+                    {
+                        "$ref": "#/components/parameters/organization_id"
+                    },
+                    {
+                        "$ref": "#/components/parameters/title_optional"
+                    },
+                    {
+                        "$ref": "#/components/parameters/sub_title"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page_size"
+                    },
+                    {
+                        "$ref": "#/components/parameters/row_status"
+                    },
+                    {
+                        "$ref": "#/components/parameters/order"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "order": "ASC",
+                                    "data": [
+                                        {
+                                            "id": 12,
+                                            "show_in": 1,
+                                            "show_in_label": "Nise3",
+                                            "institute_id": null,
+                                            "organization_id": null,
+                                            "institute_title": "",
+                                            "institute_title_en": "",
+                                            "organization_title": "",
+                                            "organization_title_en": "",
+                                            "industry_association_id": null,
+                                            "is_button_available": 0,
+                                            "link": null,
+                                            "title": "Ammon Ammarth",
+                                            "sub_title": "Ammon Ammarth",
+                                            "alt_image_title": null,
+                                            "button_text": null,
+                                            "banner_template_code": "BT_LR",
+                                            "row_status": 0,
+                                            "created_by": null,
+                                            "updated_by": null,
+                                            "created_at": "2021-11-10T08:53:48.000000Z",
+                                            "updated_at": "2021-11-10T08:53:48.000000Z"
+                                        },
+                                        {
+                                            "id": 13,
+                                            "show_in": 1,
+                                            "show_in_label": "Nise3",
+                                            "institute_id": 1,
+                                            "organization_id": null,
+                                            "institute_title": "Julie Ortiz II",
+                                            "institute_title_en": "Julie Ortiz II",
+                                            "organization_title": "",
+                                            "organization_title_en": "",
+                                            "industry_association_id": null,
+                                            "is_button_available": 1,
+                                            "link": "akjskjasjlksj",
+                                            "title": "aaa",
+                                            "sub_title": "vv",
+                                            "alt_image_title": "atr_text",
+                                            "button_text": "aaaaaaaaaaaaaaaaa",
+                                            "banner_template_code": "BT_LR",
+                                            "row_status": 1,
+                                            "created_by": null,
+                                            "updated_by": null,
+                                            "created_at": "2021-11-10T08:57:04.000000Z",
+                                            "updated_at": "2021-11-10T08:57:04.000000Z"
+                                        }
+                                    ],
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "message": null,
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Banners"
+                ]
             },
             "post": {
                 "summary": "create",
-                "description": "API endpoint to create a Slider.A successful request response will show 200 HTTP status code",
+                "description": "API endpoint to create a banner.A successful request response will show 200 HTTP status code",
                 "requestBody": {
                     "content": {
                         "application/x-www-form-urlencoded": {
                             "schema": {
-                                "$ref": "#/components/schemas/Slider"
+                                "$ref": "#/components/schemas/Banner"
                             }
                         }
                     }
                 },
                 "responses": {
                     "200": {
-                        "description": "Slider Created",
+                        "description": "banner Created",
                         "content": {
                             "appication/json": {
                                 "example": {
                                     "data": {
-                                        "id": 13,
-                                        "show_in": "1",
-                                        "show_in_label": "Nise3",
-                                        "institute_id": "1",
-                                        "organization_id": null,
-                                        "institute_title": "",
-                                        "institute_title_en": "",
-                                        "organization_title": "",
-                                        "organization_title_en": "",
-                                        "industry_association_id": null,
+                                        "id": 12,
                                         "is_button_available": "1",
                                         "link": "akjskjasjlksj",
-                                        "slider_images": [
-                                            "image1",
-                                            "image2"
-                                        ],
                                         "title": "aaa",
                                         "sub_title": "vv",
-                                        "alt_title": "atr_text",
+                                        "alt_image_title": "atr_text",
                                         "button_text": "aaaaaaaaaaaaaaaaa",
                                         "other_language_fields": {
                                             "hi": {
                                                 "title": "हमारा अंग्रेजी से बांग्ला अनुवाद उपकरण",
                                                 "sub_title": "हमारा अंग्रेजी से बांग्ला अनुवाद उपकरण",
-                                                "alt_title": "हमारा अंग्रेजी से बांग्ला अनुवाद उपकरण",
                                                 "button_text": "अंग्रेजी"
                                             }
                                         },
                                         "banner_template_code": "BT_LR",
                                         "banner_template": {
                                             "banner_template_code": "BT_LR",
-                                            "banner_template_title": "Banner with text left and image right",
+                                            "banner_template_title": "Banner with text left anzd image right",
                                             "title": {
                                                 "position": "left"
                                             },
@@ -1174,13 +1290,13 @@
                                         "row_status": "1",
                                         "created_by": null,
                                         "updated_by": null,
-                                        "created_at": "2021-11-10T08:57:04.000000Z",
-                                        "updated_at": "2021-11-10T08:57:04.000000Z"
+                                        "created_at": "2021-11-14T07:50:23.000000Z",
+                                        "updated_at": "2021-11-14T07:50:23.000000Z"
                                     },
                                     "_response_status": {
                                         "success": true,
                                         "code": 201,
-                                        "message": "Slider successfully added",
+                                        "message": "Banner successfully added",
                                         "query_time": 0
                                     }
                                 }
@@ -1189,73 +1305,62 @@
                     }
                 },
                 "tags": [
-                    "Sliders"
+                    "Banners"
                 ]
             }
         },
-        "/sliders/{SliderId}": {
+        "/banners/{bannerId}": {
             "get": {
                 "summary": "get_one",
                 "description": "API endpoint to get a specified Slider.A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
                         "in": "path",
-                        "name": "SliderId",
+                        "name": "bannerId",
                         "schema": {
                             "type": "integer"
                         },
-                        "required": true,
-                        "description": "Slider ID"
+                        "required": true
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "get Slider by Id",
+                        "description": "get Banner by Id",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Slider"
+                                    "$ref": "#/components/schemas/Banner"
                                 },
-                                "example": {
+                                "example":{
                                     "data": {
                                         "id": 1,
-                                        "show_in": 5,
-                                        "show_in_label": "Industry Association",
-                                        "institute_id": 4,
-                                        "organization_id": 4,
-                                        "institute_title": "",
-                                        "institute_title_en": "",
-                                        "organization_title": "Schiller-VonRueden",
-                                        "organization_title_en": "Schiller-VonRueden",
-                                        "industry_association_id": 1,
-                                        "is_button_available": 0,
-                                        "link": null,
-                                        "slider_images": null,
-                                        "title": "Residential Advisor",
-                                        "sub_title": "Residential Advisor",
-                                        "alt_title": null,
-                                        "button_text": "Nesciunt error neces",
+                                        "is_button_available": 1,
+                                        "link": "http://www.conroy.com/",
+                                        "title": "Agricultural Engineer",
+                                        "sub_title": "Agricultural Engineer",
+                                        "alt_image_title": "quia",
+                                        "button_text": "Et dolor molestias s",
                                         "other_language_fields": {
                                             "hi": {
                                                 "title": "अगर आप किसी एग्जाम की तैयारी कर रहे हैं, तो जेनरल नॉलेज अच्छी करना बेहद जरूरी। तो चलिए जानते हैं कौन-से सवाल",
                                                 "sub_title": "भारत का इतिहास या फिर भूगोल, यह इतना बड़ा है कि इसको याद करने में बड़ों-बड़ों की रातों की नींद हराम हो जाती है। सभी प्रश्‍नों के उत्‍तर याद करना सभी के लिए लगभग असंभव है, आज हम आपको बता रहे हैं उन खास प्रश्‍नों को उनके उत्‍तर के साथ जो प्रतियोगी परिक्षाओं से लेकर जॉब इंटरव्‍यू में ज्‍यादातर पूछे जाते हैं। अगर आपको इन प्रश्‍नों के उत्‍तर पता हैं तो आपकी मुश्‍किलें हल हो जाएंगी",
-                                                "alt_title": "भारत का इतिहास या फिर भूगोल",
+                                                "alt_image_title": "भारत का इतिहास या फिर भूगोल",
                                                 "button_text": "भारत का इतिहास या फिर भूगोल"
                                             }
                                         },
-                                        "banner_template_code": null,
+                                        "banner_template_code": "Banner with text cen",
                                         "banner_template": null,
                                         "row_status": 1,
                                         "created_by": null,
                                         "updated_by": null,
-                                        "created_at": "2021-11-09T04:52:37.000000Z",
-                                        "updated_at": "2021-11-09T04:52:37.000000Z"
+                                        "created_at": "2021-11-14T05:14:39.000000Z",
+                                        "updated_at": "2021-11-14T05:14:39.000000Z"
                                     },
                                     "_response_status": {
                                         "success": true,
                                         "code": 200,
                                         "message": null,
-                                        "query_time": 1
+                                        "query_time": 0
                                     }
                                 }
                             }
@@ -1263,7 +1368,7 @@
                     }
                 },
                 "tags": [
-                    "Sliders"
+                    "Banners"
                 ]
             },
             "put": {
@@ -1272,7 +1377,7 @@
                 "parameters": [
                     {
                         "in": "path",
-                        "name": "SliderId",
+                        "name": "bannerId",
                         "schema": {
                             "type": "integer"
                         },
@@ -1284,49 +1389,51 @@
                     "content": {
                         "application/x-www-form-urlencoded": {
                             "schema": {
-                                "$ref": "#/components/schemas/Slider"
+                                "$ref": "#/components/schemas/Banner"
                             },
-                            "example": {
+                            "example":{
                                 "data": {
                                     "id": 1,
-                                    "show_in": "1",
-                                    "show_in_label": "Nise3",
-                                    "institute_id": "1",
-                                    "organization_id": 4,
-                                    "institute_title": "",
-                                    "institute_title_en": "",
-                                    "organization_title": "",
-                                    "organization_title_en": "",
-                                    "industry_association_id": 1,
                                     "is_button_available": "1",
                                     "link": "akjskjasjlksj",
-                                    "slider_images": [
-                                        "aasasas"
-                                    ],
-                                    "title": "abc",
-                                    "sub_title": "abc",
-                                    "alt_title": null,
-                                    "button_text": "bbbbbb",
+                                    "title": "ManGod",
+                                    "sub_title": "vv",
+                                    "alt_image_title": "atr_text",
+                                    "button_text": "aaaaaaaaaaaaaaaaa",
                                     "other_language_fields": {
                                         "hi": {
-                                            "title": "अगर आप किसी एग्जाम की तैयारी कर रहे हैं, तो जेनरल नॉलेज अच्छी करना बेहद जरूरी। तो चलिए जानते हैं कौन-से सवाल",
-                                            "sub_title": "भारत का इतिहास या फिर भूगोल, यह इतना बड़ा है कि इसको याद करने में बड़ों-बड़ों की रातों की नींद हराम हो जाती है। सभी प्रश्‍नों के उत्‍तर याद करना सभी के लिए लगभग असंभव है, आज हम आपको बता रहे हैं उन खास प्रश्‍नों को उनके उत्‍तर के साथ जो प्रतियोगी परिक्षाओं से लेकर जॉब इंटरव्‍यू में ज्‍यादातर पूछे जाते हैं। अगर आपको इन प्रश्‍नों के उत्‍तर पता हैं तो आपकी मुश्‍किलें हल हो जाएंगी",
-                                            "alt_title": "भारत का इतिहास या फिर भूगोल",
-                                            "button_text": "भारत का इतिहास या फिर भूगोल"
+                                            "title": "हमारा अंग्रेजी से बांग्ला अनुवाद उपकरण",
+                                            "sub_title": "हमारा अंग्रेजी से बांग्ला अनुवाद उपकरण",
+                                            "button_text": "अंग्रेजी"
                                         }
                                     },
-                                    "banner_template_code": null,
-                                    "banner_template": null,
+                                    "banner_template_code": "BT_LR",
+                                    "banner_template": {
+                                        "banner_template_code": "BT_LR",
+                                        "banner_template_title": "Banner with text left anzd image right",
+                                        "title": {
+                                            "position": "left"
+                                        },
+                                        "sub_title": {
+                                            "position": "left"
+                                        },
+                                        "button": {
+                                            "position": "left"
+                                        },
+                                        "context_path": {
+                                            "position": "right"
+                                        }
+                                    },
                                     "row_status": "1",
                                     "created_by": null,
                                     "updated_by": null,
-                                    "created_at": "2021-11-09T04:52:37.000000Z",
-                                    "updated_at": "2021-11-10T09:09:42.000000Z"
+                                    "created_at": "2021-11-14T05:14:39.000000Z",
+                                    "updated_at": "2021-11-14T08:36:19.000000Z"
                                 },
                                 "_response_status": {
                                     "success": true,
                                     "code": 200,
-                                    "message": "Slider successfully update",
+                                    "message": "Banner successfully update",
                                     "query_time": 0
                                 }
                             }
@@ -1371,21 +1478,20 @@
                     }
                 },
                 "tags": [
-                    "Sliders"
+                    "Banners"
                 ]
             },
             "delete": {
                 "summary": "delete",
-                "description": "API endpoint to delete the specified Slider.A successful request response will show 200 HTTP status code",
+                "description": "API endpoint to delete the specified banner.A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
                         "in": "path",
-                        "name": "SliderId",
+                        "name": "bannerId",
                         "schema": {
                             "type": "integer"
                         },
-                        "required": true,
-                        "description": "Slider ID"
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -1397,7 +1503,7 @@
                                     "_response_status": {
                                         "success": true,
                                         "code": 200,
-                                        "message": "Slider deleted successfully.",
+                                        "message": "Banner deleted successfully.",
                                         "query_time": 0
                                     }
                                 }
@@ -1406,81 +1512,11 @@
                     }
                 },
                 "tags": [
-                    "Sliders"
+                    "Banners"
                 ]
             }
         },
-        "/public/sliders/{SliderId}": {
-            "get": {
-                "summary": "get a public slider",
-                "description": "API endpoint to get a specified Slider.A successful request response will show 200 HTTP status code",
-                "parameters": [
-                    {
-                        "$ref": "#/components/parameters/Accept-Language"
-                    },
-                    {
-                        "in": "path",
-                        "name": "SliderId",
-                        "schema": {
-                            "type": "integer"
-                        },
-                        "required": true,
-                        "description": "Slider ID"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "get Slider by Id",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Slider"
-                                },
-                                "example": {
-                                    "data": {
-                                        "id": 1,
-                                        "show_in": 1,
-                                        "show_in_label": "Nise3",
-                                        "institute_id": 1,
-                                        "organization_id": 4,
-                                        "institute_title": "Julie Ortiz II",
-                                        "institute_title_en": "Julie Ortiz II",
-                                        "organization_title": "Schiller-VonRueden",
-                                        "organization_title_en": "Schiller-VonRueden",
-                                        "industry_association_id": 1,
-                                        "is_button_available": 1,
-                                        "link": "akjskjasjlksj",
-                                        "slider_images": [
-                                            "aasasas"
-                                        ],
-                                        "title": "abc",
-                                        "sub_title": "abc",
-                                        "button_text": "bbbbbb",
-                                        "alt_title": null,
-                                        "banner_template_code": null,
-                                        "banner_template": null,
-                                        "row_status": 1,
-                                        "created_by": null,
-                                        "updated_by": null,
-                                        "created_at": "2021-11-09T04:52:37.000000Z",
-                                        "updated_at": "2021-11-10T09:09:42.000000Z"
-                                    },
-                                    "_response_status": {
-                                        "success": true,
-                                        "code": 200,
-                                        "message": null,
-                                        "query_time": 0
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Sliders"
-                ]
-            }
-        },
+
         "/public/faqs": {
             "get": {
                 "summary": "Get All public faqs",
@@ -3276,6 +3312,15 @@
                         "$ref": "#/components/parameters/organization_id"
                     },
                     {
+                        "name": "content_slug_or_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                    ,
+                    {
                         "$ref": "#/components/parameters/Accept-Language"
                     },
                     {
@@ -3298,7 +3343,63 @@
                     "200": {
                         "description": "successfull",
                         "content": {
-                            "application/json": {}
+                            "application/json": {
+                                "example": {
+                                    "order": "ASC",
+                                    "data": [
+                                        {
+                                            "id": 1,
+                                            "content_type": 1,
+                                            "show_in": 3,
+                                            "show_in_label": "Training Service Provider(TSP)",
+                                            "industry_association_id": 2,
+                                            "institute_title": "",
+                                            "institute_title_en": "",
+                                            "organization_title": "",
+                                            "organization_title_en": "",
+                                            "content_slug_or_id": "Voluptatum voluptatibus at consequatur.",
+                                            "institute_id": 9,
+                                            "organization_id": 7,
+                                            "title": "User Experience Researcher",
+                                            "sub_title": "User Experience Researcher",
+                                            "contents": "Neque odit minima rerum id impedit .",
+                                            "row_status": 1,
+                                            "created_by": null,
+                                            "updated_by": null,
+                                            "created_at": "2021-11-14T05:14:39.000000Z",
+                                            "updated_at": "2021-11-14T05:14:39.000000Z"
+                                        },
+                                        {
+                                            "id": 2,
+                                            "content_type": 2,
+                                            "show_in": 5,
+                                            "show_in_label": "Industry Association",
+                                            "industry_association_id": 2,
+                                            "institute_title": "",
+                                            "institute_title_en": "",
+                                            "organization_title": "",
+                                            "organization_title_en": "",
+                                            "content_slug_or_id": "Placeat nisi qui voluptas enim voluptas ducimus.",
+                                            "institute_id": 10,
+                                            "organization_id": 6,
+                                            "title": "Utility Meter Reader",
+                                            "sub_title": "Utility Meter Reader",
+                                            "contents": "Exercitationem dolores velit laborum tenetur quasi officia aut molestiae animi officiis rem enim suscipit quia laboriosam recusandae rerum doloremque rem facere aut aut eum et atque quo inventore aliquam corrupti voluptas incidunt soluta ullam in omnis asperiores sint.",
+                                            "row_status": 1,
+                                            "created_by": null,
+                                            "updated_by": null,
+                                            "created_at": "2021-11-14T05:14:39.000000Z",
+                                            "updated_at": "2021-11-14T05:14:39.000000Z"
+                                        }
+                                    ],
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "message": null,
+                                        "query_time": 0
+                                    }
+                                }
+                            }
                         }
                     }
                 },
@@ -6890,25 +6991,28 @@
                         "type": "integer",
                         "description": "Required when you give show_in = 4"
                     },
-                    "industry_association_id": {
+                    "row_status": {
                         "type": "integer",
-                        "description": "organization_association id"
+                        "description": "ACTIVE_STATUS = 1, INACTIVE_STATUS = 0",
+                        "enum": [
+                            1,
+                            0
+                        ]
                     }
-                }
+                },
+                "required": [
+                    "show_in",
+                    "institute_id",
+                    "organization_id",
+                    "row_status"
+                ]
             },
             "Banner": {
                 "type": "object",
                 "description": "Provide banners",
                 "properties": {
-                    "show_in": {
-                        "type": "integer",
-                        "description": "1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry",
-                        "enum": [
-                            1,
-                            2,
-                            3,
-                            4
-                        ]
+                    "slider_id": {
+                        "type": "integer"
                     },
                     "title": {
                         "type": "string",
@@ -6919,13 +7023,6 @@
                         "type": "string",
                         "minLength": 1,
                         "maxLength": 500
-                    },
-                    "institute_id": {
-                        "type": "integer",
-                        "description": "Institute id"
-                    },
-                    "organization_id": {
-                        "type": "integer"
                     },
                     "is_button_available": {
                         "type": "integer",
@@ -6941,14 +7038,7 @@
                     "button_text": {
                         "type": "string"
                     },
-                    "slider_images": {
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        },
-                        "description": "[\"image_link1\",\"image_link2\",.........]"
-                    },
-                    "alt_title": {
+                    "alt_image_title": {
                         "type": "string"
                     },
                     "banner_template_code": {
@@ -6960,6 +7050,9 @@
                             "BT_CB"
                         ]
                     },
+                    "banner_image_url": {
+                        "type": "string"
+                    },
                     "row_status": {
                         "type": "integer",
                         "description": "activation status",
@@ -6968,17 +7061,17 @@
                             0
                         ]
                     },
-                    "other_language_fields": {
+                    "other_language_fields":{
                         "type": "object",
-                        "example": "\n[\n\n\"hi\"=>[\n\t\"title\"=>\"सामूहिक बाढ़\",\n        \"sub_title\"=>\"सामूहिक बाढ़\",\n\t\"button_text\"=>\"सामूहिक बाढ़\",\n        \"alt_title\"=>\"सामूहिक बाढ़\",\n     ]\n]"
+                        "example": "\n[\n\n\"hi\"=>[\n\t\"title\"=>\"सामूहिक बाढ़\",\n        \"sub_title\"=>\"सामूहिक बाढ़\",\n\t\"button_text\"=>\"सामूहिक बाढ़\",\n        \"alt_image_title\"=>\"सामूहिक बाढ़\",\n     ]\n]"
                     }
                 },
                 "required": [
-                    "show_in",
+                    "slider_id",
                     "title",
                     "sub_title",
-                    "slider_images",
                     "row_status",
+                    "banner_image_url",
                     "is_button_available"
                 ]
             },
