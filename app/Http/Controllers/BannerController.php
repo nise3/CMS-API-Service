@@ -9,7 +9,7 @@ use App\Models\Banner;
 use App\Services\Common\CmsGlobalConfigService;
 use App\Services\Common\LanguageCodeService;
 use App\Services\ContentManagementServices\CmsLanguageService;
-use App\Services\ContentManagementServices\SliderService;
+use App\Services\ContentManagementServices\BannerService;
 use Carbon\Carbon;
 use Illuminate\Http\Client\RequestException;
 use Illuminate\Http\JsonResponse;
@@ -21,13 +21,13 @@ use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 use Throwable;
 use Exception;
 
-class SliderController extends Controller
+class BannerController extends Controller
 {
-    public SliderService $sliderService;
+    public BannerService $sliderService;
     private Carbon $startTime;
 
 
-    public function __construct(SliderService $sliderService)
+    public function __construct(BannerService $sliderService)
     {
         $this->startTime = Carbon::now();
         $this->sliderService = $sliderService;

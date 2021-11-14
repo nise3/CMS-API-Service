@@ -41,7 +41,7 @@ $router->group(['prefix' => 'api/v1', 'as' => 'api.v1'], function () use ($route
     $customRouter()->resourceRoute('gallery-images-videos', 'GalleryImageVideoController')->render();
     $customRouter()->resourceRoute('video-categories', 'VideoCategoryController')->render();
     $customRouter()->resourceRoute('videos', 'VideoController')->render();
-    $customRouter()->resourceRoute('sliders', 'SliderController')->render();
+    $customRouter()->resourceRoute('banners', 'BannerController')->render();
     $customRouter()->resourceRoute('static-pages', 'StaticPageController')->render();
     $customRouter()->resourceRoute('faqs', 'FaqController')->render();
     $customRouter()->resourceRoute('visitor-feedback-suggestions', 'VisitorFeedbackSuggestionController')->render();
@@ -62,7 +62,7 @@ $router->group(['prefix' => 'api/v1', 'as' => 'api.v1'], function () use ($route
         $router->get('nise3-partners/{id}', ["as" => "nise3.partners.read", "uses" => "Nise3PartnerController@clientSideRead"]);
         $router->get('gallery-albums/{id}', ["as" => "gallery.albums.read", "uses" => "GalleryAlbumController@clientSideRead"]);
         $router->get('gallery-images-videos/{id}', ["as" => "gallery.images.videos.read", "uses" => "GalleryImageVideoController@clientSideRead"]);
-        $router->get('sliders/{id}', ["as" => "sliders.read", "uses" => "SliderController@clientSideRead"]);
+        $router->get('banners/{id}', ["as" => "banners.read", "uses" => "BannerController@clientSideRead"]);
 
         $router->get('faqs', ["as" => "faqs.list", "uses" => "FaqController@clientSideGetList"]);
         $router->get('static-pages', ["as" => "static.pages.list", "uses" => "StaticPageController@clientSideGetList"]);
@@ -71,7 +71,7 @@ $router->group(['prefix' => 'api/v1', 'as' => 'api.v1'], function () use ($route
         $router->get('nise3-partners', ["as" => "nise3.partners.list", "uses" => "Nise3PartnerController@clientSideGetList"]);
         $router->get('gallery-albums', ["as" => "gallery.albums.list", "uses" => "GalleryAlbumController@clientSideGetList"]);
         $router->get('gallery-images-videos', ["as" => "gallery.images.videos.list", "uses" => "GalleryImageVideoController@clientSideGetList"]);
-        $router->get('sliders', ["as" => "sliders.list", "uses" => "SliderController@clientSideGetList"]);
+        $router->get('banners', ["as" => "banners.list", "uses" => "BannerController@clientSideGetList"]);
     });
     /** calender */
     $customRouter()->resourceRoute('calender-events', 'CalenderEventsController')->render();
