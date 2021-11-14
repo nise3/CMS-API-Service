@@ -106,10 +106,10 @@ class StaticPageService
     }
 
     /**
-     * @param string $contentSlugId
+     * @param int $id
      * @return Builder|Model
      */
-    public function getOneStaticPage(string $contentSlugId): Builder|Model
+    public function getOneStaticPage(int $id): Builder|Model
     {
         /** @var Builder $staticPageBuilder */
         $staticPageBuilder = StaticPage::select([
@@ -132,8 +132,61 @@ class StaticPageService
             'static_pages_and_block.created_at',
             'static_pages_and_block.updated_at'
         ]);
-        $staticPageBuilder->where('static_pages_and_block.content_slug_or_id', $contentSlugId);
+        $staticPageBuilder->where('static_pages_and_block.id', $id);
 
+
+        /** @var StaticPage $staticPage */
+        return $staticPageBuilder->firstOrFail();
+    }
+
+    /**
+     * @param array $request
+     * @param string $contentOrSlugId
+     * @return Builder|Model
+     */
+    public function getPublicOneStaticPage(array $request, string $contentOrSlugId): Builder|Model
+    {
+        $instituteId = $request['institute_id'] ?? "";
+        $organizationId = $request['organization_id'] ?? "";
+        $industryAssociationId = $request['industry_association_id'] ?? "";
+        $showIn = $request['show_in'] ?? "";
+
+        /** @var Builder $staticPageBuilder */
+        $staticPageBuilder = StaticPage::select([
+            'static_pages_and_block.id',
+            'static_pages_and_block.content_type',
+            'static_pages_and_block.show_in',
+            'static_pages_and_block.content_slug_or_id',
+            'static_pages_and_block.institute_id',
+            'static_pages_and_block.organization_id',
+            'static_pages_and_block.industry_association_id',
+            'static_pages_and_block.title',
+            'static_pages_and_block.title_en',
+            'static_pages_and_block.sub_title',
+            'static_pages_and_block.sub_title_en',
+            'static_pages_and_block.contents',
+            'static_pages_and_block.contents_en',
+            'static_pages_and_block.row_status',
+            'static_pages_and_block.created_by',
+            'static_pages_and_block.updated_by',
+            'static_pages_and_block.created_at',
+            'static_pages_and_block.updated_at'
+        ]);
+
+        $staticPageBuilder->where('static_pages_and_block.content_slug_or_id', $contentOrSlugId);
+
+        if (is_numeric($instituteId)) {
+            $staticPageBuilder->where('static_pages_and_block.institute_id', '=', $instituteId);
+        }
+        if (is_numeric($organizationId)) {
+            $staticPageBuilder->where('static_pages_and_block.organization_id', '=', $organizationId);
+        }
+        if (is_numeric($industryAssociationId)) {
+            $staticPageBuilder->where('static_pages_and_block.industry_association_id', '=', $industryAssociationId);
+        }
+        if (is_numeric($showIn)) {
+            $staticPageBuilder->where('static_pages_and_block.show_in', '=', $showIn);
+        }
 
         /** @var StaticPage $staticPage */
         return $staticPageBuilder->firstOrFail();
@@ -162,6 +215,9 @@ class StaticPageService
      */
     public function update(StaticPage $staticPage, array $data): StaticPage
     {
+        if(!empty($data['content_slug_or_id'])){
+            $data['content_slug_or_id'] = str_replace(' ', '_', $data['content_slug_or_id']);
+        }
         $staticPage->fill($data);
         $staticPage->save();
         return $staticPage;

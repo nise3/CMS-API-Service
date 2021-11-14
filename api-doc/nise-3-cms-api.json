@@ -3839,6 +3839,18 @@
                     },
                     {
                         "$ref": "#/components/parameters/Accept-Language"
+                    },
+                    {
+                        "$ref": "#/components/parameters/show_in"
+                    },
+                    {
+                        "$ref": "#/components/parameters/institute_id"
+                    },
+                    {
+                        "$ref": "#/components/parameters/industry_association_id"
+                    },
+                    {
+                        "$ref": "#/components/parameters/organization_id"
                     }
                 ],
                 "responses": {

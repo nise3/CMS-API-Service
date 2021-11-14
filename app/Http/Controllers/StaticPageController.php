@@ -101,12 +101,13 @@ class StaticPageController extends Controller
      * @param Request $request
      * @param string $contentSlugId
      * @return JsonResponse
-     * @throws RequestException
+     * @throws RequestException|ValidationException
      */
     public function clientSideRead(Request $request, string $contentSlugId): JsonResponse
     {
         $request->offsetSet(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY, BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG);
-        $staticPage = $this->staticPageService->getOneStaticPage($contentSlugId);
+        $filter = $this->staticPageService->filterValidator($request)->validate();
+        $staticPage = $this->staticPageService->getPublicOneStaticPage($filter, $contentSlugId);
         $request->offsetSet(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID, CmsGlobalConfigService::getOrganizationOrInstituteOrIndustryAssociationTitle($staticPage->toArray()));
         $response = new StaticPageResource($staticPage);
         $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
