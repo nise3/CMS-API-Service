@@ -18,7 +18,7 @@ class BannerFactory extends Factory
             'link' => $this->faker->url(),
             'title' => $title,
             'sub_title' => $title,
-            'banner_template_code' => $this->faker->randomElement(Banner::BANNER_TEMPLATE_TYPES),
+            'banner_template_code' => $this->faker->randomElement(array_keys(Banner::BANNER_TEMPLATE_TYPES)),
             'alt_image_title' => $this->faker->word(),
             'alt_image_title_en' => $this->faker->word(),
             'banner_image_url' => $this->faker->imageUrl()

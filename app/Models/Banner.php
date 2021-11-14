@@ -48,7 +48,7 @@ class Banner extends BaseModel
     public const BT_RL = "BT_RL";
     public const BT_CB = "BT_CB";
     public const BANNER_TEMPLATE_TYPES = [
-        self::BT_LR => "Banner with text left and image right",
+        self::BT_LR => "Banner with text left anzd image right",
         self::BT_RL => "Banner with text right and image left",
         self::BT_CB => "Banner with text center and image background"
     ];
