@@ -3680,17 +3680,17 @@
                 ]
             }
         },
-        "/static-pages/{staticPagesId}": {
+        "/static-pages/{content_slug_or_id}": {
             "get": {
                 "summary": "Get static Page by Id",
                 "description": "API endpoint to get a Static Page.A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
-                        "name": "staticPagesId",
+                        "name": "content_slug_or_id",
                         "in": "path",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "string"
                         }
                     }
                 ],
