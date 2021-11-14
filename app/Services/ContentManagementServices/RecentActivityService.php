@@ -441,6 +441,7 @@ class RecentActivityService
             $rules['collage_position'] = [
                 'nullable',
                 'integer',
+                'unique_with:recent_activities,show_in,deleted_at,' . $id,
                 Rule::in(RecentActivity::AVAILABLE_COLLAGE_POSITIONS)
             ];
         }
