@@ -31,6 +31,7 @@ class StaticPageService
         $instituteId = $request['institute_id'] ?? "";
         $organizationId = $request['organization_id'] ?? "";
         $industryAssociationId = $request['industry_association_id'] ?? "";
+        $contentSlugOrId = $request['content_slug_or_id'] ?? "";
         $showIn = $request['show_in'] ?? "";
         $isRequestFromClientSide = !empty($request[BaseModel::IS_CLIENT_SITE_RESPONSE_KEY]);
 
@@ -82,6 +83,10 @@ class StaticPageService
 
         if (is_numeric($industryAssociationId)) {
             $staticPageBuilder->where('static_pages_and_block.industry_association_id', '=', $industryAssociationId);
+        }
+
+        if (!empty($contentSlugOrId)) {
+            $staticPageBuilder->where('static_pages_and_block.content_slug_or_id', 'like', '%' . $contentSlugOrId . '%');
         }
 
         if (is_numeric($showIn)) {
@@ -313,6 +318,7 @@ class StaticPageService
             'institute_id' => 'nullable|integer|gt:0',
             'organization_id' => 'nullable|integer|gt:0',
             'industry_association_id' => 'nullable|integer|gt:0',
+            'content_slug_or_id' => 'nullable|string',
             'show_in' => 'nullable|integer|gt:0',
             'order' => [
                 'string',
