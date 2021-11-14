@@ -71,43 +71,6 @@ class BannerController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @return JsonResponse
-     * @throws ValidationException
-     * @throws RequestException
-     */
-    public function clientSideGetList(Request $request): JsonResponse
-    {
-        $request->offsetSet(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY, BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG);
-        $filter = $this->bannerService->filterValidator($request)->validate();
-        $filter[BaseModel::IS_CLIENT_SITE_RESPONSE_KEY] = BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG;
-        $bannerList = $this->bannerService->getAllBanners($filter);
-        $request->offsetSet(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID, CmsGlobalConfigService::getOrganizationOrInstituteOrIndustryAssociationTitle($bannerList->toArray()['data'] ?? $bannerList->toArray()));
-        $response = BannerResource::collection($bannerList)->resource;
-        $response = getResponse($response->toArray(), $this->startTime, !BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
-        return Response::json($response, ResponseAlias::HTTP_OK);
-    }
-
-    /**
-     * Display the specified resource from client site.
-     *
-     * @param Request $request
-     * @param int $id
-     * @return JsonResponse
-     * @throws RequestException
-     */
-    public function clientSideRead(Request $request, int $id): JsonResponse
-    {
-        $request->offsetSet(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY, BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG);
-        $banner = $this->bannerService->getOneBanner($id);
-        $request->offsetSet(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID, CmsGlobalConfigService::getOrganizationOrInstituteOrIndustryAssociationTitle($banner->toArray()));
-        $response = new BannerResource($banner);
-        $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
-        return Response::json($response, ResponseAlias::HTTP_OK);
-    }
-
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param Request $request

@@ -31,7 +31,6 @@ class BannerService
         $pageSize = $request['page_size'] ?? "";
         $rowStatus = $request['row_status'] ?? "";
         $order = $request['order'] ?? "ASC";
-        $isRequestFromClientSide = !empty($request[BaseModel::IS_CLIENT_SITE_RESPONSE_KEY]);
 
         /** @var Builder $bannerBuilder */
 
@@ -60,10 +59,6 @@ class BannerService
         });
         $bannerBuilder->orderBy('banners.id', $order);
 
-
-        if ($isRequestFromClientSide) {
-            $bannerBuilder->active();
-        }
 
         if (is_numeric($rowStatus)) {
             $bannerBuilder->where('banners.row_status', $rowStatus);

@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * Class Banner
  * @package App\Models
  * @property int id
+ * @property int slider_id
  * @property string title
  * @property string | null title_en
  * @property string sub_title
@@ -22,6 +23,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string alt_image_title
  * @property string alt_title_en
  * @property string | null banner_template_code
+ * @property string banner_image_url
  * @property int row_status
  * @property int created_by
  * @property int updated_by
@@ -34,6 +36,11 @@ class Banner extends BaseModel
 
     protected $guarded = ['id'];
 
+
+    public function slider()
+    {
+        $this->belongsTo(Slider::class);
+    }
 
     public const IS_BUTTON_AVAILABLE_YES = 1;
     public const IS_BUTTON_AVAILABLE_NO = 0;
