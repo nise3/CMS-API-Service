@@ -1122,13 +1122,204 @@
                 "tags": [
                     "Sliders"
                 ]
+            },
+            "post": {
+                "summary": "Create a slider",
+                "description": "API endpoint to create a Slider.A successful request response will show 200 HTTP status code",
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Slider"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successfull",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "data": {
+                                        "show_in": "1",
+                                        "institute_id": "1",
+                                        "organization_id": "1",
+                                        "row_status": "1",
+                                        "updated_at": "2021-11-14T10:12:03.000000Z",
+                                        "created_at": "2021-11-14T10:12:03.000000Z",
+                                        "id": 3
+                                    },
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 201,
+                                        "message": "Slider added successfully.",
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Sliders"
+                ]
             }
         },
-
-
-
-
-
+        "/sliders/{sliderId}": {
+            "get": {
+                "summary": "get_one",
+                "description": "API endpoint to get a specified Slider.A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/sliderId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "get Slider by Id",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Slider"
+                                },
+                                "example": {
+                                    "data": {
+                                        "id": 1,
+                                        "show_in": 1,
+                                        "show_in_label": "Nise3",
+                                        "industry_association_id": null,
+                                        "institute_title": "Julie Ortiz II",
+                                        "institute_title_en": "Julie Ortiz II",
+                                        "organization_title": "Conroy Ltd",
+                                        "organization_title_en": "Conroy Ltd",
+                                        "institute_id": 1,
+                                        "organization_id": 1
+                                    },
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "message": null,
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Sliders"
+                ]
+            },
+            "put": {
+                "summary": "Update",
+                "description": "API endpoint to update the specified Slider. A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/sliderId"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Slider"
+                            },
+                            "example": {
+                                "data": {
+                                    "id": 1,
+                                    "institute_id": "1",
+                                    "organization_id": "1",
+                                    "industry_association_id": 1,
+                                    "show_in": "1",
+                                    "row_status": "1",
+                                    "created_by": null,
+                                    "updated_by": null,
+                                    "created_at": null,
+                                    "updated_at": null,
+                                    "deleted_at": null
+                                },
+                                "_response_status": {
+                                    "success": true,
+                                    "code": 201,
+                                    "message": "Slider added successfully.",
+                                    "query_time": 0
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "data": {
+                                        "id": 1,
+                                        "institute_id": "1",
+                                        "organization_id": "1",
+                                        "title": "Abar title",
+                                        "sub_title": "No subtitle",
+                                        "is_button_available": "0",
+                                        "button_text": null,
+                                        "link": null,
+                                        "slider_images": [
+                                            "aaasss"
+                                        ],
+                                        "alt_title": null,
+                                        "banner_template": null,
+                                        "row_status": "0",
+                                        "created_by": null,
+                                        "updated_by": null,
+                                        "created_at": "2021-11-04T04:24:01.000000Z",
+                                        "updated_at": "2021-11-04T04:54:16.000000Z"
+                                    },
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 201,
+                                        "message": "Slider successfully update",
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Sliders"
+                ]
+            },
+            "delete": {
+                "summary": "delete",
+                "description": "API endpoint to delete the specified Slider.A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/sliderId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "delete",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "message": "Slider deleted successfully.",
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Sliders"
+                ]
+            }
+        },
         "/banners": {
             "get": {
                 "summary": "Get All banners",
