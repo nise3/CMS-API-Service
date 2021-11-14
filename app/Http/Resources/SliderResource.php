@@ -3,7 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Models\BaseModel;
-use App\Models\Slider;
+use App\Models\Banner;
 use App\Services\ContentManagementServices\CmsLanguageService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -18,7 +18,7 @@ class SliderResource extends JsonResource
      */
     public function toArray($request): array
     {
-        /** @var Slider $this */
+        /** @var Banner $this */
         $response = [
             "id" => $this->id,
             "show_in" => $this->show_in,
@@ -36,10 +36,10 @@ class SliderResource extends JsonResource
         ];
 
         if ($request->offsetExists(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY) && $request->get(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY)) {
-            $response['title'] = app(CmsLanguageService::class)->getLanguageValue($this, Slider::SLIDER_LANGUAGE_ATTR_TITLE);
-            $response['sub_title'] = app(CmsLanguageService::class)->getLanguageValue($this, Slider::SLIDER_LANGUAGE_ATTR_SUB_TITLE);
-            $response['button_text'] = app(CmsLanguageService::class)->getLanguageValue($this, Slider::SLIDER_LANGUAGE_ATTR_BUTTON_TEXT);
-            $response['alt_title'] = app(CmsLanguageService::class)->getLanguageValue($this, Slider::SLIDER_LANGUAGE_ATTR_ALT_TITLE);
+            $response['title'] = app(CmsLanguageService::class)->getLanguageValue($this, Banner::SLIDER_LANGUAGE_ATTR_TITLE);
+            $response['sub_title'] = app(CmsLanguageService::class)->getLanguageValue($this, Banner::SLIDER_LANGUAGE_ATTR_SUB_TITLE);
+            $response['button_text'] = app(CmsLanguageService::class)->getLanguageValue($this, Banner::SLIDER_LANGUAGE_ATTR_BUTTON_TEXT);
+            $response['alt_title'] = app(CmsLanguageService::class)->getLanguageValue($this, Banner::SLIDER_LANGUAGE_ATTR_ALT_TITLE);
         } else {
             $response['title'] = $this->title;
             $response['sub_title'] = $this->sub_title;

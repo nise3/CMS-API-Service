@@ -3,12 +3,12 @@
 namespace Database\Factories;
 
 use App\Models\BaseModel;
-use App\Models\Slider;
+use App\Models\Banner;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class SliderFactory extends Factory
 {
-    protected $model = Slider::class;
+    protected $model = Banner::class;
 
     public function definition(): array
     {

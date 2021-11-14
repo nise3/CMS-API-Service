@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\FaqResource;
 use App\Http\Resources\SliderResource;
 use App\Models\BaseModel;
-use App\Models\Slider;
+use App\Models\Banner;
 use App\Services\Common\CmsGlobalConfigService;
 use App\Services\Common\LanguageCodeService;
 use App\Services\ContentManagementServices\CmsLanguageService;
@@ -118,7 +118,7 @@ class SliderController extends Controller
     public function store(Request $request): JsonResponse
     {
         $validatedData = $this->sliderService->validator($request)->validate();
-        $message = "Slider successfully added";
+        $message = "Banner successfully added";
         $otherLanguagePayload = $validatedData['other_language_fields'] ?? [];
         $isLanguage = (bool)count(array_intersect(array_keys($otherLanguagePayload), LanguageCodeService::getLanguageCode()));
         DB::beginTransaction();
@@ -128,7 +128,7 @@ class SliderController extends Controller
                 $languageFillablePayload = [];
                 foreach ($otherLanguagePayload as $key => $value) {
                     $languageValidatedData = $this->sliderService->languageFieldValidator($value, $key)->validate();
-                    foreach (Slider::SLIDER_LANGUAGE_FIELDS as $fillableColumn) {
+                    foreach (Banner::SLIDER_LANGUAGE_FIELDS as $fillableColumn) {
                         if (isset($languageValidatedData[$fillableColumn])) {
                             $languageFillablePayload[] = [
                                 "table_name" => $slider->getTable(),
@@ -163,9 +163,9 @@ class SliderController extends Controller
      */
     public function update(Request $request, int $id): JsonResponse
     {
-        $slider = Slider::findOrFail($id);
+        $slider = Banner::findOrFail($id);
         $validatedData = $this->sliderService->validator($request)->validate();
-        $message = "Slider successfully update";
+        $message = "Banner successfully update";
         $otherLanguagePayload = $validatedData['other_language_fields'] ?? [];
         $isLanguage = (bool)count(array_intersect(array_keys($otherLanguagePayload), LanguageCodeService::getLanguageCode()));
         DB::beginTransaction();
@@ -174,7 +174,7 @@ class SliderController extends Controller
             $languageFillablePayload = [];
             foreach ($otherLanguagePayload as $key => $value) {
                 $languageValidatedData = $this->sliderService->languageFieldValidator($value, $key)->validate();
-                foreach (Slider::SLIDER_LANGUAGE_FIELDS as $fillableColumn) {
+                foreach (Banner::SLIDER_LANGUAGE_FIELDS as $fillableColumn) {
                     if (isset($languageValidatedData[$fillableColumn])) {
                         $languageFillablePayload[] = [
                             "table_name" => $slider->getTable(),
@@ -205,9 +205,9 @@ class SliderController extends Controller
      */
     public function destroy(int $id): JsonResponse
     {
-        $slider = Slider::findOrFail($id);
+        $slider = Banner::findOrFail($id);
         $destroyStatus = $this->sliderService->destroy($slider);
-        $message = $destroyStatus ? "Slider successfully deleted" : "Slider is not deleted";
+        $message = $destroyStatus ? "Banner successfully deleted" : "Banner is not deleted";
         $response = getResponse($destroyStatus, $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK, $message);
         return Response::json($response, ResponseAlias::HTTP_OK);
     }

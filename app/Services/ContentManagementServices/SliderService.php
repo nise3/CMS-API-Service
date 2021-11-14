@@ -3,7 +3,7 @@
 namespace App\Services\ContentManagementServices;
 
 use App\Models\BaseModel;
-use App\Models\Slider;
+use App\Models\Banner;
 use App\Services\Common\LanguageCodeService;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
@@ -42,7 +42,7 @@ class SliderService
 
         /** @var Builder $sliderBuilder */
 
-        $sliderBuilder = Slider::select([
+        $sliderBuilder = Banner::select([
             'sliders.id',
             'sliders.show_in',
             'sliders.institute_id',
@@ -121,7 +121,7 @@ class SliderService
     {
         /** @var Builder $sliderBuilder */
 
-        $sliderBuilder = Slider::select([
+        $sliderBuilder = Banner::select([
             'sliders.id',
             'sliders.show_in',
             'sliders.institute_id',
@@ -143,28 +143,28 @@ class SliderService
             'sliders.updated_at',
         ]);
         $sliderBuilder->where('sliders.id', $id);
-        /** @var Slider $slider */
+        /** @var Banner $slider */
         return $sliderBuilder->firstOrFail();
     }
 
     /**
      * @param array $data
-     * @return Slider
+     * @return Banner
      */
-    public function store(array $data): Slider
+    public function store(array $data): Banner
     {
-        $slider = new Slider();
+        $slider = new Banner();
         $slider->fill($data);
         $slider->save();
         return $slider;
     }
 
     /**
-     * @param Slider $slider
+     * @param Banner $slider
      * @param array $data
-     * @return Slider
+     * @return Banner
      */
-    public function update(Slider $slider, array $data): Slider
+    public function update(Banner $slider, array $data): Banner
     {
 
         $slider->fill($data);
@@ -173,10 +173,10 @@ class SliderService
     }
 
     /**
-     * @param Slider $slider
+     * @param Banner $slider
      * @return bool
      */
-    public function destroy(Slider $slider): bool
+    public function destroy(Banner $slider): bool
     {
         return $slider->delete();
     }
@@ -240,7 +240,7 @@ class SliderService
         }
         $customMessage = [
             'row_status.in' => 'The :attribute must be within 1 or 0.[30000]',
-            "banner_template_code.in" => "The :attribute must be with in " . implode(", ", array_keys(Slider::BANNER_TEMPLATE_TYPES)) . ".[30000]"
+            "banner_template_code.in" => "The :attribute must be with in " . implode(", ", array_keys(Banner::BANNER_TEMPLATE_TYPES)) . ".[30000]"
         ];
         $rules = [
             'show_in' => [
@@ -287,17 +287,17 @@ class SliderService
             'is_button_available' => [
                 'required',
                 'int',
-                Rule::in([Slider::IS_BUTTON_AVAILABLE_YES, Slider::IS_BUTTON_AVAILABLE_NO])
+                Rule::in([Banner::IS_BUTTON_AVAILABLE_YES, Banner::IS_BUTTON_AVAILABLE_NO])
             ],
             'link' => [
                 'nullable',
-                'requiredIf:is_button_available,' . Slider::IS_BUTTON_AVAILABLE_YES,
+                'requiredIf:is_button_available,' . Banner::IS_BUTTON_AVAILABLE_YES,
                 'string',
                 'max:191',
             ],
             'button_text' => [
                 'nullable',
-                'requiredIf:is_button_available,' . Slider::IS_BUTTON_AVAILABLE_YES,
+                'requiredIf:is_button_available,' . Banner::IS_BUTTON_AVAILABLE_YES,
                 'string',
                 'max:20'
             ],
@@ -314,7 +314,7 @@ class SliderService
             ],
             "banner_template_code" => [
                 "nullable",
-                Rule::in(array_keys(Slider::BANNER_TEMPLATE_TYPES))
+                Rule::in(array_keys(Banner::BANNER_TEMPLATE_TYPES))
             ],
             'row_status' => [
                 'required_if:' . $id . ',!=,null',
