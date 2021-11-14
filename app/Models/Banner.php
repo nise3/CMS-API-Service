@@ -38,6 +38,11 @@ class Banner extends BaseModel
     public const IS_BUTTON_AVAILABLE_YES = 1;
     public const IS_BUTTON_AVAILABLE_NO = 0;
 
+    public const IS_BUTTON_AVAILABLE = [
+        self::IS_BUTTON_AVAILABLE_YES,
+        self::IS_BUTTON_AVAILABLE_NO
+    ];
+
     /** Banner Template Type */
     public const BT_LR = "BT_LR";
     public const BT_RL = "BT_RL";
@@ -56,12 +61,12 @@ class Banner extends BaseModel
     /** BANNER_LANGUAGE_FIELDS */
     public const BANNER_LANGUAGE_ATTR_TITLE = "title";
     public const BANNER_LANGUAGE_ATTR_SUB_TITLE = "sub_title";
-    public const BANNER_LANGUAGE_ATTR_ALT_TITLE = "alt_title";
+    public const BANNER_LANGUAGE_ATTR_ALT_IMAGE_TITLE = "alt_image_title";
     public const BANNER_LANGUAGE_ATTR_BUTTON_TEXT = "button_text";
     public const BANNER_LANGUAGE_FIELDS = [
         self::BANNER_LANGUAGE_ATTR_TITLE,
         self::BANNER_LANGUAGE_ATTR_SUB_TITLE,
-        self::BANNER_LANGUAGE_ATTR_ALT_TITLE,
+        self::BANNER_LANGUAGE_ATTR_ALT_IMAGE_TITLE,
         self::BANNER_LANGUAGE_ATTR_BUTTON_TEXT
     ];
 

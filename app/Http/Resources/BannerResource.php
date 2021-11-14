@@ -8,7 +8,7 @@ use App\Services\ContentManagementServices\CmsLanguageService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class SliderResource extends JsonResource
+class BannerResource extends JsonResource
 {
     /**
      * Transform the resource into an array.

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\FaqResource;
-use App\Http\Resources\SliderResource;
+use App\Http\Resources\BannerResource;
 use App\Models\BaseModel;
 use App\Models\Banner;
 use App\Services\Common\CmsGlobalConfigService;
@@ -47,7 +47,7 @@ class BannerController extends Controller
         $filter = $this->sliderService->filterValidator($request)->validate();
         $sliderList = $this->sliderService->getAllSliders($filter);
         $request->offsetSet(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID, CmsGlobalConfigService::getOrganizationOrInstituteOrIndustryAssociationTitle($sliderList->toArray()['data'] ?? $sliderList->toArray()));
-        $response = SliderResource::collection($sliderList)->resource;
+        $response = BannerResource::collection($sliderList)->resource;
         $response = getResponse($response->toArray(), $this->startTime, !BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
@@ -65,7 +65,7 @@ class BannerController extends Controller
     public function read(Request $request, int $id): JsonResponse
     {
         $slider = $this->sliderService->getOneSlider($id);
-        $response = new SliderResource($slider);
+        $response = new BannerResource($slider);
         $request->offsetSet(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID, CmsGlobalConfigService::getOrganizationOrInstituteOrIndustryAssociationTitle($slider->toArray()));
         $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
         return Response::json($response, ResponseAlias::HTTP_OK);
@@ -84,7 +84,7 @@ class BannerController extends Controller
         $filter[BaseModel::IS_CLIENT_SITE_RESPONSE_KEY] = BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG;
         $sliderList = $this->sliderService->getAllSliders($filter);
         $request->offsetSet(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID, CmsGlobalConfigService::getOrganizationOrInstituteOrIndustryAssociationTitle($sliderList->toArray()['data'] ?? $sliderList->toArray()));
-        $response = SliderResource::collection($sliderList)->resource;
+        $response = BannerResource::collection($sliderList)->resource;
         $response = getResponse($response->toArray(), $this->startTime, !BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
@@ -101,7 +101,7 @@ class BannerController extends Controller
         $request->offsetSet(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY, BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG);
         $slider = $this->sliderService->getOneSlider($id);
         $request->offsetSet(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID, CmsGlobalConfigService::getOrganizationOrInstituteOrIndustryAssociationTitle($slider->toArray()));
-        $response = new SliderResource($slider);
+        $response = new BannerResource($slider);
         $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
@@ -142,7 +142,7 @@ class BannerController extends Controller
                 }
                 app(CmsLanguageService::class)->store($languageFillablePayload);
             }
-            $response = new SliderResource($slider);
+            $response = new BannerResource($slider);
             $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
             DB::commit();
         } catch (Throwable $e) {
@@ -188,7 +188,7 @@ class BannerController extends Controller
                 }
             }
             app(CmsLanguageService::class)->createOrUpdate($languageFillablePayload, $slider->id);
-            $response = new SliderResource($slider);
+            $response = new BannerResource($slider);
             $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK, $message);
             DB::commit();
 

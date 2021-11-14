@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Schema;
 
-class SliderSeeder extends Seeder
+class BannerSeeder extends Seeder
 {
     /**
      * Run the database seeds.
