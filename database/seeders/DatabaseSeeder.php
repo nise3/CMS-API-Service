@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
         $this->call(LanguageConfigSeeder::class);
         $this->call(FaqSeeder::class);
         $this->call(CalenderEventSeeder::class);
+        $this->call(SliderSeeder::class);
         $this->call(BannerSeeder::class);
         $this->call(StaticPageSeeder::class);
         $this->call(NoticeOrNewsSeeder::class);

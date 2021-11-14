@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\CmsLanguage;
 use App\Models\Banner;
+use App\Models\Slider;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Schema;
@@ -19,9 +20,17 @@ class BannerSeeder extends Seeder
     {
         Schema::disableForeignKeyConstraints();
         Banner::query()->truncate();
-        for ($i = 0; $i < 10; $i++) {
+        $sliders = Slider::all();
+
+        foreach ($sliders as $slider) {
             /** @var Banner $banner */
-            $banner = Banner::factory()->create();
+            $banner = Banner::factory()->state(
+                new sequence(
+                    [
+                        'slider_id' => $slider->id
+                    ],
+                )
+            )->create();
             CmsLanguage::factory()
                 ->state(
                     new Sequence(
