@@ -37,23 +37,27 @@ class BannerService
 
         $bannerBuilder = Banner::select([
             'banners.id',
-            'banners.title_en',
+            'banners.slider_id',
             'banners.title',
-            'banners.sub_title_en',
             'banners.sub_title',
             'banners.is_button_available',
-            'banners.link',
             'banners.button_text',
-            'banners.banner_images',
-            'banners.alt_title_en',
-            'banners.alt_title',
+            'banners.link',
+            'banners.alt_image_title',
             'banners.banner_template_code',
             'banners.row_status',
+            'banners.created_by',
+            'banners.updated_by',
             'banners.created_at',
             'banners.updated_at',
 
         ]);
+        $bannerBuilder->join('sliders', function ($join) {
+            $join->on('banners.slider_id', '=', 'sliders.id')
+                ->whereNull('sliders.deleted_at');
+        });
         $bannerBuilder->orderBy('banners.id', $order);
+
 
         if ($isRequestFromClientSide) {
             $bannerBuilder->active();
@@ -96,25 +100,24 @@ class BannerService
 
         $bannerBuilder = Banner::select([
             'banners.id',
-            'banners.show_in',
-            'banners.institute_id',
-            'banners.organization_id',
-            'banners.industry_association_id',
-            'banners.title_en',
+            'banners.slider_id',
             'banners.title',
-            'banners.sub_title_en',
             'banners.sub_title',
             'banners.is_button_available',
-            'banners.link',
             'banners.button_text',
-            'banners.banner_images',
-            'banners.alt_title_en',
-            'banners.alt_title',
+            'banners.link',
+            'banners.alt_image_title',
             'banners.banner_template_code',
             'banners.row_status',
+            'banners.created_by',
+            'banners.updated_by',
             'banners.created_at',
             'banners.updated_at',
         ]);
+        $bannerBuilder->join('sliders', function ($join) {
+            $join->on('banners.slider_id', '=', 'sliders.id')
+                ->whereNull('sliders.deleted_at');
+        });
         $bannerBuilder->where('banners.id', $id);
         /** @var Banner $banner */
         return $bannerBuilder->firstOrFail();
@@ -213,7 +216,7 @@ class BannerService
             "banner_template_code.in" => "The :attribute must be with in " . implode(", ", array_keys(Banner::BANNER_TEMPLATE_TYPES)) . ".[30000]"
         ];
         $rules = [
-            'slider_id'=>[
+            'slider_id' => [
                 'required',
                 'integer',
                 'exists:sliders,id,deleted_at,NULL'

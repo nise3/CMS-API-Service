@@ -23,14 +23,14 @@ use Exception;
 
 class BannerController extends Controller
 {
-    public BannerService $sliderService;
+    public BannerService $bannerService;
     private Carbon $startTime;
 
 
-    public function __construct(BannerService $sliderService)
+    public function __construct(BannerService $bannerService)
     {
         $this->startTime = Carbon::now();
-        $this->sliderService = $sliderService;
+        $this->bannerService = $bannerService;
     }
 
     /**
@@ -44,8 +44,8 @@ class BannerController extends Controller
     public function getList(Request $request): JsonResponse
     {
         $request->offsetSet(BaseModel::IS_COLLECTION_KEY, BaseModel::IS_COLLECTION_FLAG);
-        $filter = $this->sliderService->filterValidator($request)->validate();
-        $sliderList = $this->sliderService->getAllSliders($filter);
+        $filter = $this->bannerService->filterValidator($request)->validate();
+        $sliderList = $this->bannerService->getAllBanners($filter);
         $request->offsetSet(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID, CmsGlobalConfigService::getOrganizationOrInstituteOrIndustryAssociationTitle($sliderList->toArray()['data'] ?? $sliderList->toArray()));
         $response = BannerResource::collection($sliderList)->resource;
         $response = getResponse($response->toArray(), $this->startTime, !BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
@@ -64,7 +64,7 @@ class BannerController extends Controller
      */
     public function read(Request $request, int $id): JsonResponse
     {
-        $slider = $this->sliderService->getOneSlider($id);
+        $slider = $this->bannerService->getOneBanner($id);
         $response = new BannerResource($slider);
         $request->offsetSet(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID, CmsGlobalConfigService::getOrganizationOrInstituteOrIndustryAssociationTitle($slider->toArray()));
         $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
@@ -80,9 +80,9 @@ class BannerController extends Controller
     public function clientSideGetList(Request $request): JsonResponse
     {
         $request->offsetSet(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY, BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG);
-        $filter = $this->sliderService->filterValidator($request)->validate();
+        $filter = $this->bannerService->filterValidator($request)->validate();
         $filter[BaseModel::IS_CLIENT_SITE_RESPONSE_KEY] = BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG;
-        $sliderList = $this->sliderService->getAllSliders($filter);
+        $sliderList = $this->bannerService->getAllBanners($filter);
         $request->offsetSet(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID, CmsGlobalConfigService::getOrganizationOrInstituteOrIndustryAssociationTitle($sliderList->toArray()['data'] ?? $sliderList->toArray()));
         $response = BannerResource::collection($sliderList)->resource;
         $response = getResponse($response->toArray(), $this->startTime, !BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
@@ -99,7 +99,7 @@ class BannerController extends Controller
     public function clientSideRead(Request $request, int $id): JsonResponse
     {
         $request->offsetSet(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY, BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG);
-        $slider = $this->sliderService->getOneSlider($id);
+        $slider = $this->bannerService->getOneBanner($id);
         $request->offsetSet(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID, CmsGlobalConfigService::getOrganizationOrInstituteOrIndustryAssociationTitle($slider->toArray()));
         $response = new BannerResource($slider);
         $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
@@ -117,18 +117,18 @@ class BannerController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
-        $validatedData = $this->sliderService->validator($request)->validate();
+        $validatedData = $this->bannerService->validator($request)->validate();
         $message = "Banner successfully added";
         $otherLanguagePayload = $validatedData['other_language_fields'] ?? [];
         $isLanguage = (bool)count(array_intersect(array_keys($otherLanguagePayload), LanguageCodeService::getLanguageCode()));
         DB::beginTransaction();
         try {
-            $slider = $this->sliderService->store($validatedData);
+            $slider = $this->bannerService->store($validatedData);
             if ($isLanguage) {
                 $languageFillablePayload = [];
                 foreach ($otherLanguagePayload as $key => $value) {
-                    $languageValidatedData = $this->sliderService->languageFieldValidator($value, $key)->validate();
-                    foreach (Banner::SLIDER_LANGUAGE_FIELDS as $fillableColumn) {
+                    $languageValidatedData = $this->bannerService->languageFieldValidator($value, $key)->validate();
+                    foreach (Banner::BANNER_LANGUAGE_FIELDS as $fillableColumn) {
                         if (isset($languageValidatedData[$fillableColumn])) {
                             $languageFillablePayload[] = [
                                 "table_name" => $slider->getTable(),
@@ -164,17 +164,17 @@ class BannerController extends Controller
     public function update(Request $request, int $id): JsonResponse
     {
         $slider = Banner::findOrFail($id);
-        $validatedData = $this->sliderService->validator($request)->validate();
+        $validatedData = $this->bannerService->validator($request)->validate();
         $message = "Banner successfully update";
         $otherLanguagePayload = $validatedData['other_language_fields'] ?? [];
         $isLanguage = (bool)count(array_intersect(array_keys($otherLanguagePayload), LanguageCodeService::getLanguageCode()));
         DB::beginTransaction();
         try {
-            $slider = $this->sliderService->update($slider, $validatedData);
+            $slider = $this->bannerService->update($slider, $validatedData);
             $languageFillablePayload = [];
             foreach ($otherLanguagePayload as $key => $value) {
-                $languageValidatedData = $this->sliderService->languageFieldValidator($value, $key)->validate();
-                foreach (Banner::SLIDER_LANGUAGE_FIELDS as $fillableColumn) {
+                $languageValidatedData = $this->bannerService->languageFieldValidator($value, $key)->validate();
+                foreach (Banner::BANNER_LANGUAGE_FIELDS as $fillableColumn) {
                     if (isset($languageValidatedData[$fillableColumn])) {
                         $languageFillablePayload[] = [
                             "table_name" => $slider->getTable(),
@@ -206,7 +206,7 @@ class BannerController extends Controller
     public function destroy(int $id): JsonResponse
     {
         $slider = Banner::findOrFail($id);
-        $destroyStatus = $this->sliderService->destroy($slider);
+        $destroyStatus = $this->bannerService->destroy($slider);
         $message = $destroyStatus ? "Banner successfully deleted" : "Banner is not deleted";
         $response = getResponse($destroyStatus, $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK, $message);
         return Response::json($response, ResponseAlias::HTTP_OK);
