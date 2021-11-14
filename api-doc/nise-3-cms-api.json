@@ -803,8 +803,6 @@
                 ]
             }
         },
-
-
         "/public/sliders": {
             "get": {
                 "summary": "Get All public sliders",
@@ -953,7 +951,7 @@
         "/sliders": {
             "get": {
                 "summary": "Get All sliders",
-                "description":"API endpoint to get a private Slider.A successful request response will show 200 HTTP status code",
+                "description": "API endpoint to get a private Slider.A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/show_in"
@@ -1493,7 +1491,7 @@
                                 "schema": {
                                     "$ref": "#/components/schemas/Banner"
                                 },
-                                "example":{
+                                "example": {
                                     "data": {
                                         "id": 1,
                                         "is_button_available": 1,
@@ -1553,7 +1551,7 @@
                             "schema": {
                                 "$ref": "#/components/schemas/Banner"
                             },
-                            "example":{
+                            "example": {
                                 "data": {
                                     "id": 1,
                                     "is_button_available": "1",
@@ -1678,7 +1676,6 @@
                 ]
             }
         },
-
         "/public/faqs": {
             "get": {
                 "summary": "Get All public faqs",
@@ -3480,8 +3477,7 @@
                         "schema": {
                             "type": "string"
                         }
-                    }
-                    ,
+                    },
                     {
                         "$ref": "#/components/parameters/Accept-Language"
                     },
@@ -3680,13 +3676,13 @@
                 ]
             }
         },
-        "/static-pages/{staticpagesId}": {
+        "/static-pages/{staticPagesId}": {
             "get": {
                 "summary": "Get static Page by Id",
                 "description": "API endpoint to get a Static Page.A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
-                        "name": "staticpagesId",
+                        "name": "staticPagesId",
                         "in": "path",
                         "required": true,
                         "schema": {
@@ -3828,13 +3824,13 @@
                 ]
             }
         },
-        "/public/static-pages/{content_slug_or_id}": {
+        "/public/static-pages/{contentSlugOrId}": {
             "get": {
                 "summary": "Get a public static page by Id",
                 "description": "API endpoint to get all a Static Page.A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
-                        "name": "content_slug_or_id",
+                        "name": "contentSlugOrId",
                         "in": "path",
                         "required": true,
                         "schema": {
@@ -7223,7 +7219,7 @@
                             0
                         ]
                     },
-                    "other_language_fields":{
+                    "other_language_fields": {
                         "type": "object",
                         "example": "\n[\n\n\"hi\"=>[\n\t\"title\"=>\"सामूहिक बाढ़\",\n        \"sub_title\"=>\"सामूहिक बाढ़\",\n\t\"button_text\"=>\"सामूहिक बाढ़\",\n        \"alt_image_title\"=>\"सामूहिक बाढ़\",\n     ]\n]"
                     }
@@ -7295,7 +7291,6 @@
                         "minLength": 1,
                         "maxLength": 500
                     },
-
                     "details": {
                         "type": "string"
                     },
@@ -7315,7 +7310,6 @@
                         "type": "string",
                         "description": "alt image title in Bengali"
                     },
-
                     "file_alt_title": {
                         "type": "string",
                         "description": "alt file title in Bengali"
