@@ -50,6 +50,10 @@ class SliderService
             $sliderBuilder->where('sliders.organization_id', '=', $organizationId);
         }
 
+        if (is_numeric($industryAssociationId)) {
+            $sliderBuilder->where('sliders.industry_association_id', '=', $industryAssociationId);
+        }
+
         if (is_numeric($rowStatus)) {
             $sliderBuilder->where('sliders.row_status', '=', $rowStatus);
         }
@@ -170,7 +174,6 @@ class SliderService
                 Rule::in([BaseModel::ROW_STATUS_ACTIVE, BaseModel::ROW_STATUS_INACTIVE]),
             ]
         ];
-        $rules = array_merge($rules, BaseModel::OTHER_LANGUAGE_VALIDATION_RULES);
         return Validator::make($request->all(), $rules, $customMessage);
 
     }
@@ -191,8 +194,6 @@ class SliderService
         }
 
         return Validator::make($request->all(), [
-            'title_en' => 'nullable|max:200|min:2',
-            'title' => 'nullable|max:500|min:2',
             'page' => 'nullable|integer|gt:0',
             'page_size' => 'nullable|integer|gt:0',
             'institute_id' => 'nullable|integer|gt:0',
