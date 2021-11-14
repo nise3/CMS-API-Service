@@ -6808,7 +6808,8 @@
                         ]
                     },
                     "content_slug_or_id": {
-                        "type": "integer"
+                        "type": "integer",
+                        "description": "This field should be unique for bellow criteria: \n 1) When show_in=1 OR 2, then combination of show_in and content_slug_or_id must be unique \n 2) When show_in=3, then combination of institute_id and content_slug_or_id must be unique \n 3) When show_in=4, then combination of organization_id and content_slug_or_id must be unique"
                     },
                     "title": {
                         "type": "string",
