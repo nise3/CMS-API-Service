@@ -6872,6 +6872,35 @@
                 "properties": {
                     "show_in": {
                         "type": "integer",
+                        "enum": [
+                            1,
+                            2,
+                            3,
+                            4,
+                            5
+                        ],
+                        "description": "SHOW_IN_NISE3 = 1;\n     SHOW_IN_YOUTH = 2;\n     SHOW_IN_TSP = 3;\n     SHOW_IN_INDUSTRY = 4;"
+                    },
+                    "institute_id": {
+                        "type": "integer",
+                        "description": "Required when you give show_in = 3"
+                    },
+                    "organization_id": {
+                        "type": "integer",
+                        "description": "Required when you give show_in = 4"
+                    },
+                    "industry_association_id": {
+                        "type": "integer",
+                        "description": "organization_association id"
+                    }
+                }
+            },
+            "Banner": {
+                "type": "object",
+                "description": "Provide banners",
+                "properties": {
+                    "show_in": {
+                        "type": "integer",
                         "description": "1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry",
                         "enum": [
                             1,
@@ -7010,14 +7039,7 @@
                         "minLength": 1,
                         "maxLength": 500
                     },
-                    "institute_id": {
-                        "type": "integer",
-                        "description": "Required when you give show_in = 3"
-                    },
-                    "organization_id": {
-                        "type": "integer",
-                        "description": "Required when you give show_in = 4"
-                    },
+
                     "details": {
                         "type": "string"
                     },
@@ -7037,17 +7059,7 @@
                         "type": "string",
                         "description": "alt image title in Bengali"
                     },
-                    "show_in": {
-                        "type": "integer",
-                        "enum": [
-                            1,
-                            2,
-                            3,
-                            4,
-                            5
-                        ],
-                        "description": "SHOW_IN_NISE3 = 1;\n     SHOW_IN_YOUTH = 2;\n     SHOW_IN_TSP = 3;\n     SHOW_IN_INDUSTRY = 4;"
-                    },
+
                     "file_alt_title": {
                         "type": "string",
                         "description": "alt file title in Bengali"
