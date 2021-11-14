@@ -38,6 +38,8 @@ class BannerService
         $bannerBuilder = Banner::select([
             'banners.id',
             'banners.slider_id',
+            'sliders.organization_id',
+            'sliders.institute_id',
             'banners.title',
             'banners.sub_title',
             'banners.is_button_available',
@@ -101,6 +103,8 @@ class BannerService
         $bannerBuilder = Banner::select([
             'banners.id',
             'banners.slider_id',
+            'sliders.organization_id',
+            'sliders.institute_id',
             'banners.title',
             'banners.sub_title',
             'banners.is_button_available',
