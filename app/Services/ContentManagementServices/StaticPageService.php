@@ -86,7 +86,7 @@ class StaticPageService
         }
 
         if (!empty($contentSlugOrId)) {
-            $staticPageBuilder->where('static_pages_and_block.content_slug_or_id', 'like', '%' . $contentSlugOrId . '%');
+            $staticPageBuilder->where('static_pages_and_block.content_slug_or_id', $contentSlugOrId);
         }
 
         if (is_numeric($showIn)) {

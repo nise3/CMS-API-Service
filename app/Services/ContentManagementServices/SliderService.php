@@ -58,9 +58,12 @@ class SliderService
             $sliderBuilder->where('sliders.row_status', '=', $rowStatus);
         }
 
-
         if (is_numeric($showIn)) {
             $sliderBuilder->where('sliders.show_in', '=', $showIn);
+        }
+
+        if($isRequestFromClientSide){
+            $sliderBuilder->with('banners');
         }
 
         /** @var Collection $sliders */

@@ -31,6 +31,16 @@ class SliderResource extends JsonResource
             "organization_id" => $this->organization_id,
         ];
 
+        if($request->offsetExists(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY) && $request->get(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY)){
+            $response['banners'] = $this->banners;
+        }
+
+        $response['row_status'] = $this->row_status;
+        $response['created_by'] = $this->created_by;
+        $response['updated_by'] = $this->updated_by;
+        $response['created_at'] = $this->created_at;
+        $response['updated_at'] = $this->updated_at;
+
         return $response;
     }
 }

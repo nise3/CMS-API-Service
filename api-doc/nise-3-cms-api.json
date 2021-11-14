@@ -950,35 +950,6 @@
                 ]
             }
         },
-        "/public/sliders/{sliderId}": {
-            "get": {
-                "summary": "Get a public slider",
-                "description": "API endpoint to get a public Slider.A successful request response will show 200 HTTP status code",
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "sliderId",
-                        "schema": {
-                            "type": "integer"
-                        },
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successfull",
-                        "content": {
-                            "application/json": {
-                                "example": {}
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Sliders"
-                ]
-            }
-        },
         "/sliders": {
             "get": {
                 "summary": "Get All sliders",
