@@ -15,6 +15,8 @@ class CreateSlidersTable extends Migration
     {
         Schema::create('sliders', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedTinyInteger('show_in')
+                ->comment('1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry, 5=>Industry Association');
             $table->unsignedInteger('institute_id')->nullable();
             $table->unsignedInteger('organization_id')->nullable();
             $table->unsignedInteger('industry_association_id')->nullable();
