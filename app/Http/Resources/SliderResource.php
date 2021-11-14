@@ -30,5 +30,7 @@ class SliderResource extends JsonResource
             "institute_id" => $this->institute_id,
             "organization_id" => $this->organization_id,
         ];
+
+        return $response;
     }
 }
