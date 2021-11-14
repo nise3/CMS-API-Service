@@ -16,9 +16,9 @@ class CreateBannersTable extends Migration
         Schema::create('banners', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('slider_id');
-            $table->string('title_en', 191)->nullable();
+            $table->string('title_en', 300)->nullable();
             $table->string('title', 500);
-            $table->string('sub_title_en', 191);
+            $table->string('sub_title_en', 300);
             $table->string('sub_title', 500);
             $table->unsignedTinyInteger('is_button_available')->default(0);
             $table->string('button_text', 20)->nullable();

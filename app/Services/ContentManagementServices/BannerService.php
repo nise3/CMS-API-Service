@@ -5,16 +5,13 @@ namespace App\Services\ContentManagementServices;
 use App\Models\BaseModel;
 use App\Models\Banner;
 use App\Services\Common\LanguageCodeService;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
-use Symfony\Component\HttpFoundation\Response;
 
 class BannerService
 {
@@ -23,7 +20,7 @@ class BannerService
      * @param array $request
      * @return Collection|LengthAwarePaginator|array
      */
-    public function getAllSliders(array $request): Collection|LengthAwarePaginator|array
+    public function getAllBanners(array $request): Collection|LengthAwarePaginator|array
     {
 
         $titleEn = $request['title_en'] ?? "";
@@ -34,117 +31,93 @@ class BannerService
         $pageSize = $request['page_size'] ?? "";
         $rowStatus = $request['row_status'] ?? "";
         $order = $request['order'] ?? "ASC";
-        $instituteId = $request['institute_id'] ?? "";
-        $organizationId = $request['organization_id'] ?? "";
-        $industryAssociationId = $request['industry_association_id'] ?? "";
-        $showIn = $request['show_in'] ?? "";
         $isRequestFromClientSide = !empty($request[BaseModel::IS_CLIENT_SITE_RESPONSE_KEY]);
 
-        /** @var Builder $sliderBuilder */
+        /** @var Builder $bannerBuilder */
 
-        $sliderBuilder = Banner::select([
-            'sliders.id',
-            'sliders.show_in',
-            'sliders.institute_id',
-            'sliders.organization_id',
-            'sliders.industry_association_id',
-            'sliders.title_en',
-            'sliders.title',
-            'sliders.sub_title_en',
-            'sliders.sub_title',
-            'sliders.is_button_available',
-            'sliders.link',
-            'sliders.button_text',
-            'sliders.slider_images',
-            'sliders.alt_title_en',
-            'sliders.alt_title',
-            'sliders.banner_template_code',
-            'sliders.row_status',
-            'sliders.created_at',
-            'sliders.updated_at',
+        $bannerBuilder = Banner::select([
+            'banners.id',
+            'banners.title_en',
+            'banners.title',
+            'banners.sub_title_en',
+            'banners.sub_title',
+            'banners.is_button_available',
+            'banners.link',
+            'banners.button_text',
+            'banners.banner_images',
+            'banners.alt_title_en',
+            'banners.alt_title',
+            'banners.banner_template_code',
+            'banners.row_status',
+            'banners.created_at',
+            'banners.updated_at',
 
         ]);
-        $sliderBuilder->orderBy('sliders.id', $order);
+        $bannerBuilder->orderBy('banners.id', $order);
 
         if ($isRequestFromClientSide) {
-            $sliderBuilder->active();
+            $bannerBuilder->active();
         }
 
         if (is_numeric($rowStatus)) {
-            $sliderBuilder->where('sliders.row_status', $rowStatus);
+            $bannerBuilder->where('banners.row_status', $rowStatus);
         }
 
         if (!empty($titleEn)) {
-            $sliderBuilder->where('sliders.title_en', 'like', '%' . $titleEn . '%');
+            $bannerBuilder->where('banners.title_en', 'like', '%' . $titleEn . '%');
         }
         if (!empty($titleBn)) {
-            $sliderBuilder->where('sliders.title', 'like', '%' . $titleBn . '%');
+            $bannerBuilder->where('banners.title', 'like', '%' . $titleBn . '%');
         }
         if (!empty($subTitleEn)) {
-            $sliderBuilder->where('sliders.sub_title_en', 'like', '%' . $subTitleEn . '%');
+            $bannerBuilder->where('banners.sub_title_en', 'like', '%' . $subTitleEn . '%');
         }
         if (!empty($subTitleBn)) {
-            $sliderBuilder->where('sliders.sub_title', 'like', '%' . $subTitleBn . '%');
-        }
-
-        if (is_numeric($instituteId)) {
-            $sliderBuilder->where('sliders.institute_id', '=', $instituteId);
-        }
-
-        if (is_numeric($organizationId)) {
-            $sliderBuilder->where('sliders.organization_id', '=', $organizationId);
-        }
-
-        if (is_numeric($industryAssociationId)) {
-            $sliderBuilder->where('sliders.industry_association_id', '=', $industryAssociationId);
-        }
-
-        if (is_numeric($showIn)) {
-            $sliderBuilder->where('sliders.show_in', '=', $showIn);
+            $bannerBuilder->where('banners.sub_title', 'like', '%' . $subTitleBn . '%');
         }
 
 
-        /** @var Collection $sliders */
-        $sliders = [];
+        /** @var Collection $banners */
+        $banners = [];
         if (is_numeric($paginate) || is_numeric($pageSize)) {
             $pageSize = $pageSize ?: 10;
-            $sliders = $sliderBuilder->paginate($pageSize);
+            $banners = $bannerBuilder->paginate($pageSize);
         } else {
-            $sliders = $sliderBuilder->get();
+            $banners = $bannerBuilder->get();
         }
 
-        return $sliders;
+        return $banners;
 
     }
 
-    public function getOneSlider(int $id): Builder|Model
+    public function getOneBanner(int $id): Builder|Model
     {
-        /** @var Builder $sliderBuilder */
+        /** @var Builder $bannerBuilder */
 
-        $sliderBuilder = Banner::select([
-            'sliders.id',
-            'sliders.show_in',
-            'sliders.institute_id',
-            'sliders.organization_id',
-            'sliders.industry_association_id',
-            'sliders.title_en',
-            'sliders.title',
-            'sliders.sub_title_en',
-            'sliders.sub_title',
-            'sliders.is_button_available',
-            'sliders.link',
-            'sliders.button_text',
-            'sliders.slider_images',
-            'sliders.alt_title_en',
-            'sliders.alt_title',
-            'sliders.banner_template_code',
-            'sliders.row_status',
-            'sliders.created_at',
-            'sliders.updated_at',
+        $bannerBuilder = Banner::select([
+            'banners.id',
+            'banners.show_in',
+            'banners.institute_id',
+            'banners.organization_id',
+            'banners.industry_association_id',
+            'banners.title_en',
+            'banners.title',
+            'banners.sub_title_en',
+            'banners.sub_title',
+            'banners.is_button_available',
+            'banners.link',
+            'banners.button_text',
+            'banners.banner_images',
+            'banners.alt_title_en',
+            'banners.alt_title',
+            'banners.banner_template_code',
+            'banners.row_status',
+            'banners.created_at',
+            'banners.updated_at',
         ]);
-        $sliderBuilder->where('sliders.id', $id);
-        /** @var Banner $slider */
-        return $sliderBuilder->firstOrFail();
+        $bannerBuilder->where('banners.id', $id);
+        /** @var Banner $banner */
+        return $bannerBuilder->firstOrFail();
     }
 
     /**
@@ -153,32 +126,32 @@ class BannerService
      */
     public function store(array $data): Banner
     {
-        $slider = new Banner();
-        $slider->fill($data);
-        $slider->save();
-        return $slider;
+        $banner = new Banner();
+        $banner->fill($data);
+        $banner->save();
+        return $banner;
     }
 
     /**
-     * @param Banner $slider
+     * @param Banner $banner
      * @param array $data
      * @return Banner
      */
-    public function update(Banner $slider, array $data): Banner
+    public function update(Banner $banner, array $data): Banner
     {
 
-        $slider->fill($data);
-        $slider->save();
-        return $slider;
+        $banner->fill($data);
+        $banner->save();
+        return $banner;
     }
 
     /**
-     * @param Banner $slider
+     * @param Banner $banner
      * @return bool
      */
-    public function destroy(Banner $slider): bool
+    public function destroy(Banner $banner): bool
     {
-        return $slider->delete();
+        return $banner->delete();
     }
 
 
@@ -220,7 +193,7 @@ class BannerService
                 'string',
                 'max:20'
             ],
-            'alt_title' => [
+            'alt_image_title' => [
                 'string',
                 'nullable'
             ],
@@ -235,42 +208,15 @@ class BannerService
      */
     public function validator($request, int $id = null): \Illuminate\Contracts\Validation\Validator
     {
-        if (!empty($request["slider_images"])) {
-            $request["slider_images"] = is_array($request['slider_images']) ? $request['slider_images'] : explode(',', $request['slider_images']);
-        }
         $customMessage = [
             'row_status.in' => 'The :attribute must be within 1 or 0.[30000]',
             "banner_template_code.in" => "The :attribute must be with in " . implode(", ", array_keys(Banner::BANNER_TEMPLATE_TYPES)) . ".[30000]"
         ];
         $rules = [
-            'show_in' => [
+            'slider_id'=>[
                 'required',
                 'integer',
-                Rule::in(array_keys(BaseModel::SHOW_INS))
-            ],
-            'institute_id' => [
-                Rule::requiredIf(function () use ($request) {
-                    return $request->input('show_in') == BaseModel::SHOW_IN_TSP;
-                }),
-                "nullable",
-                "integer",
-                "gt:0",
-            ],
-            'industry_association_id' => [
-                Rule::requiredIf(function () use ($request) {
-                    return $request->input('show_in') == BaseModel::SHOW_IN_INDUSTRY_ASSOCIATION;
-                }),
-                "nullable",
-                "integer",
-                "gt:0",
-            ],
-            'organization_id' => [
-                Rule::requiredIf(function () use ($request) {
-                    return $request->input('show_in') == BaseModel::SHOW_IN_INDUSTRY;
-                }),
-                "nullable",
-                "integer",
-                "gt:0",
+                'exists:sliders,id,deleted_at,NULL'
             ],
             'title' => [
                 'required',
@@ -281,7 +227,7 @@ class BannerService
             'sub_title' => [
                 'required',
                 'string',
-                'max:191',
+                'max:300',
                 'min:2'
             ],
             'is_button_available' => [
@@ -301,20 +247,18 @@ class BannerService
                 'string',
                 'max:20'
             ],
-            'slider_images' => [
-                'required',
-                'array',
-            ],
-            'slider_images.*' => [
-                'string',
-            ],
-            'alt_title' => [
+            'alt_image_title' => [
                 'string',
                 'nullable'
             ],
             "banner_template_code" => [
                 "nullable",
                 Rule::in(array_keys(Banner::BANNER_TEMPLATE_TYPES))
+            ],
+            "banner_image_url" => [
+                "required",
+                "string",
+                "max:600"
             ],
             'row_status' => [
                 'required_if:' . $id . ',!=,null',
@@ -350,12 +294,8 @@ class BannerService
             'sub_title_en' => 'nullable|max:500|min:2',
             'title' => 'nullable|max:191|min:2',
             'sub_title' => 'nullable|max:500|min:2',
-            'page' => 'numeric|gt:0',
-            'page_size' => 'numeric|gt:0',
-            'institute_id' => 'nullable|integer|gt:0',
-            'organization_id' => 'nullable|integer|gt:0',
-            'industry_association_id' => 'nullable|integer|gt:0',
-            'show_in' => 'nullable|integer|gt:0',
+            'page' => 'nullable|numeric|gt:0',
+            'page_size' => 'nullable|numeric|gt:0',
             'order' => [
                 'string',
                 Rule::in([BaseModel::ROW_ORDER_ASC, BaseModel::ROW_ORDER_DESC])
