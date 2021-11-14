@@ -72,7 +72,7 @@ class VisitorFeedbackSuggestionController extends Controller
             '_response_status' => [
                 "success" => true,
                 "code" => ResponseAlias::HTTP_CREATED,
-                "message" => "Occupation added successfully.",
+                "message" => "visitor Feedback Suggestion added successfully.",
                 "query_time" => $this->startTime->diffInSeconds(Carbon::now())
             ]
         ];

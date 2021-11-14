@@ -21,6 +21,7 @@ class GalleryAlbumFactory extends Factory
             'album_type' => $this->faker->randomElement(GalleryAlbum::GALLERY_ALBUM_TYPES),
             'published_at' => Carbon::now(),
             'organization_id' => $this->faker->numberBetween(1, 10),
+            'institute_id' => $this->faker->numberBetween(1, 10),
             'industry_association_id' => $this->faker->numberBetween(1, 10),
             'batch_id' => $this->faker->numberBetween(1, 10),
             'program_id' => $this->faker->numberBetween(1, 10),
