@@ -217,6 +217,7 @@ class StaticPageService
         $customMessage = [
             'row_status.in' => 'Row status must be within 1 or 0. [30000]'
         ];
+        $request->offsetSet('deleted_at', null);
         $rules = [
             'content_type' => [
                 'required',
@@ -285,6 +286,23 @@ class StaticPageService
                 Rule::in([BaseModel::ROW_STATUS_ACTIVE, BaseModel::ROW_STATUS_INACTIVE]),
             ]
         ];
+
+        /** Add validation for field "content_slug_or_id" */
+        if($request->filled('show_in')){
+            if($request->input('show_in') == BaseModel::SHOW_IN_NISE3 || $request->input('show_in') == BaseModel::SHOW_IN_YOUTH){
+                $rules['content_slug_or_id'][] = 'unique_with:static_pages_and_block,show_in,deleted_at,' . $id;
+            }
+            if($request->input('show_in') == BaseModel::SHOW_IN_TSP){
+                $rules['content_slug_or_id'][] = 'unique_with:static_pages_and_block,institute_id,deleted_at,' . $id;
+            }
+            if($request->input('show_in') == BaseModel::SHOW_IN_INDUSTRY){
+                $rules['content_slug_or_id'][] = 'unique_with:static_pages_and_block,organization_id,deleted_at,' . $id;
+            }
+            if($request->input('show_in') == BaseModel::SHOW_IN_INDUSTRY_ASSOCIATION){
+                $rules['content_slug_or_id'][] = 'unique_with:static_pages_and_block,industry_association_id,deleted_at,' . $id;
+            }
+        }
+
         $rules = array_merge($rules, BaseModel::OTHER_LANGUAGE_VALIDATION_RULES);
         return Validator::make($request->all(), $rules, $customMessage);
 
