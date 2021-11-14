@@ -16,7 +16,7 @@ class StaticPageFactory extends Factory
         return [
             'show_in' => $this->faker->randomElement(array_keys(BaseModel::SHOW_INS)),
             'content_type' => $this->faker->randomElement(StaticPage::CONTENT_TYPES),
-            "content_slug_or_id" => $this->faker->sentence(),
+            "content_slug_or_id" => $this->faker->word(),
             'institute_id' => $this->faker->numberBetween(1, 10),
             'organization_id' => $this->faker->numberBetween(1, 10),
             'industry_association_id' => $this->faker->numberBetween(1, 10),

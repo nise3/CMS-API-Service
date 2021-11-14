@@ -106,10 +106,10 @@ class StaticPageService
     }
 
     /**
-     * @param int $id
+     * @param string $contentSlugId
      * @return Builder|Model
      */
-    public function getOneStaticPage(int $id): Builder|Model
+    public function getOneStaticPage(string $contentSlugId): Builder|Model
     {
         /** @var Builder $staticPageBuilder */
         $staticPageBuilder = StaticPage::select([
@@ -132,7 +132,7 @@ class StaticPageService
             'static_pages_and_block.created_at',
             'static_pages_and_block.updated_at'
         ]);
-        $staticPageBuilder->where('static_pages_and_block.id', $id);
+        $staticPageBuilder->where('static_pages_and_block.content_slug_or_id', $contentSlugId);
 
 
         /** @var StaticPage $staticPage */
@@ -145,6 +145,9 @@ class StaticPageService
      */
     public function store(array $data): StaticPage
     {
+        if(!empty($data['content_slug_or_id'])){
+            $data['content_slug_or_id'] = str_replace(' ', '_', $data['content_slug_or_id']);
+        }
         $staticPage = new StaticPage();
         $staticPage->fill($data);
         $staticPage->save();

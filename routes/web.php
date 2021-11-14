@@ -57,7 +57,7 @@ $router->group(['prefix' => 'api/v1', 'as' => 'api.v1'], function () use ($route
 
     $router->group(['prefix' => 'public', 'as' => 'public'], function () use ($router) {
         $router->get('faqs/{id}', ["as" => "faqs.read", "uses" => "FaqController@clientSideRead"]);
-        $router->get('static-pages/{id}', ["as" => "static.pages.read", "uses" => "StaticPageController@clientSideRead"]);
+        $router->get('static-pages/{contentSlugId}', ["as" => "static.pages.read", "uses" => "StaticPageController@clientSideRead"]);
         $router->get('notice-or-news/{id}', ["as" => "notice.news.read", "uses" => "NoticeOrNewsController@clientSideRead"]);
         $router->get('recent-activities/{id}', ["as" => "recent.activities.read", "uses" => "RecentActivityController@clientSideRead"]);
         $router->get('nise3-partners/{id}', ["as" => "nise3.partners.read", "uses" => "Nise3PartnerController@clientSideRead"]);

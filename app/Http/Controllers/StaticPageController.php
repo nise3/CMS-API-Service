@@ -99,14 +99,14 @@ class StaticPageController extends Controller
      * Display the specified resource from client site.
      *
      * @param Request $request
-     * @param int $id
+     * @param string $contentSlugId
      * @return JsonResponse
      * @throws RequestException
      */
-    public function clientSideRead(Request $request, int $id): JsonResponse
+    public function clientSideRead(Request $request, string $contentSlugId): JsonResponse
     {
         $request->offsetSet(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY, BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG);
-        $staticPage = $this->staticPageService->getOneStaticPage($id);
+        $staticPage = $this->staticPageService->getOneStaticPage($contentSlugId);
         $request->offsetSet(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID, CmsGlobalConfigService::getOrganizationOrInstituteOrIndustryAssociationTitle($staticPage->toArray()));
         $response = new StaticPageResource($staticPage);
         $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
@@ -125,7 +125,6 @@ class StaticPageController extends Controller
     {
 
         $validatedData = $this->staticPageService->validator($request)->validate();
-
         $message = "Static Page is successfully added";
         $otherLanguagePayload = $validatedData['other_language_fields'] ?? [];
         $isLanguage = (bool)count(array_intersect(array_keys($otherLanguagePayload), LanguageCodeService::getLanguageCode()));
