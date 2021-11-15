@@ -18,8 +18,8 @@ class CreateBannersTable extends Migration
             $table->unsignedInteger('slider_id');
             $table->string('title_en', 300)->nullable();
             $table->string('title', 500);
-            $table->string('sub_title_en', 300);
-            $table->string('sub_title', 500);
+            $table->string('sub_title_en', 300)->nullable();
+            $table->string('sub_title', 500)->nullable();
             $table->unsignedTinyInteger('is_button_available')->default(0);
             $table->string('button_text', 20)->nullable();
             $table->string('link', 300)->nullable();
