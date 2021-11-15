@@ -24,6 +24,7 @@ class BannerResource extends JsonResource
             "is_button_available" => $this->is_button_available,
             "link" => $this->link,
             "slider_id" => $this->slider_id,
+            "slider_title" => $this->slider_title,
             "banner_template_code" => $this->banner_template_code,
             "banner_image_url" => $this->banner_image_url,
             "institute_id"=>$this->institute_id,

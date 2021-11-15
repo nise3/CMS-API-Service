@@ -32,6 +32,8 @@ class SliderService
 
         $sliderBuilder = Slider::select([
             'sliders.id',
+            'sliders.title_en',
+            'sliders.title',
             'sliders.show_in',
             'sliders.organization_id',
             'sliders.institute_id',
@@ -70,7 +72,7 @@ class SliderService
             $sliderBuilder->where('sliders.show_in', '=', $showIn);
         }
 
-        if($isRequestFromClientSide){
+        if ($isRequestFromClientSide) {
             $sliderBuilder->with('banners');
         }
 
@@ -90,6 +92,8 @@ class SliderService
     {
         $sliderBuilder = Slider::select([
             'sliders.id',
+            'sliders.title_en',
+            'sliders.title',
             'sliders.show_in',
             'sliders.organization_id',
             'sliders.institute_id',
