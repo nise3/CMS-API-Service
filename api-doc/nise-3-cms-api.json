@@ -954,6 +954,9 @@
                 "description": "API endpoint to get a private Slider.A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
+                        "$ref": "#/components/parameters/title_optional"
+                    },
+                    {
                         "$ref": "#/components/parameters/show_in"
                     },
                     {
@@ -7161,6 +7164,9 @@
                         "type": "integer",
                         "description": "Required when you give show_in = 4"
                     },
+                    "title": {
+                        "type": "string"
+                    },
                     "row_status": {
                         "type": "integer",
                         "description": "ACTIVE_STATUS = 1, INACTIVE_STATUS = 0",
@@ -7174,6 +7180,7 @@
                     "show_in",
                     "institute_id",
                     "organization_id",
+                    "title",
                     "row_status"
                 ]
             },
