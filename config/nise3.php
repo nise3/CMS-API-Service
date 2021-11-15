@@ -83,5 +83,55 @@ return [
                 "position"=>Banner::BANNER_CONTEXT_POSITION_BACKGROUND
             ]
         ]
+    ],
+    "static_page_template"=>[
+        Banner::BT_LR=>[
+            "banner_template_code"=>Banner::BT_LR,
+            "banner_template_title"=>Banner::BANNER_TEMPLATE_TYPES[Banner::BT_LR],
+            "title"=>[
+                "position"=>Banner::BANNER_CONTEXT_POSITION_LEFT
+            ],
+            "sub_title"=>[
+                "position"=>Banner::BANNER_CONTEXT_POSITION_LEFT
+            ],
+            "button"=>[
+                "position"=>Banner::BANNER_CONTEXT_POSITION_LEFT
+            ],
+            "context_path"=>[
+                "position"=>Banner::BANNER_CONTEXT_POSITION_RIGHT
+            ]
+        ],
+        Banner::BT_RL=>[
+            "banner_template_code"=>Banner::BT_RL,
+            "banner_template_title"=>Banner::BANNER_TEMPLATE_TYPES[Banner::BT_RL],
+            "title"=>[
+                "position"=>Banner::BANNER_CONTEXT_POSITION_RIGHT
+            ],
+            "sub_title"=>[
+                "position"=>Banner::BANNER_CONTEXT_POSITION_RIGHT
+            ],
+            "button"=>[
+                "position"=>Banner::BANNER_CONTEXT_POSITION_RIGHT
+            ],
+            "context_path"=>[
+                "position"=>Banner::BANNER_CONTEXT_POSITION_LEFT
+            ]
+        ],
+        Banner::BT_CB=>[
+            "banner_template_code"=>Banner::BT_CB,
+            "banner_template_title"=>Banner::BANNER_TEMPLATE_TYPES[Banner::BT_CB],
+            "title"=>[
+                "position"=>Banner::BANNER_CONTEXT_POSITION_CENTER
+            ],
+            "sub_title"=>[
+                "position"=>Banner::BANNER_CONTEXT_POSITION_CENTER
+            ],
+            "button"=>[
+                "position"=>Banner::BANNER_CONTEXT_POSITION_CENTER
+            ],
+            "context_path"=>[
+                "position"=>Banner::BANNER_CONTEXT_POSITION_BACKGROUND
+            ]
+        ]
     ]
 ];
