@@ -2,8 +2,10 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Banner;
 use App\Models\BaseModel;
 use App\Models\Slider;
+use App\Services\ContentManagementServices\CmsLanguageService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -34,6 +36,24 @@ class SliderResource extends JsonResource
 
         if ($request->offsetExists(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY) && $request->get(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY)) {
             $response['banners'] = $this->banners;
+
+            /** Change Banners Language Fillable fields value as per ACCEPT_LANGUAGE header field value */
+            if($this->banners && is_array(json_decode(json_encode($this->banners))) && count(json_decode(json_encode($this->banners))) > 0){
+                foreach ($response['banners'] as $banner){
+                    if(!empty($banner->title)){
+                        $banner->title = app(CmsLanguageService::class)->getLanguageValue(new BannerResource($banner), Banner::BANNER_LANGUAGE_ATTR_TITLE);
+                    }
+                    if(!empty($banner->sub_title)){
+                        $banner->sub_title = app(CmsLanguageService::class)->getLanguageValue(new BannerResource($banner), Banner::BANNER_LANGUAGE_ATTR_SUB_TITLE);
+                    }
+                    if(!empty($banner->alt_image_title)){
+                        $banner->alt_image_title = app(CmsLanguageService::class)->getLanguageValue(new BannerResource($banner), Banner::BANNER_LANGUAGE_ATTR_ALT_IMAGE_TITLE);
+                    }
+                    if(!empty($banner->button_text)){
+                        $banner->button_text = app(CmsLanguageService::class)->getLanguageValue(new BannerResource($banner), Banner::BANNER_LANGUAGE_ATTR_BUTTON_TEXT);
+                    }
+                }
+            }
         }
 
         $response['row_status'] = $this->row_status;
