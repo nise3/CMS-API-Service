@@ -809,6 +809,9 @@
                 "description": "Get All the sliders",
                 "parameters": [
                     {
+                        "$ref": "#/components/parameters/title_optional"
+                    },
+                    {
                         "$ref": "#/components/parameters/show_in"
                     },
                     {
@@ -7180,8 +7183,7 @@
                     "show_in",
                     "institute_id",
                     "organization_id",
-                    "title",
-                    "row_status"
+                    "title"
                 ]
             },
             "Banner": {
