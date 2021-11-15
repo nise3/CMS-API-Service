@@ -61,10 +61,38 @@ class BannerSeeder extends Seeder
                             'lang_code' => 'hi',
                             'column_name' => Banner::BANNER_LANGUAGE_ATTR_BUTTON_TEXT,
                             'column_value' => "भारत का इतिहास या फिर भूगोल"
+                        ],
+                        [
+                            'table_name' => $banner->getTable(),
+                            "key_id" => $banner->id,
+                            'lang_code' => 'te',
+                            'column_name' => Banner::BANNER_LANGUAGE_ATTR_TITLE,
+                            'column_value' => "మీరు ఏదైనా పరీక్షకు సిద్ధమవుతున్నట్లయితే, మంచి సాధారణ జ్ఞానం కలిగి ఉండటం చాలా ముఖ్యం. కాబట్టి ఏయే ప్రశ్నలు తెలుసుకుందాం"
+                        ],
+                        [
+                            'table_name' => $banner->getTable(),
+                            "key_id" => $banner->id,
+                            'lang_code' => 'te',
+                            'column_name' => Banner::BANNER_LANGUAGE_ATTR_SUB_TITLE,
+                            'column_value' => "భారతదేశం యొక్క చరిత్ర లేదా భౌగోళికం, ఇది చాలా పెద్దది, దానిని గుర్తుంచుకోవడంలో పెద్దలకు నిద్రలేని రాత్రులు అవుతుంది. ప్రతి ఒక్కరు అన్ని ప్రశ్నలకు సమాధానాలను గుర్తుంచుకోవడం దాదాపు అసాధ్యం, ఈ రోజు మేము వారి సమాధానాలతో ఆ ప్రత్యేక ప్రశ్నలను మీకు చెప్తున్నాము, వీటిని ఎక్కువగా పోటీ పరీక్షల నుండి ఉద్యోగ ఇంటర్వ్యూలలో ఉపయోగిస్తారు."
+                        ],
+                        [
+                            'table_name' => $banner->getTable(),
+                            "key_id" => $banner->id,
+                            'lang_code' => 'te',
+                            'column_name' => Banner::BANNER_LANGUAGE_ATTR_ALT_IMAGE_TITLE,
+                            'column_value' => "భారతదేశ చరిత్ర లేదా భూగోళశాస్త్రం"
+                        ],
+                        [
+                            'table_name' => $banner->getTable(),
+                            "key_id" => $banner->id,
+                            'lang_code' => 'te',
+                            'column_name' => Banner::BANNER_LANGUAGE_ATTR_BUTTON_TEXT,
+                            'column_value' => "భారతదేశ చరిత్ర లేదా భూగోళశాస్త్రం"
                         ]
                     )
                 )
-                ->count(4)
+                ->count(8)
                 ->create();
         }
         Schema::enableForeignKeyConstraints();
