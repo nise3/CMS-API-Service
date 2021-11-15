@@ -15,6 +15,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Throwable;
+use function PHPUnit\Framework\isNull;
 
 /**
  * Class GalleryAlbumService
@@ -31,6 +32,8 @@ class GalleryAlbumService
     {
         $showIn = $request['show_in'] ?? "";
         $instituteId = $request['institute_id'] ?? "";
+        $parentGalleryAlbumId = $request['parent_gallery_album_id'] ?? "";
+        $onlyParentGalleryAlbum = $request['only_parent_gallery_album'] ?? "";
         $industryAssociationId = $request['industry_association_id'] ?? "";
         $organizationId = $request['organization_id'] ?? "";
         $titleEn = $request['title_en'] ?? "";
@@ -40,6 +43,7 @@ class GalleryAlbumService
         $rowStatus = $request['row_status'] ?? "";
         $order = $request['order'] ?? "ASC";
         $isRequestFromClientSide = !empty($request[BaseModel::IS_CLIENT_SITE_RESPONSE_KEY]);
+
 
         /** @var Builder $galleryAlbumBuilder */
         $galleryAlbumBuilder = GalleryAlbum::select([
@@ -84,6 +88,12 @@ class GalleryAlbumService
         }
         if (is_numeric($instituteId)) {
             $galleryAlbumBuilder->where('gallery_albums.institute_id', $instituteId);
+        }
+        if (is_numeric($parentGalleryAlbumId)) {
+            $galleryAlbumBuilder->where('gallery_albums.parent_gallery_album_id', $parentGalleryAlbumId);
+        }
+        if ($onlyParentGalleryAlbum==GalleryAlbum::ONLY_PARENT_GALLERY_ALBUM_TRUE ){
+            $galleryAlbumBuilder->whereNull('gallery_albums.parent_gallery_album_id');
         }
         if (is_numeric($industryAssociationId)) {
             $galleryAlbumBuilder->where('gallery_albums.industry_association_id', $industryAssociationId);
@@ -396,6 +406,15 @@ class GalleryAlbumService
 
         $rules = [
             'title_en' => 'nullable|max:200|min:2',
+            'only_parent_gallery_album' => [
+                'nullable',
+                Rule::in(GalleryAlbum::ONLY_PARENT_GALLERY_ALBUM)
+            ],
+            'parent_gallery_album_id' => [
+                'nullable',
+                'integer',
+                'gt:0'
+            ],
             'title' => 'nullable|max:600|min:2',
             'show_in' => 'nullable|integer |gt:0',
             'institute_id' => 'nullable|integer|gt:0',

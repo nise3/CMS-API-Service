@@ -803,154 +803,6 @@
                 ]
             }
         },
-        "/public/sliders": {
-            "get": {
-                "summary": "Get All public sliders",
-                "description": "Get All the sliders",
-                "parameters": [
-                    {
-                        "$ref": "#/components/parameters/title_optional"
-                    },
-                    {
-                        "$ref": "#/components/parameters/show_in"
-                    },
-                    {
-                        "$ref": "#/components/parameters/institute_id"
-                    },
-                    {
-                        "$ref": "#/components/parameters/industry_association_id"
-                    },
-                    {
-                        "$ref": "#/components/parameters/organization_id"
-                    },
-                    {
-                        "$ref": "#/components/parameters/page"
-                    },
-                    {
-                        "$ref": "#/components/parameters/page_size"
-                    },
-                    {
-                        "$ref": "#/components/parameters/row_status"
-                    },
-                    {
-                        "$ref": "#/components/parameters/order"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successful",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Slider"
-                                },
-                                "example": {
-                                    "order": "ASC",
-                                    "data": [
-                                        {
-                                            "id": 12,
-                                            "show_in": 1,
-                                            "show_in_label": "Nise3",
-                                            "institute_id": null,
-                                            "organization_id": null,
-                                            "institute_title": "",
-                                            "institute_title_en": "",
-                                            "organization_title": "",
-                                            "organization_title_en": "",
-                                            "industry_association_id": null,
-                                            "is_button_available": 0,
-                                            "link": null,
-                                            "slider_images": [
-                                                "aaasas"
-                                            ],
-                                            "title": "Ammon Ammarth",
-                                            "sub_title": "Ammon Ammarth",
-                                            "alt_title": null,
-                                            "button_text": null,
-                                            "banner_template_code": "BT_LR",
-                                            "banner_template": {
-                                                "banner_template_code": "BT_LR",
-                                                "banner_template_title": "Banner with text left and image right",
-                                                "title": {
-                                                    "position": "left"
-                                                },
-                                                "sub_title": {
-                                                    "position": "left"
-                                                },
-                                                "button": {
-                                                    "position": "left"
-                                                },
-                                                "context_path": {
-                                                    "position": "right"
-                                                }
-                                            },
-                                            "row_status": 0,
-                                            "created_by": null,
-                                            "updated_by": null,
-                                            "created_at": "2021-11-10T08:53:48.000000Z",
-                                            "updated_at": "2021-11-10T08:53:48.000000Z"
-                                        },
-                                        {
-                                            "id": 13,
-                                            "show_in": 1,
-                                            "show_in_label": "Nise3",
-                                            "institute_id": 1,
-                                            "organization_id": null,
-                                            "institute_title": "Julie Ortiz II",
-                                            "institute_title_en": "Julie Ortiz II",
-                                            "organization_title": "",
-                                            "organization_title_en": "",
-                                            "industry_association_id": null,
-                                            "is_button_available": 1,
-                                            "link": "akjskjasjlksj",
-                                            "slider_images": [
-                                                "image1",
-                                                "image2"
-                                            ],
-                                            "title": "aaa",
-                                            "sub_title": "vv",
-                                            "alt_title": "atr_text",
-                                            "button_text": "aaaaaaaaaaaaaaaaa",
-                                            "banner_template_code": "BT_LR",
-                                            "banner_template": {
-                                                "banner_template_code": "BT_LR",
-                                                "banner_template_title": "Banner with text left and image right",
-                                                "title": {
-                                                    "position": "left"
-                                                },
-                                                "sub_title": {
-                                                    "position": "left"
-                                                },
-                                                "button": {
-                                                    "position": "left"
-                                                },
-                                                "context_path": {
-                                                    "position": "right"
-                                                }
-                                            },
-                                            "row_status": 1,
-                                            "created_by": null,
-                                            "updated_by": null,
-                                            "created_at": "2021-11-10T08:57:04.000000Z",
-                                            "updated_at": "2021-11-10T08:57:04.000000Z"
-                                        }
-                                    ],
-                                    "_response_status": {
-                                        "success": true,
-                                        "code": 200,
-                                        "message": null,
-                                        "query_time": 0
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Sliders"
-                ]
-            }
-        },
         "/sliders": {
             "get": {
                 "summary": "Get All sliders",
@@ -1117,13 +969,14 @@
                             "application/json": {
                                 "example": {
                                     "data": {
+                                        "title": "NewSliderTitle",
                                         "show_in": "1",
-                                        "institute_id": "1",
-                                        "organization_id": "1",
+                                        "institute_id": null,
+                                        "organization_id": null,
                                         "row_status": "1",
-                                        "updated_at": "2021-11-14T10:12:03.000000Z",
-                                        "created_at": "2021-11-14T10:12:03.000000Z",
-                                        "id": 3
+                                        "updated_at": "2021-11-15T05:58:41.000000Z",
+                                        "created_at": "2021-11-15T05:58:41.000000Z",
+                                        "id": 11
                                     },
                                     "_response_status": {
                                         "success": true,
@@ -1158,18 +1011,24 @@
                                 "schema": {
                                     "$ref": "#/components/schemas/Slider"
                                 },
-                                "example": {
+                                "example":{
                                     "data": {
-                                        "id": 1,
+                                        "id": 11,
                                         "show_in": 1,
+                                        "title": "Typical Slider Tilte",
                                         "show_in_label": "Nise3",
                                         "industry_association_id": null,
-                                        "institute_title": "Julie Ortiz II",
-                                        "institute_title_en": "Julie Ortiz II",
-                                        "organization_title": "Conroy Ltd",
-                                        "organization_title_en": "Conroy Ltd",
-                                        "institute_id": 1,
-                                        "organization_id": 1
+                                        "institute_title": "",
+                                        "institute_title_en": "",
+                                        "organization_title": "",
+                                        "organization_title_en": "",
+                                        "institute_id": null,
+                                        "organization_id": null,
+                                        "row_status": 1,
+                                        "created_by": null,
+                                        "updated_by": null,
+                                        "created_at": "2021-11-15T05:58:41.000000Z",
+                                        "updated_at": "2021-11-15T06:02:02.000000Z"
                                     },
                                     "_response_status": {
                                         "success": true,
@@ -1200,18 +1059,20 @@
                             "schema": {
                                 "$ref": "#/components/schemas/Slider"
                             },
-                            "example": {
+                            "example":{
                                 "data": {
-                                    "id": 1,
-                                    "institute_id": "1",
-                                    "organization_id": "1",
-                                    "industry_association_id": 1,
+                                    "id": 11,
+                                    "title": "Typical Slider Tilte",
+                                    "title_en": null,
                                     "show_in": "1",
+                                    "institute_id": null,
+                                    "organization_id": null,
+                                    "industry_association_id": null,
                                     "row_status": "1",
                                     "created_by": null,
                                     "updated_by": null,
-                                    "created_at": null,
-                                    "updated_at": null,
+                                    "created_at": "2021-11-15T05:58:41.000000Z",
+                                    "updated_at": "2021-11-15T06:02:02.000000Z",
                                     "deleted_at": null
                                 },
                                 "_response_status": {
@@ -1295,11 +1156,14 @@
                 ]
             }
         },
-        "/banners": {
+        "/public/sliders": {
             "get": {
-                "summary": "Get All banners",
-                "description": "Get All the banners",
+                "summary": "Get All public sliders",
+                "description": "Get All the sliders",
                 "parameters": [
+                    {
+                        "$ref": "#/components/parameters/title_optional"
+                    },
                     {
                         "$ref": "#/components/parameters/show_in"
                     },
@@ -1311,12 +1175,6 @@
                     },
                     {
                         "$ref": "#/components/parameters/organization_id"
-                    },
-                    {
-                        "$ref": "#/components/parameters/title_optional"
-                    },
-                    {
-                        "$ref": "#/components/parameters/sub_title"
                     },
                     {
                         "$ref": "#/components/parameters/page"
@@ -1336,56 +1194,226 @@
                         "description": "Successful",
                         "content": {
                             "application/json": {
-                                "example": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Slider"
+                                },
+                                "example":{
                                     "order": "ASC",
                                     "data": [
                                         {
-                                            "id": 12,
-                                            "show_in": 1,
-                                            "show_in_label": "Nise3",
-                                            "institute_id": null,
-                                            "organization_id": null,
+                                            "id": 1,
+                                            "show_in": 2,
+                                            "title": "",
+                                            "show_in_label": "Youth",
+                                            "industry_association_id": null,
+                                            "institute_title": "",
+                                            "institute_title_en": "",
+                                            "organization_title": "Schiller-VonRueden",
+                                            "organization_title_en": "Schiller-VonRueden",
+                                            "institute_id": 7,
+                                            "organization_id": 4,
+                                            "banners": [
+                                                {
+                                                    "id": 1,
+                                                    "slider_id": 1,
+                                                    "title_en": null,
+                                                    "title": "Dentist",
+                                                    "sub_title_en": null,
+                                                    "sub_title": "Dentist",
+                                                    "is_button_available": 1,
+                                                    "button_text": "Est sit sed providen",
+                                                    "link": "http://www.wolf.org/quia-sequi-ab-ut-quam-doloribus-rem-aut.html",
+                                                    "alt_image_title_en": "id",
+                                                    "alt_image_title": "ut",
+                                                    "banner_template_code": "BT_CB",
+                                                    "banner_image_url": "https://via.placeholder.com/640x480.png/00dd00?text=consequatur",
+                                                    "row_status": 1,
+                                                    "created_by": null,
+                                                    "updated_by": null,
+                                                    "created_at": "2021-11-15T05:37:52.000000Z",
+                                                    "updated_at": "2021-11-15T05:37:52.000000Z",
+                                                    "deleted_at": null
+                                                }
+                                            ],
+                                            "row_status": 1,
+                                            "created_by": null,
+                                            "updated_by": null,
+                                            "created_at": "2021-11-15T05:37:52.000000Z",
+                                            "updated_at": "2021-11-15T05:37:52.000000Z"
+                                        },
+                                        {
+                                            "id": 2,
+                                            "show_in": 4,
+                                            "title": "",
+                                            "show_in_label": "Organization",
+                                            "industry_association_id": null,
                                             "institute_title": "",
                                             "institute_title_en": "",
                                             "organization_title": "",
                                             "organization_title_en": "",
-                                            "industry_association_id": null,
-                                            "is_button_available": 0,
-                                            "link": null,
-                                            "title": "Ammon Ammarth",
-                                            "sub_title": "Ammon Ammarth",
-                                            "alt_image_title": null,
-                                            "button_text": null,
-                                            "banner_template_code": "BT_LR",
-                                            "row_status": 0,
-                                            "created_by": null,
-                                            "updated_by": null,
-                                            "created_at": "2021-11-10T08:53:48.000000Z",
-                                            "updated_at": "2021-11-10T08:53:48.000000Z"
-                                        },
-                                        {
-                                            "id": 13,
-                                            "show_in": 1,
-                                            "show_in_label": "Nise3",
-                                            "institute_id": 1,
-                                            "organization_id": null,
-                                            "institute_title": "Julie Ortiz II",
-                                            "institute_title_en": "Julie Ortiz II",
-                                            "organization_title": "",
-                                            "organization_title_en": "",
-                                            "industry_association_id": null,
-                                            "is_button_available": 1,
-                                            "link": "akjskjasjlksj",
-                                            "title": "aaa",
-                                            "sub_title": "vv",
-                                            "alt_image_title": "atr_text",
-                                            "button_text": "aaaaaaaaaaaaaaaaa",
-                                            "banner_template_code": "BT_LR",
+                                            "institute_id": 8,
+                                            "organization_id": 7,
+                                            "banners": [
+                                                {
+                                                    "id": 2,
+                                                    "slider_id": 2,
+                                                    "title_en": null,
+                                                    "title": "Epidemiologist",
+                                                    "sub_title_en": null,
+                                                    "sub_title": "Epidemiologist",
+                                                    "is_button_available": 0,
+                                                    "button_text": "Illum quia cum dolor",
+                                                    "link": "http://www.bruen.biz/quibusdam-voluptatem-molestiae-ratione",
+                                                    "alt_image_title_en": "enim",
+                                                    "alt_image_title": "placeat",
+                                                    "banner_template_code": "BT_CB",
+                                                    "banner_image_url": "https://via.placeholder.com/640x480.png/00cc33?text=veniam",
+                                                    "row_status": 1,
+                                                    "created_by": null,
+                                                    "updated_by": null,
+                                                    "created_at": "2021-11-15T05:37:52.000000Z",
+                                                    "updated_at": "2021-11-15T05:37:52.000000Z",
+                                                    "deleted_at": null
+                                                }
+                                            ],
                                             "row_status": 1,
                                             "created_by": null,
                                             "updated_by": null,
-                                            "created_at": "2021-11-10T08:57:04.000000Z",
-                                            "updated_at": "2021-11-10T08:57:04.000000Z"
+                                            "created_at": "2021-11-15T05:37:52.000000Z",
+                                            "updated_at": "2021-11-15T05:37:52.000000Z"
+                                        }
+                                    ],
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "message": null,
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Sliders"
+                ]
+            }
+        },
+
+
+        "/banners": {
+            "get": {
+                "summary": "Get All banners",
+                "description": "Get All the banners",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/title_optional"
+                    },
+                    {
+                        "$ref": "#/components/parameters/sub_title_optional"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page_size"
+                    },
+                    {
+                        "$ref": "#/components/parameters/row_status"
+                    },
+                    {
+                        "$ref": "#/components/parameters/order"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful",
+                        "content": {
+                            "application/json": {
+                                "example":{
+                                    "order": "ASC",
+                                    "data": [
+                                        {
+                                            "id": 1,
+                                            "is_button_available": 1,
+                                            "link": "http://www.wolf.org/quia-sequi-ab-ut-quam-doloribus-rem-aut.html",
+                                            "slider_id": 1,
+                                            "slider_title": "",
+                                            "banner_template_code": "BT_CB",
+                                            "banner_image_url": null,
+                                            "institute_id": 7,
+                                            "organization_id": 4,
+                                            "industry_association_id": null,
+                                            "institute_title": "",
+                                            "institute_title_en": "",
+                                            "organization_title": "Schiller-VonRueden",
+                                            "organization_title_en": "Schiller-VonRueden",
+                                            "title": "Dentist",
+                                            "sub_title": "Dentist",
+                                            "alt_image_title": "ut",
+                                            "button_text": "Est sit sed providen",
+                                            "banner_template": {
+                                                "banner_template_code": "BT_CB",
+                                                "banner_template_title": "Banner with text center and image background",
+                                                "title": {
+                                                    "position": "center"
+                                                },
+                                                "sub_title": {
+                                                    "position": "center"
+                                                },
+                                                "button": {
+                                                    "position": "center"
+                                                },
+                                                "context_path": {
+                                                    "position": "background"
+                                                }
+                                            },
+                                            "row_status": 1,
+                                            "created_by": null,
+                                            "updated_by": null,
+                                            "created_at": "2021-11-15T05:37:52.000000Z",
+                                            "updated_at": "2021-11-15T05:37:52.000000Z"
+                                        },
+                                        {
+                                            "id": 2,
+                                            "is_button_available": 0,
+                                            "link": "http://www.bruen.biz/quibusdam-voluptatem-molestiae-ratione",
+                                            "slider_id": 2,
+                                            "slider_title": "",
+                                            "banner_template_code": "BT_CB",
+                                            "banner_image_url": null,
+                                            "institute_id": 8,
+                                            "organization_id": 7,
+                                            "industry_association_id": null,
+                                            "institute_title": "",
+                                            "institute_title_en": "",
+                                            "organization_title": "",
+                                            "organization_title_en": "",
+                                            "title": "Epidemiologist",
+                                            "sub_title": "Epidemiologist",
+                                            "alt_image_title": "placeat",
+                                            "button_text": "Illum quia cum dolor",
+                                            "banner_template": {
+                                                "banner_template_code": "BT_CB",
+                                                "banner_template_title": "Banner with text center and image background",
+                                                "title": {
+                                                    "position": "center"
+                                                },
+                                                "sub_title": {
+                                                    "position": "center"
+                                                },
+                                                "button": {
+                                                    "position": "center"
+                                                },
+                                                "context_path": {
+                                                    "position": "background"
+                                                }
+                                            },
+                                            "row_status": 1,
+                                            "created_by": null,
+                                            "updated_by": null,
+                                            "created_at": "2021-11-15T05:37:52.000000Z",
+                                            "updated_at": "2021-11-15T05:37:52.000000Z"
                                         }
                                     ],
                                     "_response_status": {
@@ -1557,11 +1585,22 @@
                             "schema": {
                                 "$ref": "#/components/schemas/Banner"
                             },
-                            "example": {
+                            "example":{
                                 "data": {
                                     "id": 1,
                                     "is_button_available": "1",
                                     "link": "akjskjasjlksj",
+                                    "slider_id": "1",
+                                    "slider_title": null,
+                                    "banner_template_code": "BT_LR",
+                                    "banner_image_url": "http://newurl.com",
+                                    "institute_id": null,
+                                    "organization_id": null,
+                                    "industry_association_id": null,
+                                    "institute_title": "",
+                                    "institute_title_en": "",
+                                    "organization_title": "",
+                                    "organization_title_en": "",
                                     "title": "ManGod",
                                     "sub_title": "vv",
                                     "alt_image_title": "atr_text",
@@ -1573,7 +1612,6 @@
                                             "button_text": "अंग्रेजी"
                                         }
                                     },
-                                    "banner_template_code": "BT_LR",
                                     "banner_template": {
                                         "banner_template_code": "BT_LR",
                                         "banner_template_title": "Banner with text left anzd image right",
@@ -1593,8 +1631,8 @@
                                     "row_status": "1",
                                     "created_by": null,
                                     "updated_by": null,
-                                    "created_at": "2021-11-14T05:14:39.000000Z",
-                                    "updated_at": "2021-11-14T08:36:19.000000Z"
+                                    "created_at": "2021-11-15T05:37:52.000000Z",
+                                    "updated_at": "2021-11-15T06:45:58.000000Z"
                                 },
                                 "_response_status": {
                                     "success": true,
@@ -1682,161 +1720,10 @@
                 ]
             }
         },
-        "/public/faqs": {
-            "get": {
-                "summary": "Get All public faqs",
-                "description": "API endpoint to get the list of Sliders.A successful request response will show 200 HTTP status code",
-                "parameters": [
-                    {
-                        "$ref": "#/components/parameters/Accept-Language"
-                    },
-                    {
-                        "name": "question",
-                        "in": "query",
-                        "required": false,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "answer",
-                        "in": "query",
-                        "required": false,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "show_in",
-                        "in": "query",
-                        "required": false,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "institute_id",
-                        "in": "query",
-                        "required": false,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "industry_association_id",
-                        "in": "query",
-                        "required": false,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "organization_id",
-                        "in": "query",
-                        "required": false,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "page_size",
-                        "in": "query",
-                        "required": false,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "page",
-                        "in": "query",
-                        "required": false,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "order",
-                        "in": "query",
-                        "required": false,
-                        "schema": {
-                            "type": "string",
-                            "enum": [
-                                "ASC",
-                                "DESC"
-                            ]
-                        }
-                    },
-                    {
-                        "name": "row_status",
-                        "in": "query",
-                        "required": false,
-                        "schema": {
-                            "type": "integer",
-                            "description": "1=>Active 0=>InActive",
-                            "enum": [
-                                1,
-                                0
-                            ]
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Get list of all faqs",
-                        "content": {
-                            "application/json": {
-                                "example": {
-                                    "order": "ASC",
-                                    "data": [
-                                        {
-                                            "id": 1,
-                                            "show_in": 7,
-                                            "show_in_label": "Show in Nise3",
-                                            "institute_id": 1,
-                                            "industry_association_id": 1,
-                                            "organization_id": 5,
-                                            "question": "I was thinking I should be like then?' And she began fancying the sort of people live about here?'.",
-                                            "answer": "Hatter, 'you wouldn't talk about her and to hear..",
-                                            "row_status": 1,
-                                            "created_by": null,
-                                            "updated_by": null,
-                                            "created_at": "2021-11-03T12:58:59.000000Z",
-                                            "updated_at": "2021-11-03T12:58:59.000000Z"
-                                        },
-                                        {
-                                            "id": 2,
-                                            "show_in": 1,
-                                            "institute_id": 0,
-                                            "industry_association_id": 0,
-                                            "organization_id": 9,
-                                            "question": "March Hare. 'Then it wasn't trouble enough hatching the eggs.",
-                                            "row_status": 1,
-                                            "created_by": null,
-                                            "updated_by": null,
-                                            "created_at": "2021-11-03T12:58:59.000000Z",
-                                            "updated_at": "2021-11-03T12:58:59.000000Z"
-                                        }
-                                    ],
-                                    "_response_status": {
-                                        "success": true,
-                                        "code": 200,
-                                        "message": null,
-                                        "query_time": 0
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "faqs"
-                ]
-            }
-        },
         "/faqs": {
             "get": {
                 "summary": "Get All faqs",
-                "description": "API endpoint to get the list of Sliders.A successful request response will show 200 HTTP status code",
+                "description": "API endpoint to get the list of faqs.A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
                         "name": "question",
@@ -1933,36 +1820,50 @@
                         "description": "Get list of all faqs",
                         "content": {
                             "application/json": {
-                                "example": {
+                                "example":{
                                     "order": "ASC",
                                     "data": [
                                         {
                                             "id": 1,
-                                            "show_in": 7,
-                                            "show_in_label": "Show in Nise3",
-                                            "institute_id": 1,
-                                            "industry_association_id": 1,
+                                            "show_in": 1,
+                                            "show_in_label": "Nise3",
+                                            "institute_id": 5,
+                                            "institute_title": "",
+                                            "institute_title_en": "",
                                             "organization_id": 5,
-                                            "question": "I was thinking I should be like then?' And she began fancying the sort of people live about here?'.",
-                                            "answer": "Hatter, 'you wouldn't talk about her and to hear..",
+                                            "organization_title": "Kuphal, Fay and Kerluke",
+                                            "organization_title_en": "Kuphal, Fay and Kerluke",
+                                            "industry_association_id": 0,
+                                            "industry_association_title": "",
+                                            "industry_association_title_en": "",
+                                            "question": "Duchess; 'and the moral of that is--\"Birds of a candle is blown out, for she could do, lying down.",
+                                            "answer": "I've finished.",
                                             "row_status": 1,
                                             "created_by": null,
                                             "updated_by": null,
-                                            "created_at": "2021-11-03T12:58:59.000000Z",
-                                            "updated_at": "2021-11-03T12:58:59.000000Z"
+                                            "created_at": "2021-11-15T05:37:52.000000Z",
+                                            "updated_at": "2021-11-15T05:37:52.000000Z"
                                         },
                                         {
                                             "id": 2,
                                             "show_in": 1,
-                                            "institute_id": 0,
-                                            "industry_association_id": 0,
-                                            "organization_id": 9,
-                                            "question": "March Hare. 'Then it wasn't trouble enough hatching the eggs.",
+                                            "show_in_label": "Nise3",
+                                            "institute_id": 7,
+                                            "institute_title": "",
+                                            "institute_title_en": "",
+                                            "organization_id": 0,
+                                            "organization_title": "",
+                                            "organization_title_en": "",
+                                            "industry_association_id": 4,
+                                            "industry_association_title": "",
+                                            "industry_association_title_en": "",
+                                            "question": "He was an uncomfortably sharp chin. However, she soon made out the proper way of expecting nothing.",
+                                            "answer": "After a while she was not much like keeping so close to herd.",
                                             "row_status": 1,
                                             "created_by": null,
                                             "updated_by": null,
-                                            "created_at": "2021-11-03T12:58:59.000000Z",
-                                            "updated_at": "2021-11-03T12:58:59.000000Z"
+                                            "created_at": "2021-11-15T05:37:52.000000Z",
+                                            "updated_at": "2021-11-15T05:37:52.000000Z"
                                         }
                                     ],
                                     "_response_status": {
@@ -2060,20 +1961,28 @@
                         "description": "Detail of a faq",
                         "content": {
                             "application/json": {
-                                "example": {
+                                "example":{
                                     "data": {
                                         "id": 1,
-                                        "show_in": 7,
-                                        "institute_id": 1,
-                                        "industry_association_id": 1,
+                                        "show_in": 1,
+                                        "show_in_label": "Nise3",
+                                        "institute_id": 5,
+                                        "institute_title": "",
+                                        "institute_title_en": "",
                                         "organization_id": 5,
-                                        "question": "I was thinking I should be like then?' And she began fancying the sort of people live about here?'.",
-                                        "answer": "Hatter, 'you wouldn't talk about her and to hear it say, as it turned round and round the thistle.",
+                                        "organization_title": "Kuphal, Fay and Kerluke",
+                                        "organization_title_en": "Kuphal, Fay and Kerluke",
+                                        "industry_association_id": 0,
+                                        "industry_association_title": "",
+                                        "industry_association_title_en": "",
+                                        "question": "Duchess; 'and the moral of that is--\"Birds of a candle is blown out, for she could do, lying down.",
+                                        "answer": "I've finished.",
+                                        "other_language_fields": [],
                                         "row_status": 1,
                                         "created_by": null,
                                         "updated_by": null,
-                                        "created_at": "2021-11-03T12:58:59.000000Z",
-                                        "updated_at": "2021-11-03T12:58:59.000000Z"
+                                        "created_at": "2021-11-15T05:37:52.000000Z",
+                                        "updated_at": "2021-11-15T05:37:52.000000Z"
                                     },
                                     "_response_status": {
                                         "success": true,
@@ -2184,10 +2093,176 @@
                 ]
             }
         },
+
+        "/public/faqs": {
+            "get": {
+                "summary": "Get All public faqs",
+                "description": "API endpoint to get the list of faqs.A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/Accept-Language"
+                    },
+                    {
+                        "name": "question",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "answer",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "show_in",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "institute_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "industry_association_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "organization_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "page_size",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "order",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "ASC",
+                                "DESC"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "row_status",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "description": "1=>Active 0=>InActive",
+                            "enum": [
+                                1,
+                                0
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get list of all faqs",
+                        "content": {
+                            "application/json": {
+                                "example":{
+                                    "order": "ASC",
+                                    "data": [
+                                        {
+                                            "id": 1,
+                                            "show_in": 1,
+                                            "show_in_label": "Nise3",
+                                            "institute_id": 5,
+                                            "institute_title": "",
+                                            "institute_title_en": "",
+                                            "organization_id": 5,
+                                            "organization_title": "Kuphal, Fay and Kerluke",
+                                            "organization_title_en": "Kuphal, Fay and Kerluke",
+                                            "industry_association_id": 0,
+                                            "industry_association_title": "",
+                                            "industry_association_title_en": "",
+                                            "question": "Duchess; 'and the moral of that is--\"Birds of a candle is blown out, for she could do, lying down.",
+                                            "answer": "I've finished.",
+                                            "row_status": 1,
+                                            "created_by": null,
+                                            "updated_by": null,
+                                            "created_at": "2021-11-15T05:37:52.000000Z",
+                                            "updated_at": "2021-11-15T05:37:52.000000Z"
+                                        },
+                                        {
+                                            "id": 2,
+                                            "show_in": 1,
+                                            "show_in_label": "Nise3",
+                                            "institute_id": 7,
+                                            "institute_title": "",
+                                            "institute_title_en": "",
+                                            "organization_id": 0,
+                                            "organization_title": "",
+                                            "organization_title_en": "",
+                                            "industry_association_id": 4,
+                                            "industry_association_title": "",
+                                            "industry_association_title_en": "",
+                                            "question": "He was an uncomfortably ",
+                                            "row_status": 1,
+                                            "created_by": null,
+                                            "updated_by": null,
+                                            "created_at": "2021-11-15T05:37:52.000000Z",
+                                            "updated_at": "2021-11-15T05:37:52.000000Z"
+                                        }
+                                    ],
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "message": null,
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "faqs"
+                ]
+            }
+        },
+
         "/public/faqs/{faqId}": {
             "get": {
                 "summary": "Get a public faq by Id",
-                "description": "API endpoint to get the list of Sliders.A successful request response will show 200 HTTP status code",
+                "description": "API endpoint to get the list of faqs.A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/Accept-Language"
@@ -2255,11 +2330,19 @@
                 ]
             }
         },
+
+
         "/public/gallery-albums": {
             "get": {
                 "summary": "Get All public  gallery albums",
                 "description": "API endpoint to get all gallery image.A successful request response will show 200 HTTP status code",
                 "parameters": [
+                    {
+                        "$ref": "#/components/parameters/only_parent_gallery_album"
+                    },
+                    {
+                        "$ref": "#/components/parameters/parent_gallery_album_id"
+                    },
                     {
                         "$ref": "#/components/parameters/show_in"
                     },
@@ -2345,6 +2428,12 @@
                 "summary": "Get All gallery albums",
                 "description": "API endpoint to get all gallery image.A successful request response will show 200 HTTP status code",
                 "parameters": [
+                    {
+                        "$ref": "#/components/parameters/only_parent_gallery_album"
+                    },
+                    {
+                        "$ref": "#/components/parameters/parent_gallery_album_id"
+                    },
                     {
                         "$ref": "#/components/parameters/show_in"
                     },
@@ -2805,6 +2894,9 @@
                 "description": "API endpoint to get the list of gallery-images-videos.A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
+                        "$ref": "#/components/parameters/gallery_album_id_optional"
+                    },
+                    {
                         "$ref": "#/components/parameters/institute_id"
                     },
                     {
@@ -2927,6 +3019,9 @@
                 "description": "API endpoint to get the list of gallery-images-videos.A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
+                        "$ref": "#/components/parameters/gallery_album_id_optional"
+                    },
+                    {
                         "$ref": "#/components/parameters/institute_id"
                     },
                     {
@@ -2950,7 +3045,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "successfull",
+                        "description": "successful",
                         "content": {
                             "application/json": {
                                 "example": {
@@ -4924,13 +5019,88 @@
                     },
                     {
                         "$ref": "#/components/parameters/page_size"
+                    },
+
+                    {
+                        "$ref": "#/components/parameters/order"
+                    },
+                    {
+                        "$ref": "#/components/parameters/row_status"
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "successfull",
                         "content": {
-                            "application/json": {}
+                            "application/json": {
+                                "example": {
+                                    "order": "ASC",
+                                    "data": [
+                                        {
+                                            "id": 9,
+                                            "type": 1,
+                                            "show_in": 3,
+                                            "show_in_label": "Training Service Provider(TSP)",
+                                            "published_at": "2021-11-15 05:37:52",
+                                            "archived_at": null,
+                                            "title": "Bridge Tender OR Lock Tender",
+                                            "institute_id": 9,
+                                            "organization_id": 6,
+                                            "industry_association_id": 10,
+                                            "institute_title": "",
+                                            "institute_title_en": "",
+                                            "organization_title": "",
+                                            "organization_title_en": "",
+                                            "details": "Ex qui enim pariatur sapiente.",
+                                            "main_image_path": null,
+                                            "grid_image_path": null,
+                                            "thumb_image_path": null,
+                                            "image_alt_title": "similique",
+                                            "file_path": "Cum necessitatibus qui eos eius ad ea.",
+                                            "file_alt_title": "corrupti",
+                                            "row_status": 1,
+                                            "created_by": null,
+                                            "updated_by": null,
+                                            "created_at": "2021-11-15T05:37:52.000000Z",
+                                            "updated_at": null
+                                        },
+                                        {
+                                            "id": 10,
+                                            "type": 2,
+                                            "show_in": 4,
+                                            "show_in_label": "Organization",
+                                            "published_at": "2021-11-15 05:37:52",
+                                            "archived_at": null,
+                                            "title": "Technical Specialist",
+                                            "institute_id": 5,
+                                            "organization_id": 9,
+                                            "industry_association_id": 8,
+                                            "institute_title": "",
+                                            "institute_title_en": "",
+                                            "organization_title": "",
+                                            "organization_title_en": "",
+                                            "details": "Accusantium illo quis repellendus.",
+                                            "main_image_path": null,
+                                            "grid_image_path": null,
+                                            "thumb_image_path": null,
+                                            "image_alt_title": "numquam",
+                                            "file_path": "Nihil et delectus eveniet voluptatem cum.",
+                                            "file_alt_title": "ratione",
+                                            "row_status": 1,
+                                            "created_by": null,
+                                            "updated_by": null,
+                                            "created_at": "2021-11-15T05:37:52.000000Z",
+                                            "updated_at": null
+                                        }
+                                    ],
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "message": null,
+                                        "query_time": 0
+                                    }
+                                }
+                            }
                         }
                     }
                 },
@@ -4964,6 +5134,12 @@
                     },
                     {
                         "$ref": "#/components/parameters/page_size"
+                    },
+                    {
+                        "$ref": "#/components/parameters/order"
+                    },
+                    {
+                        "$ref": "#/components/parameters/row_status"
                     }
                 ],
                 "responses": {
@@ -5326,41 +5502,33 @@
                         "content": {
                             "application/x-www-form-urlencoded": {
                                 "schema": {
-                                    "example": {
+                                    "example":{
                                         "data": {
-                                            "id": 1,
-                                            "type": 1,
-                                            "show_in": 3,
-                                            "show_in_label": "Training Service Provider(TSP)",
-                                            "published_at": "2021-11-10 11:08:04",
+                                            "id": 12,
+                                            "type": 2,
+                                            "show_in": 1,
+                                            "show_in_label": "Nise3",
+                                            "published_at": null,
                                             "archived_at": null,
-                                            "title": "Ship Mates",
-                                            "institute_id": 8,
-                                            "organization_id": 8,
-                                            "industry_association_id": 9,
-                                            "institute_title": "",
-                                            "institute_title_en": "",
-                                            "organization_title": "Nader, Considine and Fahey",
-                                            "organization_title_en": "Nader, Considine and Fahey",
-                                            "details": "Minus ullam ullam et tenetur est in nostrum rerum ipsa animi consequuntur blanditiis officia vitae sit in quos ut aut sit magnam hic voluptas quia doloribus est sit ipsum quia dolor dolor ut beatae nam sapiente soluta a molestias ipsum exercitationem.",
+                                            "title": "asjdkjakdjajdja",
+                                            "institute_id": 1,
+                                            "organization_id": null,
+                                            "industry_association_id": null,
+                                            "institute_title": "Julie Ortiz II",
+                                            "institute_title_en": "Julie Ortiz II",
+                                            "organization_title": "",
+                                            "organization_title_en": "",
+                                            "details": "aaaaaaaaaaaa",
                                             "main_image_path": null,
                                             "grid_image_path": null,
                                             "thumb_image_path": null,
-                                            "image_alt_title": "praesentium",
-                                            "file_path": "Dolorem quia neque repudiandae in ut.",
-                                            "file_alt_title": "eos",
-                                            "other_language_fields": {
-                                                "hi": {
-                                                    "title": "अगर आप किसी एग्जाम की तैयारी ",
-                                                    "image_alt_title": "भारत का इतिहासं",
-                                                    "file_alt_title": "भारत का इतिहासं",
-                                                    "details": "आधुनिक अधिकांश विकास पडता उशकी सभिसमज असक्षम केन्द्रिय लेकिन गटकउसि आशाआपस बनाकर उसके करने गटकउसि संस्थान मुश्किले संसाध तरीके हमेहो। सोफ़्टवेर अन्तरराष्ट्रीयकरन अन्य खरिदे दिशामे सभिसमज पढाए नवंबर आवश्यक आवश्यकत जाता प्रसारन मर्यादित विभाजनक्षमता चुनने एछित संसाध एछित हमेहो। सामूहिक समाज वर्णन अनुकूल स्थापित ढांचामात्रुभाषा करने विशेष परस्पर दर्शाता केन्द्रित\n"
-                                                }
-                                            },
+                                            "image_alt_title": "asjdkjakdjajdja",
+                                            "file_path": null,
+                                            "file_alt_title": "asjdkjakdjajdja",
                                             "row_status": 1,
                                             "created_by": null,
                                             "updated_by": null,
-                                            "created_at": "2021-11-10T10:31:18.000000Z",
+                                            "created_at": "2021-11-15T10:26:22.000000Z",
                                             "updated_at": null
                                         },
                                         "_response_status": {
@@ -5495,19 +5663,46 @@
                                     "order": "ASC",
                                     "data": [
                                         {
-                                            "form_type": "1",
-                                            "institute_id": null,
-                                            "organization_id": null,
-                                            "industry_association_id": null,
-                                            "name": "OldHobbit",
-                                            "mobile": null,
-                                            "email": null,
-                                            "address": null,
-                                            "comment": null,
-                                            "row_status": "1",
-                                            "updated_at": "2021-11-08T04:43:28.000000Z",
-                                            "created_at": "2021-11-08T04:43:28.000000Z",
-                                            "id": 1
+                                            "id": 9,
+                                            "form_type": 2,
+                                            "institute_id": 3,
+                                            "organization_id": 8,
+                                            "industry_association_id": 8,
+                                            "name": "Prof. Abe Quigley",
+                                            "name_en": "Loma Ondricka",
+                                            "mobile": "01889861510",
+                                            "email": "demario.oberbrunner@example.com",
+                                            "address": "Earum ipsa in facere sit animi quam.",
+                                            "address_en": "Est error ratione similique blanditiis alias quia minima.",
+                                            "comment": "Perferendis consequatur exercitationem magnam tenetur sed ipsam.",
+                                            "comment_en": "Eum vero sed maxime.",
+                                            "read_at": null,
+                                            "archived_at": null,
+                                            "archived_by": null,
+                                            "row_status": 1,
+                                            "created_at": "2021-11-15T05:37:53.000000Z",
+                                            "updated_at": "2021-11-15T05:37:53.000000Z"
+                                        },
+                                        {
+                                            "id": 10,
+                                            "form_type": 1,
+                                            "institute_id": 9,
+                                            "organization_id": 9,
+                                            "industry_association_id": 6,
+                                            "name": "Elliot Kunze",
+                                            "name_en": "Roselyn Beatty",
+                                            "mobile": "01854091335",
+                                            "email": "joel25@example.com",
+                                            "address": "Quibusdam sint tempore consequatur odio tenetur.",
+                                            "address_en": "Ut id amet dolores facilis cum iste error.",
+                                            "comment": "Maxime eos et id rerum ut dolorem labore consequatur.",
+                                            "comment_en": "Exercitationem consequatur numquam id in.",
+                                            "read_at": null,
+                                            "archived_at": null,
+                                            "archived_by": null,
+                                            "row_status": 1,
+                                            "created_at": "2021-11-15T05:37:53.000000Z",
+                                            "updated_at": "2021-11-15T05:37:53.000000Z"
                                         }
                                     ],
                                     "_response_status": {
@@ -5817,6 +6012,26 @@
             }
         },
         "parameters": {
+            "parent_gallery_album_id": {
+                "name": "parent_gallery_album_id",
+                "in": "query",
+                "required": false,
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "only_parent_gallery_album": {
+                "name": "only_parent_gallery_album",
+                "in": "query",
+                "required": false,
+                "schema": {
+                    "type": "integer",
+                    "enum": [
+                        1,
+                        0
+                    ]
+                }
+            },
             "show_in": {
                 "name": "show_in",
                 "in": "query",
@@ -5834,6 +6049,14 @@
             },
             "institute_id": {
                 "name": "institute_id",
+                "in": "query",
+                "required": false,
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "gallery_album_id_optional": {
+                "name": "gallery_album_id",
                 "in": "query",
                 "required": false,
                 "schema": {
@@ -7210,10 +7433,12 @@
                         ]
                     },
                     "link": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Required if is_button_available = YES"
                     },
                     "button_text": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Required if is_button_available = YES"
                     },
                     "alt_image_title": {
                         "type": "string"
@@ -7246,7 +7471,6 @@
                 "required": [
                     "slider_id",
                     "title",
-                    "row_status",
                     "banner_image_url",
                     "is_button_available"
                 ]
@@ -7303,11 +7527,38 @@
                             2
                         ]
                     },
+                    "show_in": {
+                        "type": "integer",
+                        "enum": [
+                            1,
+                            2,
+                            3,
+                            4,
+                            5
+                        ],
+                        "description": "SHOW_IN_NISE3 = 1;\n     SHOW_IN_YOUTH = 2;\n     SHOW_IN_TSP = 3;\n     SHOW_IN_INDUSTRY = 4;"
+                    },
                     "title": {
                         "type": "string",
-                        "description": " Title In Bengali",
                         "minLength": 1,
                         "maxLength": 500
+                    },
+                    "institute_id": {
+                        "type": "integer"
+                    },
+                    "industry_association_id": {
+                        "type": "integer"
+                    },
+                    "organization_id": {
+                        "type": "integer"
+                    },
+                    "published_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "archived_at": {
+                        "type": "string",
+                        "format": "date-time"
                     },
                     "details": {
                         "type": "string"
@@ -7321,26 +7572,14 @@
                     "thumb_image_path": {
                         "type": "string"
                     },
+                    "image_alt_title": {
+                        "type": "string"
+                    },
                     "file_path": {
                         "type": "string"
                     },
-                    "image_alt_title": {
-                        "type": "string",
-                        "description": "alt image title in Bengali"
-                    },
                     "file_alt_title": {
-                        "type": "string",
-                        "description": "alt file title in Bengali"
-                    },
-                    "published_at": {
-                        "type": "string",
-                        "format": "date-time",
-                        "description": "publish date"
-                    },
-                    "archived_at": {
-                        "type": "string",
-                        "format": "date-time",
-                        "description": "Archive date"
+                        "type": "string"
                     },
                     "row_status": {
                         "type": "integer",
@@ -7356,6 +7595,7 @@
                     }
                 },
                 "required": [
+                    "show_in",
                     "title",
                     "type"
                 ]
@@ -7551,8 +7791,7 @@
                 "required": [
                     "show_in",
                     "question",
-                    "answer",
-                    "row_status"
+                    "answer"
                 ]
             },
             "cms_languages_table": {
