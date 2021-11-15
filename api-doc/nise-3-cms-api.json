@@ -1840,7 +1840,7 @@
                                             "industry_association_title": "",
                                             "industry_association_title_en": "",
                                             "question": "Duchess; 'and the moral of that is--\"Birds of a candle is blown out, for she could do, lying down.",
-                                            "answer": "I've finished.' So they sat down at her.",
+                                            "answer": "I've finished.",
                                             "row_status": 1,
                                             "created_by": null,
                                             "updated_by": null,
@@ -1860,8 +1860,7 @@
                                             "industry_association_id": 4,
                                             "industry_association_title": "",
                                             "industry_association_title_en": "",
-                                            "question": "He was an uncomfortably sharp chin. However, she soon made out the proper way of expecting nothing.",
-                                            "answer": "After a while she was not much like keeping so close to her.",
+                                            "question": "He was an uncomfortably ",
                                             "row_status": 1,
                                             "created_by": null,
                                             "updated_by": null,
@@ -1985,36 +1984,50 @@
                         "description": "Get list of all faqs",
                         "content": {
                             "application/json": {
-                                "example": {
+                                "example":{
                                     "order": "ASC",
                                     "data": [
                                         {
                                             "id": 1,
-                                            "show_in": 7,
-                                            "show_in_label": "Show in Nise3",
-                                            "institute_id": 1,
-                                            "industry_association_id": 1,
+                                            "show_in": 1,
+                                            "show_in_label": "Nise3",
+                                            "institute_id": 5,
+                                            "institute_title": "",
+                                            "institute_title_en": "",
                                             "organization_id": 5,
-                                            "question": "I was thinking I should be like then?' And she began fancying the sort of people live about here?'.",
-                                            "answer": "Hatter, 'you wouldn't talk about her and to hear..",
+                                            "organization_title": "Kuphal, Fay and Kerluke",
+                                            "organization_title_en": "Kuphal, Fay and Kerluke",
+                                            "industry_association_id": 0,
+                                            "industry_association_title": "",
+                                            "industry_association_title_en": "",
+                                            "question": "Duchess; 'and the moral of that is--\"Birds of a candle is blown out, for she could do, lying down.",
+                                            "answer": "I've finished.",
                                             "row_status": 1,
                                             "created_by": null,
                                             "updated_by": null,
-                                            "created_at": "2021-11-03T12:58:59.000000Z",
-                                            "updated_at": "2021-11-03T12:58:59.000000Z"
+                                            "created_at": "2021-11-15T05:37:52.000000Z",
+                                            "updated_at": "2021-11-15T05:37:52.000000Z"
                                         },
                                         {
                                             "id": 2,
                                             "show_in": 1,
-                                            "institute_id": 0,
-                                            "industry_association_id": 0,
-                                            "organization_id": 9,
-                                            "question": "March Hare. 'Then it wasn't trouble enough hatching the eggs.",
+                                            "show_in_label": "Nise3",
+                                            "institute_id": 7,
+                                            "institute_title": "",
+                                            "institute_title_en": "",
+                                            "organization_id": 0,
+                                            "organization_title": "",
+                                            "organization_title_en": "",
+                                            "industry_association_id": 4,
+                                            "industry_association_title": "",
+                                            "industry_association_title_en": "",
+                                            "question": "He was an uncomfortably sharp chin. However, she soon made out the proper way of expecting nothing.",
+                                            "answer": "After a while she was not much like keeping so close to herd.",
                                             "row_status": 1,
                                             "created_by": null,
                                             "updated_by": null,
-                                            "created_at": "2021-11-03T12:58:59.000000Z",
-                                            "updated_at": "2021-11-03T12:58:59.000000Z"
+                                            "created_at": "2021-11-15T05:37:52.000000Z",
+                                            "updated_at": "2021-11-15T05:37:52.000000Z"
                                         }
                                     ],
                                     "_response_status": {
@@ -2112,20 +2125,28 @@
                         "description": "Detail of a faq",
                         "content": {
                             "application/json": {
-                                "example": {
+                                "example":{
                                     "data": {
                                         "id": 1,
-                                        "show_in": 7,
-                                        "institute_id": 1,
-                                        "industry_association_id": 1,
+                                        "show_in": 1,
+                                        "show_in_label": "Nise3",
+                                        "institute_id": 5,
+                                        "institute_title": "",
+                                        "institute_title_en": "",
                                         "organization_id": 5,
-                                        "question": "I was thinking I should be like then?' And she began fancying the sort of people live about here?'.",
-                                        "answer": "Hatter, 'you wouldn't talk about her and to hear it say, as it turned round and round the thistle.",
+                                        "organization_title": "Kuphal, Fay and Kerluke",
+                                        "organization_title_en": "Kuphal, Fay and Kerluke",
+                                        "industry_association_id": 0,
+                                        "industry_association_title": "",
+                                        "industry_association_title_en": "",
+                                        "question": "Duchess; 'and the moral of that is--\"Birds of a candle is blown out, for she could do, lying down.",
+                                        "answer": "I've finished.",
+                                        "other_language_fields": [],
                                         "row_status": 1,
                                         "created_by": null,
                                         "updated_by": null,
-                                        "created_at": "2021-11-03T12:58:59.000000Z",
-                                        "updated_at": "2021-11-03T12:58:59.000000Z"
+                                        "created_at": "2021-11-15T05:37:52.000000Z",
+                                        "updated_at": "2021-11-15T05:37:52.000000Z"
                                     },
                                     "_response_status": {
                                         "success": true,
@@ -7604,8 +7625,7 @@
                 "required": [
                     "show_in",
                     "question",
-                    "answer",
-                    "row_status"
+                    "answer"
                 ]
             },
             "cms_languages_table": {
