@@ -803,154 +803,6 @@
                 ]
             }
         },
-        "/public/sliders": {
-            "get": {
-                "summary": "Get All public sliders",
-                "description": "Get All the sliders",
-                "parameters": [
-                    {
-                        "$ref": "#/components/parameters/title_optional"
-                    },
-                    {
-                        "$ref": "#/components/parameters/show_in"
-                    },
-                    {
-                        "$ref": "#/components/parameters/institute_id"
-                    },
-                    {
-                        "$ref": "#/components/parameters/industry_association_id"
-                    },
-                    {
-                        "$ref": "#/components/parameters/organization_id"
-                    },
-                    {
-                        "$ref": "#/components/parameters/page"
-                    },
-                    {
-                        "$ref": "#/components/parameters/page_size"
-                    },
-                    {
-                        "$ref": "#/components/parameters/row_status"
-                    },
-                    {
-                        "$ref": "#/components/parameters/order"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successful",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Slider"
-                                },
-                                "example": {
-                                    "order": "ASC",
-                                    "data": [
-                                        {
-                                            "id": 12,
-                                            "show_in": 1,
-                                            "show_in_label": "Nise3",
-                                            "institute_id": null,
-                                            "organization_id": null,
-                                            "institute_title": "",
-                                            "institute_title_en": "",
-                                            "organization_title": "",
-                                            "organization_title_en": "",
-                                            "industry_association_id": null,
-                                            "is_button_available": 0,
-                                            "link": null,
-                                            "slider_images": [
-                                                "aaasas"
-                                            ],
-                                            "title": "Ammon Ammarth",
-                                            "sub_title": "Ammon Ammarth",
-                                            "alt_title": null,
-                                            "button_text": null,
-                                            "banner_template_code": "BT_LR",
-                                            "banner_template": {
-                                                "banner_template_code": "BT_LR",
-                                                "banner_template_title": "Banner with text left and image right",
-                                                "title": {
-                                                    "position": "left"
-                                                },
-                                                "sub_title": {
-                                                    "position": "left"
-                                                },
-                                                "button": {
-                                                    "position": "left"
-                                                },
-                                                "context_path": {
-                                                    "position": "right"
-                                                }
-                                            },
-                                            "row_status": 0,
-                                            "created_by": null,
-                                            "updated_by": null,
-                                            "created_at": "2021-11-10T08:53:48.000000Z",
-                                            "updated_at": "2021-11-10T08:53:48.000000Z"
-                                        },
-                                        {
-                                            "id": 13,
-                                            "show_in": 1,
-                                            "show_in_label": "Nise3",
-                                            "institute_id": 1,
-                                            "organization_id": null,
-                                            "institute_title": "Julie Ortiz II",
-                                            "institute_title_en": "Julie Ortiz II",
-                                            "organization_title": "",
-                                            "organization_title_en": "",
-                                            "industry_association_id": null,
-                                            "is_button_available": 1,
-                                            "link": "akjskjasjlksj",
-                                            "slider_images": [
-                                                "image1",
-                                                "image2"
-                                            ],
-                                            "title": "aaa",
-                                            "sub_title": "vv",
-                                            "alt_title": "atr_text",
-                                            "button_text": "aaaaaaaaaaaaaaaaa",
-                                            "banner_template_code": "BT_LR",
-                                            "banner_template": {
-                                                "banner_template_code": "BT_LR",
-                                                "banner_template_title": "Banner with text left and image right",
-                                                "title": {
-                                                    "position": "left"
-                                                },
-                                                "sub_title": {
-                                                    "position": "left"
-                                                },
-                                                "button": {
-                                                    "position": "left"
-                                                },
-                                                "context_path": {
-                                                    "position": "right"
-                                                }
-                                            },
-                                            "row_status": 1,
-                                            "created_by": null,
-                                            "updated_by": null,
-                                            "created_at": "2021-11-10T08:57:04.000000Z",
-                                            "updated_at": "2021-11-10T08:57:04.000000Z"
-                                        }
-                                    ],
-                                    "_response_status": {
-                                        "success": true,
-                                        "code": 200,
-                                        "message": null,
-                                        "query_time": 0
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Sliders"
-                ]
-            }
-        },
         "/sliders": {
             "get": {
                 "summary": "Get All sliders",
@@ -1117,13 +969,14 @@
                             "application/json": {
                                 "example": {
                                     "data": {
+                                        "title": "NewSliderTitle",
                                         "show_in": "1",
-                                        "institute_id": "1",
-                                        "organization_id": "1",
+                                        "institute_id": null,
+                                        "organization_id": null,
                                         "row_status": "1",
-                                        "updated_at": "2021-11-14T10:12:03.000000Z",
-                                        "created_at": "2021-11-14T10:12:03.000000Z",
-                                        "id": 3
+                                        "updated_at": "2021-11-15T05:58:41.000000Z",
+                                        "created_at": "2021-11-15T05:58:41.000000Z",
+                                        "id": 11
                                     },
                                     "_response_status": {
                                         "success": true,
@@ -1158,18 +1011,24 @@
                                 "schema": {
                                     "$ref": "#/components/schemas/Slider"
                                 },
-                                "example": {
+                                "example":{
                                     "data": {
-                                        "id": 1,
+                                        "id": 11,
                                         "show_in": 1,
+                                        "title": "Typical Slider Tilte",
                                         "show_in_label": "Nise3",
                                         "industry_association_id": null,
-                                        "institute_title": "Julie Ortiz II",
-                                        "institute_title_en": "Julie Ortiz II",
-                                        "organization_title": "Conroy Ltd",
-                                        "organization_title_en": "Conroy Ltd",
-                                        "institute_id": 1,
-                                        "organization_id": 1
+                                        "institute_title": "",
+                                        "institute_title_en": "",
+                                        "organization_title": "",
+                                        "organization_title_en": "",
+                                        "institute_id": null,
+                                        "organization_id": null,
+                                        "row_status": 1,
+                                        "created_by": null,
+                                        "updated_by": null,
+                                        "created_at": "2021-11-15T05:58:41.000000Z",
+                                        "updated_at": "2021-11-15T06:02:02.000000Z"
                                     },
                                     "_response_status": {
                                         "success": true,
@@ -1200,18 +1059,20 @@
                             "schema": {
                                 "$ref": "#/components/schemas/Slider"
                             },
-                            "example": {
+                            "example":{
                                 "data": {
-                                    "id": 1,
-                                    "institute_id": "1",
-                                    "organization_id": "1",
-                                    "industry_association_id": 1,
+                                    "id": 11,
+                                    "title": "Typical Slider Tilte",
+                                    "title_en": null,
                                     "show_in": "1",
+                                    "institute_id": null,
+                                    "organization_id": null,
+                                    "industry_association_id": null,
                                     "row_status": "1",
                                     "created_by": null,
                                     "updated_by": null,
-                                    "created_at": null,
-                                    "updated_at": null,
+                                    "created_at": "2021-11-15T05:58:41.000000Z",
+                                    "updated_at": "2021-11-15T06:02:02.000000Z",
                                     "deleted_at": null
                                 },
                                 "_response_status": {
@@ -1295,11 +1156,14 @@
                 ]
             }
         },
-        "/banners": {
+        "/public/sliders": {
             "get": {
-                "summary": "Get All banners",
-                "description": "Get All the banners",
+                "summary": "Get All public sliders",
+                "description": "Get All the sliders",
                 "parameters": [
+                    {
+                        "$ref": "#/components/parameters/title_optional"
+                    },
                     {
                         "$ref": "#/components/parameters/show_in"
                     },
@@ -1311,12 +1175,6 @@
                     },
                     {
                         "$ref": "#/components/parameters/organization_id"
-                    },
-                    {
-                        "$ref": "#/components/parameters/title_optional"
-                    },
-                    {
-                        "$ref": "#/components/parameters/sub_title"
                     },
                     {
                         "$ref": "#/components/parameters/page"
@@ -1336,56 +1194,231 @@
                         "description": "Successful",
                         "content": {
                             "application/json": {
-                                "example": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Slider"
+                                },
+                                "example":{
                                     "order": "ASC",
                                     "data": [
                                         {
-                                            "id": 12,
-                                            "show_in": 1,
-                                            "show_in_label": "Nise3",
-                                            "institute_id": null,
-                                            "organization_id": null,
+                                            "id": 1,
+                                            "show_in": 2,
+                                            "title": "",
+                                            "show_in_label": "Youth",
+                                            "industry_association_id": null,
+                                            "institute_title": "",
+                                            "institute_title_en": "",
+                                            "organization_title": "Schiller-VonRueden",
+                                            "organization_title_en": "Schiller-VonRueden",
+                                            "institute_id": 7,
+                                            "organization_id": 4,
+                                            "banners": [
+                                                {
+                                                    "id": 1,
+                                                    "slider_id": 1,
+                                                    "title_en": null,
+                                                    "title": "Dentist",
+                                                    "sub_title_en": null,
+                                                    "sub_title": "Dentist",
+                                                    "is_button_available": 1,
+                                                    "button_text": "Est sit sed providen",
+                                                    "link": "http://www.wolf.org/quia-sequi-ab-ut-quam-doloribus-rem-aut.html",
+                                                    "alt_image_title_en": "id",
+                                                    "alt_image_title": "ut",
+                                                    "banner_template_code": "BT_CB",
+                                                    "banner_image_url": "https://via.placeholder.com/640x480.png/00dd00?text=consequatur",
+                                                    "row_status": 1,
+                                                    "created_by": null,
+                                                    "updated_by": null,
+                                                    "created_at": "2021-11-15T05:37:52.000000Z",
+                                                    "updated_at": "2021-11-15T05:37:52.000000Z",
+                                                    "deleted_at": null
+                                                }
+                                            ],
+                                            "row_status": 1,
+                                            "created_by": null,
+                                            "updated_by": null,
+                                            "created_at": "2021-11-15T05:37:52.000000Z",
+                                            "updated_at": "2021-11-15T05:37:52.000000Z"
+                                        },
+                                        {
+                                            "id": 2,
+                                            "show_in": 4,
+                                            "title": "",
+                                            "show_in_label": "Organization",
+                                            "industry_association_id": null,
                                             "institute_title": "",
                                             "institute_title_en": "",
                                             "organization_title": "",
                                             "organization_title_en": "",
-                                            "industry_association_id": null,
-                                            "is_button_available": 0,
-                                            "link": null,
-                                            "title": "Ammon Ammarth",
-                                            "sub_title": "Ammon Ammarth",
-                                            "alt_image_title": null,
-                                            "button_text": null,
-                                            "banner_template_code": "BT_LR",
-                                            "row_status": 0,
-                                            "created_by": null,
-                                            "updated_by": null,
-                                            "created_at": "2021-11-10T08:53:48.000000Z",
-                                            "updated_at": "2021-11-10T08:53:48.000000Z"
-                                        },
-                                        {
-                                            "id": 13,
-                                            "show_in": 1,
-                                            "show_in_label": "Nise3",
-                                            "institute_id": 1,
-                                            "organization_id": null,
-                                            "institute_title": "Julie Ortiz II",
-                                            "institute_title_en": "Julie Ortiz II",
-                                            "organization_title": "",
-                                            "organization_title_en": "",
-                                            "industry_association_id": null,
-                                            "is_button_available": 1,
-                                            "link": "akjskjasjlksj",
-                                            "title": "aaa",
-                                            "sub_title": "vv",
-                                            "alt_image_title": "atr_text",
-                                            "button_text": "aaaaaaaaaaaaaaaaa",
-                                            "banner_template_code": "BT_LR",
+                                            "institute_id": 8,
+                                            "organization_id": 7,
+                                            "banners": [
+                                                {
+                                                    "id": 2,
+                                                    "slider_id": 2,
+                                                    "title_en": null,
+                                                    "title": "Epidemiologist",
+                                                    "sub_title_en": null,
+                                                    "sub_title": "Epidemiologist",
+                                                    "is_button_available": 0,
+                                                    "button_text": "Illum quia cum dolor",
+                                                    "link": "http://www.bruen.biz/quibusdam-voluptatem-molestiae-ratione",
+                                                    "alt_image_title_en": "enim",
+                                                    "alt_image_title": "placeat",
+                                                    "banner_template_code": "BT_CB",
+                                                    "banner_image_url": "https://via.placeholder.com/640x480.png/00cc33?text=veniam",
+                                                    "row_status": 1,
+                                                    "created_by": null,
+                                                    "updated_by": null,
+                                                    "created_at": "2021-11-15T05:37:52.000000Z",
+                                                    "updated_at": "2021-11-15T05:37:52.000000Z",
+                                                    "deleted_at": null
+                                                }
+                                            ],
                                             "row_status": 1,
                                             "created_by": null,
                                             "updated_by": null,
-                                            "created_at": "2021-11-10T08:57:04.000000Z",
-                                            "updated_at": "2021-11-10T08:57:04.000000Z"
+                                            "created_at": "2021-11-15T05:37:52.000000Z",
+                                            "updated_at": "2021-11-15T05:37:52.000000Z"
+                                        }
+                                    ],
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "message": null,
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Sliders"
+                ]
+            }
+        },
+
+
+
+
+
+
+
+        "/banners": {
+            "get": {
+                "summary": "Get All banners",
+                "description": "Get All the banners",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/title_optional"
+                    },
+                    {
+                        "$ref": "#/components/parameters/sub_title_optional"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page_size"
+                    },
+                    {
+                        "$ref": "#/components/parameters/row_status"
+                    },
+                    {
+                        "$ref": "#/components/parameters/order"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful",
+                        "content": {
+                            "application/json": {
+                                "example":{
+                                    "order": "ASC",
+                                    "data": [
+                                        {
+                                            "id": 1,
+                                            "is_button_available": 1,
+                                            "link": "http://www.wolf.org/quia-sequi-ab-ut-quam-doloribus-rem-aut.html",
+                                            "slider_id": 1,
+                                            "slider_title": "",
+                                            "banner_template_code": "BT_CB",
+                                            "banner_image_url": null,
+                                            "institute_id": 7,
+                                            "organization_id": 4,
+                                            "industry_association_id": null,
+                                            "institute_title": "",
+                                            "institute_title_en": "",
+                                            "organization_title": "Schiller-VonRueden",
+                                            "organization_title_en": "Schiller-VonRueden",
+                                            "title": "Dentist",
+                                            "sub_title": "Dentist",
+                                            "alt_image_title": "ut",
+                                            "button_text": "Est sit sed providen",
+                                            "banner_template": {
+                                                "banner_template_code": "BT_CB",
+                                                "banner_template_title": "Banner with text center and image background",
+                                                "title": {
+                                                    "position": "center"
+                                                },
+                                                "sub_title": {
+                                                    "position": "center"
+                                                },
+                                                "button": {
+                                                    "position": "center"
+                                                },
+                                                "context_path": {
+                                                    "position": "background"
+                                                }
+                                            },
+                                            "row_status": 1,
+                                            "created_by": null,
+                                            "updated_by": null,
+                                            "created_at": "2021-11-15T05:37:52.000000Z",
+                                            "updated_at": "2021-11-15T05:37:52.000000Z"
+                                        },
+                                        {
+                                            "id": 2,
+                                            "is_button_available": 0,
+                                            "link": "http://www.bruen.biz/quibusdam-voluptatem-molestiae-ratione",
+                                            "slider_id": 2,
+                                            "slider_title": "",
+                                            "banner_template_code": "BT_CB",
+                                            "banner_image_url": null,
+                                            "institute_id": 8,
+                                            "organization_id": 7,
+                                            "industry_association_id": null,
+                                            "institute_title": "",
+                                            "institute_title_en": "",
+                                            "organization_title": "",
+                                            "organization_title_en": "",
+                                            "title": "Epidemiologist",
+                                            "sub_title": "Epidemiologist",
+                                            "alt_image_title": "placeat",
+                                            "button_text": "Illum quia cum dolor",
+                                            "banner_template": {
+                                                "banner_template_code": "BT_CB",
+                                                "banner_template_title": "Banner with text center and image background",
+                                                "title": {
+                                                    "position": "center"
+                                                },
+                                                "sub_title": {
+                                                    "position": "center"
+                                                },
+                                                "button": {
+                                                    "position": "center"
+                                                },
+                                                "context_path": {
+                                                    "position": "background"
+                                                }
+                                            },
+                                            "row_status": 1,
+                                            "created_by": null,
+                                            "updated_by": null,
+                                            "created_at": "2021-11-15T05:37:52.000000Z",
+                                            "updated_at": "2021-11-15T05:37:52.000000Z"
                                         }
                                     ],
                                     "_response_status": {
@@ -1557,11 +1590,22 @@
                             "schema": {
                                 "$ref": "#/components/schemas/Banner"
                             },
-                            "example": {
+                            "example":{
                                 "data": {
                                     "id": 1,
                                     "is_button_available": "1",
                                     "link": "akjskjasjlksj",
+                                    "slider_id": "1",
+                                    "slider_title": null,
+                                    "banner_template_code": "BT_LR",
+                                    "banner_image_url": "http://newurl.com",
+                                    "institute_id": null,
+                                    "organization_id": null,
+                                    "industry_association_id": null,
+                                    "institute_title": "",
+                                    "institute_title_en": "",
+                                    "organization_title": "",
+                                    "organization_title_en": "",
                                     "title": "ManGod",
                                     "sub_title": "vv",
                                     "alt_image_title": "atr_text",
@@ -1573,7 +1617,6 @@
                                             "button_text": "अंग्रेजी"
                                         }
                                     },
-                                    "banner_template_code": "BT_LR",
                                     "banner_template": {
                                         "banner_template_code": "BT_LR",
                                         "banner_template_title": "Banner with text left anzd image right",
@@ -1593,8 +1636,8 @@
                                     "row_status": "1",
                                     "created_by": null,
                                     "updated_by": null,
-                                    "created_at": "2021-11-14T05:14:39.000000Z",
-                                    "updated_at": "2021-11-14T08:36:19.000000Z"
+                                    "created_at": "2021-11-15T05:37:52.000000Z",
+                                    "updated_at": "2021-11-15T06:45:58.000000Z"
                                 },
                                 "_response_status": {
                                     "success": true,
@@ -7210,10 +7253,12 @@
                         ]
                     },
                     "link": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Required if is_button_available = YES"
                     },
                     "button_text": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Required if is_button_available = YES"
                     },
                     "alt_image_title": {
                         "type": "string"
@@ -7246,7 +7291,6 @@
                 "required": [
                     "slider_id",
                     "title",
-                    "row_status",
                     "banner_image_url",
                     "is_button_available"
                 ]
