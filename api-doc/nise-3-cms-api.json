@@ -2261,6 +2261,12 @@
                 "description": "API endpoint to get all gallery image.A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
+                        "$ref": "#/components/parameters/only_parent_gallery_album"
+                    },
+                    {
+                        "$ref": "#/components/parameters/parent_gallery_album_id"
+                    },
+                    {
                         "$ref": "#/components/parameters/show_in"
                     },
                     {
@@ -2345,6 +2351,12 @@
                 "summary": "Get All gallery albums",
                 "description": "API endpoint to get all gallery image.A successful request response will show 200 HTTP status code",
                 "parameters": [
+                    {
+                        "$ref": "#/components/parameters/only_parent_gallery_album"
+                    },
+                    {
+                        "$ref": "#/components/parameters/parent_gallery_album_id"
+                    },
                     {
                         "$ref": "#/components/parameters/show_in"
                     },
@@ -2805,6 +2817,9 @@
                 "description": "API endpoint to get the list of gallery-images-videos.A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
+                        "$ref": "#/components/parameters/gallery_album_id_optional"
+                    },
+                    {
                         "$ref": "#/components/parameters/institute_id"
                     },
                     {
@@ -2927,6 +2942,9 @@
                 "description": "API endpoint to get the list of gallery-images-videos.A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
+                        "$ref": "#/components/parameters/gallery_album_id_optional"
+                    },
+                    {
                         "$ref": "#/components/parameters/institute_id"
                     },
                     {
@@ -2950,7 +2968,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "successfull",
+                        "description": "successful",
                         "content": {
                             "application/json": {
                                 "example": {
@@ -5817,6 +5835,26 @@
             }
         },
         "parameters": {
+            "parent_gallery_album_id": {
+                "name": "parent_gallery_album_id",
+                "in": "query",
+                "required": false,
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "only_parent_gallery_album": {
+                "name": "only_parent_gallery_album",
+                "in": "query",
+                "required": false,
+                "schema": {
+                    "type": "integer",
+                    "enum": [
+                        1,
+                        0
+                    ]
+                }
+            },
             "show_in": {
                 "name": "show_in",
                 "in": "query",
@@ -5834,6 +5872,14 @@
             },
             "institute_id": {
                 "name": "institute_id",
+                "in": "query",
+                "required": false,
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "gallery_album_id_optional": {
+                "name": "gallery_album_id",
                 "in": "query",
                 "required": false,
                 "schema": {
