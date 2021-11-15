@@ -227,7 +227,7 @@ class BannerService
                 'min:2'
             ],
             'sub_title' => [
-                'required',
+                'title',
                 'string',
                 'max:300',
                 'min:2'
