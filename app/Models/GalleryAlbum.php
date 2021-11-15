@@ -55,6 +55,13 @@ class GalleryAlbum extends BaseModel
         self::GALLERY_ALBUM_TYPE_VIDEO,
         self::GALLERY_ALBUM_TYPE_MIXED,
     ];
+    public const ONLY_PARENT_GALLERY_ALBUM_TRUE = 1;
+    public const ONLY_PARENT_GALLERY_ALBUM_FALSE = 0;
+
+    public const ONLY_PARENT_GALLERY_ALBUM = [
+        self::ONLY_PARENT_GALLERY_ALBUM_TRUE,
+        self::ONLY_PARENT_GALLERY_ALBUM_FALSE
+    ];
 
     /** GALLERY ALBUM LANGUAGE FILLABLE */
     public const LANGUAGE_ATTR_TITLE = "title";
@@ -72,7 +79,6 @@ class GalleryAlbum extends BaseModel
     {
         return $this->hasMany(CmsLanguage::class, 'key_id', "id");
     }
-
 
 
 }

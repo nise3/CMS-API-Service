@@ -32,6 +32,7 @@ class GalleryImageVideoService
         $instituteId = $request['institute_id'] ?? "";
         $industryAssociationId = $request['industry_association_id'] ?? "";
         $organizationId = $request['organization_id'] ?? "";
+        $galleryAlbumId = $request['gallery_album_id'] ?? "";
         $contentTitle = $request['content_title'] ?? "";
         $contentTitleEN = $request['content_title_en'] ?? "";
         $paginate = $request['page'] ?? "";
@@ -88,6 +89,9 @@ class GalleryImageVideoService
         }
         if (is_numeric($instituteId)) {
             $galleryImageVideoBuilder->where('gallery_albums.institute_id', $instituteId);
+        }
+        if (is_numeric($galleryAlbumId)) {
+            $galleryImageVideoBuilder->where('gallery_images_videos.gallery_album_id', $galleryAlbumId);
         }
         if (is_numeric($industryAssociationId)) {
             $galleryImageVideoBuilder->where('gallery_albums.industry_association_id', $industryAssociationId);
@@ -399,6 +403,7 @@ class GalleryImageVideoService
         return Validator::make($request->all(), [
             'institute_id' => 'nullable|integer|gt:0',
             'industry_association_id' => 'nullable|integer|gt:0',
+            'gallery_album_id' => 'nullable|integer|gt:0',
             'organization_id' => 'nullable|integer|gt:0',
             'content_title' => 'nullable|max:500|min:2',
             'content_title_en' => 'nullable|max:250|min:2',
