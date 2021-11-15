@@ -1723,7 +1723,7 @@
         "/faqs": {
             "get": {
                 "summary": "Get All faqs",
-                "description": "API endpoint to get the list of Sliders.A successful request response will show 200 HTTP status code",
+                "description": "API endpoint to get the list of faqs.A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
                         "name": "question",
@@ -2097,7 +2097,7 @@
         "/public/faqs": {
             "get": {
                 "summary": "Get All public faqs",
-                "description": "API endpoint to get the list of Sliders.A successful request response will show 200 HTTP status code",
+                "description": "API endpoint to get the list of faqs.A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/Accept-Language"
@@ -2262,7 +2262,7 @@
         "/public/faqs/{faqId}": {
             "get": {
                 "summary": "Get a public faq by Id",
-                "description": "API endpoint to get the list of Sliders.A successful request response will show 200 HTTP status code",
+                "description": "API endpoint to get the list of faqs.A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/Accept-Language"
