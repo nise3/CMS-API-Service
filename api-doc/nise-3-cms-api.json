@@ -7108,7 +7108,7 @@
                     },
                     "content_type": {
                         "type": "integer",
-                        "description": "1=>Image,2=>Video,3=>Youtube",
+                        "description": "1 => Page Block, 2 => Static Page",
                         "enum": [
                             1,
                             2,
