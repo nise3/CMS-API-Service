@@ -7181,8 +7181,6 @@
                 },
                 "required": [
                     "show_in",
-                    "institute_id",
-                    "organization_id",
                     "title"
                 ]
             },

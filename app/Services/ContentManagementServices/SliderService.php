@@ -155,6 +155,12 @@ class SliderService
             'row_status.in' => 'Row status must be within 1 or 0. [30000]'
         ];
         $rules = [
+            'title' => [
+                'required',
+                'string',
+                'max:500',
+                'min:2'
+            ],
             'show_in' => [
                 'required',
                 'integer',
