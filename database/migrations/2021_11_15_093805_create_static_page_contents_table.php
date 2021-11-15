@@ -29,21 +29,8 @@ class CreateStaticPageContentsTable extends Migration
             $table->string('sub_title', 600)->nullable();
             $table->string('sub_title_en', 200)->nullable();
 
-            $table->text('contents')->nullable();
-            $table->text('contents_en')->nullable();
-
-            $table->unsignedTinyInteger('content_type')
-                ->comment("1 => Image, 2 => Facebook source, 3 => Youtube Source")->nullable();
-
-            $table->string('image_path', 800)->nullable();
-            $table->string('embedded_url', 800)->nullable();
-            $table->string('embedded_id', 300)->nullable();
-            $table->string('alt_image_title_en')->nullable();
-            $table->string('alt_image_title')->nullable();
-            $table->string("template_code", 20)->comment("BT_LR,BT_RL,BT_CB")->nullable();
-            $table->unsignedTinyInteger('is_button_available')->default(0);
-            $table->string('button_text', 20)->nullable();
-            $table->string('link', 300)->nullable();
+            $table->text('content')->nullable();
+            $table->text('content_en')->nullable();
 
             $table->unsignedInteger('created_by')->nullable();
             $table->unsignedInteger('updated_by')->nullable();
@@ -54,7 +41,6 @@ class CreateStaticPageContentsTable extends Migration
 
             $table->timestamps();
             $table->softDeletes();
-            $table->timestamps();
         });
     }
 

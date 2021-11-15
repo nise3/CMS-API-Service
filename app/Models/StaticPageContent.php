@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\Scopes\ScopeRowStatusTrait;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -19,17 +20,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null title_en
  * @property string|null sub_title
  * @property string|null sub_title_en
- * @property string|null contents
- * @property string|null contents_en
- * @property int|null content_type
- * @property string|null image_path
- * @property string|null embedded_url
- * @property string|null embedded_id
- * @property string|null alt_image_title
- * @property string|null alt_image_title_en
- * @property string|null template_code
- * @property int is_button_available
- * @property string|null button_text
+ * @property string|null content
+ * @property string|null content_en
  * @property int|null created_by
  * @property int|null updated_by
  * @property int|null row_status
@@ -38,7 +30,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class StaticPageContent extends Model
 {
-    use HasFactory;
+    use HasFactory, ScopeRowStatusTrait;
 
     protected $guarded = BaseModel::COMMON_GUARDED_FIELDS_SOFT_DELETE;
 }
