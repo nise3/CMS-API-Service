@@ -1720,170 +1720,6 @@
                 ]
             }
         },
-        "/public/faqs": {
-            "get": {
-                "summary": "Get All public faqs",
-                "description": "API endpoint to get the list of Sliders.A successful request response will show 200 HTTP status code",
-                "parameters": [
-                    {
-                        "$ref": "#/components/parameters/Accept-Language"
-                    },
-                    {
-                        "name": "question",
-                        "in": "query",
-                        "required": false,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "answer",
-                        "in": "query",
-                        "required": false,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "show_in",
-                        "in": "query",
-                        "required": false,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "institute_id",
-                        "in": "query",
-                        "required": false,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "industry_association_id",
-                        "in": "query",
-                        "required": false,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "organization_id",
-                        "in": "query",
-                        "required": false,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "page_size",
-                        "in": "query",
-                        "required": false,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "page",
-                        "in": "query",
-                        "required": false,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "order",
-                        "in": "query",
-                        "required": false,
-                        "schema": {
-                            "type": "string",
-                            "enum": [
-                                "ASC",
-                                "DESC"
-                            ]
-                        }
-                    },
-                    {
-                        "name": "row_status",
-                        "in": "query",
-                        "required": false,
-                        "schema": {
-                            "type": "integer",
-                            "description": "1=>Active 0=>InActive",
-                            "enum": [
-                                1,
-                                0
-                            ]
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Get list of all faqs",
-                        "content": {
-                            "application/json": {
-                                "example":{
-                                    "order": "ASC",
-                                    "data": [
-                                        {
-                                            "id": 1,
-                                            "show_in": 1,
-                                            "show_in_label": "Nise3",
-                                            "institute_id": 5,
-                                            "institute_title": "",
-                                            "institute_title_en": "",
-                                            "organization_id": 5,
-                                            "organization_title": "Kuphal, Fay and Kerluke",
-                                            "organization_title_en": "Kuphal, Fay and Kerluke",
-                                            "industry_association_id": 0,
-                                            "industry_association_title": "",
-                                            "industry_association_title_en": "",
-                                            "question": "Duchess; 'and the moral of that is--\"Birds of a candle is blown out, for she could do, lying down.",
-                                            "answer": "I've finished.",
-                                            "row_status": 1,
-                                            "created_by": null,
-                                            "updated_by": null,
-                                            "created_at": "2021-11-15T05:37:52.000000Z",
-                                            "updated_at": "2021-11-15T05:37:52.000000Z"
-                                        },
-                                        {
-                                            "id": 2,
-                                            "show_in": 1,
-                                            "show_in_label": "Nise3",
-                                            "institute_id": 7,
-                                            "institute_title": "",
-                                            "institute_title_en": "",
-                                            "organization_id": 0,
-                                            "organization_title": "",
-                                            "organization_title_en": "",
-                                            "industry_association_id": 4,
-                                            "industry_association_title": "",
-                                            "industry_association_title_en": "",
-                                            "question": "He was an uncomfortably ",
-                                            "row_status": 1,
-                                            "created_by": null,
-                                            "updated_by": null,
-                                            "created_at": "2021-11-15T05:37:52.000000Z",
-                                            "updated_at": "2021-11-15T05:37:52.000000Z"
-                                        }
-                                    ],
-                                    "_response_status": {
-                                        "success": true,
-                                        "code": 200,
-                                        "message": null,
-                                        "query_time": 0
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "faqs"
-                ]
-            }
-        },
         "/faqs": {
             "get": {
                 "summary": "Get All faqs",
@@ -2257,6 +2093,172 @@
                 ]
             }
         },
+
+        "/public/faqs": {
+            "get": {
+                "summary": "Get All public faqs",
+                "description": "API endpoint to get the list of Sliders.A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/Accept-Language"
+                    },
+                    {
+                        "name": "question",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "answer",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "show_in",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "institute_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "industry_association_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "organization_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "page_size",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "order",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "ASC",
+                                "DESC"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "row_status",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "description": "1=>Active 0=>InActive",
+                            "enum": [
+                                1,
+                                0
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get list of all faqs",
+                        "content": {
+                            "application/json": {
+                                "example":{
+                                    "order": "ASC",
+                                    "data": [
+                                        {
+                                            "id": 1,
+                                            "show_in": 1,
+                                            "show_in_label": "Nise3",
+                                            "institute_id": 5,
+                                            "institute_title": "",
+                                            "institute_title_en": "",
+                                            "organization_id": 5,
+                                            "organization_title": "Kuphal, Fay and Kerluke",
+                                            "organization_title_en": "Kuphal, Fay and Kerluke",
+                                            "industry_association_id": 0,
+                                            "industry_association_title": "",
+                                            "industry_association_title_en": "",
+                                            "question": "Duchess; 'and the moral of that is--\"Birds of a candle is blown out, for she could do, lying down.",
+                                            "answer": "I've finished.",
+                                            "row_status": 1,
+                                            "created_by": null,
+                                            "updated_by": null,
+                                            "created_at": "2021-11-15T05:37:52.000000Z",
+                                            "updated_at": "2021-11-15T05:37:52.000000Z"
+                                        },
+                                        {
+                                            "id": 2,
+                                            "show_in": 1,
+                                            "show_in_label": "Nise3",
+                                            "institute_id": 7,
+                                            "institute_title": "",
+                                            "institute_title_en": "",
+                                            "organization_id": 0,
+                                            "organization_title": "",
+                                            "organization_title_en": "",
+                                            "industry_association_id": 4,
+                                            "industry_association_title": "",
+                                            "industry_association_title_en": "",
+                                            "question": "He was an uncomfortably ",
+                                            "row_status": 1,
+                                            "created_by": null,
+                                            "updated_by": null,
+                                            "created_at": "2021-11-15T05:37:52.000000Z",
+                                            "updated_at": "2021-11-15T05:37:52.000000Z"
+                                        }
+                                    ],
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "message": null,
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "faqs"
+                ]
+            }
+        },
+
         "/public/faqs/{faqId}": {
             "get": {
                 "summary": "Get a public faq by Id",
@@ -2328,6 +2330,8 @@
                 ]
             }
         },
+
+
         "/public/gallery-albums": {
             "get": {
                 "summary": "Get All public  gallery albums",
