@@ -7239,7 +7239,6 @@
                 "required": [
                     "slider_id",
                     "title",
-                    "sub_title",
                     "row_status",
                     "banner_image_url",
                     "is_button_available"
