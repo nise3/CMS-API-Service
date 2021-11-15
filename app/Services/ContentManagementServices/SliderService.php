@@ -18,6 +18,8 @@ class SliderService
     public function getSliderList(array $request): Collection|LengthAwarePaginator|array
     {
 
+        $titleEn = $request['title_en'] ?? "";
+        $title = $request['title'] ?? "";
         $paginate = $request['page'] ?? "";
         $pageSize = $request['page_size'] ?? "";
         $rowStatus = $request['row_status'] ?? "";
@@ -44,6 +46,12 @@ class SliderService
         $sliderBuilder->orderBy('sliders.id', $order);
         if (is_numeric($instituteId)) {
             $sliderBuilder->where('sliders.institute_id', '=', $instituteId);
+        }
+        if (!empty($titleEn)) {
+            $sliderBuilder->where('sliders.title_en', 'like', '%' . $titleEn . '%');
+        }
+        if (!empty($title)) {
+            $sliderBuilder->where('sliders.title', 'like', '%' . $title . '%');
         }
 
         if (is_numeric($organizationId)) {
@@ -197,6 +205,8 @@ class SliderService
         }
 
         return Validator::make($request->all(), [
+            'title_en' => 'nullable|max:300|min:2',
+            'title' => 'nullable|max:500|min:2',
             'page' => 'nullable|integer|gt:0',
             'page_size' => 'nullable|integer|gt:0',
             'institute_id' => 'nullable|integer|gt:0',
