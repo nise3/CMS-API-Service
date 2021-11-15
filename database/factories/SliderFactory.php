@@ -13,6 +13,7 @@ class SliderFactory extends Factory
     public function definition(): array
     {
         return [
+            'title' => $this->faker->jobTitle(),
             'show_in' => $this->faker->randomElement(array_keys(BaseModel::SHOW_INS)),
             'organization_id' => $this->faker->numberBetween(1, 10),
             'institute_id' => $this->faker->numberBetween(1, 10),
