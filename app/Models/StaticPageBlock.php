@@ -46,7 +46,7 @@ class StaticPageBlock extends BaseModel
         self::CONTENT_TYPE_STATIC_PAGE
     ];
 
-    protected $table = 'static_pages_and_block';
+    protected $table = 'static_page_blocks';
     protected $guarded = BaseModel::COMMON_GUARDED_FIELDS_SOFT_DELETE;
 
 

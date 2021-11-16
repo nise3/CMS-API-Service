@@ -67,6 +67,7 @@ class StaticPageContentOrPageBlockService
                 $staticPageBuilder->where('static_page_blocks.static_page_type_id', '=', $type);
             }
             $staticPageBuilder->where('static_page_blocks.code', $page_code);
+            return $staticPageBuilder->firstOrFail();
 
         } elseif ($type == StaticPageType::TYPE_STATIC_PAGE) {
             $staticPageBuilder = StaticPageContent::select([
@@ -98,8 +99,9 @@ class StaticPageContentOrPageBlockService
                 $staticPageBuilder->where('static_page_types.static_page_type_id', '=', $type);
             }
             $staticPageBuilder->where('static_page_blocks.code', $page_code);
+            return $staticPageBuilder->firstOrFail();
         }
-        return $staticPageBuilder->firstOrFail();
+
     }
 
 

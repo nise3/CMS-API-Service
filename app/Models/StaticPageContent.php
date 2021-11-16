@@ -32,5 +32,7 @@ class StaticPageContent extends Model
 {
     use HasFactory, ScopeRowStatusTrait;
 
+    protected $table = 'static_page_contents';
+
     protected $guarded = BaseModel::COMMON_GUARDED_FIELDS_SOFT_DELETE;
 }
