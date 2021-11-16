@@ -74,14 +74,14 @@ class GalleryImageVideo extends BaseModel
     ];
 
     /** GALLERY_IMAGE_VIDEO_LANGUAGE_FILLABLE */
-    const LANGUAGE_ATTR_CONTENT_TITLE = "content_title";
-    const LANGUAGE_ATTR_CONTENT_DESCRIPTION = "content_description";
-    const LANGUAGE_ATTR_ALT_TITLE = "alt_title";
+    const LANGUAGE_ATTR_TITLE = "title";
+    const LANGUAGE_ATTR_DESCRIPTION = "description";
+    const LANGUAGE_ATTR_ALT_IMAGE_TITLE = "alt_image_title";
 
     public const GALLERY_IMAGE_VIDEO_LANGUAGE_FILLABLE = [
-        self::LANGUAGE_ATTR_ALT_TITLE,
-        self::LANGUAGE_ATTR_CONTENT_TITLE,
-        self::LANGUAGE_ATTR_CONTENT_DESCRIPTION
+        self::LANGUAGE_ATTR_TITLE,
+        self::LANGUAGE_ATTR_DESCRIPTION,
+        self::LANGUAGE_ATTR_ALT_IMAGE_TITLE
     ];
 
     /**

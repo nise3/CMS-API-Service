@@ -33,22 +33,21 @@ class CreateGalleryImagesVideosTable extends Migration
                 ->nullable()
                 ->comment('youtube => 1, facebook => 2');
 
-            $table->string('content_title', 600);
-            $table->string('content_title_en', 250)->nullable();
-            $table->text('content_description')->nullable();
-            $table->text('content_description_en')->nullable();
+            $table->string('title', 600);
+            $table->string('title_en', 250)->nullable();
+            $table->text('description')->nullable();
+            $table->text('description_en')->nullable();
 
-            $table->string('content_path', 800)->nullable();
-            $table->string('embedded_url', 800)->nullable();
-            $table->string('embedded_id', 300)->nullable();
+            $table->string('image_path', 800)->nullable();
+            $table->string('video_url', 800)->nullable();
+            $table->string('video_id', 300)->nullable();
             $table->json('content_properties_json')->nullable();
 
-            $table->string('content_cover_image_url')->nullable();
-            $table->string('content_grid_image_url')->nullable()->comment('Grid or List View Image');
-            $table->string('content_thumb_image_url')->nullable();
+            $table->string('content_grid_image_path')->nullable()->comment('Grid or List View Image');
+            $table->string('content_thumb_image_path')->nullable();
 
-            $table->string('alt_title', 600)->nullable();
-            $table->string('alt_title_en', 250)->nullable();
+            $table->string('alt_image_title', 600)->nullable();
+            $table->string('alt_image_title_en', 250)->nullable();
 
             $table->unsignedTinyInteger('row_status')
                 ->default(1)
