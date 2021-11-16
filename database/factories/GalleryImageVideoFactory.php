@@ -31,8 +31,8 @@ class GalleryImageVideoFactory extends Factory
             'title_en' => $this->faker->jobTitle(),
             'description' => $this->faker->realText(),
             'description_en' => $this->faker->realText(),
-            'alt_title' => $this->faker->realText(),
-            'alt_title_en' => $title,
+            'image_alt_title' => $this->faker->realText(),
+            'image_alt_title_en' => $title,
         ];
     }
 }

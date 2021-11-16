@@ -46,8 +46,8 @@ class CreateGalleryImagesVideosTable extends Migration
             $table->string('content_grid_image_path')->nullable()->comment('Grid or List View Image');
             $table->string('content_thumb_image_path')->nullable();
 
-            $table->string('alt_image_title', 600)->nullable();
-            $table->string('alt_image_title_en', 250)->nullable();
+            $table->string('image_alt_title', 600)->nullable();
+            $table->string('image_alt_title_en', 250)->nullable();
 
             $table->unsignedTinyInteger('row_status')
                 ->default(1)
