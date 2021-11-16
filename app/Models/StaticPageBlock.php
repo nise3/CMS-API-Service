@@ -88,13 +88,15 @@ class StaticPageBlock extends BaseModel
     public const BACKGROUND = "background";
 
     const LANGUAGE_ATTR_TITLE = "title";
-    const LANGUAGE_ATTR_SUB_TITLE = "sub_title";
-    const LANGUAGE_ATTR_CONTENTS = "contents";
+    const LANGUAGE_ATTR_CONTENT = "content";
+    const LANGUAGE_ATTR_BUTTON_TEXT = "button_text";
+    const LANGUAGE_ATTR_ALT_IMAGE_TITLE = "alt_image_title";
 
-    public const STATIC_PAGE_LANGUAGE_FILLABLE = [
+    public const STATIC_PAGE_BLOCK_LANGUAGE_FILLABLE = [
         self::LANGUAGE_ATTR_TITLE,
-        self::LANGUAGE_ATTR_SUB_TITLE,
-        self::LANGUAGE_ATTR_CONTENTS
+        self::LANGUAGE_ATTR_CONTENT,
+        self::LANGUAGE_ATTR_BUTTON_TEXT,
+        self::LANGUAGE_ATTR_ALT_IMAGE_TITLE,
     ];
 
     /**
