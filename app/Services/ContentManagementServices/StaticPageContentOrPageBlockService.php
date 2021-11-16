@@ -62,7 +62,7 @@ class StaticPageContentOrPageBlockService
                 'static_page_blocks.updated_at'
             ]);
             $staticPageBuilder->join('static_page_types', function ($join) {
-                $join->on('static_page_types.id', '=', 'static_page_contents.static_page_type_id',);
+                $join->on('static_page_types.id', '=', 'static_page_blocks.static_page_type_id',);
             });
             if (is_numeric($showIn)) {
                 $staticPageBuilder->where('static_page_blocks.show_in', '=', $showIn);
