@@ -385,7 +385,7 @@ class NoticeOrNewsService
                 'string'
             ],
             'main_image_path' => [
-                'nullable',
+                'required',
                 'string',
             ],
             'grid_image_path' => [
