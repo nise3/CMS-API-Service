@@ -2923,74 +2923,74 @@
                         "description": "successful",
                         "content": {
                             "application/json": {
-                                "example": {
+                                "example":{
                                     "order": "ASC",
                                     "data": [
                                         {
-                                            "id": 1,
-                                            "gallery_album_id": 1,
-                                            "gallery_album_title": "Healthcare Practitioner",
+                                            "id": 9,
+                                            "gallery_album_id": 9,
+                                            "gallery_album_title": "Fence Erector",
                                             "featured": 0,
-                                            "published_at": "2021-11-11 10:56:43",
+                                            "published_at": "2021-11-16 10:09:39",
                                             "archived_at": null,
-                                            "institute_id": null,
-                                            "organization_id": 3,
-                                            "industry_association_id": 9,
+                                            "institute_id": 10,
+                                            "organization_id": 6,
+                                            "industry_association_id": 10,
                                             "institute_title": "",
                                             "institute_title_en": "",
-                                            "organization_title": "Stokes-Roberts",
-                                            "organization_title_en": "Stokes-Roberts",
+                                            "organization_title": "",
+                                            "organization_title_en": "",
                                             "content_type": 1,
                                             "video_type": null,
-                                            "content_title": "Maid",
-                                            "content_description": "Knave of Hearts, he stole those tarts, And took them quite away!' 'Consider your verdict,' he said do. Alice looked at poor Alice, 'it would have called him a fish)--and rapped loudly at the cook.",
-                                            "image_path": "https://via.placeholder.com/640x480.png/006644?text=qui",
+                                            "title": "King, the Queen, the royal children.",
+                                            "description": "King, the Queen, the royal children.",
+                                            "image_path": "https://via.placeholder.com/640x480.png/0011cc?text=officia",
                                             "video_url": null,
                                             "video_id": null,
                                             "content_properties_json": null,
-                                            "content_cover_image_path": null,
                                             "content_grid_image_path": null,
-                                            "image_alt_title": "Alice. 'I've tried every way, and then Alice put down yet, before the trial's begun.' 'They're putting down their names,' the Gryphon said, in a hurried nervous manner, smiling at everything that.",
+                                            "content_thumb_image_path": null,
+                                            "image_alt_title": "I beg your pardon.",
                                             "row_status": 1,
                                             "published_by": null,
                                             "archived_by": null,
                                             "created_by": null,
                                             "updated_by": null,
-                                            "created_at": "2021-11-11T10:56:43.000000Z",
-                                            "updated_at": "2021-11-11T10:56:43.000000Z"
+                                            "created_at": "2021-11-16T10:09:39.000000Z",
+                                            "updated_at": "2021-11-16T10:09:39.000000Z"
                                         },
                                         {
-                                            "id": 2,
-                                            "gallery_album_id": 2,
-                                            "gallery_album_title": "Wind Instrument Repairer",
+                                            "id": 10,
+                                            "gallery_album_id": 10,
+                                            "gallery_album_title": "Septic Tank Servicer",
                                             "featured": 0,
-                                            "published_at": "2021-11-11 10:56:43",
+                                            "published_at": "2021-11-16 10:09:39",
                                             "archived_at": null,
-                                            "institute_id": null,
-                                            "organization_id": 1,
-                                            "industry_association_id": 7,
+                                            "institute_id": 4,
+                                            "organization_id": 10,
+                                            "industry_association_id": 1,
                                             "institute_title": "",
                                             "institute_title_en": "",
-                                            "organization_title": "Conroy Ltd",
-                                            "organization_title_en": "Conroy Ltd",
+                                            "organization_title": "",
+                                            "organization_title_en": "",
                                             "content_type": 1,
                                             "video_type": null,
-                                            "content_title": "Title Searcher",
-                                            "content_description": "Hardly knowing what she was beginning to see if he were trying which word sounded best. Some of the court,\" and I shall be late!' (when she thought it had made. 'He took me for his housemaid,' she.",
-                                            "image_path": "https://via.placeholder.com/640x480.png/007722?text=omnis",
+                                            "title": "Alice, thinking it was sneezing and howling alternately without a porpoise.",
+                                            "description": "Alice, thinking .",
+                                            "image_path": "https://via.placeholder.com/640x480.png/004433?text=mollitia",
                                             "video_url": null,
                                             "video_id": null,
                                             "content_properties_json": null,
-                                            "content_cover_image_path": null,
                                             "content_grid_image_path": null,
-                                            "image_alt_title": "And she began fancying the sort of life! I do it again and again.' 'You are old,' said the Mock Turtle interrupted, 'if you don't explain it as far down the middle, being held up by a row of lodging.",
+                                            "content_thumb_image_path": null,
+                                            "image_alt_title": "Mouse's tail.",
                                             "row_status": 1,
                                             "published_by": null,
                                             "archived_by": null,
                                             "created_by": null,
                                             "updated_by": null,
-                                            "created_at": "2021-11-11T10:56:43.000000Z",
-                                            "updated_at": "2021-11-11T10:56:43.000000Z"
+                                            "created_at": "2021-11-16T10:09:39.000000Z",
+                                            "updated_at": "2021-11-16T10:09:39.000000Z"
                                         }
                                     ],
                                     "_response_status": {
@@ -3025,11 +3025,11 @@
                         "description": "successfull",
                         "content": {
                             "application/json": {
-                                "example": {
+                                "example":{
                                     "data": {
-                                        "id": 11,
+                                        "id": 17,
                                         "gallery_album_id": "1",
-                                        "gallery_album_title": "Healthcare Practitioner",
+                                        "gallery_album_title": null,
                                         "featured": "1",
                                         "published_at": null,
                                         "archived_at": null,
@@ -3042,20 +3042,20 @@
                                         "organization_title_en": "",
                                         "content_type": "1",
                                         "video_type": null,
-                                        "content_title": "image ccccc dddddd ddddd",
-                                        "content_description": null,
-                                        "image_path": "asas",
+                                        "title": null,
+                                        "description": null,
+                                        "image_path": "https://whoru?.com",
                                         "video_url": null,
                                         "video_id": null,
                                         "content_properties_json": null,
-                                        "content_cover_image_path": null,
                                         "content_grid_image_path": null,
+                                        "content_thumb_image_path": null,
                                         "image_alt_title": null,
                                         "other_language_fields": {
                                             "hi": {
-                                                "image_alt_title": "aaaaaaaaaaaa",
-                                                "content_title": "हमारा अंग्रेजी से बांग्ला अनुवाद उपकरण",
-                                                "content_description": "asjdkjakdjajdja"
+                                                "title": "aaaaaaaaaaaa",
+                                                "description": "aaaaaaaaaaaa",
+                                                "image_alt_title": "aaaaaaaaaaaa"
                                             }
                                         },
                                         "row_status": null,
@@ -3063,8 +3063,8 @@
                                         "archived_by": null,
                                         "created_by": null,
                                         "updated_by": null,
-                                        "created_at": "2021-11-11T11:22:14.000000Z",
-                                        "updated_at": "2021-11-11T11:22:14.000000Z"
+                                        "created_at": "2021-11-16T11:14:39.000000Z",
+                                        "updated_at": "2021-11-16T11:14:39.000000Z"
                                     },
                                     "_response_status": {
                                         "success": true,
@@ -3110,11 +3110,11 @@
                         "description": "successfull",
                         "content": {
                             "application/json": {
-                                "example": {
+                                "example":{
                                     "data": {
-                                        "id": 11,
+                                        "id": 17,
                                         "gallery_album_id": "1",
-                                        "gallery_album_title": "Healthcare Practitioner",
+                                        "gallery_album_title": null,
                                         "featured": "1",
                                         "published_at": null,
                                         "archived_at": null,
@@ -3127,20 +3127,20 @@
                                         "organization_title_en": "",
                                         "content_type": "1",
                                         "video_type": null,
-                                        "content_title": "image ccccc dddddd ddddd",
-                                        "content_description": null,
-                                        "image_path": "ke tumi",
+                                        "title": null,
+                                        "description": null,
+                                        "image_path": "https://whoru?.com",
                                         "video_url": null,
                                         "video_id": null,
                                         "content_properties_json": null,
-                                        "content_cover_image_path": null,
                                         "content_grid_image_path": null,
+                                        "content_thumb_image_path": null,
                                         "image_alt_title": null,
                                         "other_language_fields": {
                                             "hi": {
-                                                "image_alt_title": "aaaaaaaaaaaa",
-                                                "content_title": "हमारा अंग्रेजी से बांग्ला अनुवाद उपकरण",
-                                                "content_description": "asjdkjakdjajdja"
+                                                "title": "aaaaaaaaaaaa",
+                                                "description": "aaaaaaaaaaaa",
+                                                "image_alt_title": "aaaaaaaaaaaa"
                                             }
                                         },
                                         "row_status": 1,
@@ -3148,8 +3148,8 @@
                                         "archived_by": null,
                                         "created_by": null,
                                         "updated_by": null,
-                                        "created_at": "2021-11-11T11:22:14.000000Z",
-                                        "updated_at": "2021-11-11T11:26:13.000000Z"
+                                        "created_at": "2021-11-16T11:14:39.000000Z",
+                                        "updated_at": "2021-11-16T11:14:39.000000Z"
                                     },
                                     "_response_status": {
                                         "success": true,
@@ -3184,37 +3184,37 @@
                         "description": "successfull",
                         "content": {
                             "application/json": {
-                                "example": {
+                                "example":{
                                     "data": {
-                                        "id": 11,
+                                        "id": 17,
                                         "gallery_album_id": 1,
-                                        "gallery_album_title": "Healthcare Practitioner",
+                                        "gallery_album_title": "Judge",
                                         "featured": 1,
                                         "published_at": null,
                                         "archived_at": null,
-                                        "institute_id": null,
-                                        "organization_id": 3,
-                                        "industry_association_id": 9,
+                                        "institute_id": 8,
+                                        "organization_id": 7,
+                                        "industry_association_id": 2,
                                         "institute_title": "",
                                         "institute_title_en": "",
-                                        "organization_title": "Stokes-Roberts",
-                                        "organization_title_en": "Stokes-Roberts",
+                                        "organization_title": "",
+                                        "organization_title_en": "",
                                         "content_type": 1,
                                         "video_type": null,
-                                        "content_title": "image ccccc dddddd ddddd",
-                                        "content_description": null,
-                                        "image_path": "ke tumi",
+                                        "title": null,
+                                        "description": null,
+                                        "image_path": "https://whoru?.com",
                                         "video_url": null,
                                         "video_id": null,
                                         "content_properties_json": null,
-                                        "content_cover_image_path": null,
                                         "content_grid_image_path": null,
+                                        "content_thumb_image_path": null,
                                         "image_alt_title": null,
                                         "other_language_fields": {
                                             "hi": {
-                                                "image_alt_title": "aaaaaaaaaaaa",
-                                                "content_title": "हमारा अंग्रेजी से बांग्ला अनुवाद उपकरण",
-                                                "content_description": "asjdkjakdjajdja"
+                                                "title": "aaaaaaaaaaaa",
+                                                "description": "aaaaaaaaaaaa",
+                                                "image_alt_title": "aaaaaaaaaaaa"
                                             }
                                         },
                                         "row_status": 1,
@@ -3222,8 +3222,8 @@
                                         "archived_by": null,
                                         "created_by": null,
                                         "updated_by": null,
-                                        "created_at": "2021-11-11T11:22:14.000000Z",
-                                        "updated_at": "2021-11-11T11:26:13.000000Z"
+                                        "created_at": "2021-11-16T11:14:39.000000Z",
+                                        "updated_at": "2021-11-16T11:14:39.000000Z"
                                     },
                                     "_response_status": {
                                         "success": true,
@@ -3297,46 +3297,39 @@
                         "description": "successfull",
                         "content": {
                             "application/json": {
-                                "example": {
+                                "example":{
                                     "data": {
-                                        "id": 11,
+                                        "id": 1,
                                         "gallery_album_id": 1,
-                                        "gallery_album_title": "Healthcare Practitioner",
+                                        "gallery_album_title": "Judge",
                                         "featured": 1,
-                                        "published_at": null,
+                                        "published_at": "2021-11-16 10:09:39",
                                         "archived_at": null,
-                                        "institute_id": null,
-                                        "organization_id": 3,
-                                        "industry_association_id": 9,
+                                        "institute_id": 8,
+                                        "organization_id": 7,
+                                        "industry_association_id": 2,
                                         "institute_title": "",
                                         "institute_title_en": "",
-                                        "organization_title": "Stokes-Roberts",
-                                        "organization_title_en": "Stokes-Roberts",
+                                        "organization_title": "",
+                                        "organization_title_en": "",
                                         "content_type": 1,
                                         "video_type": null,
-                                        "content_title": "image ccccc dddddd ddddd",
-                                        "content_description": null,
-                                        "image_path": "ke tumi",
+                                        "title": "Occupational Therapist",
+                                        "description": "The chief difficulty Alice found at first she thought of herself.",
+                                        "image_path": "https://via.placeholder.com/640x480.png/00ddff?text=cum",
                                         "video_url": null,
                                         "video_id": null,
                                         "content_properties_json": null,
-                                        "content_cover_image_path": null,
                                         "content_grid_image_path": null,
-                                        "image_alt_title": null,
-                                        "other_language_fields": {
-                                            "hi": {
-                                                "image_alt_title": "aaaaaaaaaaaa",
-                                                "content_title": "हमारा अंग्रेजी से बांग्ला अनुवाद उपकरण",
-                                                "content_description": "asjdkjakdjajdja"
-                                            }
-                                        },
+                                        "content_thumb_image_path": null,
+                                        "image_alt_title": "Footman continued in the shade.",
                                         "row_status": 1,
                                         "published_by": null,
                                         "archived_by": null,
                                         "created_by": null,
                                         "updated_by": null,
-                                        "created_at": "2021-11-11T11:22:14.000000Z",
-                                        "updated_at": "2021-11-11T11:26:13.000000Z"
+                                        "created_at": "2021-11-16T10:09:39.000000Z",
+                                        "updated_at": "2021-11-16T10:09:39.000000Z"
                                     },
                                     "_response_status": {
                                         "success": true,
@@ -3395,75 +3388,74 @@
                         "description": "successfull",
                         "content": {
                             "application/json": {
-                                "example": {
+                                "example":{
                                     "order": "ASC",
                                     "data": [
                                         {
                                             "id": 1,
                                             "gallery_album_id": 1,
-                                            "gallery_album_title": "Healthcare Practitioner",
-                                            "featured": 0,
-                                            "published_at": "2021-11-11 10:56:43",
+                                            "gallery_album_title": "Judge",
+                                            "featured": 1,
+                                            "published_at": "2021-11-16 10:09:39",
                                             "archived_at": null,
-                                            "institute_id": null,
+                                            "institute_id": 8,
+                                            "organization_id": 7,
+                                            "industry_association_id": 2,
+                                            "institute_title": "",
+                                            "institute_title_en": "",
+                                            "organization_title": "",
+                                            "organization_title_en": "",
+                                            "content_type": 1,
+                                            "video_type": null,
+                                            "title": "The chief difficulty Alice found at first she thought of herself.",
+                                            "description": "The chief difficulty Alice found at first she thought of herself.",
+                                            "image_path": "https://via.placeholder.com/640x480.png/00ddff?text=cum",
+                                            "video_url": null,
+                                            "video_id": null,
+                                            "content_properties_json": null,
+                                            "content_grid_image_path": null,
+                                            "content_thumb_image_path": null,
+                                            "image_alt_title": "Footman continued in the shade.",
+                                            "row_status": 1,
+                                            "published_by": null,
+                                            "archived_by": null,
+                                            "created_by": null,
+                                            "updated_by": null,
+                                            "created_at": "2021-11-16T10:09:39.000000Z",
+                                            "updated_at": "2021-11-16T10:09:39.000000Z"
+                                        },
+                                        {
+                                            "id": 2,
+                                            "gallery_album_id": 2,
+                                            "gallery_album_title": "Political Science Teacher",
+                                            "featured": 1,
+                                            "published_at": "2021-11-16 10:09:39",
+                                            "archived_at": null,
+                                            "institute_id": 6,
                                             "organization_id": 3,
-                                            "industry_association_id": 9,
+                                            "industry_association_id": 4,
                                             "institute_title": "",
                                             "institute_title_en": "",
                                             "organization_title": "Stokes-Roberts",
                                             "organization_title_en": "Stokes-Roberts",
                                             "content_type": 1,
                                             "video_type": null,
-                                            "content_title": "Maid",
-                                            "content_description": "Knave of Hearts, he stole those tarts, And took them quite away!' 'Consider your verdict,' he said do. Alice looked at poor Alice, 'it would have called him a fish)--and rapped loudly at the cook.",
-                                            "image_path": "https://via.placeholder.com/640x480.png/006644?text=qui",
+                                            "title": "I suppose.' So she went slowly after it.",
+                                            "description": "I suppose.' So she went slowly after it.",
+                                            "image_path": "https://via.placeholder.com/640x480.png/006633?text=qui",
                                             "video_url": null,
                                             "video_id": null,
                                             "content_properties_json": null,
-                                            "content_cover_image_path": null,
                                             "content_grid_image_path": null,
-                                            "image_alt_title": "Alice. 'I've tried every way, and then Alice put down yet, before the trial's begun.' 'They're putting down their names,' the Gryphon said, in a hurried nervous manner, smiling at everything that.",
+                                            "content_thumb_image_path": null,
+                                            "image_alt_title": "Gryphon",
                                             "row_status": 1,
                                             "published_by": null,
                                             "archived_by": null,
                                             "created_by": null,
                                             "updated_by": null,
-                                            "created_at": "2021-11-11T10:56:43.000000Z",
-                                            "updated_at": "2021-11-11T10:56:43.000000Z"
-                                        },
-                                        {
-                                            "id": 2,
-                                            "gallery_album_id": 2,
-                                            "gallery_album_title": "Wind Instrument Repairer",
-                                            "gallery_album_title_en": "Wind Instrument Repairer",
-                                            "featured": 0,
-                                            "published_at": "2021-11-11 10:56:43",
-                                            "archived_at": null,
-                                            "institute_id": null,
-                                            "organization_id": 1,
-                                            "industry_association_id": 7,
-                                            "institute_title": "",
-                                            "institute_title_en": "",
-                                            "organization_title": "Conroy Ltd",
-                                            "organization_title_en": "Conroy Ltd",
-                                            "content_type": 1,
-                                            "video_type": null,
-                                            "content_title": "Title Searcher",
-                                            "content_description": "Hardly knowing what she was beginning to see if he were trying which word sounded best. Some of the court,\" and I shall be late!' (when she thought it had made. 'He took me for his housemaid,' she.",
-                                            "image_path": "https://via.placeholder.com/640x480.png/007722?text=omnis",
-                                            "video_url": null,
-                                            "video_id": null,
-                                            "content_properties_json": null,
-                                            "content_cover_image_path": null,
-                                            "content_grid_image_path": null,
-                                            "image_alt_title": "And she began fancying the sort of life! I do it again and again.' 'You are old,' said the Mock Turtle interrupted, 'if you don't explain it as far down the middle, being held up by a row of lodging.",
-                                            "row_status": 1,
-                                            "published_by": null,
-                                            "archived_by": null,
-                                            "created_by": null,
-                                            "updated_by": null,
-                                            "created_at": "2021-11-11T10:56:43.000000Z",
-                                            "updated_at": "2021-11-11T10:56:43.000000Z"
+                                            "created_at": "2021-11-16T10:09:39.000000Z",
+                                            "updated_at": "2021-11-16T10:09:39.000000Z"
                                         }
                                     ],
                                     "_response_status": {
@@ -6071,16 +6063,17 @@
                         "required": false,
                         "description": "TYPE_PAGE_BLOCK = 1 TYPE_PAGE_STATIC_PAGE = 2",
                         "schema": {
-                            "type": "integer"
+                            "type": "integer",
+                            "enum": [1,2]
                         }
                     },
                     {
                         "name": "show_in",
                         "in": "query",
-                        "description":  "1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry, 5=>Industry Association",
+                        "description":  "1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry",
                         "schema": {
                             "type": "integer",
-                            "enum": [1,2,3,4,5]
+                            "enum": [1,2,3,4]
                         }
                     }
                 ],
@@ -6168,7 +6161,7 @@
                 "in": "path",
                 "required": true,
                 "schema": {
-                    "type": "integer"
+                    "type": "string"
                 }
             },
             "search_text":{
