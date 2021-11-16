@@ -37,25 +37,24 @@ class GalleryImageVideoResource extends JsonResource
             "organization_title_en" => $request->get(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID)[BaseModel::ORGANIZATION_SERVICE][$this->organization_id]['title_en'] ?? "",
             "content_type" => $this->content_type,
             "video_type" => $this->video_type,
-            "content_title" => $this->content_title,
-            "content_description" => $this->content_description,
+            "title" => $this->title,
+            "description" => $this->description,
             "image_path" => $this->image_path,
             "video_url" => $this->video_url,
             "video_id" => $this->video_id,
             "content_properties_json" => $this->content_properties_json,
-            "content_cover_image_path" => $this->content_cover_image_path,
             "content_grid_image_path" => $this->content_grid_image_path,
             "content_thumb_image_path" => $this->content_thumb_image_path,
-            "alt_title" => $this->alt_title,
+            "image_alt_title" => $this->image_alt_title,
         ];
         if ($request->offsetExists(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY) && $request->get(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY)) {
-            $response['content_title'] = app(CmsLanguageService::class)->getLanguageValue($this, GalleryImageVideo::LANGUAGE_ATTR_CONTENT_TITLE);
-            $response['content_description'] = app(CmsLanguageService::class)->getLanguageValue($this, GalleryImageVideo::LANGUAGE_ATTR_CONTENT_DESCRIPTION);
-            $response['alt_title'] = app(CmsLanguageService::class)->getLanguageValue($this, GalleryImageVideo::LANGUAGE_ATTR_ALT_TITLE);
+            $response['title'] = app(CmsLanguageService::class)->getLanguageValue($this, GalleryImageVideo::LANGUAGE_ATTR_TITLE);
+            $response['description'] = app(CmsLanguageService::class)->getLanguageValue($this, GalleryImageVideo::LANGUAGE_ATTR_DESCRIPTION);
+            $response['image_alt_title'] = app(CmsLanguageService::class)->getLanguageValue($this, GalleryImageVideo::LANGUAGE_ATTR_IMAGE_ALT_TITLE);
         } else {
-            $response['content_title'] = $this->content_title;
-            $response['content_description'] = $this->content_description;
-            $response['alt_title'] = $this->alt_title;
+            $response['title'] = $this->title;
+            $response['title'] = $this->description;
+            $response['image_alt_title'] = $this->image_alt_title;
             if (!$request->get(BaseModel::IS_COLLECTION_KEY)) {
                 $response[BaseModel::OTHER_LANGUAGE_FIELDS_KEY] = CmsLanguageService::otherLanguageResponse($this);
             }
