@@ -15,7 +15,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Throwable;
-use function PHPUnit\Framework\isNull;
+
 
 /**
  * Class GalleryAlbumService
@@ -58,7 +58,7 @@ class GalleryAlbumService
             'gallery_albums.organization_id',
             'gallery_albums.industry_association_id',
             'gallery_albums.program_id',
-            'gallery_albums.batch_id',
+            'gallery_albums.course_id',
             'gallery_albums.title',
             'gallery_albums.main_image_path',
             'gallery_albums.thumb_image_path',
@@ -144,7 +144,7 @@ class GalleryAlbumService
             'gallery_albums.organization_id',
             'gallery_albums.industry_association_id',
             'gallery_albums.program_id',
-            'gallery_albums.batch_id',
+            'gallery_albums.course_id',
             'gallery_albums.title',
             'gallery_albums.main_image_path',
             'gallery_albums.thumb_image_path',
@@ -340,7 +340,7 @@ class GalleryAlbumService
                 'date',
                 'after:published_at'
             ],
-            'batch_id' => [
+            'course_id' => [
                 'nullable',
                 'int',
             ],

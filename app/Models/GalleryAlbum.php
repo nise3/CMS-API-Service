@@ -23,7 +23,7 @@ use Illuminate\Support\Collection;
  * @property int|null $institute_id
  * @property int|null $organization_id
  * @property int|null $industry_association_id
- * @property int|null $batch_id
+ * @property int|null $course_id
  * @property int|null $program_id
  * @property string $title
  * @property string|null $title_en
