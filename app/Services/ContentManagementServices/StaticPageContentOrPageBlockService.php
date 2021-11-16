@@ -253,27 +253,33 @@ class StaticPageContentOrPageBlockService
             $rules['is_button_available'] = [
                 'required',
                 'int',
-                Rule::in([StaticPageType::IS_BUTTON_AVAILABLE_YES, StaticPageType::IS_BUTTON_AVAILABLE_NO])
+                Rule::in(StaticPageBlock::IS_BUTTON_AVAILABLE)
             ];
             $rules['link'] = [
                 'nullable',
-                'requiredIf:is_button_available,' . StaticPageType::IS_BUTTON_AVAILABLE_YES,
+                'requiredIf:is_button_available,' . StaticPageBlock::IS_BUTTON_AVAILABLE_YES,
                 'string',
                 'max:191',
             ];
             $rules['button_text'] = [
+                'requiredIf:is_button_available,' . StaticPageBlock::IS_BUTTON_AVAILABLE_YES,
                 'nullable',
-                'requiredIf:is_button_available,' . StaticPageType::IS_BUTTON_AVAILABLE_YES,
                 'string',
                 'max:20'
             ];
-            $rules['image_path'] = [
-                'nullable',
-                'required_if:content_type,' . GalleryImageVideo::CONTENT_TYPE_IMAGE
-            ];
             $rules['is_attachment_available'] = [
                 'integer',
-                Rule::in()
+                Rule::in(StaticPageBlock::IS_ATTACHMENT_AVAILABLE)
+            ];
+            $rules['attachment_type'] = [
+                'required_if:is_attachment_available,' . StaticPageBlock::ATTACHMENT_TYPES,
+                'nullable',
+                'integer',
+                Rule::in(StaticPageBlock::ATTACHMENT_TYPES)
+            ];
+            $rules['image_path'] = [
+                'nullable',
+                'required_if:content_type,' . StaticPageBlock::ATTACHMENT_TYPE_IMAGE
             ];
             $rules['alt_image_title'] = [
                 'string',
@@ -282,7 +288,7 @@ class StaticPageContentOrPageBlockService
             $rules['template_code'] = [
 
             ];
-            if (!empty($requestData['content_type']) && $requestData['content_type'] == GalleryImageVideo::CONTENT_TYPE_VIDEO && !empty($requestData['video_type'])) {
+            if (!empty($requestData['attachment_type']) && $requestData['attachment_type'] == !StaticPageBlock::ATTACHMENT_TYPE_IMAGE ) {
                 $rules['video_url'] = [
                     'required',
                     'string',

@@ -38,16 +38,38 @@ class StaticPageBlock extends BaseModel
 {
     use HasFactory, SoftDeletes, ScopeRowStatusTrait;
 
-    const CONTENT_TYPE_BLOCK = 1;
-    const CONTENT_TYPE_STATIC_PAGE = 2;
-
-    public const CONTENT_TYPES = [
-        self::CONTENT_TYPE_BLOCK,
-        self::CONTENT_TYPE_STATIC_PAGE
-    ];
 
     protected $table = 'static_page_blocks';
     protected $guarded = BaseModel::COMMON_GUARDED_FIELDS_SOFT_DELETE;
+
+
+    public const IS_BUTTON_AVAILABLE_YES = 1;
+    public const IS_BUTTON_AVAILABLE_NO = 0;
+
+    public const IS_BUTTON_AVAILABLE = [
+        self::IS_BUTTON_AVAILABLE_YES,
+        self::IS_BUTTON_AVAILABLE_NO,
+    ];
+
+    public const ATTACHMENT_TYPE_IMAGE = 1;
+    public const ATTACHMENT_TYPE_FACEBOOK_VIDEO = 2;
+    public const ATTACHMENT_TYPE_YOUTUBE_VIDEO = 3;
+
+    public const ATTACHMENT_TYPES = [
+        self::ATTACHMENT_TYPE_IMAGE,
+        self::ATTACHMENT_TYPE_FACEBOOK_VIDEO,
+        self::ATTACHMENT_TYPE_YOUTUBE_VIDEO,
+    ];
+
+
+    public const IS_ATTACHMENT_AVAILABLE_YES = 1;
+    public const IS_ATTACHMENT_AVAILABLE_NO = 1;
+
+
+    public const IS_ATTACHMENT_AVAILABLE = [
+        self::IS_ATTACHMENT_AVAILABLE_YES,
+        self::IS_ATTACHMENT_AVAILABLE_NO
+    ];
 
 
     const LANGUAGE_ATTR_TITLE = "title";
