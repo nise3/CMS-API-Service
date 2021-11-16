@@ -268,13 +268,13 @@ class GalleryImageVideoService
                 "regex:/[a-z]/",
                 Rule::in(LanguageCodeService::getLanguageCode())
             ],
-            'content_title' => [
+            'title' => [
                 "required",
                 "string",
                 "max:600",
                 "min:2"
             ],
-            'content_description' => [
+            'description' => [
                 "nullable",
                 "string"
             ],
@@ -318,7 +318,7 @@ class GalleryImageVideoService
                 'required_if:content_type,' . GalleryImageVideo::CONTENT_TYPE_VIDEO,
                 Rule::in(GalleryImageVideo::VIDEO_TYPES)
             ],
-            'content_title' => [
+            'title' => [
                 'required',
                 'string',
                 'max:600',
@@ -333,7 +333,7 @@ class GalleryImageVideoService
                 'date',
                 'after:published_at'
             ],
-            'content_description' => [
+            'description' => [
                 'nullable',
                 'string'
             ],
@@ -345,10 +345,6 @@ class GalleryImageVideoService
                 'nullable',
                 'required_if:content_type,' . GalleryImageVideo::CONTENT_TYPE_IMAGE
             ],
-            'content_cover_image_path' => [
-                'nullable',
-                'string'
-            ],
             'content_grid_image_path' => [
                 'nullable',
                 'string'
@@ -357,11 +353,11 @@ class GalleryImageVideoService
                 'nullable',
                 'string'
             ],
-            'alt_title' => [
+            'image_alt_title' => [
                 'nullable',
                 'string'
             ],
-            'row_status' => [
+            'image_alt_title_en' => [
                 'required_if:' . $id . ',!=,null',
                 Rule::in([BaseModel::ROW_STATUS_ACTIVE, BaseModel::ROW_STATUS_INACTIVE]),
             ]
@@ -403,8 +399,8 @@ class GalleryImageVideoService
             'industry_association_id' => 'nullable|integer|gt:0',
             'gallery_album_id' => 'nullable|integer|gt:0',
             'organization_id' => 'nullable|integer|gt:0',
-            'content_title' => 'nullable|max:500|min:2',
-            'content_title_en' => 'nullable|max:250|min:2',
+            'title' => 'nullable|max:500|min:2',
+            'title_en' => 'nullable|max:250|min:2',
             'page_size' => 'nullable|integer|gt:0',
             'page' => 'nullable|integer|gt:0',
             'order' => [
