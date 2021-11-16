@@ -34,7 +34,7 @@ use Illuminate\Support\Collection;
  * @property Carbon|null $deleted_at
  * @property  Collection cmsLanguages
  */
-class StaticPage extends BaseModel
+class StaticPageBlock extends BaseModel
 {
     use HasFactory, SoftDeletes, ScopeRowStatusTrait;
 

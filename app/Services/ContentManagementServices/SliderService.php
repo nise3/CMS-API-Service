@@ -4,7 +4,7 @@ namespace App\Services\ContentManagementServices;
 
 use App\Models\BaseModel;
 use App\Models\Slider;
-use App\Models\StaticPage;
+use App\Models\StaticPageBlock;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
