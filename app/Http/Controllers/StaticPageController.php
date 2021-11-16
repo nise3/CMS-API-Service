@@ -9,7 +9,7 @@ use App\Models\StaticPageBlock;
 use App\Services\Common\CmsGlobalConfigService;
 use App\Services\Common\LanguageCodeService;
 use App\Services\ContentManagementServices\CmsLanguageService;
-use App\Services\ContentManagementServices\StaticPageService;
+use App\Services\ContentManagementServices\StaticPageContentOrPageBlock;
 use Carbon\Carbon;
 use Illuminate\Http\Client\RequestException;
 use Illuminate\Http\JsonResponse;
@@ -24,9 +24,9 @@ use Throwable;
 class StaticPageController extends Controller
 {
     /**
-     * @var StaticPageService
+     * @var StaticPageContentOrPageBlock
      */
-    public StaticPageService $staticPageService;
+    public StaticPageContentOrPageBlock $staticPageService;
 
     /**
      * @var Carbon
@@ -34,9 +34,9 @@ class StaticPageController extends Controller
     private Carbon $startTime;
 
     /**
-     * @param StaticPageService $staticPageService
+     * @param StaticPageContentOrPageBlock $staticPageService
      */
-    public function __construct(StaticPageService $staticPageService)
+    public function __construct(StaticPageContentOrPageBlock $staticPageService)
     {
         $this->startTime = Carbon::now();
         $this->staticPageService = $staticPageService;

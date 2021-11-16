@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
 
-class StaticPageService
+class StaticPageContentOrPageBlock
 {
     /**
      * @param array $request
