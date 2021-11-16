@@ -71,6 +71,21 @@ class StaticPageBlock extends BaseModel
         self::IS_ATTACHMENT_AVAILABLE_NO
     ];
 
+    /** Page block Template Type */
+    public const PBT_LR = "PBT_LR";
+    public const PBT_RL = "PBT_RL";
+    public const PBT_CB = "PBT_CB";
+
+    public const STATIC_PAGE_BLOCK_TEMPLATE_TYPES = [
+        self::PBT_LR => "Block with text left and image right",
+        self::PBT_RL => "Block with text right and image left",
+        self::PBT_CB => "Block with text center and image background"
+    ];
+
+    public const POSITION_LEFT = "left";
+    public const POSITION_RIGHT = "right";
+    public const POSITION_CENTER = "center";
+    public const BACKGROUND = "background";
 
     const LANGUAGE_ATTR_TITLE = "title";
     const LANGUAGE_ATTR_SUB_TITLE = "sub_title";

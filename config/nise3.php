@@ -2,7 +2,7 @@
 
 use App\Models\BaseModel;
 use App\Models\Banner;
-use App\Models\PageBlock;
+use App\Models\StaticPageBlock;
 
 return [
     "is_dev_mode" => env("IS_DEVELOPMENT_MOOD", false),
@@ -86,52 +86,52 @@ return [
         ]
     ],
     "page_block_template" => [
-        PageBlock::PBT_LR => [
-            "page_block_template_code" => PageBlock::PBT_LR,
-            "page_block_template_title" => PageBlock::PAGE_BLOCK_TEMPLATE_TYPES[PageBlock::PBT_LR],
+        StaticPageBlock::PBT_LR => [
+            "page_block_template_code" => StaticPageBlock::PBT_LR,
+            "page_block_template_title" => StaticPageBlock::STATIC_PAGE_BLOCK_TEMPLATE_TYPES[StaticPageBlock::PBT_LR],
             "title" => [
-                "position" => PageBlock::POSITION_LEFT
+                "position" => StaticPageBlock::POSITION_LEFT
             ],
             "content" => [
-                "position" => PageBlock::POSITION_LEFT
+                "position" => StaticPageBlock::POSITION_LEFT
             ],
             "button" => [
-                "position" => PageBlock::POSITION_LEFT
+                "position" => StaticPageBlock::POSITION_LEFT
             ],
             "image" => [
-                "position" => PageBlock::POSITION_RIGHT
+                "position" => StaticPageBlock::POSITION_RIGHT
             ]
         ],
-        PageBlock::PBT_RL => [
-            "page_block_template_code" => PageBlock::PBT_RL,
-            "page_block_template_title" => PageBlock::PAGE_BLOCK_TEMPLATE_TYPES[PageBlock::PBT_RL],
+        StaticPageBlock::PBT_RL => [
+            "page_block_template_code" => StaticPageBlock::PBT_RL,
+            "page_block_template_title" => StaticPageBlock::STATIC_PAGE_BLOCK_TEMPLATE_TYPES[StaticPageBlock::PBT_RL],
             "title" => [
-                "position" => PageBlock::POSITION_RIGHT
+                "position" => StaticPageBlock::POSITION_RIGHT
             ],
             "content" => [
-                "position" => PageBlock::POSITION_RIGHT
+                "position" => StaticPageBlock::POSITION_RIGHT
             ],
             "button" => [
-                "position" => PageBlock::POSITION_RIGHT
+                "position" => StaticPageBlock::POSITION_RIGHT
             ],
             "image" => [
-                "position" => PageBlock::POSITION_LEFT
+                "position" => StaticPageBlock::POSITION_LEFT
             ]
         ],
-        PageBlock::PBT_CB => [
-            "page_block_template_code" => PageBlock::PBT_CB,
-            "page_block_template_title" => PageBlock::PAGE_BLOCK_TEMPLATE_TYPES[PageBlock::PBT_CB],
+        StaticPageBlock::PBT_CB => [
+            "page_block_template_code" => StaticPageBlock::PBT_CB,
+            "page_block_template_title" => StaticPageBlock::STATIC_PAGE_BLOCK_TEMPLATE_TYPES[StaticPageBlock::PBT_CB],
             "title" => [
-                "position" => PageBlock::POSITION_CENTER
+                "position" => StaticPageBlock::POSITION_CENTER
             ],
             "content" => [
-                "position" => PageBlock::POSITION_CENTER
+                "position" => StaticPageBlock::POSITION_CENTER
             ],
             "button" => [
-                "position" => PageBlock::POSITION_CENTER
+                "position" => StaticPageBlock::POSITION_CENTER
             ],
             "image" => [
-                "position" => PageBlock::BACKGROUND
+                "position" => StaticPageBlock::BACKGROUND
             ]
         ]
     ]
