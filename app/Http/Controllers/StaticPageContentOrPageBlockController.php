@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\StaticPageContent;
 use Illuminate\Http\Request;
 
-class StaticPageContentController extends Controller
+class StaticPageContentOrPageBlockController extends Controller
 {
     /**
      * Display a listing of the resource.
