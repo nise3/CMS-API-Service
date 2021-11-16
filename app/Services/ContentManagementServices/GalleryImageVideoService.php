@@ -287,7 +287,7 @@ class GalleryImageVideoService
                 "nullable",
                 "string"
             ],
-            'alt_title' => [
+            'image_alt_title' => [
                 "nullable",
                 "string",
             ]
