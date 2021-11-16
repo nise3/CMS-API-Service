@@ -114,7 +114,6 @@ class RecentActivityController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
-
         $validated = $this->recentActivityService->validator($request)->validate();
         $message = "Recent Activity is Successfully added";
         $otherLanguagePayload = $validated['other_language_fields'] ?? [];
