@@ -111,11 +111,10 @@ class StaticPageContentOrPageBlockService
      * @param array $data
      * @return StaticPageBlock
      */
-    public function storeOrUpdate(array $data): StaticPageBlock
+    public function storeOrUpdate(array $data)
     {
-        if (!empty($data['content_slug_or_id'])) {
-            $data['content_slug_or_id'] = str_replace(' ', '_', $data['content_slug_or_id']);
-        }
+
+
         $staticPage = new StaticPageBlock();
         $staticPage->fill($data);
         $staticPage->save();
@@ -124,13 +123,14 @@ class StaticPageContentOrPageBlockService
 
 
     /**
-     * @param StaticPageBlock $staticPage
-     * @return bool
+     * @param string $pageCode
+     * @return StaticPageType
      */
-    public function destroy(StaticPageBlock $staticPage): bool
+    public function getStaticPageTypeBYPageCode(string $pageCode): StaticPageType
     {
-        return $staticPage->delete();
+        return StaticPageType::select(['type'])->where('page_code', $pageCode)->firstOrFail();
     }
+
 
     /**
      * @param array $request
@@ -176,14 +176,8 @@ class StaticPageContentOrPageBlockService
      * @param null $id
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    public function validator(Request $request, $id = null): \Illuminate\Contracts\Validation\Validator
+    public function validator(Request $request, $staticPageType): \Illuminate\Contracts\Validation\Validator
     {
-        $type = null;
-        $requestData = $request->all();
-        if ($request->filled('page_code')) {
-            $pageType = StaticPageType::select(['type'])->where('page_code', $requestData['page_code'])->firstOrFail();
-            $type = $pageType['type'];
-        }
         $rules = [
             'static_page_type_id' => [
                 'required',
