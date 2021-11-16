@@ -376,6 +376,9 @@ class RecentActivityService
             ],
 
             'collage_image_path' => [
+                Rule::requiredIf(function () use ($requestData) {
+                    return !empty($requestData['collage_position']);
+                }),
                 'nullable',
                 'string',
                 'max:600'
