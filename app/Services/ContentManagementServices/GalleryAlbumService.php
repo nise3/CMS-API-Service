@@ -92,7 +92,7 @@ class GalleryAlbumService
         if (is_numeric($parentGalleryAlbumId)) {
             $galleryAlbumBuilder->where('gallery_albums.parent_gallery_album_id', $parentGalleryAlbumId);
         }
-        if ($onlyParentGalleryAlbum==GalleryAlbum::ONLY_PARENT_GALLERY_ALBUM_TRUE ){
+        if ($onlyParentGalleryAlbum == GalleryAlbum::ONLY_PARENT_GALLERY_ALBUM_TRUE) {
             $galleryAlbumBuilder->whereNull('gallery_albums.parent_gallery_album_id');
         }
         if (is_numeric($industryAssociationId)) {
@@ -354,9 +354,8 @@ class GalleryAlbumService
                 'max:600',
                 'min:2'
             ],
-
             'main_image_path' => [
-                'nullable',
+                'required',
                 'string',
             ],
             'thumb_image_path' => [
