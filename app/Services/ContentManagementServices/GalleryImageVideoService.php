@@ -28,7 +28,7 @@ class GalleryImageVideoService
      */
     public function getGalleryImageVideoList(array $request, $startTime = null): Collection|LengthAwarePaginator|array
     {
-
+        $searchText = $request['search_text'] ?? "";
         $instituteId = $request['institute_id'] ?? "";
         $industryAssociationId = $request['industry_association_id'] ?? "";
         $organizationId = $request['organization_id'] ?? "";
@@ -114,6 +114,15 @@ class GalleryImageVideoService
             });
 
             $galleryImageVideoBuilder->active();
+        }
+
+        if (!empty($searchText)) {
+            $galleryImageVideoBuilder->where(function ($builder) use ($searchText) {
+                $builder->orWhere('gallery_images_videos.title', 'like', '%' . $searchText . '%');
+                $builder->orWhere('gallery_images_videos.title_en', 'like', '%' . $searchText . '%');
+                $builder->orWhere('gallery_images_videos.description', 'like', '%' . $searchText . '%');
+                $builder->orWhere('gallery_images_videos.description_en', 'like', '%' . $searchText . '%');
+            });
         }
 
         /** @var Collection $galleries */
@@ -403,6 +412,10 @@ class GalleryImageVideoService
             'title_en' => 'nullable|max:250|min:2',
             'page_size' => 'nullable|integer|gt:0',
             'page' => 'nullable|integer|gt:0',
+            'search_text' => [
+                'nullable',
+                'string'
+            ],
             'order' => [
                 'string',
                 Rule::in([BaseModel::ROW_ORDER_ASC, BaseModel::ROW_ORDER_DESC])
