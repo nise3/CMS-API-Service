@@ -6023,12 +6023,15 @@
                     }
                 },
                 "tags": ["PageContentOrPageBlock"]
-            }
-        },
-        "/static-page-blocks": {
-            "post": {
+            },
+            "put": {
                 "summary": "Create a static-block",
-                "description": "API endpoint to Get all static-block.A successful request response will show 200 HTTP status code",
+                "description": "API endpoint to update  a static-block.A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/page_code"
+                    }
+                ],
                 "requestBody": {
                     "content": {
                         "application/x-www-form-urlencoded": {
@@ -6052,6 +6055,7 @@
 
             }
         },
+
         "/public/static-page-blocks/{page_code}": {
             "get": {
                 "summary": "Get all public static-page-block page_code",
@@ -6068,6 +6072,9 @@
                             "type": "integer",
                             "enum": [1,2,3,4]
                         }
+                    },
+                    {
+                        "$ref": "#/components/parameters/Accept-Language"
                     }
                 ],
                 "responses": {
