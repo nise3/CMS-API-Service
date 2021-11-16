@@ -11,6 +11,7 @@ use App\Services\Common\LanguageCodeService;
 use App\Services\ContentManagementServices\CmsLanguageService;
 use App\Services\ContentManagementServices\NoticeOrNewsService;
 use Carbon\Carbon;
+use Illuminate\Http\Client\RequestException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -54,6 +55,7 @@ class NoticeOrNewsController extends Controller
      * @param Request $request
      * @param int $id
      * @return JsonResponse
+     * @throws RequestException
      */
     public function read(Request $request, int $id): JsonResponse
     {
@@ -67,6 +69,8 @@ class NoticeOrNewsController extends Controller
     /**
      * @param Request $request
      * @return JsonResponse
+     * @throws ValidationException
+     * @throws RequestException
      */
     public function clientSideGetList(Request $request): JsonResponse
     {
@@ -86,6 +90,7 @@ class NoticeOrNewsController extends Controller
      * @param Request $request
      * @param int $id
      * @return JsonResponse
+     * @throws RequestException
      */
     public function clientSideRead(Request $request, int $id): JsonResponse
     {

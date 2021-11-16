@@ -28,6 +28,7 @@ class NoticeOrNewsService
      */
     public function getNoticeOrNewsServiceList(array $request, $startTime = null): Collection|LengthAwarePaginator|array
     {
+        $searchText = $request['search_text'] ?? "";
         $titleEn = $request['title_en'] ?? "";
         $titleBn = $request['title'] ?? "";
         $paginate = $request['page'] ?? "";
@@ -107,6 +108,14 @@ class NoticeOrNewsService
             $noticeOrNewsBuilder->where('notice_or_news.show_in', '=', $showIn);
         }
 
+        if(!empty($searchText)){
+            $noticeOrNewsBuilder->where(function($builder) use ($searchText){
+                $builder->orWhere('notice_or_news.title', 'like', '%' . $searchText . '%');
+                $builder->orWhere('notice_or_news.title_en', 'like', '%' . $searchText . '%');
+                $builder->orWhere('notice_or_news.details', 'like', '%' . $searchText . '%');
+                $builder->orWhere('notice_or_news.details_en', 'like', '%' . $searchText . '%');
+            });
+        }
 
         /** @var Collection $noticeOrNews */
         if (is_numeric($paginate) || is_numeric($pageSize)) {
@@ -299,6 +308,10 @@ class NoticeOrNewsService
                 'nullable',
                 'string',
                 Rule::in([BaseModel::ROW_ORDER_ASC, BaseModel::ROW_ORDER_DESC])
+            ],
+            'search_text' => [
+                'nullable',
+                'string'
             ],
             'row_status' => [
                 'nullable',
