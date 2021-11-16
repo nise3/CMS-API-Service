@@ -34,6 +34,7 @@ class StaticPageContentOrPageBlockService
         /** @var Builder $staticPageBuilder */
         if ($type == StaticPageType::TYPE_PAGE_BLOCK) {
             $staticPageBuilder = StaticPageBlock::select([
+                'static_page_types.type',
                 'static_page_blocks.id',
                 'static_page_blocks.show_in',
                 'static_page_blocks.static_page_type_id',
@@ -64,17 +65,16 @@ class StaticPageContentOrPageBlockService
             $staticPageBuilder->join('static_page_types', function ($join) {
                 $join->on('static_page_types.id', '=', 'static_page_blocks.static_page_type_id',);
             });
+            $staticPageBuilder->where('static_page_types.page_code', $page_code);
+
             if (is_numeric($showIn)) {
                 $staticPageBuilder->where('static_page_blocks.show_in', '=', $showIn);
             }
-            if (!empty($type)) {
-                $staticPageBuilder->where('static_page_blocks.static_page_type_id', '=', $type);
-            }
-            $staticPageBuilder->where('static_page_types.page_code', $page_code);
             $response = $staticPageBuilder->firstOrFail();
 
         } elseif ($type == StaticPageType::TYPE_STATIC_PAGE) {
             $staticPageBuilder = StaticPageContent::select([
+                'static_page_types.type',
                 'static_page_contents.id',
                 'static_page_contents.show_in',
                 'static_page_contents.static_page_type_id',
@@ -93,21 +93,19 @@ class StaticPageContentOrPageBlockService
                 'static_page_contents.created_at',
                 'static_page_contents.updated_at'
             ]);
+
             $staticPageBuilder->join('static_page_types', function ($join) {
                 $join->on('static_page_types.id', '=', 'static_page_contents.static_page_type_id',);
             });
+            $staticPageBuilder->where('static_page_types.page_code', $page_code);
+
             if (is_numeric($showIn)) {
                 $staticPageBuilder->where('static_page_contents.show_in', '=', $showIn);
             }
-            if (!empty($type)) {
-                $staticPageBuilder->where('static_page_contents.static_page_type_id', '=', $type);
-            }
-            $staticPageBuilder->where('static_page_types.page_code', $page_code);
             $response = $staticPageBuilder->firstOrFail();
         }
         return $response;
     }
-
 
     /**
      * @param array $data
