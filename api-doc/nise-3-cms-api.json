@@ -865,7 +865,7 @@
                                             ],
                                             "title": "Ammon Ammarth",
                                             "sub_title": "Ammon Ammarth",
-                                            "alt_title": null,
+                                            "image_alt_title": null,
                                             "button_text": null,
                                             "banner_template_code": "BT_LR",
                                             "banner_template": {
@@ -909,7 +909,7 @@
                                             ],
                                             "title": "aaa",
                                             "sub_title": "vv",
-                                            "alt_title": "atr_text",
+                                            "image_alt_title": "atr_text",
                                             "button_text": "aaaaaaaaaaaaaaaaa",
                                             "banner_template_code": "BT_LR",
                                             "banner_template": {
@@ -1103,7 +1103,7 @@
                                         "slider_images": [
                                             "aaasss"
                                         ],
-                                        "alt_title": null,
+                                        "image_alt_title": null,
                                         "banner_template": null,
                                         "row_status": "0",
                                         "created_by": null,
@@ -1662,7 +1662,7 @@
                                         "slider_images": [
                                             "aaasss"
                                         ],
-                                        "alt_title": null,
+                                        "image_alt_title": null,
                                         "banner_template": null,
                                         "row_status": "0",
                                         "created_by": null,
@@ -2888,131 +2888,6 @@
                 ]
             }
         },
-        "/public/gallery-images-videos": {
-            "get": {
-                "summary": "Get all public gallery image videos",
-                "description": "API endpoint to get the list of gallery-images-videos.A successful request response will show 200 HTTP status code",
-                "parameters": [
-                    {
-                        "$ref": "#/components/parameters/gallery_album_id_optional"
-                    },
-                    {
-                        "$ref": "#/components/parameters/institute_id"
-                    },
-                    {
-                        "$ref": "#/components/parameters/industry_association_id"
-                    },
-                    {
-                        "$ref": "#/components/parameters/organization_id"
-                    },
-                    {
-                        "$ref": "#/components/parameters/Accept-Language"
-                    },
-                    {
-                        "$ref": "#/components/parameters/page"
-                    },
-                    {
-                        "$ref": "#/components/parameters/page_size"
-                    },
-                    {
-                        "$ref": "#/components/parameters/row_status"
-                    },
-                    {
-                        "$ref": "#/components/parameters/order"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successfull",
-                        "content": {
-                            "application/json": {
-                                "example": {
-                                    "order": "ASC",
-                                    "data": [
-                                        {
-                                            "id": 1,
-                                            "gallery_album_id": 1,
-                                            "gallery_album_title": "Healthcare Practitioner",
-                                            "featured": 0,
-                                            "published_at": "2021-11-11 10:56:43",
-                                            "archived_at": null,
-                                            "institute_id": null,
-                                            "organization_id": 3,
-                                            "industry_association_id": 9,
-                                            "institute_title": "",
-                                            "institute_title_en": "",
-                                            "organization_title": "Stokes-Roberts",
-                                            "organization_title_en": "Stokes-Roberts",
-                                            "content_type": 1,
-                                            "video_type": null,
-                                            "content_title": "Maid",
-                                            "content_description": "Knave of Hearts, he stole those tarts, And took them quite away!' 'Consider your verdict,' he said do. Alice looked at poor Alice, 'it would have called him a fish)--and rapped loudly at the cook.",
-                                            "image_path": "https://via.placeholder.com/640x480.png/006644?text=qui",
-                                            "video_url": null,
-                                            "video_id": null,
-                                            "content_properties_json": null,
-                                            "content_cover_image_path": null,
-                                            "content_grid_image_path": null,
-                                            "alt_title": "Alice. 'I've tried every way, and then Alice put down yet, before the trial's begun.' 'They're putting down their names,' the Gryphon said, in a hurried nervous manner, smiling at everything that.",
-                                            "row_status": 1,
-                                            "published_by": null,
-                                            "archived_by": null,
-                                            "created_by": null,
-                                            "updated_by": null,
-                                            "created_at": "2021-11-11T10:56:43.000000Z",
-                                            "updated_at": "2021-11-11T10:56:43.000000Z"
-                                        },
-                                        {
-                                            "id": 2,
-                                            "gallery_album_id": 2,
-                                            "gallery_album_title": "Wind Instrument Repairer",
-                                            "gallery_album_title_en": "Wind Instrument Repairer",
-                                            "featured": 0,
-                                            "published_at": "2021-11-11 10:56:43",
-                                            "archived_at": null,
-                                            "institute_id": null,
-                                            "organization_id": 1,
-                                            "industry_association_id": 7,
-                                            "institute_title": "",
-                                            "institute_title_en": "",
-                                            "organization_title": "Conroy Ltd",
-                                            "organization_title_en": "Conroy Ltd",
-                                            "content_type": 1,
-                                            "video_type": null,
-                                            "content_title": "Title Searcher",
-                                            "content_description": "Hardly knowing what she was beginning to see if he were trying which word sounded best. Some of the court,\" and I shall be late!' (when she thought it had made. 'He took me for his housemaid,' she.",
-                                            "image_path": "https://via.placeholder.com/640x480.png/007722?text=omnis",
-                                            "video_url": null,
-                                            "video_id": null,
-                                            "content_properties_json": null,
-                                            "content_cover_image_path": null,
-                                            "content_grid_image_path": null,
-                                            "alt_title": "And she began fancying the sort of life! I do it again and again.' 'You are old,' said the Mock Turtle interrupted, 'if you don't explain it as far down the middle, being held up by a row of lodging.",
-                                            "row_status": 1,
-                                            "published_by": null,
-                                            "archived_by": null,
-                                            "created_by": null,
-                                            "updated_by": null,
-                                            "created_at": "2021-11-11T10:56:43.000000Z",
-                                            "updated_at": "2021-11-11T10:56:43.000000Z"
-                                        }
-                                    ],
-                                    "_response_status": {
-                                        "success": true,
-                                        "code": 200,
-                                        "message": null,
-                                        "query_time": 1
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "gallery-images-videos"
-                ]
-            }
-        },
         "/gallery-images-videos": {
             "get": {
                 "summary": "Get all gallery image videos",
@@ -3075,7 +2950,7 @@
                                             "content_properties_json": null,
                                             "content_cover_image_path": null,
                                             "content_grid_image_path": null,
-                                            "alt_title": "Alice. 'I've tried every way, and then Alice put down yet, before the trial's begun.' 'They're putting down their names,' the Gryphon said, in a hurried nervous manner, smiling at everything that.",
+                                            "image_alt_title": "Alice. 'I've tried every way, and then Alice put down yet, before the trial's begun.' 'They're putting down their names,' the Gryphon said, in a hurried nervous manner, smiling at everything that.",
                                             "row_status": 1,
                                             "published_by": null,
                                             "archived_by": null,
@@ -3108,7 +2983,7 @@
                                             "content_properties_json": null,
                                             "content_cover_image_path": null,
                                             "content_grid_image_path": null,
-                                            "alt_title": "And she began fancying the sort of life! I do it again and again.' 'You are old,' said the Mock Turtle interrupted, 'if you don't explain it as far down the middle, being held up by a row of lodging.",
+                                            "image_alt_title": "And she began fancying the sort of life! I do it again and again.' 'You are old,' said the Mock Turtle interrupted, 'if you don't explain it as far down the middle, being held up by a row of lodging.",
                                             "row_status": 1,
                                             "published_by": null,
                                             "archived_by": null,
@@ -3175,10 +3050,10 @@
                                         "content_properties_json": null,
                                         "content_cover_image_path": null,
                                         "content_grid_image_path": null,
-                                        "alt_title": null,
+                                        "image_alt_title": null,
                                         "other_language_fields": {
                                             "hi": {
-                                                "alt_title": "aaaaaaaaaaaa",
+                                                "image_alt_title": "aaaaaaaaaaaa",
                                                 "content_title": "हमारा अंग्रेजी से बांग्ला अनुवाद उपकरण",
                                                 "content_description": "asjdkjakdjajdja"
                                             }
@@ -3260,10 +3135,10 @@
                                         "content_properties_json": null,
                                         "content_cover_image_path": null,
                                         "content_grid_image_path": null,
-                                        "alt_title": null,
+                                        "image_alt_title": null,
                                         "other_language_fields": {
                                             "hi": {
-                                                "alt_title": "aaaaaaaaaaaa",
+                                                "image_alt_title": "aaaaaaaaaaaa",
                                                 "content_title": "हमारा अंग्रेजी से बांग्ला अनुवाद उपकरण",
                                                 "content_description": "asjdkjakdjajdja"
                                             }
@@ -3334,10 +3209,10 @@
                                         "content_properties_json": null,
                                         "content_cover_image_path": null,
                                         "content_grid_image_path": null,
-                                        "alt_title": null,
+                                        "image_alt_title": null,
                                         "other_language_fields": {
                                             "hi": {
-                                                "alt_title": "aaaaaaaaaaaa",
+                                                "image_alt_title": "aaaaaaaaaaaa",
                                                 "content_title": "हमारा अंग्रेजी से बांग्ला अनुवाद उपकरण",
                                                 "content_description": "asjdkjakdjajdja"
                                             }
@@ -3447,10 +3322,10 @@
                                         "content_properties_json": null,
                                         "content_cover_image_path": null,
                                         "content_grid_image_path": null,
-                                        "alt_title": null,
+                                        "image_alt_title": null,
                                         "other_language_fields": {
                                             "hi": {
-                                                "alt_title": "aaaaaaaaaaaa",
+                                                "image_alt_title": "aaaaaaaaaaaa",
                                                 "content_title": "हमारा अंग्रेजी से बांग्ला अनुवाद उपकरण",
                                                 "content_description": "asjdkjakdjajdja"
                                             }
@@ -3463,6 +3338,134 @@
                                         "created_at": "2021-11-11T11:22:14.000000Z",
                                         "updated_at": "2021-11-11T11:26:13.000000Z"
                                     },
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "message": null,
+                                        "query_time": 1
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "gallery-images-videos"
+                ]
+            }
+        },
+        "/public/gallery-images-videos": {
+            "get": {
+                "summary": "Get all public gallery image videos",
+                "description": "API endpoint to get the list of gallery-images-videos.A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/gallery_album_id_optional"
+                    },
+                    {
+                        "$ref": "#/components/parameters/institute_id"
+                    },
+                    {
+                        "$ref": "#/components/parameters/industry_association_id"
+                    },
+                    {
+                        "$ref": "#/components/parameters/organization_id"
+                    },
+                    {
+                        "$ref": "#/components/parameters/Accept-Language"
+                    },
+                    {
+                        "$ref": "#/components/parameters/search_text"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page_size"
+                    },
+                    {
+                        "$ref": "#/components/parameters/row_status"
+                    },
+                    {
+                        "$ref": "#/components/parameters/order"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successfull",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "order": "ASC",
+                                    "data": [
+                                        {
+                                            "id": 1,
+                                            "gallery_album_id": 1,
+                                            "gallery_album_title": "Healthcare Practitioner",
+                                            "featured": 0,
+                                            "published_at": "2021-11-11 10:56:43",
+                                            "archived_at": null,
+                                            "institute_id": null,
+                                            "organization_id": 3,
+                                            "industry_association_id": 9,
+                                            "institute_title": "",
+                                            "institute_title_en": "",
+                                            "organization_title": "Stokes-Roberts",
+                                            "organization_title_en": "Stokes-Roberts",
+                                            "content_type": 1,
+                                            "video_type": null,
+                                            "content_title": "Maid",
+                                            "content_description": "Knave of Hearts, he stole those tarts, And took them quite away!' 'Consider your verdict,' he said do. Alice looked at poor Alice, 'it would have called him a fish)--and rapped loudly at the cook.",
+                                            "image_path": "https://via.placeholder.com/640x480.png/006644?text=qui",
+                                            "video_url": null,
+                                            "video_id": null,
+                                            "content_properties_json": null,
+                                            "content_cover_image_path": null,
+                                            "content_grid_image_path": null,
+                                            "image_alt_title": "Alice. 'I've tried every way, and then Alice put down yet, before the trial's begun.' 'They're putting down their names,' the Gryphon said, in a hurried nervous manner, smiling at everything that.",
+                                            "row_status": 1,
+                                            "published_by": null,
+                                            "archived_by": null,
+                                            "created_by": null,
+                                            "updated_by": null,
+                                            "created_at": "2021-11-11T10:56:43.000000Z",
+                                            "updated_at": "2021-11-11T10:56:43.000000Z"
+                                        },
+                                        {
+                                            "id": 2,
+                                            "gallery_album_id": 2,
+                                            "gallery_album_title": "Wind Instrument Repairer",
+                                            "gallery_album_title_en": "Wind Instrument Repairer",
+                                            "featured": 0,
+                                            "published_at": "2021-11-11 10:56:43",
+                                            "archived_at": null,
+                                            "institute_id": null,
+                                            "organization_id": 1,
+                                            "industry_association_id": 7,
+                                            "institute_title": "",
+                                            "institute_title_en": "",
+                                            "organization_title": "Conroy Ltd",
+                                            "organization_title_en": "Conroy Ltd",
+                                            "content_type": 1,
+                                            "video_type": null,
+                                            "content_title": "Title Searcher",
+                                            "content_description": "Hardly knowing what she was beginning to see if he were trying which word sounded best. Some of the court,\" and I shall be late!' (when she thought it had made. 'He took me for his housemaid,' she.",
+                                            "image_path": "https://via.placeholder.com/640x480.png/007722?text=omnis",
+                                            "video_url": null,
+                                            "video_id": null,
+                                            "content_properties_json": null,
+                                            "content_cover_image_path": null,
+                                            "content_grid_image_path": null,
+                                            "image_alt_title": "And she began fancying the sort of life! I do it again and again.' 'You are old,' said the Mock Turtle interrupted, 'if you don't explain it as far down the middle, being held up by a row of lodging.",
+                                            "row_status": 1,
+                                            "published_by": null,
+                                            "archived_by": null,
+                                            "created_by": null,
+                                            "updated_by": null,
+                                            "created_at": "2021-11-11T10:56:43.000000Z",
+                                            "updated_at": "2021-11-11T10:56:43.000000Z"
+                                        }
+                                    ],
                                     "_response_status": {
                                         "success": true,
                                         "code": 200,
@@ -3527,7 +3530,7 @@
                                         "content_cover_image_path": null,
                                         "content_grid_image_path": null,
                                         "content_thumb_image_path": null,
-                                        "alt_title": null,
+                                        "image_alt_title": null,
                                         "alt_title_en": null,
                                         "row_status": 1,
                                         "published_by": null,
@@ -3554,119 +3557,7 @@
                 ]
             }
         },
-        "/public/static-pages": {
-            "get": {
-                "summary": "Get all public static page",
-                "description": "API endpoint to get all a Static Page.A successful request response will show 200 HTTP status code",
-                "parameters": [
-                    {
-                        "$ref": "#/components/parameters/show_in"
-                    },
-                    {
-                        "$ref": "#/components/parameters/institute_id"
-                    },
-                    {
-                        "$ref": "#/components/parameters/industry_association_id"
-                    },
-                    {
-                        "$ref": "#/components/parameters/organization_id"
-                    },
-                    {
-                        "name": "content_slug_or_id",
-                        "in": "query",
-                        "required": false,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "$ref": "#/components/parameters/Accept-Language"
-                    },
-                    {
-                        "$ref": "#/components/parameters/title_optional"
-                    },
-                    {
-                        "$ref": "#/components/parameters/page"
-                    },
-                    {
-                        "$ref": "#/components/parameters/page_size"
-                    },
-                    {
-                        "$ref": "#/components/parameters/order"
-                    },
-                    {
-                        "$ref": "#/components/parameters/row_status"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successfull",
-                        "content": {
-                            "application/json": {
-                                "example": {
-                                    "order": "ASC",
-                                    "data": [
-                                        {
-                                            "id": 1,
-                                            "content_type": 1,
-                                            "show_in": 3,
-                                            "show_in_label": "Training Service Provider(TSP)",
-                                            "industry_association_id": 2,
-                                            "institute_title": "",
-                                            "institute_title_en": "",
-                                            "organization_title": "",
-                                            "organization_title_en": "",
-                                            "content_slug_or_id": "Voluptatum voluptatibus at consequatur.",
-                                            "institute_id": 9,
-                                            "organization_id": 7,
-                                            "title": "User Experience Researcher",
-                                            "sub_title": "User Experience Researcher",
-                                            "contents": "Neque odit minima rerum id impedit .",
-                                            "row_status": 1,
-                                            "created_by": null,
-                                            "updated_by": null,
-                                            "created_at": "2021-11-14T05:14:39.000000Z",
-                                            "updated_at": "2021-11-14T05:14:39.000000Z"
-                                        },
-                                        {
-                                            "id": 2,
-                                            "content_type": 2,
-                                            "show_in": 5,
-                                            "show_in_label": "Industry Association",
-                                            "industry_association_id": 2,
-                                            "institute_title": "",
-                                            "institute_title_en": "",
-                                            "organization_title": "",
-                                            "organization_title_en": "",
-                                            "content_slug_or_id": "Placeat nisi qui voluptas enim voluptas ducimus.",
-                                            "institute_id": 10,
-                                            "organization_id": 6,
-                                            "title": "Utility Meter Reader",
-                                            "sub_title": "Utility Meter Reader",
-                                            "contents": "Exercitationem dolores velit laborum tenetur quasi officia aut molestiae animi officiis rem enim suscipit quia laboriosam recusandae rerum doloremque rem facere aut aut eum et atque quo inventore aliquam corrupti voluptas incidunt soluta ullam in omnis asperiores sint.",
-                                            "row_status": 1,
-                                            "created_by": null,
-                                            "updated_by": null,
-                                            "created_at": "2021-11-14T05:14:39.000000Z",
-                                            "updated_at": "2021-11-14T05:14:39.000000Z"
-                                        }
-                                    ],
-                                    "_response_status": {
-                                        "success": true,
-                                        "code": 200,
-                                        "message": null,
-                                        "query_time": 0
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "static-pages"
-                ]
-            }
-        },
+
         "/static-pages": {
             "get": {
                 "summary": "Get all static page",
@@ -3959,6 +3850,119 @@
                         "description": "successfull",
                         "content": {
                             "application/json": {}
+                        }
+                    }
+                },
+                "tags": [
+                    "static-pages"
+                ]
+            }
+        },
+        "/public/static-pages": {
+            "get": {
+                "summary": "Get all public static page",
+                "description": "API endpoint to get all a Static Page.A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/show_in"
+                    },
+                    {
+                        "$ref": "#/components/parameters/institute_id"
+                    },
+                    {
+                        "$ref": "#/components/parameters/industry_association_id"
+                    },
+                    {
+                        "$ref": "#/components/parameters/organization_id"
+                    },
+                    {
+                        "name": "content_slug_or_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/Accept-Language"
+                    },
+                    {
+                        "$ref": "#/components/parameters/title_optional"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page_size"
+                    },
+                    {
+                        "$ref": "#/components/parameters/order"
+                    },
+                    {
+                        "$ref": "#/components/parameters/row_status"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successfull",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "order": "ASC",
+                                    "data": [
+                                        {
+                                            "id": 1,
+                                            "content_type": 1,
+                                            "show_in": 3,
+                                            "show_in_label": "Training Service Provider(TSP)",
+                                            "industry_association_id": 2,
+                                            "institute_title": "",
+                                            "institute_title_en": "",
+                                            "organization_title": "",
+                                            "organization_title_en": "",
+                                            "content_slug_or_id": "Voluptatum voluptatibus at consequatur.",
+                                            "institute_id": 9,
+                                            "organization_id": 7,
+                                            "title": "User Experience Researcher",
+                                            "sub_title": "User Experience Researcher",
+                                            "contents": "Neque odit minima rerum id impedit .",
+                                            "row_status": 1,
+                                            "created_by": null,
+                                            "updated_by": null,
+                                            "created_at": "2021-11-14T05:14:39.000000Z",
+                                            "updated_at": "2021-11-14T05:14:39.000000Z"
+                                        },
+                                        {
+                                            "id": 2,
+                                            "content_type": 2,
+                                            "show_in": 5,
+                                            "show_in_label": "Industry Association",
+                                            "industry_association_id": 2,
+                                            "institute_title": "",
+                                            "institute_title_en": "",
+                                            "organization_title": "",
+                                            "organization_title_en": "",
+                                            "content_slug_or_id": "Placeat nisi qui voluptas enim voluptas ducimus.",
+                                            "institute_id": 10,
+                                            "organization_id": 6,
+                                            "title": "Utility Meter Reader",
+                                            "sub_title": "Utility Meter Reader",
+                                            "contents": "Exercitationem dolores velit laborum tenetur quasi officia aut molestiae animi officiis rem enim suscipit quia laboriosam recusandae rerum doloremque rem facere aut aut eum et atque quo inventore aliquam corrupti voluptas incidunt soluta ullam in omnis asperiores sint.",
+                                            "row_status": 1,
+                                            "created_by": null,
+                                            "updated_by": null,
+                                            "created_at": "2021-11-14T05:14:39.000000Z",
+                                            "updated_at": "2021-11-14T05:14:39.000000Z"
+                                        }
+                                    ],
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "message": null,
+                                        "query_time": 0
+                                    }
+                                }
+                            }
                         }
                     }
                 },
@@ -4991,131 +4995,6 @@
                 ]
             }
         },
-        "/public/notice-or-news": {
-            "get": {
-                "summary": "Get all public notice or news",
-                "description": "API endpoint to all all notice or news.A successful request response will show 200 HTTP status code",
-                "parameters": [
-                    {
-                        "$ref": "#/components/parameters/show_in"
-                    },
-                    {
-                        "$ref": "#/components/parameters/institute_id"
-                    },
-                    {
-                        "$ref": "#/components/parameters/industry_association_id"
-                    },
-                    {
-                        "$ref": "#/components/parameters/organization_id"
-                    },
-                    {
-                        "$ref": "#/components/parameters/Accept-Language"
-                    },
-                    {
-                        "$ref": "#/components/parameters/title_optional"
-                    },
-                    {
-                        "name": "search_text",
-                        "in": "query",
-                        "required": false,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "$ref": "#/components/parameters/page"
-                    },
-                    {
-                        "$ref": "#/components/parameters/page_size"
-                    },
-                    {
-                        "$ref": "#/components/parameters/order"
-                    },
-                    {
-                        "$ref": "#/components/parameters/row_status"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successfull",
-                        "content": {
-                            "application/json": {
-                                "example": {
-                                    "order": "ASC",
-                                    "data": [
-                                        {
-                                            "id": 1,
-                                            "type": 1,
-                                            "show_in": 1,
-                                            "show_in_label": "Nise3",
-                                            "published_at": "2021-11-16 08:40:54",
-                                            "archived_at": null,
-                                            "title": "Production Planner",
-                                            "institute_id": 5,
-                                            "organization_id": 3,
-                                            "industry_association_id": 1,
-                                            "institute_title": "",
-                                            "institute_title_en": "",
-                                            "organization_title": "Stokes-Roberts",
-                                            "organization_title_en": "Stokes-Roberts",
-                                            "details": "Voluptas rem nobis.",
-                                            "main_image_path": null,
-                                            "grid_image_path": null,
-                                            "thumb_image_path": null,
-                                            "image_alt_title": "iusto",
-                                            "file_path": "Aut inventore eos a et voluptatem.",
-                                            "file_alt_title": "esse",
-                                            "row_status": 1,
-                                            "created_by": null,
-                                            "updated_by": null,
-                                            "created_at": "2021-11-16T08:40:54.000000Z",
-                                            "updated_at": null
-                                        },
-                                        {
-                                            "id": 2,
-                                            "type": 2,
-                                            "show_in": 3,
-                                            "show_in_label": "Training Service Provider(TSP)",
-                                            "published_at": "2021-11-16 08:40:54",
-                                            "archived_at": null,
-                                            "title": "Engineering Manager",
-                                            "institute_id": 2,
-                                            "organization_id": 4,
-                                            "industry_association_id": 6,
-                                            "institute_title": "Prof. Zoie Fahey MD",
-                                            "institute_title_en": "Prof. Zoie Fahey MD",
-                                            "organization_title": "Schiller-VonRueden",
-                                            "organization_title_en": "Schiller-VonRueden",
-                                            "details": "Cupiditate ad dolor .",
-                                            "main_image_path": null,
-                                            "grid_image_path": null,
-                                            "thumb_image_path": null,
-                                            "image_alt_title": "placeat",
-                                            "file_path": "Expedita provident ducimus sunt quis.",
-                                            "file_alt_title": "modi",
-                                            "row_status": 1,
-                                            "created_by": null,
-                                            "updated_by": null,
-                                            "created_at": "2021-11-16T08:40:54.000000Z",
-                                            "updated_at": null
-                                        }
-                                    ],
-                                    "_response_status": {
-                                        "success": true,
-                                        "code": 200,
-                                        "message": null,
-                                        "query_time": 0
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "notice-or-news"
-                ]
-            }
-        },
         "/notice-or-news": {
             "get": {
                 "summary": "Get all notice or news",
@@ -5544,6 +5423,126 @@
                                             "message": null,
                                             "query_time": 0
                                         }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "notice-or-news"
+                ]
+            }
+        },
+        "/public/notice-or-news": {
+            "get": {
+                "summary": "Get all public notice or news",
+                "description": "API endpoint to all all notice or news.A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/show_in"
+                    },
+                    {
+                        "$ref": "#/components/parameters/institute_id"
+                    },
+                    {
+                        "$ref": "#/components/parameters/industry_association_id"
+                    },
+                    {
+                        "$ref": "#/components/parameters/organization_id"
+                    },
+                    {
+                        "$ref": "#/components/parameters/Accept-Language"
+                    },
+                    {
+                        "$ref": "#/components/parameters/title_optional"
+                    },
+                    {
+                        "$ref": "#/components/parameters/search_text"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page_size"
+                    },
+                    {
+                        "$ref": "#/components/parameters/order"
+                    },
+                    {
+                        "$ref": "#/components/parameters/row_status"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successfull",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "order": "ASC",
+                                    "data": [
+                                        {
+                                            "id": 1,
+                                            "type": 1,
+                                            "show_in": 1,
+                                            "show_in_label": "Nise3",
+                                            "published_at": "2021-11-16 08:40:54",
+                                            "archived_at": null,
+                                            "title": "Production Planner",
+                                            "institute_id": 5,
+                                            "organization_id": 3,
+                                            "industry_association_id": 1,
+                                            "institute_title": "",
+                                            "institute_title_en": "",
+                                            "organization_title": "Stokes-Roberts",
+                                            "organization_title_en": "Stokes-Roberts",
+                                            "details": "Voluptas rem nobis.",
+                                            "main_image_path": null,
+                                            "grid_image_path": null,
+                                            "thumb_image_path": null,
+                                            "image_alt_title": "iusto",
+                                            "file_path": "Aut inventore eos a et voluptatem.",
+                                            "file_alt_title": "esse",
+                                            "row_status": 1,
+                                            "created_by": null,
+                                            "updated_by": null,
+                                            "created_at": "2021-11-16T08:40:54.000000Z",
+                                            "updated_at": null
+                                        },
+                                        {
+                                            "id": 2,
+                                            "type": 2,
+                                            "show_in": 3,
+                                            "show_in_label": "Training Service Provider(TSP)",
+                                            "published_at": "2021-11-16 08:40:54",
+                                            "archived_at": null,
+                                            "title": "Engineering Manager",
+                                            "institute_id": 2,
+                                            "organization_id": 4,
+                                            "industry_association_id": 6,
+                                            "institute_title": "Prof. Zoie Fahey MD",
+                                            "institute_title_en": "Prof. Zoie Fahey MD",
+                                            "organization_title": "Schiller-VonRueden",
+                                            "organization_title_en": "Schiller-VonRueden",
+                                            "details": "Cupiditate ad dolor .",
+                                            "main_image_path": null,
+                                            "grid_image_path": null,
+                                            "thumb_image_path": null,
+                                            "image_alt_title": "placeat",
+                                            "file_path": "Expedita provident ducimus sunt quis.",
+                                            "file_alt_title": "modi",
+                                            "row_status": 1,
+                                            "created_by": null,
+                                            "updated_by": null,
+                                            "created_at": "2021-11-16T08:40:54.000000Z",
+                                            "updated_at": null
+                                        }
+                                    ],
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "message": null,
+                                        "query_time": 0
                                     }
                                 }
                             }
@@ -6008,7 +6007,152 @@
                     "cms-global-config"
                 ]
             }
+        },
+        "/static-page-block/{page_code}": {
+            "get": {
+                "summary": "Get all static page content or page block",
+                "description": "API endpoint to GET all static page content or page block.A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/page_code"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successfull",
+                        "content": {
+                            "application/json": {
+                                "example": {}
+                            }
+                        }
+                    }
+                },
+                "tags": ["getStaticPageOrBlock"]
+            }
+        },
+        "/static-page-block": {
+            "post": {
+                "summary": "Get all static-block",
+                "description": "API endpoint to Get all static-block.A successful request response will show 200 HTTP status code",
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StaticPageContentOrPageBlock"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successfull",
+                        "content": {
+                            "application/json": {
+                                "example": {}
+                            }
+                        }
+                    }
+                },
+                "tags": ["getStaticPageOrBlock"]
+
+            }
+        },
+        "/public/static-page-block/{page_code}": {
+            "get": {
+                "summary": "Get all public static-page-block page_code",
+                "description": "API endpoint to Get all public static-page-block/page_code. A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/page_code"
+                    },
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "required": false,
+                        "description": "TYPE_PAGE_BLOCK = 1 TYPE_PAGE_STATIC_PAGE = 2",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "show_in",
+                        "in": "query",
+                        "description":  "1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry, 5=>Industry Association",
+                        "schema": {
+                            "type": "integer",
+                            "enum": [1,2,3,4,5]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successfull",
+                        "content": {
+                            "application/json": {
+                                "example": {}
+                            }
+                        }
+                    }
+                },
+                "tags": ["getStaticPageOrBlock"]
+            }
+        },
+        "/static-page-types": {
+            "get": {
+                "summary": "Get all static page types",
+                "description": "API endpoint to Get all public static-page-block/page_code. A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/title_optional"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page_size"
+                    },
+                    {
+                        "$ref": "#/components/parameters/order"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successfull",
+                        "content": {
+                            "application/json": {
+                                "example": {}
+                            }
+                        }
+                    }
+                },
+                "tags": ["StaticPageType"]
+            },
+            "post": {
+                "summary": "create a static page type",
+                "description": "API endpoint to create a static page type. A successful request response will show 200 HTTP status code",
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StaticPageTypes"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successfull",
+                        "content": {
+                            "application/json": {
+                                "example": {}
+                            }
+                        }
+                    }
+                },
+                "tags": ["StaticPageType"]
+            }
         }
+
     },
     "components": {
         "securitySchemes": {
@@ -6019,6 +6163,22 @@
             }
         },
         "parameters": {
+            "page_code":{
+                "name": "page_code",
+                "in": "path",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "search_text":{
+                "name": "search_text",
+                "in": "query",
+                "required": false,
+                "schema": {
+                    "type": "string"
+                }
+            },
             "parent_gallery_album_id": {
                 "name": "parent_gallery_album_id",
                 "in": "query",
@@ -6522,8 +6682,8 @@
                     "type": "string"
                 }
             },
-            "alt_title": {
-                "name": "alt_title",
+            "image_alt_title": {
+                "name": "image_alt_title",
                 "in": "query",
                 "required": false,
                 "style": "form",
@@ -6867,6 +7027,102 @@
             }
         },
         "schemas": {
+            "StaticPageTypes": {
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "type": "string"
+                    },
+                    "page_code": {
+                        "type": "string"
+                    },
+                    "type": {
+                        "type": "integer",
+                        "enum": [1,2],
+                        "description": "1=>Page Block, 2=>Static Page"
+                    }
+                },
+                "required": [
+                    "title",
+                    "page_code",
+                    "type"
+                ]
+            },
+            "StaticPageContentOrPageBlock": {
+                "type": "object",
+                "properties": {
+                    "static_page_type_id": {
+                        "type": "integer"
+                    },
+                    "show_in": {
+                        "type": "integer",
+                        "enum": [1,2,3,4,5],
+                        "description": "1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry, 5=>Industry Association"
+                    },
+                    "institute_id": {
+                        "type": "integer"
+                    },
+                    "organization_id": {
+                        "type": "integer"
+                    },
+                    "industry_association_id": {
+                        "type": "integer"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "content": {
+                        "type": "string"
+                    },
+                    "attachment_type": {
+                        "type": "integer",
+                        "enum": [1,2,3],
+                        "description": "1 => Image, 2 => Facebook source, 3 => Youtube Source"
+                    },
+                    "template_code": {
+                        "type": "string",
+                        "enum": ["BT_LR", "BT_RL" , "BT_CB"]
+                    },
+                    "is_button_available": {
+                        "type": "integer"
+                    },
+                    "button_text": {
+                        "type": "string"
+                    },
+                    "link": {
+                        "type": "string"
+                    },
+                    "is_attachment_available": {
+                        "type": "integer"
+                    },
+                    "image_path": {
+                        "type": "string"
+                    },
+                    "embedded_url": {
+                        "type": "string"
+                    },
+                    "embedded_id": {
+                        "type": "string"
+                    },
+                    "alt_image_title": {
+                        "type": "string"
+                    },
+                    "row_status": {
+                        "type": "integer",
+                        "description": "ACTIVE_STATUS => 1, INACTIVE_STATUS => 0"
+                    },
+                    "sub_title": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "static_page_type_id",
+                    "show_in",
+                    "title",
+                    "is_button_available",
+                    "is_attachment_available"
+                ]
+            },
             "PublishOrArchive": {
                 "type": "object",
                 "properties": {
@@ -7132,7 +7388,7 @@
                     "parent_gallery_album_id": {
                         "type": "integer"
                     },
-                    "batch_id": {
+                    "course_id": {
                         "type": "integer"
                     },
                     "program_id": {
@@ -7196,6 +7452,7 @@
                     "title",
                     "show_in",
                     "album_type",
+                    "main_image_path",
                     "featured",
                     "row_status"
                 ]
@@ -7243,11 +7500,11 @@
                             2
                         ]
                     },
-                    "content_title": {
+                    "title": {
                         "type": "string",
                         "description": "Content title"
                     },
-                    "content_description": {
+                    "description": {
                         "type": "string",
                         "description": "Content Description"
                     },
@@ -7266,16 +7523,13 @@
                     "content_properties_json": {
                         "type": "string"
                     },
-                    "content_cover_image_path": {
-                        "type": "string"
-                    },
                     "content_grid_image_path": {
                         "type": "string"
                     },
                     "content_thumb_image_path": {
                         "type": "string"
                     },
-                    "alt_title": {
+                    "image_alt_title": {
                         "type": "string",
                         "description": "alternate title for content"
                     },
@@ -7289,14 +7543,14 @@
                     },
                     "other_language_fields": {
                         "type": "object",
-                        "example": "  [\n\n\"hi\"=>[\n\"content_title\"=>\"सामूहिक बाढ़\",\n\"content_description\"=>\"सामूहिक बाढ़\",\n\"alt_title\"=>\"सामूहिक बाढ़\",\n\t]\n\n]"
+                        "example": "  [\n\n\"hi\"=>[\n\"content_title\"=>\"सामूहिक बाढ़\",\n\"content_description\"=>\"सामूहिक बाढ़\",\n\"image_alt_title\"=>\"सामूहिक बाढ़\",\n\t]\n\n]"
                     }
                 },
                 "required": [
                     "gallery_album_id",
                     "featured",
                     "content_type",
-                    "content_title",
+                    "title",
                     "row_status"
                 ]
             },
@@ -7519,7 +7773,8 @@
                 },
                 "required": [
                     "title",
-                    "row_status"
+                    "row_status",
+                    "main_image_path"
                 ]
             },
             "NoticeOrNews": {
@@ -7604,6 +7859,7 @@
                 "required": [
                     "show_in",
                     "title",
+                    "main_image_path",
                     "type"
                 ]
             },
@@ -7650,7 +7906,7 @@
                     },
                     "collage_image_path": {
                         "type": "string",
-                        "description": "content_image path"
+                        "description": "collage_image_path will be required when collage_position is not null"
                     },
                     "collage_position": {
                         "type": "integer",
@@ -7716,6 +7972,7 @@
                 "required": [
                     "title",
                     "content_type",
+                    "image_path",
                     "show_in"
                 ]
             },
