@@ -57,7 +57,7 @@ $router->group(['prefix' => 'api/v1', 'as' => 'api.v1'], function () use ($route
 
     /** Static page & block */
     $router->get('static-page-blocks/{page_code}', ["as" => "static.page.block", "uses" => "StaticPageContentOrPageBlockController@getStaticPageOrBlock"]);
-    $router->post('static-page-blocks', ["as" => "static.page.block", "uses" => "StaticPageContentOrPageBlockController@createOrUpdateStaticPageOrBlock"]);
+    $router->put('static-page-blocks/{page_code}', ["as" => "static.page.block", "uses" => "StaticPageContentOrPageBlockController@createOrUpdateStaticPageOrBlock"]);
 
     $router->group(['prefix' => 'public', 'as' => 'public'], function () use ($router) {
         $router->get('faqs/{id}', ["as" => "faqs.read", "uses" => "FaqController@clientSideRead"]);
