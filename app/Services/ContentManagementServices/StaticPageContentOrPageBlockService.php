@@ -180,12 +180,17 @@ class StaticPageContentOrPageBlockService
      */
     public function validator(Request $request, $id = null): \Illuminate\Contracts\Validation\Validator
     {
-        $request->offsetSet('deleted_at', null);
+        $type = null;
+        $requestData = $request->all();
+        if ($request->filled('page_code')) {
+            $pageType = StaticPageType::select(['type'])->where('page_code', $requestData['page_code'])->firstOrFail();
+            $type = $pageType['type'];
+        }
         $rules = [
             'static_page_type_id' => [
                 'required',
                 'int',
-                Rule::in(StaticPageType::TYPES)
+                'exists:static_page_types,id,deleted_at,NULL'
             ],
             'show_in' => [
                 'required',
@@ -236,7 +241,7 @@ class StaticPageContentOrPageBlockService
                 Rule::in([BaseModel::ROW_STATUS_ACTIVE, BaseModel::ROW_STATUS_INACTIVE]),
             ]
         ];
-        if (!empty($requestData['static_page_type_id']) && $requestData['static_page_type_id'] == StaticPageType::TYPE_STATIC_PAGE) {
+        if (!empty($type) && $type == StaticPageType::TYPE_STATIC_PAGE) {
             $rules['sub_title'] = [
                 'nullable',
                 'string',
@@ -249,7 +254,7 @@ class StaticPageContentOrPageBlockService
                 'max:500',
                 'min:2'
             ];
-        } else if (!empty($requestData['static_page_type_id']) && $requestData['static_page_type_id'] == StaticPageType::TYPE_PAGE_BLOCK) {
+        } else if (!empty($type) && $type == StaticPageType::TYPE_PAGE_BLOCK) {
             $rules['is_button_available'] = [
                 'required',
                 'int',
@@ -268,6 +273,7 @@ class StaticPageContentOrPageBlockService
                 'max:20'
             ];
             $rules['is_attachment_available'] = [
+                'required',
                 'integer',
                 Rule::in(StaticPageBlock::IS_ATTACHMENT_AVAILABLE)
             ];
@@ -281,14 +287,15 @@ class StaticPageContentOrPageBlockService
                 'nullable',
                 'required_if:content_type,' . StaticPageBlock::ATTACHMENT_TYPE_IMAGE
             ];
-            $rules['alt_image_title'] = [
+            $rules['image_alt_title'] = [
                 'string',
                 'nullable'
             ];
             $rules['template_code'] = [
-
+                'required',
+                Rule::in(StaticPageBlock::STATIC_PAGE_BLOCK_TEMPLATE_TYPES)
             ];
-            if (!empty($requestData['attachment_type']) && $requestData['attachment_type'] == !StaticPageBlock::ATTACHMENT_TYPE_IMAGE ) {
+            if (!empty($requestData['attachment_type']) && $requestData['attachment_type'] == !StaticPageBlock::ATTACHMENT_TYPE_IMAGE) {
                 $rules['video_url'] = [
                     'required',
                     'string',
