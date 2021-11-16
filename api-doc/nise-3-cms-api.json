@@ -6007,6 +6007,9 @@
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/page_code"
+                    },
+                    {
+                        "$ref": "#/components/parameters/show_in"
                     }
                 ],
                 "responses": {
@@ -7077,21 +7080,26 @@
                 "type": "object",
                 "properties": {
                     "static_page_type_id": {
-                        "type": "integer"
+                        "type": "integer",
+                        "enum": [1,2],
+                        "description": " TYPE_PAGE_BLOCK = 1 TYPE_STATIC_PAGE = 2;"
                     },
                     "show_in": {
                         "type": "integer",
                         "enum": [1,2,3,4,5],
-                        "description": "1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry, 5=>Industry Association"
+                        "description": "1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry 5=>Industry Association"
                     },
                     "institute_id": {
-                        "type": "integer"
+                        "type": "integer",
+                        "description": "Required when show_in = SHOW_IN_TSP[3]"
                     },
                     "organization_id": {
-                        "type": "integer"
+                        "type": "integer",
+                        "description": "Required when show_in = SHOW_IN_INDUSTRY[4]"
                     },
                     "industry_association_id": {
-                        "type": "integer"
+                        "type": "integer",
+                        "description": "Required when show_in = SHOW_IN_INDUSTRY_ASSOCIATION[5]"
                     },
                     "title": {
                         "type": "string"
@@ -7110,13 +7118,16 @@
                     },
                     "is_button_available": {
                         "type": "integer",
-                        "enum": [1,0]
+                        "enum": [1,0],
+                        "description": "Required when static_page_type_id = TYPE_PAGE_BLOCK[1]"
                     },
                     "button_text": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Required when is_button_available=1"
                     },
                     "link": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Required when is_button_available=1"
                     },
                     "is_attachment_available": {
                         "type": "integer",
