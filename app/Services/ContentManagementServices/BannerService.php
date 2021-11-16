@@ -259,7 +259,7 @@ class BannerService
                 "nullable",
                 Rule::in(array_keys(Banner::BANNER_TEMPLATE_TYPES))
             ],
-            "banner_image_url" => [
+            "banner_image_path" => [
                 "required",
                 "string",
                 "max:600"

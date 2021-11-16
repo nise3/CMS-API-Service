@@ -189,7 +189,7 @@ class Nise3PartnerService
         $rules = [
             "title" => "required|max:500|min:2",
             "main_image_path" => [
-                "nullable",
+                "required",
                 BaseModel::IMAGE_PATH_VALIDATION_RULE
             ],
             "thumb_image_path" => [

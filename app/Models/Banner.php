@@ -23,7 +23,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string alt_image_title
  * @property string alt_title_en
  * @property string | null banner_template_code
- * @property string banner_image_url
+ * @property string banner_image_path
  * @property int row_status
  * @property int created_by
  * @property int updated_by
