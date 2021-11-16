@@ -6,6 +6,7 @@ use App\Models\BaseModel;
 use App\Models\GalleryAlbum;
 use App\Models\StaticPageBlock;
 use App\Services\ContentManagementServices\CmsLanguageService;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class StaticPageContentOrBlockResource extends JsonResource
@@ -13,10 +14,10 @@ class StaticPageContentOrBlockResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @return array
      */
-    public function toArray($request)
+    public function toArray($request): array
     {
         $response = [
             "id" => $this->id,
@@ -53,19 +54,23 @@ class StaticPageContentOrBlockResource extends JsonResource
                 $response['content'] = $this->content;
                 $response['button_text'] = $this->button_text;
                 $response['alt_image_title'] = $this->alt_image_title;
+                if (!$request->get(BaseModel::IS_COLLECTION_KEY)) {
+                    $response[BaseModel::OTHER_LANGUAGE_FIELDS_KEY] = CmsLanguageService::otherLanguageResponse($this);
+                }
             }
         } else if($this->static_page_type_id == StaticPageBlock::CONTENT_TYPE_STATIC_PAGE){
             $response['sub_title_en'] = $this->sub_title_en;
-        }
-
-        if ($request->offsetExists(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY) && $request->get(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY)) {
-            $response['title'] = app(CmsLanguageService::class)->getLanguageValue($this, GalleryAlbum::LANGUAGE_ATTR_TITLE);
-            $response['image_alt_title'] = app(CmsLanguageService::class)->getLanguageValue($this, GalleryAlbum::LANGUAGE_ATTR_IMAGE_ALT_TITLE);
-        } else {
-            $response['title'] = $this->title;
-            $response['image_alt_title'] = $this->image_alt_title;
-            if (!$request->get(BaseModel::IS_COLLECTION_KEY)) {
-                $response[BaseModel::OTHER_LANGUAGE_FIELDS_KEY] = CmsLanguageService::otherLanguageResponse($this);
+            if ($request->offsetExists(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY) && $request->get(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY)) {
+                $response['title'] = app(CmsLanguageService::class)->getLanguageValue($this, GalleryAlbum::LANGUAGE_ATTR_TITLE);
+                $response['sub_title'] = app(CmsLanguageService::class)->getLanguageValue($this, GalleryAlbum::LANGUAGE_ATTR_TITLE);
+                $response['content'] = app(CmsLanguageService::class)->getLanguageValue($this, GalleryAlbum::LANGUAGE_ATTR_TITLE);
+            } else {
+                $response['title'] = $this->title;
+                $response['sub_title'] = $this->sub_title;
+                $response['content'] = $this->content;
+                if (!$request->get(BaseModel::IS_COLLECTION_KEY)) {
+                    $response[BaseModel::OTHER_LANGUAGE_FIELDS_KEY] = CmsLanguageService::otherLanguageResponse($this);
+                }
             }
         }
 
