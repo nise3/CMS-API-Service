@@ -31,7 +31,6 @@ class StaticPageContentOrPageBlockService
         $type = $pageType['type'];
         $response = null;
 
-
         /** @var Builder $staticPageBuilder */
         if ($type == StaticPageType::TYPE_PAGE_BLOCK) {
             $staticPageBuilder = StaticPageBlock::select([
@@ -63,7 +62,7 @@ class StaticPageContentOrPageBlockService
                 'static_page_blocks.updated_at'
             ]);
             $staticPageBuilder->join('static_page_types', function ($join) {
-                $join->on('static_page_types.type', '=', 'static_page_contents.static_page_type_id',);
+                $join->on('static_page_types.id', '=', 'static_page_contents.static_page_type_id',);
             });
             if (is_numeric($showIn)) {
                 $staticPageBuilder->where('static_page_blocks.show_in', '=', $showIn);
@@ -71,7 +70,7 @@ class StaticPageContentOrPageBlockService
             if (!empty($type)) {
                 $staticPageBuilder->where('static_page_blocks.static_page_type_id', '=', $type);
             }
-            $staticPageBuilder->where('static_page_blocks.code', $page_code);
+            $staticPageBuilder->where('static_page_types.page_code', $page_code);
             $response = $staticPageBuilder->firstOrFail();
 
         } elseif ($type == StaticPageType::TYPE_STATIC_PAGE) {
@@ -95,20 +94,18 @@ class StaticPageContentOrPageBlockService
                 'static_page_contents.updated_at'
             ]);
             $staticPageBuilder->join('static_page_types', function ($join) {
-                $join->on('static_page_types.type', '=', 'static_page_contents.static_page_type_id',);
+                $join->on('static_page_types.id', '=', 'static_page_contents.static_page_type_id',);
             });
             if (is_numeric($showIn)) {
-                $staticPageBuilder->where('static_page_types.show_in', '=', $showIn);
+                $staticPageBuilder->where('static_page_contents.show_in', '=', $showIn);
             }
             if (!empty($type)) {
-                $staticPageBuilder->where('static_page_types.static_page_type_id', '=', $type);
+                $staticPageBuilder->where('static_page_contents.static_page_type_id', '=', $type);
             }
-            $staticPageBuilder->where('static_page_blocks.code', $page_code);
+            $staticPageBuilder->where('static_page_types.page_code', $page_code);
             $response = $staticPageBuilder->firstOrFail();
         }
-
         return $response;
-
     }
 
 
