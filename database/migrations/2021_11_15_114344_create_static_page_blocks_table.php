@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePageBlocksTable extends Migration
+class CreateStaticPageBlocksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreatePageBlocksTable extends Migration
      */
     public function up()
     {
-        Schema::create('page_blocks', function (Blueprint $table) {
+        Schema::create('static_page_blocks', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('static_page_type_id');
             $table->unsignedTinyInteger('show_in')

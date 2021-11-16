@@ -3,19 +3,19 @@
 namespace Database\Factories;
 
 use App\Models\BaseModel;
-use App\Models\StaticPage;
+use App\Models\StaticPageBlock;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class StaticPageFactory extends Factory
 {
-    protected $model = StaticPage::class;
+    protected $model = StaticPageBlock::class;
 
     public function definition(): array
     {
         $title = $this->faker->jobTitle();
         return [
             'show_in' => $this->faker->randomElement(array_keys(BaseModel::SHOW_INS)),
-            'content_type' => $this->faker->randomElement(StaticPage::CONTENT_TYPES),
+            'content_type' => $this->faker->randomElement(StaticPageBlock::CONTENT_TYPES),
             "content_slug_or_id" => $this->faker->word(),
             'institute_id' => $this->faker->numberBetween(1, 10),
             'organization_id' => $this->faker->numberBetween(1, 10),

@@ -3,7 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Models\BaseModel;
-use App\Models\StaticPage;
+use App\Models\StaticPageBlock;
 use App\Services\ContentManagementServices\CmsLanguageService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -18,7 +18,7 @@ class StaticPageResource extends JsonResource
      */
     public function toArray($request): array
     {
-        /** @var StaticPage $this */
+        /** @var StaticPageBlock $this */
         $response = [
             "id" => $this->id,
             "content_type" => $this->content_type,
@@ -38,9 +38,9 @@ class StaticPageResource extends JsonResource
         ];
 
         if ($request->offsetExists(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY) && $request->get(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY)) {
-            $response['title'] = app(CmsLanguageService::class)->getLanguageValue($this, StaticPage::LANGUAGE_ATTR_TITLE);
-            $response['sub_title'] = app(CmsLanguageService::class)->getLanguageValue($this, StaticPage::LANGUAGE_ATTR_SUB_TITLE);
-            $response['contents'] = app(CmsLanguageService::class)->getLanguageValue($this, StaticPage::LANGUAGE_ATTR_CONTENTS);
+            $response['title'] = app(CmsLanguageService::class)->getLanguageValue($this, StaticPageBlock::LANGUAGE_ATTR_TITLE);
+            $response['sub_title'] = app(CmsLanguageService::class)->getLanguageValue($this, StaticPageBlock::LANGUAGE_ATTR_SUB_TITLE);
+            $response['contents'] = app(CmsLanguageService::class)->getLanguageValue($this, StaticPageBlock::LANGUAGE_ATTR_CONTENTS);
         } else {
             $response['title'] = $this->title;
             $response['sub_title'] = $this->sub_title;

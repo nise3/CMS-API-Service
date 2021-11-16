@@ -3,7 +3,7 @@
 namespace App\Services\ContentManagementServices;
 
 use App\Models\BaseModel;
-use App\Models\StaticPage;
+use App\Models\StaticPageBlock;
 use App\Services\Common\LanguageCodeService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -36,7 +36,7 @@ class StaticPageService
         $isRequestFromClientSide = !empty($request[BaseModel::IS_CLIENT_SITE_RESPONSE_KEY]);
 
         /** @var Builder $staticPageBuilder */
-        $staticPageBuilder = StaticPage::select([
+        $staticPageBuilder = StaticPageBlock::select([
             'static_pages_and_block.id',
             'static_pages_and_block.content_type',
             'static_pages_and_block.show_in',
@@ -112,7 +112,7 @@ class StaticPageService
     public function getOneStaticPage(int $id): Builder|Model
     {
         /** @var Builder $staticPageBuilder */
-        $staticPageBuilder = StaticPage::select([
+        $staticPageBuilder = StaticPageBlock::select([
             'static_pages_and_block.id',
             'static_pages_and_block.content_type',
             'static_pages_and_block.show_in',
@@ -135,7 +135,7 @@ class StaticPageService
         $staticPageBuilder->where('static_pages_and_block.id', $id);
 
 
-        /** @var StaticPage $staticPage */
+        /** @var StaticPageBlock $staticPage */
         return $staticPageBuilder->firstOrFail();
     }
 
@@ -152,7 +152,7 @@ class StaticPageService
         $showIn = $request['show_in'] ?? "";
 
         /** @var Builder $staticPageBuilder */
-        $staticPageBuilder = StaticPage::select([
+        $staticPageBuilder = StaticPageBlock::select([
             'static_pages_and_block.id',
             'static_pages_and_block.content_type',
             'static_pages_and_block.show_in',
@@ -188,20 +188,20 @@ class StaticPageService
             $staticPageBuilder->where('static_pages_and_block.show_in', '=', $showIn);
         }
 
-        /** @var StaticPage $staticPage */
+        /** @var StaticPageBlock $staticPage */
         return $staticPageBuilder->firstOrFail();
     }
 
     /**
      * @param array $data
-     * @return StaticPage
+     * @return StaticPageBlock
      */
-    public function store(array $data): StaticPage
+    public function store(array $data): StaticPageBlock
     {
         if(!empty($data['content_slug_or_id'])){
             $data['content_slug_or_id'] = str_replace(' ', '_', $data['content_slug_or_id']);
         }
-        $staticPage = new StaticPage();
+        $staticPage = new StaticPageBlock();
         $staticPage->fill($data);
         $staticPage->save();
         return $staticPage;
@@ -209,11 +209,11 @@ class StaticPageService
 
 
     /**
-     * @param StaticPage $staticPage
+     * @param StaticPageBlock $staticPage
      * @param array $data
-     * @return StaticPage
+     * @return StaticPageBlock
      */
-    public function update(StaticPage $staticPage, array $data): StaticPage
+    public function update(StaticPageBlock $staticPage, array $data): StaticPageBlock
     {
         if(!empty($data['content_slug_or_id'])){
             $data['content_slug_or_id'] = str_replace(' ', '_', $data['content_slug_or_id']);
@@ -224,10 +224,10 @@ class StaticPageService
     }
 
     /**
-     * @param StaticPage $staticPage
+     * @param StaticPageBlock $staticPage
      * @return bool
      */
-    public function destroy(StaticPage $staticPage): bool
+    public function destroy(StaticPageBlock $staticPage): bool
     {
         return $staticPage->delete();
     }
@@ -286,7 +286,7 @@ class StaticPageService
             'content_type' => [
                 'required',
                 'int',
-                Rule::in(StaticPage::CONTENT_TYPES)
+                Rule::in(StaticPageBlock::CONTENT_TYPES)
             ],
             'show_in' => [
                 'required',

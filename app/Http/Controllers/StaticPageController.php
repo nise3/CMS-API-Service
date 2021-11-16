@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\FaqResource;
 use App\Http\Resources\StaticPageResource;
 use App\Models\BaseModel;
-use App\Models\StaticPage;
+use App\Models\StaticPageBlock;
 use App\Services\Common\CmsGlobalConfigService;
 use App\Services\Common\LanguageCodeService;
 use App\Services\ContentManagementServices\CmsLanguageService;
@@ -137,7 +137,7 @@ class StaticPageController extends Controller
                 $languageFillablePayload = [];
                 foreach ($otherLanguagePayload as $key => $value) {
                     $languageValidatedData = $this->staticPageService->languageFieldValidator($value, $key)->validate();
-                    foreach (StaticPage::STATIC_PAGE_LANGUAGE_FILLABLE as $fillableColumn) {
+                    foreach (StaticPageBlock::STATIC_PAGE_LANGUAGE_FILLABLE as $fillableColumn) {
                         if (isset($languageValidatedData[$fillableColumn])) {
                             $languageFillablePayload [] = [
                                 "table_name" => $staticPageData->getTable(),
@@ -174,7 +174,7 @@ class StaticPageController extends Controller
      */
     public function update(Request $request, int $id): JsonResponse
     {
-        $staticPage = StaticPage::findOrFail($id);
+        $staticPage = StaticPageBlock::findOrFail($id);
         $validatedData = $this->staticPageService->validator($request, $id)->validate();
         $message = "Static Page is successfully updated";
         $otherLanguagePayload = $validatedData['other_language_fields'] ?? [];
@@ -184,7 +184,7 @@ class StaticPageController extends Controller
             $languageFillablePayload = [];
             foreach ($otherLanguagePayload as $key => $value) {
                 $languageValidatedData = $this->staticPageService->languageFieldValidator($value, $key)->validate();
-                foreach (StaticPage::STATIC_PAGE_LANGUAGE_FILLABLE as $fillableColumn) {
+                foreach (StaticPageBlock::STATIC_PAGE_LANGUAGE_FILLABLE as $fillableColumn) {
                     if (isset($languageValidatedData[$fillableColumn])) {
                         $languageFillablePayload[] = [
                             "table_name" => $staticPageData->getTable(),
@@ -217,7 +217,7 @@ class StaticPageController extends Controller
      */
     public function destroy(int $id): JsonResponse
     {
-        $staticPage = StaticPage::findOrFail($id);
+        $staticPage = StaticPageBlock::findOrFail($id);
         $destroyStatus = $this->staticPageService->destroy($staticPage);
         $message = $destroyStatus ? "Static page successfully deleted" : "Static Page not deleted";
 
