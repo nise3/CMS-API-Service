@@ -75,10 +75,16 @@ class GalleryAlbum extends BaseModel
     /**
      * @return HasMany
      */
+    public function galleryImagesVideos(): HasMany
+    {
+        return $this->hasMany(GalleryImageVideo::class, 'gallery_album_id', 'id');
+    }
+
+    /**
+     * @return HasMany
+     */
     public function cmsLanguages(): HasMany
     {
         return $this->hasMany(CmsLanguage::class, 'key_id', "id");
     }
-
-
 }

@@ -161,7 +161,11 @@ class GalleryAlbumService
                 ->whereNull('parent_gallery_albums.deleted_at');
 
         });
+
         $galleryAlbumBuilder->where('gallery_albums.id', $id);
+
+        $galleryAlbumBuilder->with('galleryImagesVideos');
+
         /** @var GalleryAlbum $GalleryAlbum */
         return $galleryAlbumBuilder->firstOrFail();
     }
