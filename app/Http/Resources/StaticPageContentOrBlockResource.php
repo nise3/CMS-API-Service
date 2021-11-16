@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use App\Models\BaseModel;
 use App\Models\GalleryAlbum;
-use App\Models\StaticPageBlock;
+use App\Models\StaticPageType;
 use App\Services\ContentManagementServices\CmsLanguageService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -35,7 +35,7 @@ class StaticPageContentOrBlockResource extends JsonResource
             "content_en" => $this->content_en,
         ];
 
-        if($this->static_page_type_id == StaticPageBlock::CONTENT_TYPE_BLOCK){
+        if($this->type == StaticPageType::TYPE_PAGE_BLOCK){
             $response['attachment_type'] = $this->attachment_type;
             $response['template_code'] = $this->template_code;
             $response['is_button_available'] = $this->is_button_available;
@@ -58,7 +58,7 @@ class StaticPageContentOrBlockResource extends JsonResource
                     $response[BaseModel::OTHER_LANGUAGE_FIELDS_KEY] = CmsLanguageService::otherLanguageResponse($this);
                 }
             }
-        } else if($this->static_page_type_id == StaticPageBlock::CONTENT_TYPE_STATIC_PAGE){
+        } else if($this->type == StaticPageType::TYPE_STATIC_PAGE){
             $response['sub_title_en'] = $this->sub_title_en;
             if ($request->offsetExists(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY) && $request->get(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY)) {
                 $response['title'] = app(CmsLanguageService::class)->getLanguageValue($this, GalleryAlbum::LANGUAGE_ATTR_TITLE);
