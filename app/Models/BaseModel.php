@@ -5,7 +5,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class BaseModel
@@ -105,13 +104,11 @@ abstract class BaseModel extends Model
     /** INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID */
     public const INSTITUTE_SERVICE = "institute";
     public const ORGANIZATION_SERVICE = "organization";
-    public const BATCH_AND_PROGRAM_TITLE = "batch_program_title";
-    public const BATCH_TITLE = "batch_title";
+    public const COURSE_AND_PROGRAM_TITLE = "course_program_title";
+    public const COURSE_TITLE = "course_title";
     public const PROGRAM_TITLE = "program_title";
     public const INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID = "INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID";
     public const GET_INSTITUTE_TITLE_BY_ID__HTTP_CLIENT_ENDPOINT = "get-institute-title-by-ids";
-    public const GET_BATCH_AND_PROGRAM_TITLE_BY_ID_HTTP_CLIENT_ENDPOINT = "get-batch-program-title-by-ids";
+    public const GET_COURSE_AND_PROGRAM_TITLE_BY_ID_HTTP_CLIENT_ENDPOINT = "get-course-program-title-by-ids";
     public const GET_ORGANIZATION_TITLE_BY_ID_HTTP_CLIENT_ENDPOINT = "get-organization-title-by-ids";
-
-
 }

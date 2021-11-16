@@ -7,6 +7,7 @@ use App\Models\GalleryAlbum;
 use App\Services\ContentManagementServices\CmsLanguageService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Log;
 
 class GalleryAlbumResource extends JsonResource
 {
@@ -37,9 +38,11 @@ class GalleryAlbumResource extends JsonResource
             "organization_title_en" => $request->get(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID)[BaseModel::ORGANIZATION_SERVICE][$this->organization_id]['title_en'] ?? "",
             "industry_association_id" => $this->industry_association_id,
             "course_id" => $this->course_id,
-            "batch_title" => $request->get(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID)[BaseModel::BATCH_AND_PROGRAM_TITLE][BaseModel::BATCH_TITLE][$this->course_id]['title'] ?? "",
+            "course_title" => $request->get(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID)[BaseModel::COURSE_AND_PROGRAM_TITLE][BaseModel::COURSE_TITLE][$this->course_id]['title'] ?? "",
+            "course_title_en" => $request->get(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID)[BaseModel::COURSE_AND_PROGRAM_TITLE][BaseModel::COURSE_TITLE][$this->course_id]['title_en'] ?? "",
             "program_id" => $this->program_id,
-            "program_title" => $request->get(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID)[BaseModel::BATCH_AND_PROGRAM_TITLE][BaseModel::PROGRAM_TITLE][$this->program_id]['title'] ?? "",
+            "program_title" => $request->get(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID)[BaseModel::COURSE_AND_PROGRAM_TITLE][BaseModel::PROGRAM_TITLE][$this->program_id]['title'] ?? "",
+            "program_title_en" => $request->get(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID)[BaseModel::COURSE_AND_PROGRAM_TITLE][BaseModel::PROGRAM_TITLE][$this->program_id]['title_en'] ?? "",
             "main_image_path" => $this->main_image_path,
             "thumb_image_path" => $this->thumb_image_path,
             "grid_image_path" => $this->grid_image_path,
@@ -61,7 +64,6 @@ class GalleryAlbumResource extends JsonResource
         $response['updated_by'] = $this->updated_by;
         $response['created_at'] = $this->created_at;
         $response['updated_at'] = $this->updated_at;
-
 
         return $response;
     }

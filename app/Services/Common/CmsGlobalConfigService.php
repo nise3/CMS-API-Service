@@ -36,11 +36,11 @@ class CmsGlobalConfigService
     {
         $organizationIds = [];
         $instituteIds = [];
-        $batchIds = [];
+        $courseIds = [];
         $programIds = [];
         $titleResponse = [];
         $instituteClientUrl = clientUrl(BaseModel::INSTITUTE_URL_CLIENT_TYPE) . BaseModel::GET_INSTITUTE_TITLE_BY_ID__HTTP_CLIENT_ENDPOINT;
-        $instituteClientUrlForBatchAndProgramTitle = clientUrl(BaseModel::INSTITUTE_URL_CLIENT_TYPE) . BaseModel::GET_BATCH_AND_PROGRAM_TITLE_BY_ID_HTTP_CLIENT_ENDPOINT;
+        $instituteClientUrlForCourseAndProgramTitle = clientUrl(BaseModel::INSTITUTE_URL_CLIENT_TYPE) . BaseModel::GET_COURSE_AND_PROGRAM_TITLE_BY_ID_HTTP_CLIENT_ENDPOINT;
         $organizationClientUrl = clientUrl(BaseModel::ORGANIZATION_CLIENT_URL_TYPE) . BaseModel::GET_ORGANIZATION_TITLE_BY_ID_HTTP_CLIENT_ENDPOINT;
 
         /**
@@ -55,8 +55,8 @@ class CmsGlobalConfigService
                 if (!empty($cmsDatum['institute_id'])) {
                     $instituteIds[] = $cmsDatum['institute_id'];
                 }
-                if (!empty($cmsDatum['batch_id'])) {
-                    $batchIds[] = $cmsDatum['batch_id'];
+                if (!empty($cmsDatum['course_id'])) {
+                    $courseIds[] = $cmsDatum['course_id'];
                 }
                 if (!empty($cmsDatum['program_id'])) {
                     $programIds[] = $cmsDatum['program_id'];
@@ -69,8 +69,8 @@ class CmsGlobalConfigService
             if (!empty($cmsData['institute_id'])) {
                 $instituteIds[] = $cmsData['institute_id'];
             }
-            if (!empty($cmsData['batch_id'])) {
-                $batchIds[] = $cmsData['batch_id'];
+            if (!empty($cmsData['course_id'])) {
+                $courseIds[] = $cmsData['course_id'];
             }
             if (!empty($cmsData['program_id'])) {
                 $programIds[] = $cmsData['program_id'];
@@ -91,23 +91,23 @@ class CmsGlobalConfigService
         })
             ->json('data');
 
-        /** Call to Institute Service for Batch and Program Title */
-        if(($batchIds && count($batchIds) > 0) || ($programIds && count($programIds) > 0)){
-            $batchProgramData = Http::withOptions([
+        /** Call to Institute Service for Course and Program Title */
+        if(($courseIds && count($courseIds) > 0) || ($programIds && count($programIds) > 0)){
+            $courseProgramData = Http::withOptions([
                 'verify' => config("nise3.should_ssl_verify"),
                 'debug' => config('nise3.http_debug'),
                 'timeout' => config("nise3.http_timeout")
-            ])->post($instituteClientUrlForBatchAndProgramTitle, [
-                "batch_ids" => $batchIds,
+            ])->post($instituteClientUrlForCourseAndProgramTitle, [
+                "course_ids" => $courseIds,
                 "program_ids" => $programIds
-            ])->throw(function ($response, $e) use ($instituteClientUrlForBatchAndProgramTitle) {
-                Log::debug("Http/Curl call error. Destination:: " . $instituteClientUrlForBatchAndProgramTitle . ' and Response:: ' . json_encode($response));
+            ])->throw(function ($response, $e) use ($instituteClientUrlForCourseAndProgramTitle) {
+                Log::debug("Http/Curl call error. Destination:: " . $instituteClientUrlForCourseAndProgramTitle . ' and Response:: ' . json_encode($response));
                 return $e;
             })
                 ->json('data');
 
             $titleResponse = [
-                BaseModel::BATCH_AND_PROGRAM_TITLE => $batchProgramData
+                BaseModel::COURSE_AND_PROGRAM_TITLE => $courseProgramData
             ];
         }
 
