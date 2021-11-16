@@ -2,6 +2,7 @@
 
 namespace App\Services\ContentManagementServices;
 
+
 use App\Models\BaseModel;
 use App\Models\StaticPageBlock;
 use App\Models\StaticPageContent;
@@ -215,48 +216,82 @@ class StaticPageContentOrPageBlockService
                 'max:500',
                 'min:2'
             ],
-            'archived_at' => [
-                'nullable',
-                'date',
-                'after:published_at'
-            ],
-            'sub_title' => [
+            'content_en' => [
                 'nullable',
                 'string'
             ],
-            'contents_en' => [
+            'content' => [
                 'nullable',
                 'string'
             ],
-            'contents' => [
-                'nullable',
-                'string'
-            ],
+
             'row_status' => [
                 'required_if:' . $id . ',!=,null',
                 Rule::in([BaseModel::ROW_STATUS_ACTIVE, BaseModel::ROW_STATUS_INACTIVE]),
             ]
         ];
+        if (!empty($requestData['static_page_type_id']) && $requestData['static_page_type_id'] == StaticPageType::TYPE_STATIC_PAGE) {
+            $rules['sub_title'] = [
+                'nullable',
+                'string',
+                'max:500',
+                'min:2'
+            ];
+            $rules['sub_title_en'] = [
+                'nullable',
+                'string',
+                'max:500',
+                'min:2'
+            ];
+        } else if (!empty($requestData['static_page_type_id']) && $requestData['static_page_type_id'] == StaticPageType::TYPE_PAGE_BLOCK) {
+            $rules['is_button_available'] = [
+                'required',
+                'int',
+                Rule::in([StaticPageType::IS_BUTTON_AVAILABLE_YES, StaticPageType::IS_BUTTON_AVAILABLE_NO])
+            ];
+            $rules['link'] = [
+                'nullable',
+                'requiredIf:is_button_available,' . StaticPageType::IS_BUTTON_AVAILABLE_YES,
+                'string',
+                'max:191',
+            ];
+            $rules['button_text'] = [
+                'nullable',
+                'requiredIf:is_button_available,' . StaticPageType::IS_BUTTON_AVAILABLE_YES,
+                'string',
+                'max:20'
+            ];
+            $rules['image_path'] = [
+                'nullable',
+                'required_if:content_type,' . GalleryImageVideo::CONTENT_TYPE_IMAGE
+            ];
+            $rules['is_attachment_available'] = [
+                'integer',
+                Rule::in()
+            ];
+            $rules['alt_image_title'] = [
+                'string',
+                'nullable'
+            ];
+            $rules['template_code'] = [
 
-        /** Add validation for field "content_slug_or_id" */
-        if ($request->filled('show_in')) {
-            if ($request->input('show_in') == BaseModel::SHOW_IN_NISE3 || $request->input('show_in') == BaseModel::SHOW_IN_YOUTH) {
-                $rules['content_slug_or_id'][] = 'unique_with:static_page_blocks,show_in,deleted_at,' . $id;
-            }
-            if ($request->input('show_in') == BaseModel::SHOW_IN_TSP) {
-                $rules['content_slug_or_id'][] = 'unique_with:static_page_blocks,institute_id,deleted_at,' . $id;
-            }
-            if ($request->input('show_in') == BaseModel::SHOW_IN_INDUSTRY) {
-                $rules['content_slug_or_id'][] = 'unique_with:static_page_blocks,organization_id,deleted_at,' . $id;
-            }
-            if ($request->input('show_in') == BaseModel::SHOW_IN_INDUSTRY_ASSOCIATION) {
-                $rules['content_slug_or_id'][] = 'unique_with:static_page_blocks,industry_association_id,deleted_at,' . $id;
+            ];
+            if (!empty($requestData['content_type']) && $requestData['content_type'] == GalleryImageVideo::CONTENT_TYPE_VIDEO && !empty($requestData['video_type'])) {
+                $rules['embedded_url'] = [
+                    'required',
+                    'string',
+                    'max:800'
+                ];
+                $rules['embedded_id'] = [
+                    'required',
+                    'max:300'
+                ];
             }
         }
 
-        $rules = array_merge($rules, BaseModel::OTHER_LANGUAGE_VALIDATION_RULES);
-        return Validator::make($request->all(), $rules, $customMessage);
 
+        $rules = array_merge($rules, BaseModel::OTHER_LANGUAGE_VALIDATION_RULES);
+        return Validator::make($request->all(), $rules);
     }
 
     /**
