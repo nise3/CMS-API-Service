@@ -23,7 +23,6 @@ class DatabaseSeeder extends Seeder
         $this->call(CalenderEventSeeder::class);
         $this->call(SliderSeeder::class);
         $this->call(BannerSeeder::class);
-        $this->call(StaticPageSeeder::class);
         $this->call(NoticeOrNewsSeeder::class);
         $this->call(RecentActivitySeeder::class);
         $this->call(Nise3PartnerSeeder::class);
