@@ -46,6 +46,7 @@ $router->group(['prefix' => 'api/v1', 'as' => 'api.v1'], function () use ($route
     $customRouter()->resourceRoute('static-pages', 'StaticPageController')->render();
     $customRouter()->resourceRoute('faqs', 'FaqController')->render();
     $customRouter()->resourceRoute('visitor-feedback-suggestions', 'VisitorFeedbackSuggestionController')->render();
+    $customRouter()->resourceRoute('static-page-types', 'StaticPageTypeController')->render();
 
 
     /** publish or archive  */

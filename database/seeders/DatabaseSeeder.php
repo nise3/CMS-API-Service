@@ -28,5 +28,6 @@ class DatabaseSeeder extends Seeder
         $this->call(RecentActivitySeeder::class);
         $this->call(Nise3PartnerSeeder::class);
         $this->call(VisitorFeedbackSuggestionSeeder::class);
+        $this->call(StaticPageTypeSeeder::class);
     }
 }
