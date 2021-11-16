@@ -6000,7 +6000,7 @@
                 ]
             }
         },
-        "/static-page-block/{page_code}": {
+        "/static-page-blocks/{page_code}": {
             "get": {
                 "summary": "Get all static page content or page block",
                 "description": "API endpoint to GET all static page content or page block.A successful request response will show 200 HTTP status code",
@@ -6025,7 +6025,7 @@
                 "tags": ["PageContentOrPageBlock"]
             }
         },
-        "/static-page-block": {
+        "/static-page-blocks": {
             "post": {
                 "summary": "Create a static-block",
                 "description": "API endpoint to Get all static-block.A successful request response will show 200 HTTP status code",
@@ -6052,7 +6052,7 @@
 
             }
         },
-        "/public/static-page-block/{page_code}": {
+        "/public/static-page-blocks/{page_code}": {
             "get": {
                 "summary": "Get all public static-page-block page_code",
                 "description": "API endpoint to Get all public static-page-block/page_code. A successful request response will show 200 HTTP status code",
@@ -6086,7 +6086,7 @@
         "/static-page-types": {
             "get": {
                 "summary": "Get all static page types",
-                "description": "API endpoint to Get all public static-page-block/page_code. A successful request response will show 200 HTTP status code",
+                "description": "API endpoint to Get all public static-page-blocks page_code. A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/title_optional"
