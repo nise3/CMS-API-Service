@@ -37,42 +37,42 @@ class GalleryImageVideoSeeder extends Seeder
                             'table_name' => $galleryImageVideo->getTable(),
                             "key_id" => $galleryImageVideo->id,
                             'lang_code' => 'hi',
-                            'column_name' => GalleryImageVideo::LANGUAGE_ATTR_CONTENT_TITLE,
+                            'column_name' => GalleryImageVideo::LANGUAGE_ATTR_TITLE,
                             'column_value' => "अगर आप किसी एग्जाम की तैयारी से सवाल"
                         ],
                         [
                             'table_name' => $galleryImageVideo->getTable(),
                             "key_id" => $galleryImageVideo->id,
                             'lang_code' => 'hi',
-                            'column_name' => GalleryImageVideo::LANGUAGE_ATTR_CONTENT_DESCRIPTION,
+                            'column_name' => GalleryImageVideo::LANGUAGE_ATTR_DESCRIPTION,
                             'column_value' => "भारत का इतिहास या फिर भूगोलं तरर पो ल हो जाएंगी"
                         ],
                         [
                             'table_name' => $galleryImageVideo->getTable(),
                             "key_id" => $galleryImageVideo->id,
                             'lang_code' => 'hi',
-                            'column_name' => GalleryImageVideo::LANGUAGE_ATTR_ALT_TITLE,
+                            'column_name' => GalleryImageVideo::LANGUAGE_ATTR_IMAGE_ALT_TITLE,
                             'column_value' => "भारत का इतिहास या फिर भूगोल,कीप्के ें हल हो जाएंगी"
                         ],
                         [
                             'table_name' => $galleryImageVideo->getTable(),
                             "key_id" => $galleryImageVideo->id,
                             'lang_code' => 'te',
-                            'column_name' => GalleryImageVideo::LANGUAGE_ATTR_CONTENT_TITLE,
+                            'column_name' => GalleryImageVideo::LANGUAGE_ATTR_TITLE,
                             'column_value' => "భారతదేశ చరిత్ర"
                         ],
                         [
                             'table_name' => $galleryImageVideo->getTable(),
                             "key_id" => $galleryImageVideo->id,
                             'lang_code' => 'te',
-                            'column_name' => GalleryImageVideo::LANGUAGE_ATTR_CONTENT_DESCRIPTION,
+                            'column_name' => GalleryImageVideo::LANGUAGE_ATTR_DESCRIPTION,
                             'column_value' => "భారతదేశ చరిత్ర"
                         ],
                         [
                             'table_name' => $galleryImageVideo->getTable(),
                             "key_id" => $galleryImageVideo->id,
                             'lang_code' => 'te',
-                            'column_name' => GalleryImageVideo::LANGUAGE_ATTR_ALT_TITLE,
+                            'column_name' => GalleryImageVideo::LANGUAGE_ATTR_IMAGE_ALT_TITLE,
                             'column_value' => "భారతదేశ చరిత్ర"
                         ]
                     )
