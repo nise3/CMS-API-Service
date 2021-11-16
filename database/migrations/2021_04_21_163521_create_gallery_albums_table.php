@@ -33,7 +33,7 @@ class CreateGalleryAlbumsTable extends Migration
             $table->unsignedInteger('organization_id')->nullable();
             $table->unsignedInteger('industry_association_id')->nullable();
 
-            $table->unsignedInteger('course_id ')->nullable();
+            $table->unsignedInteger('course_id')->nullable();
             $table->unsignedInteger('program_id')->nullable();
 
             $table->string('title', 600);

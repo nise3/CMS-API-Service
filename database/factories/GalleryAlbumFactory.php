@@ -23,7 +23,7 @@ class GalleryAlbumFactory extends Factory
             'organization_id' => $this->faker->numberBetween(1, 10),
             'institute_id' => $this->faker->numberBetween(1, 10),
             'industry_association_id' => $this->faker->numberBetween(1, 10),
-            'batch_id' => $this->faker->numberBetween(1, 10),
+            'course_id' => $this->faker->numberBetween(1, 10),
             'program_id' => $this->faker->numberBetween(1, 10),
             'featured' => $this->faker->boolean(),
             'image_alt_title' => $this->faker->sentence(1),
