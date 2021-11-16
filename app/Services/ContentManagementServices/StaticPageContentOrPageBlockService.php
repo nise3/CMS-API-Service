@@ -4,6 +4,7 @@ namespace App\Services\ContentManagementServices;
 
 use App\Models\BaseModel;
 use App\Models\StaticPageBlock;
+use App\Models\StaticPageContent;
 use App\Models\StaticPageType;
 use App\Services\Common\LanguageCodeService;
 use Illuminate\Database\Eloquent\Builder;
@@ -25,35 +26,77 @@ class StaticPageContentOrPageBlockService
         $showIn = $request['show_in'] ?? "";
         $type = $request['type'] ?? "";
 
-
         /** @var Builder $staticPageBuilder */
-        $staticPageBuilder = StaticPageBlock::select([
-            'static_pages_and_block.id',
-            'static_pages_and_block.content_type',
-            'static_pages_and_block.show_in',
-            'static_pages_and_block.content_slug_or_id',
-            'static_pages_and_block.institute_id',
-            'static_pages_and_block.organization_id',
-            'static_pages_and_block.industry_association_id',
-            'static_pages_and_block.title',
-            'static_pages_and_block.title_en',
-            'static_pages_and_block.sub_title',
-            'static_pages_and_block.sub_title_en',
-            'static_pages_and_block.contents',
-            'static_pages_and_block.contents_en',
-            'static_pages_and_block.row_status',
-            'static_pages_and_block.created_by',
-            'static_pages_and_block.updated_by',
-            'static_pages_and_block.created_at',
-            'static_pages_and_block.updated_at'
-        ]);
-        $staticPageBuilder->where('static_pages_and_block.id', $id);
+        if ($type == StaticPageType::TYPE_PAGE_BLOCK) {
+            $staticPageBuilder = StaticPageBlock::select([
+                'static_page_blocks.id',
+                'static_page_blocks.show_in',
+                'static_page_blocks.static_page_type_id',
+                'static_page_blocks.institute_id',
+                'static_page_blocks.organization_id',
+                'static_page_blocks.industry_association_id',
+                'static_page_blocks.title',
+                'static_page_blocks.title_en',
+                'static_page_blocks.content',
+                'static_page_blocks.content_en',
+                'static_page_blocks.attachment_type',
+                'static_page_blocks.template_code',
+                'static_page_blocks.is_button_available',
+                'static_page_blocks.button_text',
+                'static_page_blocks.link',
+                'static_page_blocks.is_attachment_available',
+                'static_page_blocks.image_path',
+                'static_page_blocks.embedded_url',
+                'static_page_blocks.embedded_id',
+                'static_page_blocks.alt_image_title_en',
+                'static_page_blocks.alt_image_title',
+                'static_page_blocks.row_status',
+                'static_page_blocks.created_by',
+                'static_page_blocks.updated_by',
+                'static_page_blocks.created_at',
+                'static_page_blocks.updated_at'
+            ]);
+            $staticPageBuilder->join('static_page_types', function ($join) {
+                $join->on('static_page_types.type', '=', 'static_page_contents.static_page_type_id',);
+            });
+            if (is_numeric($showIn)) {
+                $staticPageBuilder->where('static_page_blocks.show_in', '=', $showIn);
+            }
+            if (!empty($type)) {
+                $staticPageBuilder->where('static_page_blocks.static_page_type_id', '=', $type);
+            }
+            $staticPageBuilder->where('static_page_blocks.code', $page_code);
 
-        if (is_numeric($showIn)) {
-            $sliderBuilder->where('sliders.show_in', '=', $showIn);
-        }
-        if (is_numeric($showIn)) {
-            $sliderBuilder->where('sliders.show_in', '=', $showIn);
+        } elseif ($type == StaticPageType::TYPE_STATIC_PAGE) {
+            $staticPageBuilder = StaticPageContent::select([
+                'static_page_contents.id',
+                'static_page_contents.show_in',
+                'static_page_contents.static_page_type_id',
+                'static_page_contents.institute_id',
+                'static_page_contents.organization_id',
+                'static_page_contents.industry_association_id',
+                'static_page_contents.title',
+                'static_page_contents.title_en',
+                'static_page_contents.sub_title',
+                'static_page_contents.sub_title_en',
+                'static_page_contents.content',
+                'static_page_contents.content_en',
+                'static_page_contents.row_status',
+                'static_page_contents.created_by',
+                'static_page_contents.updated_by',
+                'static_page_contents.created_at',
+                'static_page_contents.updated_at'
+            ]);
+            $staticPageBuilder->join('static_page_types', function ($join) {
+                $join->on('static_page_types.type', '=', 'static_page_contents.static_page_type_id',);
+            });
+            if (is_numeric($showIn)) {
+                $staticPageBuilder->where('static_page_types.show_in', '=', $showIn);
+            }
+            if (!empty($type)) {
+                $staticPageBuilder->where('static_page_types.static_page_type_id', '=', $type);
+            }
+            $staticPageBuilder->where('static_page_blocks.code', $page_code);
         }
         return $staticPageBuilder->firstOrFail();
     }
@@ -130,25 +173,17 @@ class StaticPageContentOrPageBlockService
      */
     public function validator(Request $request, $id = null): \Illuminate\Contracts\Validation\Validator
     {
-        $customMessage = [
-            'row_status.in' => 'Row status must be within 1 or 0. [30000]'
-        ];
         $request->offsetSet('deleted_at', null);
         $rules = [
-            'content_type' => [
+            'static_page_type_id' => [
                 'required',
                 'int',
-                Rule::in(StaticPageBlock::CONTENT_TYPES)
+                Rule::in(StaticPageType::TYPES)
             ],
             'show_in' => [
                 'required',
                 'integer',
                 Rule::in(array_keys(BaseModel::SHOW_INS))
-            ],
-            'content_slug_or_id' => [
-                'required',
-                'string',
-                'max:300'
             ],
             'institute_id' => [
                 Rule::requiredIf(function () use ($request) {
@@ -206,16 +241,16 @@ class StaticPageContentOrPageBlockService
         /** Add validation for field "content_slug_or_id" */
         if ($request->filled('show_in')) {
             if ($request->input('show_in') == BaseModel::SHOW_IN_NISE3 || $request->input('show_in') == BaseModel::SHOW_IN_YOUTH) {
-                $rules['content_slug_or_id'][] = 'unique_with:static_pages_and_block,show_in,deleted_at,' . $id;
+                $rules['content_slug_or_id'][] = 'unique_with:static_page_blocks,show_in,deleted_at,' . $id;
             }
             if ($request->input('show_in') == BaseModel::SHOW_IN_TSP) {
-                $rules['content_slug_or_id'][] = 'unique_with:static_pages_and_block,institute_id,deleted_at,' . $id;
+                $rules['content_slug_or_id'][] = 'unique_with:static_page_blocks,institute_id,deleted_at,' . $id;
             }
             if ($request->input('show_in') == BaseModel::SHOW_IN_INDUSTRY) {
-                $rules['content_slug_or_id'][] = 'unique_with:static_pages_and_block,organization_id,deleted_at,' . $id;
+                $rules['content_slug_or_id'][] = 'unique_with:static_page_blocks,organization_id,deleted_at,' . $id;
             }
             if ($request->input('show_in') == BaseModel::SHOW_IN_INDUSTRY_ASSOCIATION) {
-                $rules['content_slug_or_id'][] = 'unique_with:static_pages_and_block,industry_association_id,deleted_at,' . $id;
+                $rules['content_slug_or_id'][] = 'unique_with:static_page_blocks,industry_association_id,deleted_at,' . $id;
             }
         }
 
@@ -232,11 +267,11 @@ class StaticPageContentOrPageBlockService
     {
         return Validator::make($request->all(), [
             'type' => [
-                'required',
+                'nullable',
                 'integer',
                 Rule::in(StaticPageType::TYPES)
             ],
-            'show_in' => 'required|integer|gt:0',
+            'show_in' => 'nullable|integer|gt:0',
         ]);
     }
 }
