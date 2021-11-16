@@ -66,10 +66,18 @@ class StaticPageContentOrPageBlockController extends Controller
     /**
      * store a new resource  a new resource in database .
      *
-     * @return Response
+     * @param Request $request
+     * @param string $page_code
+     * @return JsonResponse
+     * @throws ValidationException
      */
-    public function createOrUpdateStaticPageOrBlock()
+    public function createOrUpdateStaticPageOrBlock(Request $request, string $page_code): JsonResponse
     {
+        $StaticPageType = $this->staticPageContentOrPageBlockService->getStaticPageTypeBYPageCode($page_code);
+        $validatedData = $this->staticPageContentOrPageBlockService->validator($request, $StaticPageType)->validate();
+        $response = $this->staticPageContentOrPageBlockService->storeOrUpdate($validatedData, $page_code);
+        $response = getResponse($response->toArray(), $this->startTime, !BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
+        return Response::json($response, ResponseAlias::HTTP_OK);
 
     }
 
