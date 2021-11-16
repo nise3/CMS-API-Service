@@ -20,19 +20,18 @@ use Illuminate\Support\Collection;
  * @property Carbon|null $archived_at
  * @property int $content_type
  * @property int $video_type
- * @property string|null content_title
- * @property string|null content_title_en
- * @property string|null content_description
- * @property string|null content_description_en
- * @property string|null content_path
- * @property string|null embedded_url
- * @property string|null embedded_id
+ * @property string|null title
+ * @property string|null title_en
+ * @property string|null description
+ * @property string|null description_en
+ * @property string|null image_path
+ * @property string|null video_url
+ * @property string|null video_id
  * @property string|null $content_properties_json
- * @property string|null $content_grid_image_url
- * @property string|null $content_cover_image_url
- * @property string|null $content_thumb_image_url
- * @property string|null $alt_title
- * @property string|null $alt_title_en
+ * @property string|null content_grid_image_path
+ * @property string|null content_thumb_image_path
+ * @property string|null image_alt_title
+ * @property string|null image_alt_title_en
  * @property int $row_status
  * @property int|null published_by
  * @property int|null archived_by

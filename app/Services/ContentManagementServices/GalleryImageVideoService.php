@@ -33,8 +33,8 @@ class GalleryImageVideoService
         $industryAssociationId = $request['industry_association_id'] ?? "";
         $organizationId = $request['organization_id'] ?? "";
         $galleryAlbumId = $request['gallery_album_id'] ?? "";
-        $contentTitle = $request['content_title'] ?? "";
-        $contentTitleEN = $request['content_title_en'] ?? "";
+        $title = $request['title'] ?? "";
+        $titleEn = $request['title_en'] ?? "";
         $paginate = $request['page'] ?? "";
         $pageSize = $request['page_size'] ?? "";
         $rowStatus = $request['row_status'] ?? "";
@@ -55,19 +55,18 @@ class GalleryImageVideoService
             'gallery_albums.industry_association_id',
             'gallery_images_videos.content_type',
             'gallery_images_videos.video_type',
-            'gallery_images_videos.content_title',
-            'gallery_images_videos.content_title_en',
-            'gallery_images_videos.content_description',
-            'gallery_images_videos.content_description_en',
-            'gallery_images_videos.content_path',
-            'gallery_images_videos.embedded_url',
-            'gallery_images_videos.embedded_id',
+            'gallery_images_videos.title',
+            'gallery_images_videos.title_en',
+            'gallery_images_videos.description',
+            'gallery_images_videos.description_en',
+            'gallery_images_videos.image_path',
+            'gallery_images_videos.video_url',
+            'gallery_images_videos.video_id',
             'gallery_images_videos.content_properties_json',
-            'gallery_images_videos.content_cover_image_url',
-            'gallery_images_videos.content_grid_image_url',
-            'gallery_images_videos.content_thumb_image_url',
-            'gallery_images_videos.alt_title',
-            'gallery_images_videos.alt_title_en',
+            'gallery_images_videos.content_grid_image_path',
+            'gallery_images_videos.content_thumb_image_path',
+            'gallery_images_videos.image_alt_title',
+            'gallery_images_videos.image_alt_title_en',
             'gallery_images_videos.row_status',
             'gallery_images_videos.published_by',
             'gallery_images_videos.archived_by',
@@ -100,11 +99,11 @@ class GalleryImageVideoService
             $galleryImageVideoBuilder->where('gallery_albums.organization_id', $organizationId);
         }
 
-        if (!empty($contentTitle)) {
-            $galleryImageVideoBuilder->where('gallery_images_videos.content_title', 'like', '%' . $contentTitle . '%');
+        if (!empty($title)) {
+            $galleryImageVideoBuilder->where('gallery_images_videos.title', 'like', '%' . $title . '%');
         }
-        if (!empty($contentTitleEN)) {
-            $galleryImageVideoBuilder->where('gallery_images_videos.content_title_en', 'like', '%' . $contentTitleEN . '%');
+        if (!empty($titleEn)) {
+            $galleryImageVideoBuilder->where('gallery_images_videos.title_en', 'like', '%' . $titleEn . '%');
         }
 
         if ($isRequestFromClientSide) {
@@ -150,19 +149,18 @@ class GalleryImageVideoService
             'gallery_albums.industry_association_id',
             'gallery_images_videos.content_type',
             'gallery_images_videos.video_type',
-            'gallery_images_videos.content_title',
-            'gallery_images_videos.content_title_en',
-            'gallery_images_videos.content_description',
-            'gallery_images_videos.content_description_en',
-            'gallery_images_videos.content_path',
-            'gallery_images_videos.embedded_url',
-            'gallery_images_videos.embedded_id',
+            'gallery_images_videos.title',
+            'gallery_images_videos.title_en',
+            'gallery_images_videos.description',
+            'gallery_images_videos.description_en',
+            'gallery_images_videos.image_path',
+            'gallery_images_videos.video_url',
+            'gallery_images_videos.video_id',
             'gallery_images_videos.content_properties_json',
-            'gallery_images_videos.content_cover_image_url',
-            'gallery_images_videos.content_grid_image_url',
-            'gallery_images_videos.content_thumb_image_url',
-            'gallery_images_videos.alt_title',
-            'gallery_images_videos.alt_title_en',
+            'gallery_images_videos.content_grid_image_path',
+            'gallery_images_videos.content_thumb_image_path',
+            'gallery_images_videos.image_alt_title',
+            'gallery_images_videos.image_alt_title_en',
             'gallery_images_videos.row_status',
             'gallery_images_videos.published_by',
             'gallery_images_videos.archived_by',
