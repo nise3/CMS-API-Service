@@ -25,7 +25,12 @@ class StaticPageContentOrPageBlockService
     public function getStaticPageOrBlock(array $request, string $page_code): Model|Builder
     {
         $showIn = $request['show_in'] ?? "";
-        $type = $request['type'] ?? "";
+
+        /** @var StaticPageType|Builder $pageType */
+        $pageType = StaticPageType::select(['type'])->where('page_code', $page_code)->firstOrFail();
+        $type = $pageType['type'];
+        $response = null;
+
 
         /** @var Builder $staticPageBuilder */
         if ($type == StaticPageType::TYPE_PAGE_BLOCK) {
@@ -67,7 +72,7 @@ class StaticPageContentOrPageBlockService
                 $staticPageBuilder->where('static_page_blocks.static_page_type_id', '=', $type);
             }
             $staticPageBuilder->where('static_page_blocks.code', $page_code);
-            return $staticPageBuilder->firstOrFail();
+            $response = $staticPageBuilder->firstOrFail();
 
         } elseif ($type == StaticPageType::TYPE_STATIC_PAGE) {
             $staticPageBuilder = StaticPageContent::select([
@@ -99,8 +104,10 @@ class StaticPageContentOrPageBlockService
                 $staticPageBuilder->where('static_page_types.static_page_type_id', '=', $type);
             }
             $staticPageBuilder->where('static_page_blocks.code', $page_code);
-            return $staticPageBuilder->firstOrFail();
+            $response = $staticPageBuilder->firstOrFail();
         }
+
+        return $response;
 
     }
 
@@ -303,11 +310,6 @@ class StaticPageContentOrPageBlockService
     public function filterValidator(Request $request): \Illuminate\Contracts\Validation\Validator
     {
         return Validator::make($request->all(), [
-            'type' => [
-                'nullable',
-                'integer',
-                Rule::in(StaticPageType::TYPES)
-            ],
             'show_in' => 'nullable|integer|gt:0',
         ]);
     }
