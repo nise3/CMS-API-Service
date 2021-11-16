@@ -6022,7 +6022,7 @@
                         }
                     }
                 },
-                "tags": ["getStaticPageOrBlock"]
+                "tags": ["PageContentOrPageBlock"]
             }
         },
         "/static-page-block": {
@@ -6048,7 +6048,7 @@
                         }
                     }
                 },
-                "tags": ["getStaticPageOrBlock"]
+                "tags": ["PageContentOrPageBlock"]
 
             }
         },
@@ -6080,7 +6080,7 @@
                         }
                     }
                 },
-                "tags": ["getStaticPageOrBlock"]
+                "tags": ["PageContentOrPageBlock"]
             }
         },
         "/static-page-types": {
