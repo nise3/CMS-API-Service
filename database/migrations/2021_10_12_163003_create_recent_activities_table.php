@@ -31,9 +31,9 @@ class CreateRecentActivitiesTable extends Migration
             $table->unsignedTinyInteger('content_type')
                 ->comment("1 => Image, 2 => Facebook source, 3 => Youtube Source")->nullable();
 
-            $table->string('content_path', 800)->nullable();
-            $table->string('embedded_url', 800)->nullable();
-            $table->string('embedded_id', 300)->nullable();
+            $table->string('image_path', 800)->nullable();
+            $table->string('video_url', 800)->nullable();
+            $table->string('video_id', 300)->nullable();
             $table->string("content_properties", 300)->nullable();
 
             $table->string('collage_image_path', 600)->nullable()->comment('Main Image');

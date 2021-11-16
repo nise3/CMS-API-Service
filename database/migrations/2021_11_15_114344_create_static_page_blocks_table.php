@@ -38,8 +38,8 @@ class CreateStaticPageBlocksTable extends Migration
             $table->string('link', 300)->nullable();
             $table->unsignedTinyInteger('is_attachment_available')->default(0);
             $table->string('image_path', 800)->nullable();
-            $table->string('embedded_url', 800)->nullable();
-            $table->string('embedded_id', 300)->nullable();
+            $table->string('video_url', 800)->nullable();
+            $table->string('video_id', 300)->nullable();
             $table->string('alt_image_title_en')->nullable();
             $table->string('alt_image_title')->nullable();
 

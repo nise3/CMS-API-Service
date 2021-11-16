@@ -341,19 +341,19 @@ class GalleryImageVideoService
                 'nullable',
                 'array'
             ],
-            'content_path' => [
+            'image_path' => [
                 'nullable',
                 'required_if:content_type,' . GalleryImageVideo::CONTENT_TYPE_IMAGE
             ],
-            'content_cover_image_url' => [
+            'content_cover_image_path' => [
                 'nullable',
                 'string'
             ],
-            'content_grid_image_url' => [
+            'content_grid_image_path' => [
                 'nullable',
                 'string'
             ],
-            'content_thumb_image_url' => [
+            'content_thumb_image_path' => [
                 'nullable',
                 'string'
             ],
@@ -367,12 +367,12 @@ class GalleryImageVideoService
             ]
         ];
         if (!empty($requestData['content_type']) && $requestData['content_type'] == GalleryImageVideo::CONTENT_TYPE_VIDEO && !empty($requestData['video_type'])) {
-            $rules['embedded_url'] = [
+            $rules['video_url'] = [
                 'required',
                 'string',
                 'max:800'
             ];
-            $rules['embedded_id'] = [
+            $rules['video_id'] = [
                 'required',
                 'max:300'
             ];

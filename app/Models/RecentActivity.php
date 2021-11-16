@@ -23,9 +23,9 @@ use Illuminate\Support\Collection;
  * @property string $title
  * @property string|null $title_en
  * @property int $content_type
- * @property string|null content_path
- * @property string|null embedded_url
- * @property string|null embedded_id
+ * @property string|null image_path
+ * @property string|null video_url
+ * @property string|null video_id
  * @property string|null content_properties
  * @property string|null collage_image_path
  * @property string|null collage_position

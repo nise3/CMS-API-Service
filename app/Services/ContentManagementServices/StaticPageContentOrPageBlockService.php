@@ -47,8 +47,8 @@ class StaticPageContentOrPageBlockService
                 'static_page_blocks.link',
                 'static_page_blocks.is_attachment_available',
                 'static_page_blocks.image_path',
-                'static_page_blocks.embedded_url',
-                'static_page_blocks.embedded_id',
+                'static_page_blocks.video_url',
+                'static_page_blocks.video_id',
                 'static_page_blocks.alt_image_title_en',
                 'static_page_blocks.alt_image_title',
                 'static_page_blocks.row_status',
@@ -277,12 +277,12 @@ class StaticPageContentOrPageBlockService
 
             ];
             if (!empty($requestData['content_type']) && $requestData['content_type'] == GalleryImageVideo::CONTENT_TYPE_VIDEO && !empty($requestData['video_type'])) {
-                $rules['embedded_url'] = [
+                $rules['video_url'] = [
                     'required',
                     'string',
                     'max:800'
                 ];
-                $rules['embedded_id'] = [
+                $rules['video_id'] = [
                     'required',
                     'max:300'
                 ];

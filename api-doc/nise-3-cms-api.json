@@ -1226,7 +1226,7 @@
                                                     "alt_image_title_en": "id",
                                                     "alt_image_title": "ut",
                                                     "banner_template_code": "BT_CB",
-                                                    "banner_image_url": "https://via.placeholder.com/640x480.png/00dd00?text=consequatur",
+                                                    "banner_image_path": "https://via.placeholder.com/640x480.png/00dd00?text=consequatur",
                                                     "row_status": 1,
                                                     "created_by": null,
                                                     "updated_by": null,
@@ -1267,7 +1267,7 @@
                                                     "alt_image_title_en": "enim",
                                                     "alt_image_title": "placeat",
                                                     "banner_template_code": "BT_CB",
-                                                    "banner_image_url": "https://via.placeholder.com/640x480.png/00cc33?text=veniam",
+                                                    "banner_image_path": "https://via.placeholder.com/640x480.png/00cc33?text=veniam",
                                                     "row_status": 1,
                                                     "created_by": null,
                                                     "updated_by": null,
@@ -1340,7 +1340,7 @@
                                             "slider_id": 1,
                                             "slider_title": "",
                                             "banner_template_code": "BT_CB",
-                                            "banner_image_url": null,
+                                            "banner_image_path": null,
                                             "institute_id": 7,
                                             "organization_id": 4,
                                             "industry_association_id": null,
@@ -1381,7 +1381,7 @@
                                             "slider_id": 2,
                                             "slider_title": "",
                                             "banner_template_code": "BT_CB",
-                                            "banner_image_url": null,
+                                            "banner_image_path": null,
                                             "institute_id": 8,
                                             "organization_id": 7,
                                             "industry_association_id": null,
@@ -1593,7 +1593,7 @@
                                     "slider_id": "1",
                                     "slider_title": null,
                                     "banner_template_code": "BT_LR",
-                                    "banner_image_url": "http://newurl.com",
+                                    "banner_image_path": "http://newurl.com",
                                     "institute_id": null,
                                     "organization_id": null,
                                     "industry_association_id": null,
@@ -2947,12 +2947,12 @@
                                             "video_type": null,
                                             "content_title": "Maid",
                                             "content_description": "Knave of Hearts, he stole those tarts, And took them quite away!' 'Consider your verdict,' he said do. Alice looked at poor Alice, 'it would have called him a fish)--and rapped loudly at the cook.",
-                                            "content_path": "https://via.placeholder.com/640x480.png/006644?text=qui",
-                                            "embedded_url": null,
-                                            "embedded_id": null,
+                                            "image_path": "https://via.placeholder.com/640x480.png/006644?text=qui",
+                                            "video_url": null,
+                                            "video_id": null,
                                             "content_properties_json": null,
-                                            "content_cover_image_url": null,
-                                            "content_grid_image_url": null,
+                                            "content_cover_image_path": null,
+                                            "content_grid_image_path": null,
                                             "alt_title": "Alice. 'I've tried every way, and then Alice put down yet, before the trial's begun.' 'They're putting down their names,' the Gryphon said, in a hurried nervous manner, smiling at everything that.",
                                             "row_status": 1,
                                             "published_by": null,
@@ -2981,12 +2981,12 @@
                                             "video_type": null,
                                             "content_title": "Title Searcher",
                                             "content_description": "Hardly knowing what she was beginning to see if he were trying which word sounded best. Some of the court,\" and I shall be late!' (when she thought it had made. 'He took me for his housemaid,' she.",
-                                            "content_path": "https://via.placeholder.com/640x480.png/007722?text=omnis",
-                                            "embedded_url": null,
-                                            "embedded_id": null,
+                                            "image_path": "https://via.placeholder.com/640x480.png/007722?text=omnis",
+                                            "video_url": null,
+                                            "video_id": null,
                                             "content_properties_json": null,
-                                            "content_cover_image_url": null,
-                                            "content_grid_image_url": null,
+                                            "content_cover_image_path": null,
+                                            "content_grid_image_path": null,
                                             "alt_title": "And she began fancying the sort of life! I do it again and again.' 'You are old,' said the Mock Turtle interrupted, 'if you don't explain it as far down the middle, being held up by a row of lodging.",
                                             "row_status": 1,
                                             "published_by": null,
@@ -3069,12 +3069,12 @@
                                             "video_type": null,
                                             "content_title": "Maid",
                                             "content_description": "Knave of Hearts, he stole those tarts, And took them quite away!' 'Consider your verdict,' he said do. Alice looked at poor Alice, 'it would have called him a fish)--and rapped loudly at the cook.",
-                                            "content_path": "https://via.placeholder.com/640x480.png/006644?text=qui",
-                                            "embedded_url": null,
-                                            "embedded_id": null,
+                                            "image_path": "https://via.placeholder.com/640x480.png/006644?text=qui",
+                                            "video_url": null,
+                                            "video_id": null,
                                             "content_properties_json": null,
-                                            "content_cover_image_url": null,
-                                            "content_grid_image_url": null,
+                                            "content_cover_image_path": null,
+                                            "content_grid_image_path": null,
                                             "alt_title": "Alice. 'I've tried every way, and then Alice put down yet, before the trial's begun.' 'They're putting down their names,' the Gryphon said, in a hurried nervous manner, smiling at everything that.",
                                             "row_status": 1,
                                             "published_by": null,
@@ -3102,12 +3102,12 @@
                                             "video_type": null,
                                             "content_title": "Title Searcher",
                                             "content_description": "Hardly knowing what she was beginning to see if he were trying which word sounded best. Some of the court,\" and I shall be late!' (when she thought it had made. 'He took me for his housemaid,' she.",
-                                            "content_path": "https://via.placeholder.com/640x480.png/007722?text=omnis",
-                                            "embedded_url": null,
-                                            "embedded_id": null,
+                                            "image_path": "https://via.placeholder.com/640x480.png/007722?text=omnis",
+                                            "video_url": null,
+                                            "video_id": null,
                                             "content_properties_json": null,
-                                            "content_cover_image_url": null,
-                                            "content_grid_image_url": null,
+                                            "content_cover_image_path": null,
+                                            "content_grid_image_path": null,
                                             "alt_title": "And she began fancying the sort of life! I do it again and again.' 'You are old,' said the Mock Turtle interrupted, 'if you don't explain it as far down the middle, being held up by a row of lodging.",
                                             "row_status": 1,
                                             "published_by": null,
@@ -3169,12 +3169,12 @@
                                         "video_type": null,
                                         "content_title": "image ccccc dddddd ddddd",
                                         "content_description": null,
-                                        "content_path": "asas",
-                                        "embedded_url": null,
-                                        "embedded_id": null,
+                                        "image_path": "asas",
+                                        "video_url": null,
+                                        "video_id": null,
                                         "content_properties_json": null,
-                                        "content_cover_image_url": null,
-                                        "content_grid_image_url": null,
+                                        "content_cover_image_path": null,
+                                        "content_grid_image_path": null,
                                         "alt_title": null,
                                         "other_language_fields": {
                                             "hi": {
@@ -3254,12 +3254,12 @@
                                         "video_type": null,
                                         "content_title": "image ccccc dddddd ddddd",
                                         "content_description": null,
-                                        "content_path": "ke tumi",
-                                        "embedded_url": null,
-                                        "embedded_id": null,
+                                        "image_path": "ke tumi",
+                                        "video_url": null,
+                                        "video_id": null,
                                         "content_properties_json": null,
-                                        "content_cover_image_url": null,
-                                        "content_grid_image_url": null,
+                                        "content_cover_image_path": null,
+                                        "content_grid_image_path": null,
                                         "alt_title": null,
                                         "other_language_fields": {
                                             "hi": {
@@ -3328,12 +3328,12 @@
                                         "video_type": null,
                                         "content_title": "image ccccc dddddd ddddd",
                                         "content_description": null,
-                                        "content_path": "ke tumi",
-                                        "embedded_url": null,
-                                        "embedded_id": null,
+                                        "image_path": "ke tumi",
+                                        "video_url": null,
+                                        "video_id": null,
                                         "content_properties_json": null,
-                                        "content_cover_image_url": null,
-                                        "content_grid_image_url": null,
+                                        "content_cover_image_path": null,
+                                        "content_grid_image_path": null,
                                         "alt_title": null,
                                         "other_language_fields": {
                                             "hi": {
@@ -3441,12 +3441,12 @@
                                         "video_type": null,
                                         "content_title": "image ccccc dddddd ddddd",
                                         "content_description": null,
-                                        "content_path": "ke tumi",
-                                        "embedded_url": null,
-                                        "embedded_id": null,
+                                        "image_path": "ke tumi",
+                                        "video_url": null,
+                                        "video_id": null,
                                         "content_properties_json": null,
-                                        "content_cover_image_url": null,
-                                        "content_grid_image_url": null,
+                                        "content_cover_image_path": null,
+                                        "content_grid_image_path": null,
                                         "alt_title": null,
                                         "other_language_fields": {
                                             "hi": {
@@ -3520,13 +3520,13 @@
                                         "content_title_en": null,
                                         "content_description": null,
                                         "content_description_en": null,
-                                        "content_path": "ke tumi",
-                                        "embedded_url": null,
-                                        "embedded_id": null,
+                                        "image_path": "ke tumi",
+                                        "video_url": null,
+                                        "video_id": null,
                                         "content_properties_json": null,
-                                        "content_cover_image_url": null,
-                                        "content_grid_image_url": null,
-                                        "content_thumb_image_url": null,
+                                        "content_cover_image_path": null,
+                                        "content_grid_image_path": null,
+                                        "content_thumb_image_path": null,
                                         "alt_title": null,
                                         "alt_title_en": null,
                                         "row_status": 1,
@@ -4027,9 +4027,9 @@
                                             "industry_association_id": null,
                                             "title": "Inspector",
                                             "content_type": 1,
-                                            "content_path": "https://via.placeholder.com/640x480.png/002211?text=temporibus",
-                                            "embedded_url": null,
-                                            "embedded_id": null,
+                                            "image_path": "https://via.placeholder.com/640x480.png/002211?text=temporibus",
+                                            "video_url": null,
+                                            "video_id": null,
                                             "content_properties": "Eos reiciendis maxime quasi nemo sapiente voluptatem.",
                                             "collage_image_path": null,
                                             "collage_position": null,
@@ -4118,9 +4118,9 @@
                                             "industry_association_id": null,
                                             "title": "Welder-Fitter",
                                             "content_type": 3,
-                                            "content_path": null,
-                                            "embedded_url": null,
-                                            "embedded_id": null,
+                                            "image_path": null,
+                                            "video_url": null,
+                                            "video_id": null,
                                             "content_properties": "Et eos quibusdam eaque.",
                                             "collage_image_path": null,
                                             "collage_position": null,
@@ -4151,9 +4151,9 @@
                                             "industry_association_id": null,
                                             "title": "Environmental Compliance Inspector",
                                             "content_type": 1,
-                                            "content_path": "https://via.placeholder.com/640x480.png/00bbff?text=voluptas",
-                                            "embedded_url": null,
-                                            "embedded_id": null,
+                                            "image_path": "https://via.placeholder.com/640x480.png/00bbff?text=voluptas",
+                                            "video_url": null,
+                                            "video_id": null,
                                             "content_properties": "Omnis perspiciatis quia dolorem debitis quia.",
                                             "collage_image_path": null,
                                             "collage_position": null,
@@ -4218,9 +4218,9 @@
                                         "industry_association_id": null,
                                         "title": "aaaaaaaaaaa",
                                         "content_type": "2",
-                                        "content_path": null,
-                                        "embedded_url": "qwqw",
-                                        "embedded_id": "2",
+                                        "image_path": null,
+                                        "video_url": "qwqw",
+                                        "video_id": "2",
                                         "content_properties": null,
                                         "collage_image_path": null,
                                         "collage_position": null,
@@ -4294,9 +4294,9 @@
                                         "industry_association_id": null,
                                         "title": "Mail Machine Operator",
                                         "content_type": 2,
-                                        "content_path": null,
-                                        "embedded_url": null,
-                                        "embedded_id": null,
+                                        "image_path": null,
+                                        "video_url": null,
+                                        "video_id": null,
                                         "content_properties": "Tenetur ea iusto error voluptates eum nihil.",
                                         "collage_image_path": null,
                                         "collage_position": null,
@@ -4382,9 +4382,9 @@
                                         "industry_association_id": null,
                                         "title": "abc",
                                         "content_type": "2",
-                                        "content_path": null,
-                                        "embedded_url": "qwqw",
-                                        "embedded_id": "2",
+                                        "image_path": null,
+                                        "video_url": "qwqw",
+                                        "video_id": "2",
                                         "content_properties": null,
                                         "collage_image_path": null,
                                         "collage_position": null,
@@ -4495,9 +4495,9 @@
                                         "industry_association_id": null,
                                         "title": "abc",
                                         "content_type": 2,
-                                        "content_path": null,
-                                        "embedded_url": "qwqw",
-                                        "embedded_id": "2",
+                                        "image_path": null,
+                                        "video_url": "qwqw",
+                                        "video_id": "2",
                                         "content_properties": null,
                                         "collage_image_path": null,
                                         "collage_position": null,
@@ -4569,9 +4569,9 @@
                                         "title_en": "Technical Specialist",
                                         "title": "Technical Specialist",
                                         "content_type": 3,
-                                        "content_path": "Neque dolor quasi in in ipsam vero.",
-                                        "embedded_url": null,
-                                        "embedded_id": null,
+                                        "image_path": "Neque dolor quasi in in ipsam vero.",
+                                        "video_url": null,
+                                        "video_id": null,
                                         "content_properties": "Ipsum sequi quod sit rerum aliquid doloribus autem.",
                                         "collage_image_path": null,
                                         "collage_position": null,
@@ -6340,8 +6340,8 @@
                     "type": "string"
                 }
             },
-            "content_path": {
-                "name": "content_path",
+            "image_path": {
+                "name": "image_path",
                 "in": "query",
                 "required": false,
                 "schema": {
@@ -7251,28 +7251,28 @@
                         "type": "string",
                         "description": "Content Description"
                     },
-                    "content_path": {
+                    "image_path": {
                         "type": "string",
                         "description": "Required when content_type = image"
                     },
-                    "embedded_url": {
+                    "video_url": {
                         "type": "string",
                         "description": "Required. When content type = Video "
                     },
-                    "embedded_id": {
+                    "video_id": {
                         "type": "integer",
                         "description": "Required. When content type = Video "
                     },
                     "content_properties_json": {
                         "type": "string"
                     },
-                    "content_cover_image_url": {
+                    "content_cover_image_path": {
                         "type": "string"
                     },
-                    "content_grid_image_url": {
+                    "content_grid_image_path": {
                         "type": "string"
                     },
-                    "content_thumb_image_url": {
+                    "content_thumb_image_path": {
                         "type": "string"
                     },
                     "alt_title": {
@@ -7459,7 +7459,7 @@
                             "BT_CB"
                         ]
                     },
-                    "banner_image_url": {
+                    "banner_image_path": {
                         "type": "string"
                     },
                     "row_status": {
@@ -7478,7 +7478,7 @@
                 "required": [
                     "slider_id",
                     "title",
-                    "banner_image_url",
+                    "banner_image_path",
                     "is_button_available"
                 ]
             },
@@ -7674,7 +7674,7 @@
                         "type": "string",
                         "description": "content_image path"
                     },
-                    "content_path": {
+                    "image_path": {
                         "type": "string",
                         "description": "content path"
                     },
@@ -7682,11 +7682,11 @@
                         "type": "string",
                         "description": "content_properties"
                     },
-                    "embedded_url": {
+                    "video_url": {
                         "type": "string",
                         "description": "Required. When content type = Facebook source[2] or  Youtube Source[3] "
                     },
-                    "embedded_id": {
+                    "video_id": {
                         "type": "integer",
                         "description": "Required. When content type = Facebook source[2] or  Youtube Source[3] "
                     },

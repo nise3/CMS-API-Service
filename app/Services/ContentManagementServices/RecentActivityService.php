@@ -54,9 +54,9 @@ class RecentActivityService
             'recent_activities.title_en',
             'recent_activities.title',
             'recent_activities.content_type',
-            'recent_activities.content_path',
-            'recent_activities.embedded_url',
-            'recent_activities.embedded_id',
+            'recent_activities.image_path',
+            'recent_activities.video_url',
+            'recent_activities.video_id',
             'recent_activities.content_properties',
             'recent_activities.collage_image_path',
             'recent_activities.collage_position',
@@ -137,9 +137,9 @@ class RecentActivityService
             'recent_activities.title_en',
             'recent_activities.title',
             'recent_activities.content_type',
-            'recent_activities.content_path',
-            'recent_activities.embedded_url',
-            'recent_activities.embedded_id',
+            'recent_activities.image_path',
+            'recent_activities.video_url',
+            'recent_activities.video_id',
             'recent_activities.content_properties',
             'recent_activities.collage_image_path',
             'recent_activities.collage_position',
@@ -363,7 +363,7 @@ class RecentActivityService
                 'integer',
                 Rule::in(RecentActivity::CONTENT_TYPES)
             ],
-            'content_path' => [
+            'image_path' => [
                 'required_if:Content_type,' . RecentActivity::CONTENT_TYPE_IMAGE,
                 'nullable',
                 'string',
@@ -452,12 +452,12 @@ class RecentActivityService
 
         if (!empty($requestData['content_type']) &&
             ($requestData['content_type'] == RecentActivity::CONTENT_TYPE_FACEBOOK_VIDEO || $requestData['content_type'] == RecentActivity::CONTENT_TYPE_YOUTUBE_VIDEO)) {
-            $rules['embedded_url'] = [
+            $rules['video_url'] = [
                 'required',
                 'string',
                 'max:800'
             ];
-            $rules['embedded_id'] = [
+            $rules['video_id'] = [
                 'required',
                 'max:300'
             ];

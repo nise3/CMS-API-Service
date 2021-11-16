@@ -22,8 +22,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string|null content_en
  * @property int|null attachment_type
  * @property string|null image_path
- * @property string|null embedded_url
- * @property string|null embedded_id
+ * @property string|null video_url
+ * @property string|null video_id
  * @property string|null alt_image_title
  * @property string|null alt_image_title_en
  * @property string|null template_code
