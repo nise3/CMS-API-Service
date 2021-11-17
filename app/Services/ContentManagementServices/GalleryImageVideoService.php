@@ -4,6 +4,7 @@
 namespace App\Services\ContentManagementServices;
 
 use App\Models\BaseModel;
+use App\Models\GalleryAlbum;
 use App\Models\GalleryImageVideo;
 use App\Services\Common\LanguageCodeService;
 use Carbon\Carbon;
@@ -29,6 +30,7 @@ class GalleryImageVideoService
     public function getGalleryImageVideoList(array $request, $startTime = null): Collection|LengthAwarePaginator|array
     {
         $searchText = $request['search_text'] ?? "";
+        $albumType = $request['album_type'] ?? "";
         $instituteId = $request['institute_id'] ?? "";
         $industryAssociationId = $request['industry_association_id'] ?? "";
         $organizationId = $request['organization_id'] ?? "";
@@ -114,6 +116,9 @@ class GalleryImageVideoService
             });
 
             $galleryImageVideoBuilder->active();
+        }
+        if(is_numeric($albumType)){
+            $galleryImageVideoBuilder->where('gallery_albums.album_type','=',$albumType);
         }
 
         if (!empty($searchText)) {
@@ -412,6 +417,11 @@ class GalleryImageVideoService
             'title_en' => 'nullable|max:250|min:2',
             'page_size' => 'nullable|integer|gt:0',
             'page' => 'nullable|integer|gt:0',
+            'album_type' => [
+                'nullable',
+                'integer',
+                Rule::in(GalleryAlbum::GALLERY_ALBUM_TYPES)
+            ],
             'search_text' => [
                 'nullable',
                 'string'

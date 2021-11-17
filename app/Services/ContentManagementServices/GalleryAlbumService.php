@@ -31,6 +31,7 @@ class GalleryAlbumService
     public function getAllGalleryAlbums(array $request, $startTime = null): Collection|LengthAwarePaginator|array
     {
         $showIn = $request['show_in'] ?? "";
+        $albumType = $request['album_type'] ?? "";
         $instituteId = $request['institute_id'] ?? "";
         $parentGalleryAlbumId = $request['parent_gallery_album_id'] ?? "";
         $onlyParentGalleryAlbum = $request['only_parent_gallery_album'] ?? "";
@@ -100,6 +101,9 @@ class GalleryAlbumService
         }
         if (is_numeric($organizationId)) {
             $galleryAlbumBuilder->where('gallery_albums.organization_id', $organizationId);
+        }
+        if (is_numeric($albumType)) {
+            $galleryAlbumBuilder->where('gallery_albums.album_type', '=', $albumType);
         }
 
         if ($isRequestFromClientSide) {
