@@ -183,7 +183,7 @@ class FaqController extends Controller implements ResourceInterface
                         }
                     }
                 }
-                app(CmsLanguageService::class)->createOrUpdate($languageFillablePayload,$faq->id);
+                app(CmsLanguageService::class)->createOrUpdate($languageFillablePayload,$faq);
             $response = new FaqResource($faq);
             $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
             DB::commit();

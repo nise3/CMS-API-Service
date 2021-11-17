@@ -197,7 +197,7 @@ class StaticPageController extends Controller
                     }
                 }
             }
-            app(CmsLanguageService::class)->createOrUpdate($languageFillablePayload, $staticPageData->id);
+            app(CmsLanguageService::class)->createOrUpdate($languageFillablePayload, $staticPageData);
             $response = new StaticPageResource($staticPageData);
             $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
             DB::commit();

@@ -182,7 +182,7 @@ class NoticeOrNewsController extends Controller
                 }
             }
 
-            app(CmsLanguageService::class)->createOrUpdate($languageFillablePayload, $noticeOrNews->id);
+            app(CmsLanguageService::class)->createOrUpdate($languageFillablePayload, $noticeOrNews);
             $response = new NoticeOrNewsResource($noticeOrNews);
             $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK, $message);
             DB::commit();

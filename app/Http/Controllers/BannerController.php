@@ -150,7 +150,7 @@ class BannerController extends Controller
                     }
                 }
             }
-            app(CmsLanguageService::class)->createOrUpdate($languageFillablePayload, $banner->id);
+            app(CmsLanguageService::class)->createOrUpdate($languageFillablePayload, $banner);
             $response = new BannerResource($banner);
             $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK, $message);
             DB::commit();

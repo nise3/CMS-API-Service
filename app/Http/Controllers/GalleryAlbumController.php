@@ -191,7 +191,7 @@ class GalleryAlbumController extends Controller
 
                 }
             }
-            app(CmsLanguageService::class)->createOrUpdate($languageFillablePayload, $galleryAlbum->id);
+            app(CmsLanguageService::class)->createOrUpdate($languageFillablePayload, $galleryAlbum);
             $response = new GalleryAlbumResource($galleryAlbum);
             $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
             DB::commit();
