@@ -2326,100 +2326,6 @@
                 ]
             }
         },
-        "/public/gallery-albums": {
-            "get": {
-                "summary": "Get All public  gallery albums",
-                "description": "API endpoint to get all gallery image.A successful request response will show 200 HTTP status code",
-                "parameters": [
-                    {
-                        "$ref": "#/components/parameters/only_parent_gallery_album"
-                    },
-                    {
-                        "$ref": "#/components/parameters/parent_gallery_album_id"
-                    },
-                    {
-                        "$ref": "#/components/parameters/show_in"
-                    },
-                    {
-                        "$ref": "#/components/parameters/album_type"
-                    },
-                    {
-                        "$ref": "#/components/parameters/institute_id"
-                    },
-                    {
-                        "$ref": "#/components/parameters/industry_association_id"
-                    },
-                    {
-                        "$ref": "#/components/parameters/organization_id"
-                    },
-                    {
-                        "$ref": "#/components/parameters/Accept-Language"
-                    },
-                    {
-                        "$ref": "#/components/parameters/title_optional"
-                    },
-                    {
-                        "$ref": "#/components/parameters/page"
-                    },
-                    {
-                        "$ref": "#/components/parameters/page_size"
-                    },
-                    {
-                        "$ref": "#/components/parameters/row_status"
-                    },
-                    {
-                        "$ref": "#/components/parameters/order"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Get All gallery albums",
-                        "content": {
-                            "application/json": {
-                                "example": {
-                                    "order": "ASC",
-                                    "data": [
-                                        {
-                                            "id": 1,
-                                            "parent_gallery_album_id": null,
-                                            "featured": 1,
-                                            "show_in": 1,
-                                            "album_type": 1,
-                                            "published_at": null,
-                                            "archived_at": null,
-                                            "institute_id": null,
-                                            "organization_id": null,
-                                            "industry_association_id": null,
-                                            "batch_id": null,
-                                            "program_id": null,
-                                            "title": "NewTitle",
-                                            "main_image_path": null,
-                                            "thumb_image_path": null,
-                                            "grid_image_path": null,
-                                            "image_alt_title": null,
-                                            "row_status": 1,
-                                            "created_by": null,
-                                            "updated_by": null,
-                                            "created_at": "2021-11-04T06:55:37.000000Z",
-                                            "updated_at": "2021-11-04T06:55:37.000000Z"
-                                        }
-                                    ],
-                                    "_response_status": {
-                                        "success": true,
-                                        "code": 200,
-                                        "message": null,
-                                        "query_time": 0
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Gallery-Album"
-                ]
-            }
-        },
         "/gallery-albums": {
             "get": {
                 "summary": "Get All gallery albums",
@@ -2747,6 +2653,78 @@
                 ]
             }
         },
+        "/gallery-albums/publish-or-archive/{galleryAlbumId}": {
+            "put": {
+                "summary": "Published/Archived gallery-album",
+                "description": "API endpoint to create  a new published or archived gallery-album.A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "name": "galleryAlbumId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PublishOrArchive"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successfull",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "data": {
+                                        "id": 3,
+                                        "parent_gallery_album_id": null,
+                                        "featured": 0,
+                                        "show_in": 4,
+                                        "album_type": 2,
+                                        "published_at": "2021-11-10 04:40:41",
+                                        "archived_at": null,
+                                        "institute_id": null,
+                                        "organization_id": 6,
+                                        "industry_association_id": 2,
+                                        "batch_id": 7,
+                                        "program_id": 9,
+                                        "title": "Cutting Machine Operator",
+                                        "title_en": "Cutting Machine Operator",
+                                        "main_image_path": null,
+                                        "thumb_image_path": null,
+                                        "grid_image_path": null,
+                                        "image_alt_title": "Natus nobis.",
+                                        "image_alt_title_en": "Veritatis.",
+                                        "row_status": 1,
+                                        "created_by": null,
+                                        "updated_by": null,
+                                        "created_at": "2021-11-09T04:52:36.000000Z",
+                                        "updated_at": "2021-11-10T04:40:41.000000Z",
+                                        "deleted_at": null
+                                    },
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 201,
+                                        "message": "Gallery Album published successfully",
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Gallery-Album"
+                ]
+            }
+        },
         "/public/gallery-albums/{galleryAlbumId}": {
             "get": {
                 "summary": "Get a public gallery albums",
@@ -2813,66 +2791,88 @@
                 ]
             }
         },
-        "/gallery-albums/publish-or-archive/{galleryAlbumId}": {
-            "put": {
-                "summary": "Published/Archived gallery-album",
-                "description": "API endpoint to create  a new published or archived gallery-album.A successful request response will show 200 HTTP status code",
+        "/public/gallery-albums": {
+            "get": {
+                "summary": "Get All public  gallery albums",
+                "description": "API endpoint to get all gallery image.A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
-                        "name": "galleryAlbumId",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
+                        "$ref": "#/components/parameters/only_parent_gallery_album"
+                    },
+                    {
+                        "$ref": "#/components/parameters/parent_gallery_album_id"
+                    },
+                    {
+                        "$ref": "#/components/parameters/show_in"
+                    },
+                    {
+                        "$ref": "#/components/parameters/album_type"
+                    },
+                    {
+                        "$ref": "#/components/parameters/institute_id"
+                    },
+                    {
+                        "$ref": "#/components/parameters/industry_association_id"
+                    },
+                    {
+                        "$ref": "#/components/parameters/organization_id"
+                    },
+                    {
+                        "$ref": "#/components/parameters/Accept-Language"
+                    },
+                    {
+                        "$ref": "#/components/parameters/title_optional"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page_size"
+                    },
+                    {
+                        "$ref": "#/components/parameters/row_status"
+                    },
+                    {
+                        "$ref": "#/components/parameters/order"
                     }
                 ],
-                "requestBody": {
-                    "content": {
-                        "application/x-www-form-urlencoded": {
-                            "schema": {
-                                "$ref": "#/components/schemas/PublishOrArchive"
-                            }
-                        }
-                    }
-                },
                 "responses": {
                     "200": {
-                        "description": "successfull",
+                        "description": "Get All gallery albums",
                         "content": {
                             "application/json": {
                                 "example": {
-                                    "data": {
-                                        "id": 3,
-                                        "parent_gallery_album_id": null,
-                                        "featured": 0,
-                                        "show_in": 4,
-                                        "album_type": 2,
-                                        "published_at": "2021-11-10 04:40:41",
-                                        "archived_at": null,
-                                        "institute_id": null,
-                                        "organization_id": 6,
-                                        "industry_association_id": 2,
-                                        "batch_id": 7,
-                                        "program_id": 9,
-                                        "title": "Cutting Machine Operator",
-                                        "title_en": "Cutting Machine Operator",
-                                        "main_image_path": null,
-                                        "thumb_image_path": null,
-                                        "grid_image_path": null,
-                                        "image_alt_title": "Natus nobis.",
-                                        "image_alt_title_en": "Veritatis.",
-                                        "row_status": 1,
-                                        "created_by": null,
-                                        "updated_by": null,
-                                        "created_at": "2021-11-09T04:52:36.000000Z",
-                                        "updated_at": "2021-11-10T04:40:41.000000Z",
-                                        "deleted_at": null
-                                    },
+                                    "order": "ASC",
+                                    "data": [
+                                        {
+                                            "id": 1,
+                                            "parent_gallery_album_id": null,
+                                            "featured": 1,
+                                            "show_in": 1,
+                                            "album_type": 1,
+                                            "published_at": null,
+                                            "archived_at": null,
+                                            "institute_id": null,
+                                            "organization_id": null,
+                                            "industry_association_id": null,
+                                            "batch_id": null,
+                                            "program_id": null,
+                                            "title": "NewTitle",
+                                            "main_image_path": null,
+                                            "thumb_image_path": null,
+                                            "grid_image_path": null,
+                                            "image_alt_title": null,
+                                            "row_status": 1,
+                                            "created_by": null,
+                                            "updated_by": null,
+                                            "created_at": "2021-11-04T06:55:37.000000Z",
+                                            "updated_at": "2021-11-04T06:55:37.000000Z"
+                                        }
+                                    ],
                                     "_response_status": {
                                         "success": true,
-                                        "code": 201,
-                                        "message": "Gallery Album published successfully",
+                                        "code": 200,
+                                        "message": null,
                                         "query_time": 0
                                     }
                                 }
@@ -3273,6 +3273,81 @@
                 ]
             }
         },
+        "/gallery-images-videos/publish-or-archive/{galleryImagesVideoId}": {
+            "put": {
+                "summary": "Archived/Published gallery-image-video",
+                "description": "API endpoint to create a new archived/published gallery image video.A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "name": "galleryImagesVideoId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PublishOrArchive"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successfull",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "data": {
+                                        "id": 11,
+                                        "gallery_album_id": 1,
+                                        "featured": 1,
+                                        "published_at": "2021-11-11 11:31:28",
+                                        "archived_at": null,
+                                        "content_type": 1,
+                                        "video_type": null,
+                                        "content_title": "image ccccc dddddd ddddd",
+                                        "content_title_en": null,
+                                        "content_description": null,
+                                        "content_description_en": null,
+                                        "image_path": "ke tumi",
+                                        "video_url": null,
+                                        "video_id": null,
+                                        "content_properties_json": null,
+                                        "content_cover_image_path": null,
+                                        "content_grid_image_path": null,
+                                        "content_thumb_image_path": null,
+                                        "image_alt_title": null,
+                                        "alt_title_en": null,
+                                        "row_status": 1,
+                                        "published_by": null,
+                                        "archived_by": null,
+                                        "created_by": null,
+                                        "updated_by": null,
+                                        "created_at": "2021-11-11T11:22:14.000000Z",
+                                        "updated_at": "2021-11-11T11:31:28.000000Z",
+                                        "deleted_at": null
+                                    },
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 201,
+                                        "message": "GalleryImageVideo published successfully",
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "gallery-images-videos"
+                ]
+            }
+        },
         "/public/gallery-images-videos/{galleryImagesVideoId}": {
             "get": {
                 "summary": "Get a public gallery image video by Id",
@@ -3475,81 +3550,7 @@
                 ]
             }
         },
-        "/gallery-images-videos/publish-or-archive/{galleryImagesVideoId}": {
-            "put": {
-                "summary": "Archived/Published gallery-image-video",
-                "description": "API endpoint to create a new archived/published gallery image video.A successful request response will show 200 HTTP status code",
-                "parameters": [
-                    {
-                        "name": "galleryImagesVideoId",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/x-www-form-urlencoded": {
-                            "schema": {
-                                "$ref": "#/components/schemas/PublishOrArchive"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "successfull",
-                        "content": {
-                            "application/json": {
-                                "example": {
-                                    "data": {
-                                        "id": 11,
-                                        "gallery_album_id": 1,
-                                        "featured": 1,
-                                        "published_at": "2021-11-11 11:31:28",
-                                        "archived_at": null,
-                                        "content_type": 1,
-                                        "video_type": null,
-                                        "content_title": "image ccccc dddddd ddddd",
-                                        "content_title_en": null,
-                                        "content_description": null,
-                                        "content_description_en": null,
-                                        "image_path": "ke tumi",
-                                        "video_url": null,
-                                        "video_id": null,
-                                        "content_properties_json": null,
-                                        "content_cover_image_path": null,
-                                        "content_grid_image_path": null,
-                                        "content_thumb_image_path": null,
-                                        "image_alt_title": null,
-                                        "alt_title_en": null,
-                                        "row_status": 1,
-                                        "published_by": null,
-                                        "archived_by": null,
-                                        "created_by": null,
-                                        "updated_by": null,
-                                        "created_at": "2021-11-11T11:22:14.000000Z",
-                                        "updated_at": "2021-11-11T11:31:28.000000Z",
-                                        "deleted_at": null
-                                    },
-                                    "_response_status": {
-                                        "success": true,
-                                        "code": 201,
-                                        "message": "GalleryImageVideo published successfully",
-                                        "query_time": 0
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "gallery-images-videos"
-                ]
-            }
-        },
+
         "/public/recent-activities": {
             "get": {
                 "summary": "Get All public recent activity",
