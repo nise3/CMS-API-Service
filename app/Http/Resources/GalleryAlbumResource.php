@@ -47,6 +47,7 @@ class GalleryAlbumResource extends JsonResource
             "thumb_image_path" => $this->thumb_image_path,
             "grid_image_path" => $this->grid_image_path,
             "gallery_images_videos" => $this->galleryImagesVideos,
+            "child_gallery_albums" => $this->childGalleryAlbums,
 
         ];
         if ($request->offsetExists(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY) && $request->get(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY)) {
