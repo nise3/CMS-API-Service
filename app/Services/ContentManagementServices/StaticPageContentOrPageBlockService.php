@@ -381,6 +381,30 @@ class StaticPageContentOrPageBlockService
     {
         return Validator::make($request->all(), [
             'show_in' => 'nullable|integer|gt:0',
+            'institute_id' => [
+                Rule::requiredIf(function () use ($request) {
+                    return $request->input('show_in') == BaseModel::SHOW_IN_TSP;
+                }),
+                "nullable",
+                "integer",
+                "gt:0",
+            ],
+            'industry_association_id' => [
+                Rule::requiredIf(function () use ($request) {
+                    return $request->input('show_in') == BaseModel::SHOW_IN_INDUSTRY_ASSOCIATION;
+                }),
+                "nullable",
+                "integer",
+                "gt:0",
+            ],
+            'organization_id' => [
+                Rule::requiredIf(function () use ($request) {
+                    return $request->input('show_in') == BaseModel::SHOW_IN_INDUSTRY;
+                }),
+                "nullable",
+                "integer",
+                "gt:0",
+            ],
         ]);
     }
 }
