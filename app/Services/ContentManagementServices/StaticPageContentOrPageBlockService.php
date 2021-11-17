@@ -344,8 +344,8 @@ class StaticPageContentOrPageBlockService
                 Rule::in(StaticPageBlock::ATTACHMENT_TYPES)
             ];
             $rules['image_path'] = [
-                'nullable',
-                'required_if:content_type,' . StaticPageBlock::ATTACHMENT_TYPE_IMAGE
+                'required_if:attachment_type,' . StaticPageBlock::ATTACHMENT_TYPE_IMAGE,
+                'nullable'
             ];
             $rules['image_alt_title'] = [
                 'string',
