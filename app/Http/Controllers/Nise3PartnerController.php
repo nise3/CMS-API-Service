@@ -167,7 +167,7 @@ class Nise3PartnerController extends Controller
                     }
                 }
             }
-            app(CmsLanguageService::class)->createOrUpdate($languageFillablePayload, $nise3Partner->id);
+            app(CmsLanguageService::class)->createOrUpdate($languageFillablePayload, $nise3Partner);
             $response = new Nise3PartnerResource($nise3Partner);
             $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK, $message);
             DB::commit();

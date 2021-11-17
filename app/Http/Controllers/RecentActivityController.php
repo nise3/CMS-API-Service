@@ -188,7 +188,7 @@ class RecentActivityController extends Controller
                 }
 
             }
-            app(CmsLanguageService::class)->createOrUpdate($languageFillablePayload, $recentActivity->id);
+            app(CmsLanguageService::class)->createOrUpdate($languageFillablePayload, $recentActivity);
             $response = new RecentActivityResource($recentActivity);
             $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
             DB::commit();

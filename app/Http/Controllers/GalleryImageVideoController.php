@@ -196,7 +196,7 @@ class GalleryImageVideoController extends Controller
                     }
                 }
             }
-            app(CmsLanguageService::class)->createOrUpdate($languageFillablePayload,$galleryImageVideo->id);
+            app(CmsLanguageService::class)->createOrUpdate($languageFillablePayload,$galleryImageVideo);
             $response = new GalleryImageVideoResource($galleryImageVideo);
             $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK, $message);
             DB::commit();
