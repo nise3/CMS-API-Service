@@ -1011,7 +1011,7 @@
                                 "schema": {
                                     "$ref": "#/components/schemas/Slider"
                                 },
-                                "example":{
+                                "example": {
                                     "data": {
                                         "id": 11,
                                         "show_in": 1,
@@ -1059,7 +1059,7 @@
                             "schema": {
                                 "$ref": "#/components/schemas/Slider"
                             },
-                            "example":{
+                            "example": {
                                 "data": {
                                     "id": 11,
                                     "title": "Typical Slider Tilte",
@@ -1197,7 +1197,7 @@
                                 "schema": {
                                     "$ref": "#/components/schemas/Slider"
                                 },
-                                "example":{
+                                "example": {
                                     "order": "ASC",
                                     "data": [
                                         {
@@ -1299,8 +1299,6 @@
                 ]
             }
         },
-
-
         "/banners": {
             "get": {
                 "summary": "Get All banners",
@@ -1330,7 +1328,7 @@
                         "description": "Successful",
                         "content": {
                             "application/json": {
-                                "example":{
+                                "example": {
                                     "order": "ASC",
                                     "data": [
                                         {
@@ -1585,7 +1583,7 @@
                             "schema": {
                                 "$ref": "#/components/schemas/Banner"
                             },
-                            "example":{
+                            "example": {
                                 "data": {
                                     "id": 1,
                                     "is_button_available": "1",
@@ -1820,7 +1818,7 @@
                         "description": "Get list of all faqs",
                         "content": {
                             "application/json": {
-                                "example":{
+                                "example": {
                                     "order": "ASC",
                                     "data": [
                                         {
@@ -1961,7 +1959,7 @@
                         "description": "Detail of a faq",
                         "content": {
                             "application/json": {
-                                "example":{
+                                "example": {
                                     "data": {
                                         "id": 1,
                                         "show_in": 1,
@@ -2093,7 +2091,6 @@
                 ]
             }
         },
-
         "/public/faqs": {
             "get": {
                 "summary": "Get All public faqs",
@@ -2197,7 +2194,7 @@
                         "description": "Get list of all faqs",
                         "content": {
                             "application/json": {
-                                "example":{
+                                "example": {
                                     "order": "ASC",
                                     "data": [
                                         {
@@ -2258,7 +2255,6 @@
                 ]
             }
         },
-
         "/public/faqs/{faqId}": {
             "get": {
                 "summary": "Get a public faq by Id",
@@ -2330,8 +2326,6 @@
                 ]
             }
         },
-
-
         "/public/gallery-albums": {
             "get": {
                 "summary": "Get All public  gallery albums",
@@ -2923,7 +2917,7 @@
                         "description": "successful",
                         "content": {
                             "application/json": {
-                                "example":{
+                                "example": {
                                     "order": "ASC",
                                     "data": [
                                         {
@@ -3025,7 +3019,7 @@
                         "description": "successfull",
                         "content": {
                             "application/json": {
-                                "example":{
+                                "example": {
                                     "data": {
                                         "id": 17,
                                         "gallery_album_id": "1",
@@ -3110,7 +3104,7 @@
                         "description": "successfull",
                         "content": {
                             "application/json": {
-                                "example":{
+                                "example": {
                                     "data": {
                                         "id": 17,
                                         "gallery_album_id": "1",
@@ -3184,7 +3178,7 @@
                         "description": "successfull",
                         "content": {
                             "application/json": {
-                                "example":{
+                                "example": {
                                     "data": {
                                         "id": 17,
                                         "gallery_album_id": 1,
@@ -3297,7 +3291,7 @@
                         "description": "successfull",
                         "content": {
                             "application/json": {
-                                "example":{
+                                "example": {
                                     "data": {
                                         "id": 1,
                                         "gallery_album_id": 1,
@@ -3388,7 +3382,7 @@
                         "description": "successfull",
                         "content": {
                             "application/json": {
-                                "example":{
+                                "example": {
                                     "order": "ASC",
                                     "data": [
                                         {
@@ -3549,7 +3543,6 @@
                 ]
             }
         },
-
         "/static-pages": {
             "get": {
                 "summary": "Get all static page",
@@ -5025,7 +5018,7 @@
                         "description": "successfull",
                         "content": {
                             "application/json": {
-                                "example":{
+                                "example": {
                                     "order": "ASC",
                                     "data": [
                                         {
@@ -5380,7 +5373,7 @@
                         "content": {
                             "application/x-www-form-urlencoded": {
                                 "schema": {
-                                    "example":{
+                                    "example": {
                                         "data": {
                                             "id": 12,
                                             "type": 2,
@@ -6028,7 +6021,9 @@
                         }
                     }
                 },
-                "tags": ["PageContentOrPageBlock"]
+                "tags": [
+                    "PageContentOrPageBlock"
+                ]
             }
         },
         "/static-page-blocks/{page_code}": {
@@ -6059,10 +6054,11 @@
                         }
                     }
                 },
-                "tags": ["PageContentOrPageBlock"]
+                "tags": [
+                    "PageContentOrPageBlock"
+                ]
             }
         },
-
         "/public/static-page-blocks/{page_code}": {
             "get": {
                 "summary": "Get all public static-page-block page_code",
@@ -6074,10 +6070,15 @@
                     {
                         "name": "show_in",
                         "in": "query",
-                        "description":  "1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry",
+                        "description": "1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry",
                         "schema": {
                             "type": "integer",
-                            "enum": [1,2,3,4]
+                            "enum": [
+                                1,
+                                2,
+                                3,
+                                4
+                            ]
                         }
                     },
                     {
@@ -6094,7 +6095,9 @@
                         }
                     }
                 },
-                "tags": ["PageContentOrPageBlock"]
+                "tags": [
+                    "PageContentOrPageBlock"
+                ]
             }
         },
         "/static-page-types": {
@@ -6125,7 +6128,9 @@
                         }
                     }
                 },
-                "tags": ["StaticPageType"]
+                "tags": [
+                    "StaticPageType"
+                ]
             },
             "post": {
                 "summary": "create a static page type",
@@ -6149,7 +6154,9 @@
                         }
                     }
                 },
-                "tags": ["StaticPageType"]
+                "tags": [
+                    "StaticPageType"
+                ]
             }
         },
         "/static-page-types/{staticPageTypeId}": {
@@ -6191,11 +6198,11 @@
                         }
                     }
                 },
-                "tags": ["StaticPageType"]
+                "tags": [
+                    "StaticPageType"
+                ]
             }
         }
-
-
     },
     "components": {
         "securitySchemes": {
@@ -6222,7 +6229,7 @@
                     "type": "string"
                 }
             },
-            "page_code":{
+            "page_code": {
                 "name": "page_code",
                 "in": "path",
                 "required": true,
@@ -6230,7 +6237,7 @@
                     "type": "string"
                 }
             },
-            "search_text":{
+            "search_text": {
                 "name": "search_text",
                 "in": "query",
                 "required": false,
@@ -7097,7 +7104,10 @@
                     },
                     "type": {
                         "type": "integer",
-                        "enum": [1,2],
+                        "enum": [
+                            1,
+                            2
+                        ],
                         "description": "1=>Page Block, 2=>Static Page"
                     }
                 },
@@ -7110,14 +7120,14 @@
             "StaticPageContent": {
                 "type": "object",
                 "properties": {
-                    "static_page_type_id": {
-                        "type": "integer",
-                        "enum": [1,2],
-                        "description": " TYPE_PAGE_BLOCK = 1 TYPE_STATIC_PAGE = 2;"
-                    },
                     "show_in": {
                         "type": "integer",
-                        "enum": [1,2,3,4],
+                        "enum": [
+                            1,
+                            2,
+                            3,
+                            4
+                        ],
                         "description": "1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry"
                     },
                     "institute_id": {
@@ -7132,8 +7142,7 @@
                         "type": "string"
                     },
                     "sub_title": {
-                        "type": "string",
-                        "description": "Available in when static_page_type = TYPE_STATIC_PAGE"
+                        "type": "string"
                     },
                     "content": {
                         "type": "string"
@@ -7141,34 +7150,37 @@
                     "row_status": {
                         "type": "integer",
                         "description": "ACTIVE_STATUS => 1, INACTIVE_STATUS => 0"
+                    },
+                    "other_language_fields": {
+                        "type": "object",
+                        "example": "[\n\n\"hi\"=>[\n\t\"title\"=>\"सामूहिक बाढ़\",\n        \"sub_title\"=>\"सामूहिक बाढ़\",\n\t\"content\"=>\"सामूहिक बाढ़\"\n     ]\n]"
                     }
                 },
                 "required": [
                     "show_in",
                     "title"
-
                 ]
             },
             "StaticPageBlock": {
                 "type": "object",
                 "properties": {
-                    "static_page_type_id": {
-                        "type": "integer",
-                        "enum": [1,2],
-                        "description": " TYPE_PAGE_BLOCK = 1 TYPE_STATIC_PAGE = 2;"
-                    },
                     "show_in": {
                         "type": "integer",
-                        "enum": [1,2,3,4],
+                        "enum": [
+                            1,
+                            2,
+                            3,
+                            4
+                        ],
                         "description": "1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry"
                     },
                     "institute_id": {
                         "type": "integer",
-                        "description": "Required when show_in = SHOW_IN_TSP[3]"
+                        "description": "Required when show_in = SHOW_IN_TSP"
                     },
                     "organization_id": {
                         "type": "integer",
-                        "description": "Required when show_in = SHOW_IN_INDUSTRY[4]"
+                        "description": "Required when show_in = SHOW_IN_INDUSTRY"
                     },
                     "title": {
                         "type": "string"
@@ -7178,54 +7190,80 @@
                     },
                     "attachment_type": {
                         "type": "integer",
-                        "enum": [1,2,3],
-                        "description": "1 => Image, 2 => Facebook source, 3 => Youtube Source"
+                        "enum": [
+                            1,
+                            2,
+                            3
+                        ],
+                        "description": "1 => Image, 2 => Facebook source, 3 => Youtube Source.Required if is_attachment_available=1"
                     },
                     "template_code": {
                         "type": "string",
-                        "enum": ["PBT_LR", "PBT_RL" , "PBT_CB"]
+                        "description": "PBT_LR => Block with text left and image right,\n       PBT_RL => Block with text right and image left,\n        PBT_CB => Block with text center and image background",
+                        "enum": [
+                            "PBT_LR",
+                            "PBT_RL",
+                            "PBT_CB"
+                        ]
                     },
                     "is_button_available": {
                         "type": "integer",
-                        "enum": [1,0],
+                        "enum": [
+                            1,
+                            0
+                        ],
                         "description": "Required when static_page_type = TYPE_PAGE_BLOCK"
                     },
                     "button_text": {
                         "type": "string",
-                        "description": "Required when is_button_available=1 && StaticPageType = TYPE_PAGE_BLOCK"
+                        "description": "Required when is_button_available=1"
                     },
                     "link": {
                         "type": "string",
-                        "description": "Required when is_button_available=1 && StaticPageType::TYPE_PAGE_BLOCK"
+                        "description": "Required when is_button_available=1"
                     },
                     "is_attachment_available": {
                         "type": "integer",
-                        "enum": [1,0]
+                        "enum": [
+                            1,
+                            0
+                        ]
                     },
                     "image_path": {
+                        "description": "Required if attachment_type=1(image)",
                         "type": "string"
                     },
-                    "embedded_url": {
+                    "video_url": {
+                        "description": "Required if attachment_type=2(facebook) or 3(youtube)",
                         "type": "string"
                     },
-                    "embedded_id": {
+                    "video_id": {
+                        "description": "Required if attachment_type=2(facebook) or 3(youtube)",
                         "type": "string"
                     },
                     "alt_image_title": {
+                        "description": "Required if attachment_type=1(image)",
                         "type": "string"
                     },
                     "row_status": {
                         "type": "integer",
-                        "enum": [1,0],
+                        "enum": [
+                            1,
+                            0
+                        ],
                         "description": "ACTIVE_STATUS => 1, INACTIVE_STATUS => 0"
+                    },
+                    "other_language_fields": {
+                        "type": "object",
+                        "example": "\"hi\"=>[\n\t\"title\"=>\"सामूहिक बाढ़\",\n        \"button_text\"=>\"सामूहिक बाढ़\",\n\t\"content\"=>\"सामूहिक बाढ़\",\n        \"alt_image_title\"=>\"सामूहिक बाढ़\",\n     ]"
                     }
-
                 },
                 "required": [
-                    "static_page_type_id",
                     "show_in",
                     "title",
-                    "is_attachment_available"
+                    "is_attachment_available",
+                    "is_button_available",
+                    "template_code"
                 ]
             },
             "PublishOrArchive": {
