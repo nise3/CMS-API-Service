@@ -46,6 +46,12 @@ class StaticPageContentOrPageBlockController extends Controller
     {
         $filter = $this->staticPageContentOrPageBlockService->filterValidator($request)->validate();
         $staticPageOrBlock = $this->staticPageContentOrPageBlockService->getStaticPageOrBlock($filter, $page_code);
+
+        if(!$staticPageOrBlock){
+            $response = getResponse(null, $this->startTime, !BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
+            return Response::json($response, ResponseAlias::HTTP_OK);
+        }
+
         $request->offsetSet(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID, CmsGlobalConfigService::getOrganizationOrInstituteOrIndustryAssociationTitle($staticPageOrBlock->toArray()));
         $response = new StaticPageContentOrBlockResource($staticPageOrBlock);
         $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
@@ -54,6 +60,9 @@ class StaticPageContentOrPageBlockController extends Controller
     }
 
     /**
+     * @param Request $request
+     * @param string $page_code
+     * @return JsonResponse
      * @throws RequestException
      * @throws ValidationException
      */
@@ -63,6 +72,10 @@ class StaticPageContentOrPageBlockController extends Controller
         $filter = $this->staticPageContentOrPageBlockService->filterValidator($request)->validate();
         $filter[BaseModel::IS_CLIENT_SITE_RESPONSE_KEY] = BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG;
         $staticPageOrBlock = $this->staticPageContentOrPageBlockService->getStaticPageOrBlock($filter, $page_code);
+        if(!$staticPageOrBlock){
+            $response = getResponse(null, $this->startTime, !BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
+            return Response::json($response, ResponseAlias::HTTP_OK);
+        }
         $request->offsetSet(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID, CmsGlobalConfigService::getOrganizationOrInstituteOrIndustryAssociationTitle($staticPageOrBlock->toArray()['data'] ?? $staticPageOrBlock->toArray()));
         $response = new StaticPageContentOrBlockResource($staticPageOrBlock);
         $response = getResponse($response->toArray($request), $this->startTime, !BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);

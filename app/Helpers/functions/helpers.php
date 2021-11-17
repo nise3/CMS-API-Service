@@ -155,9 +155,14 @@ if (!function_exists("getResponse")) {
      * @param string|null $message
      * @return array
      */
-    function getResponse(array|bool $responseData, Carbon $startTime, bool $responseType, int $statusCode, string $message = null): array
+    function getResponse(array|bool|null $responseData, Carbon $startTime, bool $responseType, int $statusCode, string $message = null): array
     {
         $response = [];
+
+        if(is_null($responseData)){
+            $response['data'] = null;
+        }
+
         if (!$responseType) {
             $response['order'] = request('order') ?? "ASC";
         }

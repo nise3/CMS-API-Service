@@ -22,7 +22,7 @@ class StaticPageContentOrPageBlockService
      * @param string $page_code
      * @return Builder|Model
      */
-    public function getStaticPageOrBlock(array $request, string $page_code): Model|Builder
+    public function getStaticPageOrBlock(array $request, string $page_code): Model|Builder|null
     {
         $showIn = $request['show_in'] ?? "";
         $instituteId = $request['institute_id'] ?? "";
@@ -82,7 +82,7 @@ class StaticPageContentOrPageBlockService
             if (is_numeric($industryAssociationId)) {
                 $staticPageBuilder->where('static_page_blocks.industry_association_id', '=', $industryAssociationId);
             }
-            $response = $staticPageBuilder->firstOrFail();
+            $response = $staticPageBuilder->first();
 
         } elseif ($type == StaticPageType::TYPE_STATIC_PAGE) {
             $staticPageBuilder = StaticPageContent::select([
@@ -123,7 +123,7 @@ class StaticPageContentOrPageBlockService
             if (is_numeric($industryAssociationId)) {
                 $staticPageBuilder->where('static_page_contents.industry_association_id', '=', $industryAssociationId);
             }
-            $response = $staticPageBuilder->firstOrFail();
+            $response = $staticPageBuilder->first();
         }
         return $response;
     }
