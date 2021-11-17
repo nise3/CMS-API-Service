@@ -5992,7 +5992,6 @@
                 "name": "album_type",
                 "in": "query",
                 "required": false,
-                "type": "integer",
                 "description": "1=>Image, 2=>Video, 3=>Mixed",
                 "schema": {
                     "type": "integer",
