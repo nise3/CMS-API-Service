@@ -5851,6 +5851,12 @@
                         }
                     },
                     {
+                        "$ref": "#/components/parameters/institute_id_optional"
+                    },
+                    {
+                        "$ref": "#/components/parameters/organization_id_optional"
+                    },
+                    {
                         "$ref": "#/components/parameters/Accept-Language"
                     }
                 ],
