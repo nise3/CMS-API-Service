@@ -54,8 +54,8 @@ class StaticPageContentOrPageBlockService
                 'static_page_blocks.image_path',
                 'static_page_blocks.video_url',
                 'static_page_blocks.video_id',
-                'static_page_blocks.alt_image_title_en',
-                'static_page_blocks.alt_image_title',
+                'static_page_blocks.image_alt_title_en',
+                'static_page_blocks.image_alt_title',
                 'static_page_blocks.row_status',
                 'static_page_blocks.created_by',
                 'static_page_blocks.updated_by',
@@ -234,7 +234,7 @@ class StaticPageContentOrPageBlockService
                 'nullable',
                 'string'
             ];
-            $rules['alt_image_title'] = [
+            $rules['image_alt_title'] = [
                 'nullable',
                 'string'
             ];

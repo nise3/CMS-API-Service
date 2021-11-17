@@ -40,11 +40,11 @@ class BannerResource extends JsonResource
             $response['title'] = app(CmsLanguageService::class)->getLanguageValue($this, Banner::BANNER_LANGUAGE_ATTR_TITLE);
             $response['sub_title'] = app(CmsLanguageService::class)->getLanguageValue($this, Banner::BANNER_LANGUAGE_ATTR_SUB_TITLE);
             $response['button_text'] = app(CmsLanguageService::class)->getLanguageValue($this, Banner::BANNER_LANGUAGE_ATTR_BUTTON_TEXT);
-            $response['alt_image_title'] = app(CmsLanguageService::class)->getLanguageValue($this, Banner::BANNER_LANGUAGE_ATTR_ALT_IMAGE_TITLE);
+            $response['image_alt_title'] = app(CmsLanguageService::class)->getLanguageValue($this, Banner::BANNER_LANGUAGE_ATTR_IMAGE_ALT_TITLE);
         } else {
             $response['title'] = $this->title;
             $response['sub_title'] = $this->sub_title;
-            $response['alt_image_title'] = $this->alt_image_title;
+            $response['image_alt_title'] = $this->image_alt_title;
             $response['button_text'] = $this->button_text;
 
             if (!$request->get(BaseModel::IS_COLLECTION_KEY)) {

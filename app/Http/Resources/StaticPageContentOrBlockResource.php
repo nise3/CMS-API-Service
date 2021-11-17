@@ -44,17 +44,17 @@ class StaticPageContentOrBlockResource extends JsonResource
             $response['is_attachment_available'] = $this->is_attachment_available;
             $response['image_path'] = $this->image_path;
             $response['video_url'] = $this->video_url;
-            $response['alt_image_title_en'] = $this->alt_image_title_en;
+            $response['image_alt_title_en'] = $this->image_alt_title_en;
             if ($request->offsetExists(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY) && $request->get(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY)) {
                 $response['title'] = app(CmsLanguageService::class)->getLanguageValue($this, StaticPageBlock::LANGUAGE_ATTR_TITLE);
                 $response['content'] = app(CmsLanguageService::class)->getLanguageValue($this, StaticPageBlock::LANGUAGE_ATTR_CONTENT);
                 $response['button_text'] = app(CmsLanguageService::class)->getLanguageValue($this, StaticPageBlock::LANGUAGE_ATTR_BUTTON_TEXT);
-                $response['alt_image_title'] = app(CmsLanguageService::class)->getLanguageValue($this, StaticPageBlock::LANGUAGE_ATTR_ALT_IMAGE_TITLE);
+                $response['image_alt_title'] = app(CmsLanguageService::class)->getLanguageValue($this, StaticPageBlock::LANGUAGE_ATTR_IMAGE_ALT_TITLE);
             } else {
                 $response['title'] = $this->title;
                 $response['content'] = $this->content;
                 $response['button_text'] = $this->button_text;
-                $response['alt_image_title'] = $this->alt_image_title;
+                $response['image_alt_title'] = $this->image_alt_title;
                 if (!$request->get(BaseModel::IS_COLLECTION_KEY)) {
                     $response[BaseModel::OTHER_LANGUAGE_FIELDS_KEY] = CmsLanguageService::otherLanguageResponse($this);
                 }

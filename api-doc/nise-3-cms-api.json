@@ -1223,8 +1223,8 @@
                                                     "is_button_available": 1,
                                                     "button_text": "Est sit sed providen",
                                                     "link": "http://www.wolf.org/quia-sequi-ab-ut-quam-doloribus-rem-aut.html",
-                                                    "alt_image_title_en": "id",
-                                                    "alt_image_title": "ut",
+                                                    "image_alt_title_en": "id",
+                                                    "image_alt_title": "ut",
                                                     "banner_template_code": "BT_CB",
                                                     "banner_image_path": "https://via.placeholder.com/640x480.png/00dd00?text=consequatur",
                                                     "row_status": 1,
@@ -1264,8 +1264,8 @@
                                                     "is_button_available": 0,
                                                     "button_text": "Illum quia cum dolor",
                                                     "link": "http://www.bruen.biz/quibusdam-voluptatem-molestiae-ratione",
-                                                    "alt_image_title_en": "enim",
-                                                    "alt_image_title": "placeat",
+                                                    "image_alt_title_en": "enim",
+                                                    "image_alt_title": "placeat",
                                                     "banner_template_code": "BT_CB",
                                                     "banner_image_path": "https://via.placeholder.com/640x480.png/00cc33?text=veniam",
                                                     "row_status": 1,
@@ -1348,7 +1348,7 @@
                                             "organization_title_en": "Schiller-VonRueden",
                                             "title": "Dentist",
                                             "sub_title": "Dentist",
-                                            "alt_image_title": "ut",
+                                            "image_alt_title": "ut",
                                             "button_text": "Est sit sed providen",
                                             "banner_template": {
                                                 "banner_template_code": "BT_CB",
@@ -1389,7 +1389,7 @@
                                             "organization_title_en": "",
                                             "title": "Epidemiologist",
                                             "sub_title": "Epidemiologist",
-                                            "alt_image_title": "placeat",
+                                            "image_alt_title": "placeat",
                                             "button_text": "Illum quia cum dolor",
                                             "banner_template": {
                                                 "banner_template_code": "BT_CB",
@@ -1453,7 +1453,7 @@
                                         "link": "akjskjasjlksj",
                                         "title": "aaa",
                                         "sub_title": "vv",
-                                        "alt_image_title": "atr_text",
+                                        "image_alt_title": "atr_text",
                                         "button_text": "aaaaaaaaaaaaaaaaa",
                                         "other_language_fields": {
                                             "hi": {
@@ -1530,13 +1530,13 @@
                                         "link": "http://www.conroy.com/",
                                         "title": "Agricultural Engineer",
                                         "sub_title": "Agricultural Engineer",
-                                        "alt_image_title": "quia",
+                                        "image_alt_title": "quia",
                                         "button_text": "Et dolor molestias s",
                                         "other_language_fields": {
                                             "hi": {
                                                 "title": "अगर आप किसी एग्जाम की तैयारी कर रहे हैं, तो जेनरल नॉलेज अच्छी करना बेहद जरूरी। तो चलिए जानते हैं कौन-से सवाल",
                                                 "sub_title": "भारत का इतिहास या फिर भूगोल, यह इतना बड़ा है कि इसको याद करने में बड़ों-बड़ों की रातों की नींद हराम हो जाती है। सभी प्रश्‍नों के उत्‍तर याद करना सभी के लिए लगभग असंभव है, आज हम आपको बता रहे हैं उन खास प्रश्‍नों को उनके उत्‍तर के साथ जो प्रतियोगी परिक्षाओं से लेकर जॉब इंटरव्‍यू में ज्‍यादातर पूछे जाते हैं। अगर आपको इन प्रश्‍नों के उत्‍तर पता हैं तो आपकी मुश्‍किलें हल हो जाएंगी",
-                                                "alt_image_title": "भारत का इतिहास या फिर भूगोल",
+                                                "image_alt_title": "भारत का इतिहास या फिर भूगोल",
                                                 "button_text": "भारत का इतिहास या फिर भूगोल"
                                             }
                                         },
@@ -1601,7 +1601,7 @@
                                     "organization_title_en": "",
                                     "title": "ManGod",
                                     "sub_title": "vv",
-                                    "alt_image_title": "atr_text",
+                                    "image_alt_title": "atr_text",
                                     "button_text": "aaaaaaaaaaaaaaaaa",
                                     "other_language_fields": {
                                         "hi": {
@@ -5693,23 +5693,23 @@
                                         "is_attachment_available": "1",
                                         "image_path": null,
                                         "video_url": null,
-                                        "alt_image_title_en": null,
+                                        "image_alt_title_en": null,
                                         "title": "NATIVE title in block",
                                         "content": null,
                                         "button_text": "dddddddddddddddd",
-                                        "alt_image_title": null,
+                                        "image_alt_title": null,
                                         "other_language_fields": {
                                             "hi": {
                                                 "title": "hindi title in block  updated",
                                                 "content": "hindi content in block  updated",
                                                 "button_text": "hindi button_text in block  updated",
-                                                "alt_image_title": "hindi alt_image_title in block  updated"
+                                                "image_alt_title": "hindi image_alt_title in block  updated"
                                             },
                                             "te": {
                                                 "title": "telegu title in block  updated nnnnnnnnnnnn",
                                                 "content": "telegu content in block  updated",
                                                 "button_text": "telegu button_text in block  updated",
-                                                "alt_image_title": "telegu alt_image_title in block  updated"
+                                                "image_alt_title": "telegu image_alt_title in block  updated"
                                             }
                                         },
                                         "row_status": 1,
@@ -5779,23 +5779,23 @@
                                         "is_attachment_available": "1",
                                         "image_path": null,
                                         "video_url": null,
-                                        "alt_image_title_en": null,
+                                        "image_alt_title_en": null,
                                         "title": "NATIVE title in block",
                                         "content": null,
                                         "button_text": "dddddddddddddddd",
-                                        "alt_image_title": null,
+                                        "image_alt_title": null,
                                         "other_language_fields": {
                                             "hi": {
                                                 "title": "hindi title in block  updated",
                                                 "content": "hindi content in block  updated",
                                                 "button_text": "hindi button_text in block  updated",
-                                                "alt_image_title": "hindi alt_image_title in block  updated"
+                                                "image_alt_title": "hindi image_alt_title in block  updated"
                                             },
                                             "te": {
                                                 "title": "telegu title in block  updated nnnnnnnnnnnn",
                                                 "content": "telegu content in block  updated",
                                                 "button_text": "telegu button_text in block  updated",
-                                                "alt_image_title": "telegu alt_image_title in block  updated"
+                                                "image_alt_title": "telegu image_alt_title in block  updated"
                                             }
                                         },
                                         "row_status": 1,
@@ -7054,7 +7054,7 @@
                     },
                     "other_language_fields": {
                         "type": "object",
-                        "example": "\"hi\"=>[\n\t\"title\"=>\"सामूहिक बाढ़\",\n        \"button_text\"=>\"सामूहिक बाढ़\",\n\t\"content\"=>\"सामूहिक बाढ़\",\n        \"alt_image_title\"=>\"सामूहिक बाढ़\",\n     ]"
+                        "example": "\"hi\"=>[\n\t\"title\"=>\"सामूहिक बाढ़\",\n        \"button_text\"=>\"सामूहिक बाढ़\",\n\t\"content\"=>\"सामूहिक बाढ़\",\n        \"image_alt_title\"=>\"सामूहिक बाढ़\",\n     ]"
                     }
                 },
                 "required": [
@@ -7643,7 +7643,7 @@
                         "type": "string",
                         "description": "Required if is_button_available = YES"
                     },
-                    "alt_image_title": {
+                    "image_alt_title": {
                         "type": "string"
                     },
                     "banner_template_code": {
@@ -7668,7 +7668,7 @@
                     },
                     "other_language_fields": {
                         "type": "object",
-                        "example": "\n[\n\n\"hi\"=>[\n\t\"title\"=>\"सामूहिक बाढ़\",\n        \"sub_title\"=>\"सामूहिक बाढ़\",\n\t\"button_text\"=>\"सामूहिक बाढ़\",\n        \"alt_image_title\"=>\"सामूहिक बाढ़\",\n     ]\n]"
+                        "example": "\n[\n\n\"hi\"=>[\n\t\"title\"=>\"सामूहिक बाढ़\",\n        \"sub_title\"=>\"सामूहिक बाढ़\",\n\t\"button_text\"=>\"सामूहिक बाढ़\",\n        \"image_alt_title\"=>\"सामूहिक बाढ़\",\n     ]\n]"
                     }
                 },
                 "required": [

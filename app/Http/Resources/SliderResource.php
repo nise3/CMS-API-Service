@@ -46,8 +46,8 @@ class SliderResource extends JsonResource
                     if(!empty($banner->sub_title)){
                         $banner->sub_title = app(CmsLanguageService::class)->getLanguageValue(new BannerResource($banner), Banner::BANNER_LANGUAGE_ATTR_SUB_TITLE);
                     }
-                    if(!empty($banner->alt_image_title)){
-                        $banner->alt_image_title = app(CmsLanguageService::class)->getLanguageValue(new BannerResource($banner), Banner::BANNER_LANGUAGE_ATTR_ALT_IMAGE_TITLE);
+                    if(!empty($banner->image_alt_title)){
+                        $banner->image_alt_title = app(CmsLanguageService::class)->getLanguageValue(new BannerResource($banner), Banner::BANNER_LANGUAGE_ATTR_IMAGE_ALT_TITLE);
                     }
                     if(!empty($banner->button_text)){
                         $banner->button_text = app(CmsLanguageService::class)->getLanguageValue(new BannerResource($banner), Banner::BANNER_LANGUAGE_ATTR_BUTTON_TEXT);

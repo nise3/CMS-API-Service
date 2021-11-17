@@ -45,7 +45,7 @@ class BannerService
             'banners.is_button_available',
             'banners.button_text',
             'banners.link',
-            'banners.alt_image_title',
+            'banners.image_alt_title',
             'banners.banner_template_code',
             'banners.row_status',
             'banners.created_by',
@@ -107,7 +107,7 @@ class BannerService
             'banners.is_button_available',
             'banners.button_text',
             'banners.link',
-            'banners.alt_image_title',
+            'banners.image_alt_title',
             'banners.banner_template_code',
             'banners.row_status',
             'banners.created_by',
@@ -197,7 +197,7 @@ class BannerService
                 'string',
                 'max:20'
             ],
-            'alt_image_title' => [
+            'image_alt_title' => [
                 'string',
                 'nullable'
             ],
@@ -251,7 +251,7 @@ class BannerService
                 'string',
                 'max:20'
             ],
-            'alt_image_title' => [
+            'image_alt_title' => [
                 'string',
                 'nullable'
             ],

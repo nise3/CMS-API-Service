@@ -52,7 +52,7 @@ class BannerSeeder extends Seeder
                             'table_name' => $banner->getTable(),
                             "key_id" => $banner->id,
                             'lang_code' => 'hi',
-                            'column_name' => Banner::BANNER_LANGUAGE_ATTR_ALT_IMAGE_TITLE,
+                            'column_name' => Banner::BANNER_LANGUAGE_ATTR_IMAGE_ALT_TITLE,
                             'column_value' => "भारत का इतिहास या फिर भूगोल"
                         ],
                         [
@@ -80,7 +80,7 @@ class BannerSeeder extends Seeder
                             'table_name' => $banner->getTable(),
                             "key_id" => $banner->id,
                             'lang_code' => 'te',
-                            'column_name' => Banner::BANNER_LANGUAGE_ATTR_ALT_IMAGE_TITLE,
+                            'column_name' => Banner::BANNER_LANGUAGE_ATTR_IMAGE_ALT_TITLE,
                             'column_value' => "భారతదేశ చరిత్ర లేదా భూగోళశాస్త్రం"
                         ],
                         [

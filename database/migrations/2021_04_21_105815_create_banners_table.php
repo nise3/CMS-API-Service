@@ -23,8 +23,8 @@ class CreateBannersTable extends Migration
             $table->unsignedTinyInteger('is_button_available')->default(0);
             $table->string('button_text', 20)->nullable();
             $table->string('link', 300)->nullable();
-            $table->string('alt_image_title_en')->nullable();
-            $table->string('alt_image_title')->nullable();
+            $table->string('image_alt_title_en')->nullable();
+            $table->string('image_alt_title')->nullable();
             $table->string("banner_template_code", 20)->comment("BT_LR,BT_RL,BT_CB")->nullable();
             $table->string('banner_image_path', 600);
 

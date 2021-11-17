@@ -20,7 +20,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string link
  * @property int is_button_available
  * @property string button_text
- * @property string alt_image_title
+ * @property string image_alt_title
  * @property string alt_title_en
  * @property string | null banner_template_code
  * @property string banner_image_path
@@ -68,12 +68,12 @@ class Banner extends BaseModel
     /** BANNER_LANGUAGE_FIELDS */
     public const BANNER_LANGUAGE_ATTR_TITLE = "title";
     public const BANNER_LANGUAGE_ATTR_SUB_TITLE = "sub_title";
-    public const BANNER_LANGUAGE_ATTR_ALT_IMAGE_TITLE = "alt_image_title";
+    public const BANNER_LANGUAGE_ATTR_IMAGE_ALT_TITLE = "image_alt_title";
     public const BANNER_LANGUAGE_ATTR_BUTTON_TEXT = "button_text";
     public const BANNER_LANGUAGE_FIELDS = [
         self::BANNER_LANGUAGE_ATTR_TITLE,
         self::BANNER_LANGUAGE_ATTR_SUB_TITLE,
-        self::BANNER_LANGUAGE_ATTR_ALT_IMAGE_TITLE,
+        self::BANNER_LANGUAGE_ATTR_IMAGE_ALT_TITLE,
         self::BANNER_LANGUAGE_ATTR_BUTTON_TEXT
     ];
 
