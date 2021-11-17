@@ -25,6 +25,9 @@ class StaticPageContentOrPageBlockService
     public function getStaticPageOrBlock(array $request, string $page_code): Model|Builder
     {
         $showIn = $request['show_in'] ?? "";
+        $instituteId = $request['institute_id'] ?? "";
+        $organizationId = $request['organization_id'] ?? "";
+        $industryAssociationId = $request['industry_association_id'] ?? "";
 
         /** @var StaticPageType|Builder $pageType */
         $pageType = StaticPageType::select(['type'])->where('page_code', $page_code)->firstOrFail();
@@ -70,6 +73,15 @@ class StaticPageContentOrPageBlockService
             if (is_numeric($showIn)) {
                 $staticPageBuilder->where('static_page_blocks.show_in', '=', $showIn);
             }
+            if (is_numeric($instituteId)) {
+                $staticPageBuilder->where('static_page_blocks.institute_id', '=', $instituteId);
+            }
+            if (is_numeric($organizationId)) {
+                $staticPageBuilder->where('static_page_blocks.organization_id', '=', $organizationId);
+            }
+            if (is_numeric($industryAssociationId)) {
+                $staticPageBuilder->where('static_page_blocks.industry_association_id', '=', $industryAssociationId);
+            }
             $response = $staticPageBuilder->firstOrFail();
 
         } elseif ($type == StaticPageType::TYPE_STATIC_PAGE) {
@@ -101,6 +113,15 @@ class StaticPageContentOrPageBlockService
 
             if (is_numeric($showIn)) {
                 $staticPageBuilder->where('static_page_contents.show_in', '=', $showIn);
+            }
+            if (is_numeric($instituteId)) {
+                $staticPageBuilder->where('static_page_contents.institute_id', '=', $instituteId);
+            }
+            if (is_numeric($organizationId)) {
+                $staticPageBuilder->where('static_page_contents.organization_id', '=', $organizationId);
+            }
+            if (is_numeric($industryAssociationId)) {
+                $staticPageBuilder->where('static_page_contents.industry_association_id', '=', $industryAssociationId);
             }
             $response = $staticPageBuilder->firstOrFail();
         }
