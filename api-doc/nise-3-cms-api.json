@@ -6000,6 +6000,37 @@
                 ]
             }
         },
+        "/static-page-blocks/{page_code}?": {
+            "put": {
+                "summary": "store or update static page content",
+                "description": "API endpoint to store or update static page block. A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/page_code"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StaticPageContent"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successfull",
+                        "content": {
+                            "application/json": {
+                                "example": {}
+                            }
+                        }
+                    }
+                },
+                "tags": ["PageContentOrPageBlock"]
+            }
+        },
         "/static-page-blocks/{page_code}": {
             "put": {
                 "summary": "store or update static page block",
@@ -6011,16 +6042,9 @@
                 ],
                 "requestBody": {
                     "content": {
-                        "application/json": {
+                        "application/x-www-form-urlencoded": {
                             "schema": {
-                                "oneOf": [
-                                    {
-                                        "$ref": "#/components/schemas/StaticPageBlock"
-                                    },
-                                    {
-                                        "$ref": "#/components/schemas/StaticPageContent"
-                                    }
-                                ]
+                                "$ref": "#/components/schemas/StaticPageBlock"
                             }
                         }
                     }
@@ -7159,7 +7183,7 @@
                     },
                     "template_code": {
                         "type": "string",
-                        "enum": ["BT_LR", "BT_RL" , "BT_CB"]
+                        "enum": ["PBT_LR", "PBT_RL" , "PBT_CB"]
                     },
                     "is_button_available": {
                         "type": "integer",
