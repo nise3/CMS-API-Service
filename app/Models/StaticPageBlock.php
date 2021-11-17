@@ -38,26 +38,65 @@ class StaticPageBlock extends BaseModel
 {
     use HasFactory, SoftDeletes, ScopeRowStatusTrait;
 
-    const CONTENT_TYPE_BLOCK = 1;
-    const CONTENT_TYPE_STATIC_PAGE = 2;
-
-    public const CONTENT_TYPES = [
-        self::CONTENT_TYPE_BLOCK,
-        self::CONTENT_TYPE_STATIC_PAGE
-    ];
 
     protected $table = 'static_page_blocks';
     protected $guarded = BaseModel::COMMON_GUARDED_FIELDS_SOFT_DELETE;
 
 
-    const LANGUAGE_ATTR_TITLE = "title";
-    const LANGUAGE_ATTR_SUB_TITLE = "sub_title";
-    const LANGUAGE_ATTR_CONTENTS = "contents";
+    public const IS_BUTTON_AVAILABLE_YES = 1;
+    public const IS_BUTTON_AVAILABLE_NO = 0;
 
-    public const STATIC_PAGE_LANGUAGE_FILLABLE = [
+    public const IS_BUTTON_AVAILABLE = [
+        self::IS_BUTTON_AVAILABLE_YES,
+        self::IS_BUTTON_AVAILABLE_NO,
+    ];
+
+    public const ATTACHMENT_TYPE_IMAGE = 1;
+    public const ATTACHMENT_TYPE_FACEBOOK_VIDEO = 2;
+    public const ATTACHMENT_TYPE_YOUTUBE_VIDEO = 3;
+
+    public const ATTACHMENT_TYPES = [
+        self::ATTACHMENT_TYPE_IMAGE,
+        self::ATTACHMENT_TYPE_FACEBOOK_VIDEO,
+        self::ATTACHMENT_TYPE_YOUTUBE_VIDEO,
+    ];
+
+
+    public const IS_ATTACHMENT_AVAILABLE_YES = 1;
+    public const IS_ATTACHMENT_AVAILABLE_NO = 1;
+
+
+    public const IS_ATTACHMENT_AVAILABLE = [
+        self::IS_ATTACHMENT_AVAILABLE_YES,
+        self::IS_ATTACHMENT_AVAILABLE_NO
+    ];
+
+    /** Page block Template Type */
+    public const PBT_LR = "PBT_LR";
+    public const PBT_RL = "PBT_RL";
+    public const PBT_CB = "PBT_CB";
+
+    public const STATIC_PAGE_BLOCK_TEMPLATE_TYPES = [
+        self::PBT_LR => "Block with text left and image right",
+        self::PBT_RL => "Block with text right and image left",
+        self::PBT_CB => "Block with text center and image background"
+    ];
+
+    public const POSITION_LEFT = "left";
+    public const POSITION_RIGHT = "right";
+    public const POSITION_CENTER = "center";
+    public const BACKGROUND = "background";
+
+    const LANGUAGE_ATTR_TITLE = "title";
+    const LANGUAGE_ATTR_CONTENT = "content";
+    const LANGUAGE_ATTR_BUTTON_TEXT = "button_text";
+    const LANGUAGE_ATTR_ALT_IMAGE_TITLE = "alt_image_title";
+
+    public const STATIC_PAGE_BLOCK_LANGUAGE_FILLABLE = [
         self::LANGUAGE_ATTR_TITLE,
-        self::LANGUAGE_ATTR_SUB_TITLE,
-        self::LANGUAGE_ATTR_CONTENTS
+        self::LANGUAGE_ATTR_CONTENT,
+        self::LANGUAGE_ATTR_BUTTON_TEXT,
+        self::LANGUAGE_ATTR_ALT_IMAGE_TITLE,
     ];
 
     /**

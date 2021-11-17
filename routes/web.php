@@ -56,8 +56,8 @@ $router->group(['prefix' => 'api/v1', 'as' => 'api.v1'], function () use ($route
     $router->put('recent-activities/publish-or-archive/{id}', ["as" => "recent.activities.publish.archive", "uses" => "RecentActivityController@publishOrArchive"]);
 
     /** Static page & block */
-    $router->get('static-page-block/{page_code}', ["as" => "static.page.block", "uses" => "StaticPageContentOrPageBlockController@getStaticPageOrBlock"]);
-    $router->post('static-page-block', ["as" => "static.page.block", "uses" => "StaticPageContentOrPageBlockController@createOrUpdateStaticPageOrBlock"]);
+    $router->get('static-page-blocks/{page_code}', ["as" => "static.page.block", "uses" => "StaticPageContentOrPageBlockController@getStaticPageOrBlock"]);
+    $router->put('static-page-blocks/{page_code}', ["as" => "static.page.block", "uses" => "StaticPageContentOrPageBlockController@createOrUpdateStaticPageOrBlock"]);
 
     $router->group(['prefix' => 'public', 'as' => 'public'], function () use ($router) {
         $router->get('faqs/{id}', ["as" => "faqs.read", "uses" => "FaqController@clientSideRead"]);
@@ -78,7 +78,7 @@ $router->group(['prefix' => 'api/v1', 'as' => 'api.v1'], function () use ($route
         $router->get('sliders', ["as" => "sliders.list", "uses" => "SliderController@clientSideGetList"]);
 
         /** Public Static page & block */
-        $router->get('static-page-block/{page_code}', ["as" => "static.page.block", "uses" => "StaticPageContentOrPageBlockController@clientSideGetStaticPageOrBlock"]);
+        $router->get('static-page-blocks/{page_code}', ["as" => "static.page.block", "uses" => "StaticPageContentOrPageBlockController@clientSideGetStaticPageOrBlock"]);
     });
     /** calender */
     $customRouter()->resourceRoute('calender-events', 'CalenderEventsController')->render();

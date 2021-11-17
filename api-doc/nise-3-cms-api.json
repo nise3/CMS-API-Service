@@ -6000,13 +6000,16 @@
                 ]
             }
         },
-        "/static-page-block/{page_code}": {
+        "/static-page-blocks/{page_code}": {
             "get": {
                 "summary": "Get all static page content or page block",
                 "description": "API endpoint to GET all static page content or page block.A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/page_code"
+                    },
+                    {
+                        "$ref": "#/components/parameters/show_in"
                     }
                 ],
                 "responses": {
@@ -6019,13 +6022,16 @@
                         }
                     }
                 },
-                "tags": ["getStaticPageOrBlock"]
-            }
-        },
-        "/static-page-block": {
-            "post": {
-                "summary": "Get all static-block",
-                "description": "API endpoint to Get all static-block.A successful request response will show 200 HTTP status code",
+                "tags": ["PageContentOrPageBlock"]
+            },
+            "put": {
+                "summary": "Create a static-block",
+                "description": "API endpoint to update  a static-block.A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/page_code"
+                    }
+                ],
                 "requestBody": {
                     "content": {
                         "application/x-www-form-urlencoded": {
@@ -6045,27 +6051,18 @@
                         }
                     }
                 },
-                "tags": ["getStaticPageOrBlock"]
+                "tags": ["PageContentOrPageBlock"]
 
             }
         },
-        "/public/static-page-block/{page_code}": {
+
+        "/public/static-page-blocks/{page_code}": {
             "get": {
                 "summary": "Get all public static-page-block page_code",
                 "description": "API endpoint to Get all public static-page-block/page_code. A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/page_code"
-                    },
-                    {
-                        "name": "type",
-                        "in": "query",
-                        "required": false,
-                        "description": "TYPE_PAGE_BLOCK = 1 TYPE_PAGE_STATIC_PAGE = 2",
-                        "schema": {
-                            "type": "integer",
-                            "enum": [1,2]
-                        }
                     },
                     {
                         "name": "show_in",
@@ -6075,6 +6072,9 @@
                             "type": "integer",
                             "enum": [1,2,3,4]
                         }
+                    },
+                    {
+                        "$ref": "#/components/parameters/Accept-Language"
                     }
                 ],
                 "responses": {
@@ -6087,13 +6087,13 @@
                         }
                     }
                 },
-                "tags": ["getStaticPageOrBlock"]
+                "tags": ["PageContentOrPageBlock"]
             }
         },
         "/static-page-types": {
             "get": {
                 "summary": "Get all static page types",
-                "description": "API endpoint to Get all public static-page-block/page_code. A successful request response will show 200 HTTP status code",
+                "description": "API endpoint to Get all public static-page-blocks page_code. A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/title_optional"
@@ -6138,6 +6138,48 @@
                         "content": {
                             "application/json": {
                                 "example": {}
+                            }
+                        }
+                    }
+                },
+                "tags": ["StaticPageType"]
+            }
+        },
+        "/static-page-types/{staticPageTypeId}": {
+            "get": {
+                "summary": "Get a specific static page type",
+                "description": "API endpoint to Get a specific static page type. A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "name": "staticPageTypeId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successfull",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "data": {
+                                        "id": 1,
+                                        "title_en": "About Us",
+                                        "title": "আমাদের সম্পর্কে",
+                                        "type": 2,
+                                        "page_code": "about_us",
+                                        "created_at": "2021-11-16T10:09:40.000000Z",
+                                        "updated_at": "2021-11-16T10:09:40.000000Z"
+                                    },
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "query_time": "1 second before"
+                                    }
+                                }
                             }
                         }
                     }
@@ -7045,21 +7087,26 @@
                 "type": "object",
                 "properties": {
                     "static_page_type_id": {
-                        "type": "integer"
+                        "type": "integer",
+                        "enum": [1,2],
+                        "description": " TYPE_PAGE_BLOCK = 1 TYPE_STATIC_PAGE = 2;"
                     },
                     "show_in": {
                         "type": "integer",
                         "enum": [1,2,3,4,5],
-                        "description": "1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry, 5=>Industry Association"
+                        "description": "1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry 5=>Industry Association"
                     },
                     "institute_id": {
-                        "type": "integer"
+                        "type": "integer",
+                        "description": "Required when show_in = SHOW_IN_TSP[3]"
                     },
                     "organization_id": {
-                        "type": "integer"
+                        "type": "integer",
+                        "description": "Required when show_in = SHOW_IN_INDUSTRY[4]"
                     },
                     "industry_association_id": {
-                        "type": "integer"
+                        "type": "integer",
+                        "description": "Required when show_in = SHOW_IN_INDUSTRY_ASSOCIATION[5]"
                     },
                     "title": {
                         "type": "string"
@@ -7077,16 +7124,21 @@
                         "enum": ["BT_LR", "BT_RL" , "BT_CB"]
                     },
                     "is_button_available": {
-                        "type": "integer"
+                        "type": "integer",
+                        "enum": [1,0],
+                        "description": "Required when static_page_type_id = TYPE_PAGE_BLOCK[1]"
                     },
                     "button_text": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Required when is_button_available=1"
                     },
                     "link": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Required when is_button_available=1"
                     },
                     "is_attachment_available": {
-                        "type": "integer"
+                        "type": "integer",
+                        "enum": [1,0]
                     },
                     "image_path": {
                         "type": "string"

@@ -31,10 +31,10 @@ class StaticPageContentOrPageBlockService
         $type = $pageType['type'];
         $response = null;
 
-
         /** @var Builder $staticPageBuilder */
         if ($type == StaticPageType::TYPE_PAGE_BLOCK) {
             $staticPageBuilder = StaticPageBlock::select([
+                'static_page_types.type',
                 'static_page_blocks.id',
                 'static_page_blocks.show_in',
                 'static_page_blocks.static_page_type_id',
@@ -63,19 +63,18 @@ class StaticPageContentOrPageBlockService
                 'static_page_blocks.updated_at'
             ]);
             $staticPageBuilder->join('static_page_types', function ($join) {
-                $join->on('static_page_types.type', '=', 'static_page_contents.static_page_type_id',);
+                $join->on('static_page_types.id', '=', 'static_page_blocks.static_page_type_id',);
             });
+            $staticPageBuilder->where('static_page_types.page_code', $page_code);
+
             if (is_numeric($showIn)) {
                 $staticPageBuilder->where('static_page_blocks.show_in', '=', $showIn);
             }
-            if (!empty($type)) {
-                $staticPageBuilder->where('static_page_blocks.static_page_type_id', '=', $type);
-            }
-            $staticPageBuilder->where('static_page_blocks.code', $page_code);
             $response = $staticPageBuilder->firstOrFail();
 
         } elseif ($type == StaticPageType::TYPE_STATIC_PAGE) {
             $staticPageBuilder = StaticPageContent::select([
+                'static_page_types.type',
                 'static_page_contents.id',
                 'static_page_contents.show_in',
                 'static_page_contents.static_page_type_id',
@@ -94,55 +93,100 @@ class StaticPageContentOrPageBlockService
                 'static_page_contents.created_at',
                 'static_page_contents.updated_at'
             ]);
+
             $staticPageBuilder->join('static_page_types', function ($join) {
-                $join->on('static_page_types.type', '=', 'static_page_contents.static_page_type_id',);
+                $join->on('static_page_types.id', '=', 'static_page_contents.static_page_type_id',);
             });
+            $staticPageBuilder->where('static_page_types.page_code', $page_code);
+
             if (is_numeric($showIn)) {
-                $staticPageBuilder->where('static_page_types.show_in', '=', $showIn);
+                $staticPageBuilder->where('static_page_contents.show_in', '=', $showIn);
             }
-            if (!empty($type)) {
-                $staticPageBuilder->where('static_page_types.static_page_type_id', '=', $type);
-            }
-            $staticPageBuilder->where('static_page_blocks.code', $page_code);
             $response = $staticPageBuilder->firstOrFail();
         }
-
         return $response;
-
     }
-
 
     /**
      * @param array $data
-     * @return StaticPageBlock
+     * @param StaticPageType $staticPageType
+     * @return array
      */
-    public function storeOrUpdate(array $data): StaticPageBlock
+    public function storeOrUpdate(array $data, StaticPageType $staticPageType): array
     {
-        if (!empty($data['content_slug_or_id'])) {
-            $data['content_slug_or_id'] = str_replace(' ', '_', $data['content_slug_or_id']);
+        $staticPage = null;
+        $message = "";
+        $databaseOperationType = null;
+        $data['static_page_type_id'] = $staticPageType['id'];
+        if (!empty($staticPageType->type) && $staticPageType->type == StaticPageType::TYPE_STATIC_PAGE) {
+            $staticPage = StaticPageContent::where('static_page_type_id',$staticPageType->id)->first();
+
+            /**
+             * If static_page_content already exist then update the static page content.
+             * If not then, create new static_page_content.
+             */
+            if(!$staticPage) {
+                $staticPage = new StaticPageContent();
+                $message = "Successfully created Static Page Content";
+                $databaseOperationType = StaticPageType::DB_OPERATION_CREATE;
+            } else{
+                $message = "Successfully updated Static Page Content";
+                $databaseOperationType = StaticPageType::DB_OPERATION_UPDATE;
+            }
+
+            $staticPage->fill($data);
+            $staticPage->save();
+
+            /** Now set the static_page type to fetch other_language_fields in StaticPageContentOrBlockResource */
+            $staticPage->type = StaticPageType::TYPE_STATIC_PAGE;
+
+        } else if (!empty($staticPageType->type) && $staticPageType->type == StaticPageType::TYPE_PAGE_BLOCK) {
+            $staticPage = StaticPageBlock::where('static_page_type_id',$staticPageType->id)->first();
+
+            /**
+             * If static_page_block already exist then update the static page block.
+             * If not then,create new static_page_block
+             */
+            if(!$staticPage) {
+                $staticPage = new StaticPageBlock();
+                $message = "Successfully created Static Page Block";
+                $databaseOperationType = StaticPageType::DB_OPERATION_CREATE;
+            }else{
+                $message = "Successfully updated Static Page Block";
+                $databaseOperationType = StaticPageType::DB_OPERATION_UPDATE;
+            }
+
+            $staticPage->fill($data);
+            $staticPage->save();
+
+            /** Now set the static_page type to fetch other_language_fields in StaticPageContentOrBlockResource */
+            $staticPage->type = StaticPageType::TYPE_PAGE_BLOCK;
         }
-        $staticPage = new StaticPageBlock();
-        $staticPage->fill($data);
-        $staticPage->save();
-        return $staticPage;
+        return [
+            "data"=>$staticPage,
+            "message"=>$message,
+            "databaseOperationType"=>$databaseOperationType
+        ];
     }
 
 
     /**
-     * @param StaticPageBlock $staticPage
-     * @return bool
+     * @param string $pageCode
+     * @return StaticPageType
      */
-    public function destroy(StaticPageBlock $staticPage): bool
+    public function getStaticPageTypeBYPageCode(string $pageCode): StaticPageType
     {
-        return $staticPage->delete();
+        return StaticPageType::where('page_code', $pageCode)->firstOrFail();
     }
+
 
     /**
      * @param array $request
      * @param string $languageCode
+     * @param StaticPageType $staticPageType
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    public function languageFieldValidator(array $request, string $languageCode): \Illuminate\Contracts\Validation\Validator
+    public function languageFieldValidator(array $request, string $languageCode, StaticPageType $staticPageType): \Illuminate\Contracts\Validation\Validator
     {
         $customMessage = [
             'required' => 'The :attribute_' . strtolower($languageCode) . ' in other language fields is required.[50000]',
@@ -157,39 +201,56 @@ class StaticPageContentOrPageBlockService
                 "required",
                 "regex:/[a-z]/",
                 Rule::in(LanguageCodeService::getLanguageCode())
-            ],
-            'title' => [
+            ]
+        ];
+
+        if (!empty($staticPageType->type) && $staticPageType->type == StaticPageType::TYPE_STATIC_PAGE) {
+            $rules['title'] = [
                 'required',
                 'string',
                 'max:500',
                 'min:2'
-            ],
-            'sub_title' => [
+            ];
+            $rules['sub_title'] = [
                 'nullable',
                 'string'
-            ],
-            'contents' => [
+            ];
+            $rules['content'] = [
                 'nullable',
                 'string'
-            ],
-        ];
+            ];
+        } else if(!empty($staticPageType->type) && $staticPageType->type == StaticPageType::TYPE_PAGE_BLOCK){
+            $rules['title'] = [
+                'required',
+                'string',
+                'max:500',
+                'min:2'
+            ];
+            $rules['content'] = [
+                'nullable',
+                'string'
+            ];
+            $rules['button_text'] = [
+                'nullable',
+                'string'
+            ];
+            $rules['alt_image_title'] = [
+                'nullable',
+                'string'
+            ];
+        }
         return Validator::make($request, $rules, $customMessage);
     }
 
     /**
      * @param Request $request
-     * @param null $id
+     * @param StaticPageType $staticPageType
+     * @param null $page_code
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    public function validator(Request $request, $id = null): \Illuminate\Contracts\Validation\Validator
+    public function validator(Request $request, StaticPageType $staticPageType, $page_code = null): \Illuminate\Contracts\Validation\Validator
     {
-        $request->offsetSet('deleted_at', null);
         $rules = [
-            'static_page_type_id' => [
-                'required',
-                'int',
-                Rule::in(StaticPageType::TYPES)
-            ],
             'show_in' => [
                 'required',
                 'integer',
@@ -235,11 +296,12 @@ class StaticPageContentOrPageBlockService
             ],
 
             'row_status' => [
-                'required_if:' . $id . ',!=,null',
+                'required_if:' . $page_code . ',!=,null',
                 Rule::in([BaseModel::ROW_STATUS_ACTIVE, BaseModel::ROW_STATUS_INACTIVE]),
             ]
         ];
-        if (!empty($requestData['static_page_type_id']) && $requestData['static_page_type_id'] == StaticPageType::TYPE_STATIC_PAGE) {
+
+        if (!empty($staticPageType->type) && $staticPageType->type == StaticPageType::TYPE_STATIC_PAGE) {
             $rules['sub_title'] = [
                 'nullable',
                 'string',
@@ -252,40 +314,48 @@ class StaticPageContentOrPageBlockService
                 'max:500',
                 'min:2'
             ];
-        } else if (!empty($requestData['static_page_type_id']) && $requestData['static_page_type_id'] == StaticPageType::TYPE_PAGE_BLOCK) {
+        } else if (!empty($staticPageType->type) && $staticPageType->type == StaticPageType::TYPE_PAGE_BLOCK) {
             $rules['is_button_available'] = [
                 'required',
                 'int',
-                Rule::in([StaticPageType::IS_BUTTON_AVAILABLE_YES, StaticPageType::IS_BUTTON_AVAILABLE_NO])
+                Rule::in(StaticPageBlock::IS_BUTTON_AVAILABLE)
             ];
             $rules['link'] = [
                 'nullable',
-                'requiredIf:is_button_available,' . StaticPageType::IS_BUTTON_AVAILABLE_YES,
+                'requiredIf:is_button_available,' . StaticPageBlock::IS_BUTTON_AVAILABLE_YES,
                 'string',
                 'max:191',
             ];
             $rules['button_text'] = [
+                'requiredIf:is_button_available,' . StaticPageBlock::IS_BUTTON_AVAILABLE_YES,
                 'nullable',
-                'requiredIf:is_button_available,' . StaticPageType::IS_BUTTON_AVAILABLE_YES,
                 'string',
                 'max:20'
             ];
+            $rules['is_attachment_available'] = [
+                'required',
+                'integer',
+                Rule::in(StaticPageBlock::IS_ATTACHMENT_AVAILABLE)
+            ];
+            $rules['attachment_type'] = [
+                'required_if:is_attachment_available,' . StaticPageBlock::IS_ATTACHMENT_AVAILABLE_YES,
+                'nullable',
+                'integer',
+                Rule::in(StaticPageBlock::ATTACHMENT_TYPES)
+            ];
             $rules['image_path'] = [
                 'nullable',
-                'required_if:content_type,' . GalleryImageVideo::CONTENT_TYPE_IMAGE
+                'required_if:content_type,' . StaticPageBlock::ATTACHMENT_TYPE_IMAGE
             ];
-            $rules['is_attachment_available'] = [
-                'integer',
-                Rule::in()
-            ];
-            $rules['alt_image_title'] = [
+            $rules['image_alt_title'] = [
                 'string',
                 'nullable'
             ];
             $rules['template_code'] = [
-
+                'required',
+                Rule::in(array_keys(StaticPageBlock::STATIC_PAGE_BLOCK_TEMPLATE_TYPES))
             ];
-            if (!empty($requestData['content_type']) && $requestData['content_type'] == GalleryImageVideo::CONTENT_TYPE_VIDEO && !empty($requestData['video_type'])) {
+            if ($request->filled('attachment_type') && $request->input('attachment_type') == !StaticPageBlock::ATTACHMENT_TYPE_IMAGE) {
                 $rules['video_url'] = [
                     'required',
                     'string',
@@ -297,7 +367,6 @@ class StaticPageContentOrPageBlockService
                 ];
             }
         }
-
 
         $rules = array_merge($rules, BaseModel::OTHER_LANGUAGE_VALIDATION_RULES);
         return Validator::make($request->all(), $rules);

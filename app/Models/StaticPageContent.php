@@ -35,4 +35,14 @@ class StaticPageContent extends Model
     protected $table = 'static_page_contents';
 
     protected $guarded = BaseModel::COMMON_GUARDED_FIELDS_SOFT_DELETE;
+
+    const LANGUAGE_ATTR_TITLE = "title";
+    const LANGUAGE_ATTR_SUB_TITLE = "sub_title";
+    const LANGUAGE_ATTR_CONTENTS = "content";
+
+    public const STATIC_PAGE_CONTENT_LANGUAGE_FILLABLE = [
+        self::LANGUAGE_ATTR_TITLE,
+        self::LANGUAGE_ATTR_SUB_TITLE,
+        self::LANGUAGE_ATTR_CONTENTS
+    ];
 }
