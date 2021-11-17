@@ -53,7 +53,7 @@ class GalleryImageVideoResource extends JsonResource
             $response['image_alt_title'] = app(CmsLanguageService::class)->getLanguageValue($this, GalleryImageVideo::LANGUAGE_ATTR_IMAGE_ALT_TITLE);
         } else {
             $response['title'] = $this->title;
-            $response['title'] = $this->description;
+            $response['description'] = $this->description;
             $response['image_alt_title'] = $this->image_alt_title;
             if (!$request->get(BaseModel::IS_COLLECTION_KEY)) {
                 $response[BaseModel::OTHER_LANGUAGE_FIELDS_KEY] = CmsLanguageService::otherLanguageResponse($this);
