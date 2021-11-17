@@ -63,7 +63,7 @@ class StaticPageBlock extends BaseModel
 
 
     public const IS_ATTACHMENT_AVAILABLE_YES = 1;
-    public const IS_ATTACHMENT_AVAILABLE_NO = 1;
+    public const IS_ATTACHMENT_AVAILABLE_NO = 0;
 
 
     public const IS_ATTACHMENT_AVAILABLE = [
