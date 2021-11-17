@@ -5580,6 +5580,160 @@
                 ]
             }
         },
+        "/static-page-blocks/{page_code}": {
+            "get": {
+                "summary": "Get  static page content or page block",
+                "description": "API endpoint to GET  static page content or page block.A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/page_code"
+                    },
+                    {
+                        "$ref": "#/components/parameters/show_in"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successfull",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "data": {
+                                        "id": 1,
+                                        "static_page_type_id": 1,
+                                        "show_in": 1,
+                                        "show_in_label": "Nise3",
+                                        "institute_id": null,
+                                        "institute_title": "",
+                                        "institute_title_en": "",
+                                        "organization_id": null,
+                                        "organization_title": "",
+                                        "organization_title_en": "",
+                                        "industry_association_id": null,
+                                        "title_en": null,
+                                        "content_en": null,
+                                        "sub_title_en": null,
+                                        "title": "NATIVE title in content",
+                                        "sub_title": null,
+                                        "content": null,
+                                        "other_language_fields": {
+                                            "hi": {
+                                                "title": "hindi title in content updated",
+                                                "sub_title": "hindi sub_titlein content updated",
+                                                "content": "hindi contentin content updated"
+                                            },
+                                            "te": {
+                                                "title": "telegu title in content updated",
+                                                "sub_title": "telegu sub_title in content updated",
+                                                "content": "telegu content in content updated"
+                                            }
+                                        },
+                                        "row_status": 1,
+                                        "created_by": null,
+                                        "updated_by": null,
+                                        "created_at": "2021-11-16T20:02:54.000000Z",
+                                        "updated_at": "2021-11-16T20:02:54.000000Z"
+                                    },
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "message": null,
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "PageContentOrPageBlock"
+                ]
+            },
+            "put": {
+                "summary": "store or update static page block",
+                "description": "API endpoint to store or update static page block. A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/page_code"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StaticPageBlock"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successfull",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "data": {
+                                        "id": 1,
+                                        "static_page_type_id": 3,
+                                        "show_in": "4",
+                                        "show_in_label": "Organization",
+                                        "institute_id": "2",
+                                        "institute_title": "",
+                                        "institute_title_en": "",
+                                        "organization_id": "1",
+                                        "organization_title": "",
+                                        "organization_title_en": "",
+                                        "industry_association_id": null,
+                                        "title_en": null,
+                                        "content_en": null,
+                                        "attachment_type": "2",
+                                        "template_code": "PBT_LR",
+                                        "is_button_available": "1",
+                                        "link": "skdvldf",
+                                        "is_attachment_available": "1",
+                                        "image_path": null,
+                                        "video_url": null,
+                                        "alt_image_title_en": null,
+                                        "title": "NATIVE title in block",
+                                        "content": null,
+                                        "button_text": "dddddddddddddddd",
+                                        "alt_image_title": null,
+                                        "other_language_fields": {
+                                            "hi": {
+                                                "title": "hindi title in block  updated",
+                                                "content": "hindi content in block  updated",
+                                                "button_text": "hindi button_text in block  updated",
+                                                "alt_image_title": "hindi alt_image_title in block  updated"
+                                            },
+                                            "te": {
+                                                "title": "telegu title in block  updated nnnnnnnnnnnn",
+                                                "content": "telegu content in block  updated",
+                                                "button_text": "telegu button_text in block  updated",
+                                                "alt_image_title": "telegu alt_image_title in block  updated"
+                                            }
+                                        },
+                                        "row_status": 1,
+                                        "created_by": null,
+                                        "updated_by": null,
+                                        "created_at": "2021-11-16T20:02:58.000000Z",
+                                        "updated_at": "2021-11-16T20:02:58.000000Z"
+                                    },
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 201,
+                                        "message": "Successfully updated Static Page Block",
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "PageContentOrPageBlock"
+                ]
+            }
+        },
         "/static-page-blocks/{page_code}?": {
             "put": {
                 "summary": "store or update static page content",
@@ -5603,40 +5757,60 @@
                         "description": "successfull",
                         "content": {
                             "application/json": {
-                                "example": {}
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "PageContentOrPageBlock"
-                ]
-            }
-        },
-        "/static-page-blocks/{page_code}": {
-            "put": {
-                "summary": "store or update static page block",
-                "description": "API endpoint to store or update static page block. A successful request response will show 200 HTTP status code",
-                "parameters": [
-                    {
-                        "$ref": "#/components/parameters/page_code"
-                    }
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/x-www-form-urlencoded": {
-                            "schema": {
-                                "$ref": "#/components/schemas/StaticPageBlock"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "successfull",
-                        "content": {
-                            "application/json": {
-                                "example": {}
+                                "example": {
+                                    "data": {
+                                        "id": 1,
+                                        "static_page_type_id": 3,
+                                        "show_in": "4",
+                                        "show_in_label": "Organization",
+                                        "institute_id": "2",
+                                        "institute_title": "",
+                                        "institute_title_en": "",
+                                        "organization_id": "1",
+                                        "organization_title": "",
+                                        "organization_title_en": "",
+                                        "industry_association_id": null,
+                                        "title_en": null,
+                                        "content_en": null,
+                                        "attachment_type": "2",
+                                        "template_code": "PBT_LR",
+                                        "is_button_available": "1",
+                                        "link": "skdvldf",
+                                        "is_attachment_available": "1",
+                                        "image_path": null,
+                                        "video_url": null,
+                                        "alt_image_title_en": null,
+                                        "title": "NATIVE title in block",
+                                        "content": null,
+                                        "button_text": "dddddddddddddddd",
+                                        "alt_image_title": null,
+                                        "other_language_fields": {
+                                            "hi": {
+                                                "title": "hindi title in block  updated",
+                                                "content": "hindi content in block  updated",
+                                                "button_text": "hindi button_text in block  updated",
+                                                "alt_image_title": "hindi alt_image_title in block  updated"
+                                            },
+                                            "te": {
+                                                "title": "telegu title in block  updated nnnnnnnnnnnn",
+                                                "content": "telegu content in block  updated",
+                                                "button_text": "telegu button_text in block  updated",
+                                                "alt_image_title": "telegu alt_image_title in block  updated"
+                                            }
+                                        },
+                                        "row_status": 1,
+                                        "created_by": null,
+                                        "updated_by": null,
+                                        "created_at": "2021-11-16T20:02:58.000000Z",
+                                        "updated_at": "2021-11-16T20:02:58.000000Z"
+                                    },
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 201,
+                                        "message": "Successfully updated Static Page Block",
+                                        "query_time": 0
+                                    }
+                                }
                             }
                         }
                     }
@@ -5648,7 +5822,7 @@
         },
         "/public/static-page-blocks/{page_code}": {
             "get": {
-                "summary": "Get all public static-page-block page_code",
+                "summary": "Get  public static-page-block",
                 "description": "API endpoint to Get all public static-page-block/page_code. A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
@@ -5677,7 +5851,39 @@
                         "description": "successfull",
                         "content": {
                             "application/json": {
-                                "example": {}
+                                "example": {
+                                    "order": "ASC",
+                                    "data": {
+                                        "id": 1,
+                                        "static_page_type_id": 1,
+                                        "show_in": 1,
+                                        "show_in_label": "Nise3",
+                                        "institute_id": null,
+                                        "institute_title": "",
+                                        "institute_title_en": "",
+                                        "organization_id": null,
+                                        "organization_title": "",
+                                        "organization_title_en": "",
+                                        "industry_association_id": null,
+                                        "title_en": null,
+                                        "content_en": null,
+                                        "sub_title_en": null,
+                                        "title": "NATIVE title in content",
+                                        "sub_title": null,
+                                        "content": null,
+                                        "row_status": 1,
+                                        "created_by": null,
+                                        "updated_by": null,
+                                        "created_at": "2021-11-16T20:02:54.000000Z",
+                                        "updated_at": "2021-11-16T20:02:54.000000Z"
+                                    },
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "message": null,
+                                        "query_time": 6
+                                    }
+                                }
                             }
                         }
                     }
@@ -6736,7 +6942,12 @@
                     },
                     "row_status": {
                         "type": "integer",
-                        "description": "ACTIVE_STATUS => 1, INACTIVE_STATUS => 0"
+                        "description": "ACTIVE_STATUS => 1, INACTIVE_STATUS => 0",
+                        "example": 1,
+                        "enum": [
+                            1,
+                            0
+                        ]
                     },
                     "other_language_fields": {
                         "type": "object",
@@ -6838,7 +7049,9 @@
                             1,
                             0
                         ],
-                        "description": "ACTIVE_STATUS => 1, INACTIVE_STATUS => 0"
+                        "description": "ACTIVE_STATUS => 1, INACTIVE_STATUS => 0",
+                        "example": "1"
+
                     },
                     "other_language_fields": {
                         "type": "object",
