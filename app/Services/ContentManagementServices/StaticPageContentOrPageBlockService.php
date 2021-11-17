@@ -348,8 +348,9 @@ class StaticPageContentOrPageBlockService
                 'nullable'
             ];
             $rules['image_alt_title'] = [
-                'string',
-                'nullable'
+                'required_if:attachment_type,' . StaticPageBlock::ATTACHMENT_TYPE_IMAGE,
+                'nullable',
+                'string'
             ];
             $rules['template_code'] = [
                 'required',
