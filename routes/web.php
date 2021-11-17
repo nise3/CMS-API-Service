@@ -43,7 +43,6 @@ $router->group(['prefix' => 'api/v1', 'as' => 'api.v1'], function () use ($route
     $customRouter()->resourceRoute('videos', 'VideoController')->render();
     $customRouter()->resourceRoute('banners', 'BannerController')->render();
     $customRouter()->resourceRoute('sliders', 'SliderController')->render();
-//    $customRouter()->resourceRoute('static-pages', 'StaticPageController')->render();
     $customRouter()->resourceRoute('faqs', 'FaqController')->render();
     $customRouter()->resourceRoute('visitor-feedback-suggestions', 'VisitorFeedbackSuggestionController')->render();
     $customRouter()->resourceRoute('static-page-types', 'StaticPageTypeController')->render();
@@ -61,7 +60,6 @@ $router->group(['prefix' => 'api/v1', 'as' => 'api.v1'], function () use ($route
 
     $router->group(['prefix' => 'public', 'as' => 'public'], function () use ($router) {
         $router->get('faqs/{id}', ["as" => "faqs.read", "uses" => "FaqController@clientSideRead"]);
-//        $router->get('static-pages/{contentSlugId}', ["as" => "static.pages.read", "uses" => "StaticPageController@clientSideRead"]);
         $router->get('notice-or-news/{id}', ["as" => "notice.news.read", "uses" => "NoticeOrNewsController@clientSideRead"]);
         $router->get('recent-activities/{id}', ["as" => "recent.activities.read", "uses" => "RecentActivityController@clientSideRead"]);
         $router->get('nise3-partners/{id}', ["as" => "nise3.partners.read", "uses" => "Nise3PartnerController@clientSideRead"]);
@@ -69,7 +67,6 @@ $router->group(['prefix' => 'api/v1', 'as' => 'api.v1'], function () use ($route
         $router->get('gallery-images-videos/{id}', ["as" => "gallery.images.videos.read", "uses" => "GalleryImageVideoController@clientSideRead"]);
 
         $router->get('faqs', ["as" => "faqs.list", "uses" => "FaqController@clientSideGetList"]);
-//        $router->get('static-pages', ["as" => "static.pages.list", "uses" => "StaticPageController@clientSideGetList"]);
         $router->get('notice-or-news', ["as" => "notice.news.list", "uses" => "NoticeOrNewsController@clientSideGetList"]);
         $router->get('recent-activities', ["as" => "recent.activities.list", "uses" => "RecentActivityController@clientSideGetList"]);
         $router->get('nise3-partners', ["as" => "nise3.partners.list", "uses" => "Nise3PartnerController@clientSideGetList"]);
