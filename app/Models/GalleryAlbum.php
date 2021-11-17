@@ -87,4 +87,12 @@ class GalleryAlbum extends BaseModel
     {
         return $this->hasMany(CmsLanguage::class, 'key_id', "id");
     }
+
+    /**
+     * @return HasMany
+     */
+    public function childGalleryAlbums(): HasMany
+    {
+        return $this->hasMany($this, 'parent_gallery_album_id', 'id');
+    }
 }

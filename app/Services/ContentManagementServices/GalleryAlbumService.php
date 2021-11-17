@@ -165,6 +165,7 @@ class GalleryAlbumService
         $galleryAlbumBuilder->where('gallery_albums.id', $id);
 
         $galleryAlbumBuilder->with('galleryImagesVideos');
+        $galleryAlbumBuilder->with('childGalleryAlbums');
 
         /** @var GalleryAlbum $GalleryAlbum */
         return $galleryAlbumBuilder->firstOrFail();
