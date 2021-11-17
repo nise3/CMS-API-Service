@@ -91,7 +91,7 @@ class GalleryAlbum extends BaseModel
     /**
      * @return HasMany
      */
-    public function childGalleryAlbums()
+    public function childGalleryAlbums(): HasMany
     {
         return $this->hasMany($this, 'parent_gallery_album_id', 'id');
     }
