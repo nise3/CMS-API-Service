@@ -6001,32 +6001,9 @@
             }
         },
         "/static-page-blocks/{page_code}": {
-            "get": {
-                "summary": "Get all static page content or page block",
-                "description": "API endpoint to GET all static page content or page block.A successful request response will show 200 HTTP status code",
-                "parameters": [
-                    {
-                        "$ref": "#/components/parameters/page_code"
-                    },
-                    {
-                        "$ref": "#/components/parameters/show_in"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successfull",
-                        "content": {
-                            "application/json": {
-                                "example": {}
-                            }
-                        }
-                    }
-                },
-                "tags": ["PageContentOrPageBlock"]
-            },
             "put": {
-                "summary": "Create a static-block",
-                "description": "API endpoint to update  a static-block.A successful request response will show 200 HTTP status code",
+                "summary": "store or update static page block",
+                "description": "API endpoint to store or update static page block. A successful request response will show 200 HTTP status code",
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/page_code"
@@ -6034,9 +6011,16 @@
                 ],
                 "requestBody": {
                     "content": {
-                        "application/x-www-form-urlencoded": {
+                        "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/StaticPageContentOrPageBlock"
+                                "oneOf": [
+                                    {
+                                        "$ref": "#/components/schemas/StaticPageBlock"
+                                    },
+                                    {
+                                        "$ref": "#/components/schemas/StaticPageContent"
+                                    }
+                                ]
                             }
                         }
                     }
@@ -6052,7 +6036,6 @@
                     }
                 },
                 "tags": ["PageContentOrPageBlock"]
-
             }
         },
 
@@ -6188,6 +6171,7 @@
             }
         }
 
+
     },
     "components": {
         "securitySchemes": {
@@ -6198,6 +6182,22 @@
             }
         },
         "parameters": {
+            "pageBlock_page_code": {
+                "name": "pageBlock_page_code",
+                "in": "path",
+                "required": true,
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "pageContent_page_code": {
+                "name": "pageContent_page_code",
+                "in": "path",
+                "required": true,
+                "schema": {
+                    "type": "string"
+                }
+            },
             "page_code":{
                 "name": "page_code",
                 "in": "path",
@@ -7083,7 +7083,7 @@
                     "type"
                 ]
             },
-            "StaticPageContentOrPageBlock": {
+            "StaticPageContent": {
                 "type": "object",
                 "properties": {
                     "static_page_type_id": {
@@ -7093,8 +7093,50 @@
                     },
                     "show_in": {
                         "type": "integer",
-                        "enum": [1,2,3,4,5],
-                        "description": "1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry 5=>Industry Association"
+                        "enum": [1,2,3,4],
+                        "description": "1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry"
+                    },
+                    "institute_id": {
+                        "type": "integer",
+                        "description": "Required when show_in = SHOW_IN_TSP"
+                    },
+                    "organization_id": {
+                        "type": "integer",
+                        "description": "Required when show_in = SHOW_IN_INDUSTRY"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "sub_title": {
+                        "type": "string",
+                        "description": "Available in when static_page_type = TYPE_STATIC_PAGE"
+                    },
+                    "content": {
+                        "type": "string"
+                    },
+                    "row_status": {
+                        "type": "integer",
+                        "description": "ACTIVE_STATUS => 1, INACTIVE_STATUS => 0"
+                    }
+                },
+                "required": [
+                    "show_in",
+                    "title"
+
+                ]
+            },
+            "StaticPageBlock": {
+                "type": "object",
+                "properties": {
+                    "static_page_type_id": {
+                        "type": "integer",
+                        "enum": [1,2],
+                        "description": " TYPE_PAGE_BLOCK = 1 TYPE_STATIC_PAGE = 2;"
+                    },
+                    "show_in": {
+                        "type": "integer",
+                        "enum": [1,2,3,4],
+                        "description": "1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry"
                     },
                     "institute_id": {
                         "type": "integer",
@@ -7103,10 +7145,6 @@
                     "organization_id": {
                         "type": "integer",
                         "description": "Required when show_in = SHOW_IN_INDUSTRY[4]"
-                    },
-                    "industry_association_id": {
-                        "type": "integer",
-                        "description": "Required when show_in = SHOW_IN_INDUSTRY_ASSOCIATION[5]"
                     },
                     "title": {
                         "type": "string"
@@ -7126,15 +7164,15 @@
                     "is_button_available": {
                         "type": "integer",
                         "enum": [1,0],
-                        "description": "Required when static_page_type_id = TYPE_PAGE_BLOCK[1]"
+                        "description": "Required when static_page_type = TYPE_PAGE_BLOCK"
                     },
                     "button_text": {
                         "type": "string",
-                        "description": "Required when is_button_available=1"
+                        "description": "Required when is_button_available=1 && StaticPageType = TYPE_PAGE_BLOCK"
                     },
                     "link": {
                         "type": "string",
-                        "description": "Required when is_button_available=1"
+                        "description": "Required when is_button_available=1 && StaticPageType::TYPE_PAGE_BLOCK"
                     },
                     "is_attachment_available": {
                         "type": "integer",
@@ -7154,17 +7192,15 @@
                     },
                     "row_status": {
                         "type": "integer",
+                        "enum": [1,0],
                         "description": "ACTIVE_STATUS => 1, INACTIVE_STATUS => 0"
-                    },
-                    "sub_title": {
-                        "type": "string"
                     }
+
                 },
                 "required": [
                     "static_page_type_id",
                     "show_in",
                     "title",
-                    "is_button_available",
                     "is_attachment_available"
                 ]
             },
