@@ -2341,6 +2341,9 @@
                         "$ref": "#/components/parameters/show_in"
                     },
                     {
+                        "$ref": "#/components/parameters/album_type"
+                    },
+                    {
                         "$ref": "#/components/parameters/institute_id"
                     },
                     {
@@ -2882,6 +2885,7 @@
                 ]
             }
         },
+
         "/gallery-images-videos": {
             "get": {
                 "summary": "Get all gallery image videos",
@@ -3357,6 +3361,9 @@
                     },
                     {
                         "$ref": "#/components/parameters/organization_id"
+                    },
+                    {
+                        "$ref": "#/components/parameters/album_type"
                     },
                     {
                         "$ref": "#/components/parameters/Accept-Language"
@@ -5924,32 +5931,6 @@
                 "tags": [
                     "StaticPageType"
                 ]
-            },
-            "post": {
-                "summary": "create a static page type",
-                "description": "API endpoint to create a static page type. A successful request response will show 200 HTTP status code",
-                "requestBody": {
-                    "content": {
-                        "application/x-www-form-urlencoded": {
-                            "schema": {
-                                "$ref": "#/components/schemas/StaticPageTypes"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "successfull",
-                        "content": {
-                            "application/json": {
-                                "example": {}
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "StaticPageType"
-                ]
             }
         },
         "/static-page-types/{staticPageTypeId}": {
@@ -6006,6 +5987,22 @@
             }
         },
         "parameters": {
+            "album_type": {
+                "name": "album_type",
+                "in": "query",
+                "required": false,
+                "type": "integer",
+                "description": "1=>Image, 2=>Video, 3=>Mixed",
+                "schema": {
+                    "type": "integer",
+                    "enum": [
+                        1,
+                        2,
+                        3
+                    ]
+                }
+
+            },
             "pageBlock_page_code": {
                 "name": "pageBlock_page_code",
                 "in": "path",
