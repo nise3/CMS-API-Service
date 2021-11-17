@@ -321,8 +321,8 @@ class StaticPageContentOrPageBlockService
                 Rule::in(StaticPageBlock::IS_BUTTON_AVAILABLE)
             ];
             $rules['link'] = [
-                'nullable',
                 'requiredIf:is_button_available,' . StaticPageBlock::IS_BUTTON_AVAILABLE_YES,
+                'nullable',
                 'string',
                 'max:191',
             ];
