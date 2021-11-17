@@ -133,10 +133,9 @@ class StaticPageContentOrPageBlockController extends Controller
                 } else if($databaseOperationType == StaticPageType::DB_OPERATION_UPDATE){
                     app(CmsLanguageService::class)->createOrUpdate($languageFillablePayload,$responseModel);
                 }
-
-                $response = new StaticPageContentOrBlockResource($responseModel);
-                $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
             }
+            $response = new StaticPageContentOrBlockResource($responseModel);
+            $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
             DB::commit();
         }catch (Throwable $e) {
             DB::rollBack();
