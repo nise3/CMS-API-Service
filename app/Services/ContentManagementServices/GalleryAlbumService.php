@@ -423,6 +423,11 @@ class GalleryAlbumService
                 'integer',
                 'gt:0'
             ],
+            'album_type' => [
+                'nullable',
+                'integer',
+                Rule::in(GalleryAlbum::GALLERY_ALBUM_TYPES)
+            ],
             'title' => 'nullable|max:600|min:2',
             'show_in' => 'nullable|integer |gt:0',
             'institute_id' => 'nullable|integer|gt:0',
