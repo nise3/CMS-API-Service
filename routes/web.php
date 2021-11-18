@@ -90,18 +90,30 @@ $router->group(['prefix' => 'api/v1', 'as' => 'api.v1'], function () use ($route
 //    );
 
 
-    $router->post('create-event-after-batch-assign', ["as" => "calender-events.bacth-assign-event", "uses" => "CalenderEventsController@createEventAfterBatchAssign"]);
-    $router->put('update-calender-event-after-batch-update/{batchId}', ["as" => "calender-events.batch-update-event", "uses" => "CalenderEventsController@updateEventAfterBatchUpdate"]);
-
     $router->get('cms-global-config', [
         "as" => "cms.global-config",
         "uses" => "CmsGlobalConfigController@getGlobalConfig"
     ]);
 
-    /** Calendar update after batch create */
+    /** Calendar Event Service-to-Service API calling route list */
+    $router->post('create-event-after-batch-assign', [
+        "as" => "calender-events.bacth-assign-event",
+        "uses" => "CalenderEventsController@createEventAfterBatchAssign"
+    ]);
+
     $router->post('calendar-update-after-batch-create', [
         "as" => "calendar.update.after.batch.create",
         "uses" => "CalenderEventsController@addCalendarEventForBatchCreate"
+    ]);
+
+    $router->put('update-calender-event-after-batch-update/{batchId}', [
+        "as" => "calender-events.batch-update-event",
+        "uses" => "CalenderEventsController@updateEventAfterBatchUpdate"
+    ]);
+
+    $router->delete('delete-calender-event-by-batch-id/{id}', [
+        "as" => "calender-events.delete-calender-event-by-batch-id",
+        "uses" => "CalenderEventsController@calenderEventDestroyByBatchId"
     ]);
 
 });

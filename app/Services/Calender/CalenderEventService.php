@@ -281,6 +281,15 @@ class CalenderEventService
     }
 
     /**
+     * @param int $batchId
+     * @return bool
+     */
+    public function destroyByBatchId(int $batchId): bool
+    {
+        return CalenderEvent::where('batch_id', $batchId)->delete();
+    }
+
+    /**
      * @param Request $request
      * @param int|null $id
      * @return \Illuminate\Contracts\Validation\Validator
