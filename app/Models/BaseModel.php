@@ -111,4 +111,6 @@ abstract class BaseModel extends Model
     public const GET_INSTITUTE_TITLE_BY_ID__HTTP_CLIENT_ENDPOINT = "get-institute-title-by-ids";
     public const GET_COURSE_AND_PROGRAM_TITLE_BY_ID_HTTP_CLIENT_ENDPOINT = "get-course-program-title-by-ids";
     public const GET_ORGANIZATION_TITLE_BY_ID_HTTP_CLIENT_ENDPOINT = "get-organization-title-by-ids";
+
+    public const CALENDER_DEFAULT_COLOR = '#7db91c';
 }

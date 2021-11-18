@@ -88,6 +88,10 @@ $router->group(['prefix' => 'api/v1', 'as' => 'api.v1'], function () use ($route
 //        ]
 //    );
 
+
+    $router->post('create-event-after-batch-assign', ["as" => "calender-events.bacth-assign-event", "uses" => "CalenderEventsController@createEventAfterBatchAssign"]);
+
+
     $router->get('cms-global-config', [
         "as" => "cms.global-config",
         "uses" => "CmsGlobalConfigController@getGlobalConfig"

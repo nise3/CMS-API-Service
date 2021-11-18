@@ -132,5 +132,20 @@ class CalenderEventsController extends Controller
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
 
+    public function createEventAfterBatchAssign(Request $request)
+    {
+        $calenderEvent = $this->calenderEventService->createEventAfterBatchAssign($request->toArray());
+        $response = [
+            'data' => $calenderEvent,
+            '_response_status' => [
+                "success" => true,
+                "code" => ResponseAlias::HTTP_CREATED,
+                "message" => "Calender event added successfully",
+                "query_time" => $this->startTime->diffInSeconds(Carbon::now())
+            ]
+        ];
+        return Response::json($response, ResponseAlias::HTTP_CREATED);
+    }
+
 
 }

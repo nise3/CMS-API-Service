@@ -11,6 +11,7 @@ use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Symfony\Component\HttpFoundation\Response;
@@ -66,7 +67,7 @@ class CalenderEventService
             $now = CarbonImmutable::now();
             if ($type == CalenderEvent::CALENDER_TYPE_YEAR) {
                 $year = $year ?: $now->year;
-                $calenderEventsBuilder->where(function ($builder) use ($year){
+                $calenderEventsBuilder->where(function ($builder) use ($year) {
                     $builder->whereYear('start_date', $year)->orWhereYear('end_date', $year);
                 });
 
@@ -76,22 +77,22 @@ class CalenderEventService
 
                 $startDate = Carbon::createFromDate($year, $month)->startOfMonth();
                 $endDate = Carbon::createFromDate($year, $month)->endOfMonth();
-                $calenderEventsBuilder->where(function ($builder) use ($startDate,$endDate){
+                $calenderEventsBuilder->where(function ($builder) use ($startDate, $endDate) {
                     $builder->whereBetween('start_date', [$startDate, $endDate])->orWhereBetween('end_date', [$startDate, $endDate]);
                 });
 
             } elseif ($type == CalenderEvent::CALENDER_TYPE_DAY) {
                 $date = $date ?: $now;
-                $calenderEventsBuilder->where(function ($builder) use ($date){
+                $calenderEventsBuilder->where(function ($builder) use ($date) {
                     $builder->whereDate('start_date', $date)->orWhereDate('end_date', $date);
                 });
 
             } elseif ($type == CalenderEvent::CALENDER_TYPE_WEEK) {
-                $date =  $date ? CarbonImmutable::createFromDate($date) : $now;
+                $date = $date ? CarbonImmutable::createFromDate($date) : $now;
 
                 $fromDate = $date->startOfWeek();
                 $toDate = $date->endOfWeek();
-                $calenderEventsBuilder->where(function ($builder) use ($fromDate,$toDate){
+                $calenderEventsBuilder->where(function ($builder) use ($fromDate, $toDate) {
                     $builder->whereBetween('start_date', [$fromDate, $toDate])->orWhereBetween('end_date', [$fromDate, $toDate]);
                 });
 
@@ -99,7 +100,7 @@ class CalenderEventService
 
                 $fromDate = $fromDate ?: $now->startOfMonth();
                 $toDate = $toDate ?: $now->endOfMonth();
-                $calenderEventsBuilder->where(function ($builder) use ($fromDate, $toDate){
+                $calenderEventsBuilder->where(function ($builder) use ($fromDate, $toDate) {
                     $builder->whereBetween('start_date', [$fromDate, $toDate])->orWhereBetween('end_date', [$fromDate, $toDate]);
                 });
             }
@@ -225,6 +226,25 @@ class CalenderEventService
     {
         $calenderEvent->deleteOrFail();
         return true;
+    }
+
+    public function createEventAfterBatchAssign(array $data): CalenderEvent
+    {
+        $batch = $data['batch'];
+        $youth_id = $data['youth_id'];
+
+        $calenderEvent = app()->make(CalenderEvent::class);
+        $calenderEvent->title = $batch['title'];
+        $calenderEvent->title_en = $batch['title_en'];
+        $calenderEvent->youth_id = $youth_id;
+        $calenderEvent->batch_id = $batch['id'];
+        $calenderEvent->start_date = $batch['batch_start_date'];
+        $calenderEvent->end_date = $batch['batch_end_date'];
+        $calenderEvent->color = BaseModel::CALENDER_DEFAULT_COLOR;
+
+        $calenderEvent->save();
+
+        return $calenderEvent;
     }
 
     /**
