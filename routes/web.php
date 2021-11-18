@@ -47,6 +47,9 @@ $router->group(['prefix' => 'api/v1', 'as' => 'api.v1'], function () use ($route
     $customRouter()->resourceRoute('visitor-feedback-suggestions', 'VisitorFeedbackSuggestionController')->render();
     $customRouter()->resourceRoute('static-page-types', 'StaticPageTypeController')->render();
 
+    /** calender */
+    $customRouter()->resourceRoute('calender-events', 'CalenderEventsController')->render();
+
 
     /** publish or archive  */
     $router->put('gallery-albums/publish-or-archive/{id}', ["as" => "gallery.albums.publish.archive", "uses" => "GalleryAlbumController@publishOrArchive"]);
@@ -77,8 +80,6 @@ $router->group(['prefix' => 'api/v1', 'as' => 'api.v1'], function () use ($route
         /** Public Static page & block */
         $router->get('static-page-blocks/{page_code}', ["as" => "static.page.block", "uses" => "StaticPageContentOrPageBlockController@clientSideGetStaticPageOrBlock"]);
     });
-    /** calender */
-    $customRouter()->resourceRoute('calender-events', 'CalenderEventsController')->render();
 
 //    /** Language Field Remove From CsmLanguage Table */
 //    $router->post('delete-other-language',
@@ -95,6 +96,12 @@ $router->group(['prefix' => 'api/v1', 'as' => 'api.v1'], function () use ($route
     $router->get('cms-global-config', [
         "as" => "cms.global-config",
         "uses" => "CmsGlobalConfigController@getGlobalConfig"
+    ]);
+
+    /** Calendar update after batch create */
+    $router->post('calendar-update-after-batch-create', [
+        "as" => "calendar.update.after.batch.create",
+        "uses" => "CalenderEventsController@addCalendarEventForBatchCreate"
     ]);
 
 });

@@ -247,6 +247,22 @@ class CalenderEventService
         return $calenderEvent;
     }
 
+    public function createEventAfterBatchCreate(array $batch): CalenderEvent
+    {
+        $calenderEvent = app()->make(CalenderEvent::class);
+        $calenderEvent->title = $batch['title'];
+        $calenderEvent->title_en = $batch['title_en'] ?? "";
+        $calenderEvent->batch_id = $batch['id'] ?? null;
+        $calenderEvent->training_center_id = $batch['training_center_id'] ?? null;
+        $calenderEvent->institute_id = $batch['institute_id'] ?? null;
+        $calenderEvent->start_date = $batch['batch_start_date'];
+        $calenderEvent->end_date = $batch['batch_end_date'];
+        $calenderEvent->color = BaseModel::CALENDER_DEFAULT_COLOR;
+
+        $calenderEvent->save();
+        return $calenderEvent;
+    }
+
     /**
      * @param Request $request
      * @param int|null $id
