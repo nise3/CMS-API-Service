@@ -135,14 +135,12 @@ class CalenderEventsController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     * @param int $batchId
+     * @param int $id
      * @return JsonResponse
      */
     public function calenderEventDestroyByBatchId(int $id): JsonResponse
     {
-        dd($id);
-        Log::info('batchId' . $batchId);
-        $this->calenderEventService->destroyByBatchId($batchId);
+        $this->calenderEventService->destroyByBatchId($id);
         $response = [
             '_response_status' => [
                 "success" => true,

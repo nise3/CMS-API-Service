@@ -88,21 +88,12 @@ $router->group(['prefix' => 'api/v1', 'as' => 'api.v1'], function () use ($route
 //        ]
 //    );
 
-
     $router->post('create-event-after-batch-assign', ["as" => "calender-events.bacth-assign-event", "uses" => "CalenderEventsController@createEventAfterBatchAssign"]);
 
     $router->delete('delete-calender-event-by-batch-id/{id}',
         [
             "as" => "calender-events.delete-calender-event-by-batch-id",
             "uses" => "CalenderEventsController@calenderEventDestroyByBatchId"
-        ]
-    );
-
-    /** Language Field Remove From CsmLanguage Table */
-    $router->post('delete-other-language',
-        [
-            "as" => "cms.delete-other-language",
-            "uses" => "CmsLanguageController@deleteLanguageFieldByKeyId"
         ]
     );
 
