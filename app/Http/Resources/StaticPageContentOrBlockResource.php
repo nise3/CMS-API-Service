@@ -44,6 +44,7 @@ class StaticPageContentOrBlockResource extends JsonResource
             $response['is_attachment_available'] = $this->is_attachment_available;
             $response['image_path'] = $this->image_path;
             $response['video_url'] = $this->video_url;
+            $response['video_id'] = $this->video_id;
             $response['image_alt_title_en'] = $this->image_alt_title_en;
             if ($request->offsetExists(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY) && $request->get(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY)) {
                 $response['title'] = app(CmsLanguageService::class)->getLanguageValue($this, StaticPageBlock::LANGUAGE_ATTR_TITLE);
