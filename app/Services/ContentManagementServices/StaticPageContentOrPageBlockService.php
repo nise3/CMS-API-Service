@@ -405,7 +405,7 @@ class StaticPageContentOrPageBlockService
                 'required',
                 Rule::in(array_keys(StaticPageBlock::STATIC_PAGE_BLOCK_TEMPLATE_TYPES))
             ];
-            if ($request->filled('attachment_type') && $request->input('attachment_type') == !StaticPageBlock::ATTACHMENT_TYPE_IMAGE) {
+            if ($request->filled('attachment_type') && $request->input('attachment_type') !== StaticPageBlock::ATTACHMENT_TYPE_IMAGE) {
                 $rules['video_url'] = [
                     'required',
                     'string',
