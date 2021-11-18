@@ -132,7 +132,7 @@ class CalenderEventsController extends Controller
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
 
-    public function createEventAfterBatchAssign(Request $request)
+    public function createEventAfterBatchAssign(Request $request): JsonResponse
     {
         $calenderEvent = $this->calenderEventService->createEventAfterBatchAssign($request->toArray());
         $response = [
