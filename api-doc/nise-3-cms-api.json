@@ -5606,41 +5606,55 @@
                         "content": {
                             "application/json": {
                                 "example": {
+                                    "order": "ASC",
                                     "data": {
                                         "id": 1,
-                                        "static_page_type_id": 1,
-                                        "show_in": 1,
-                                        "show_in_label": "Nise3",
-                                        "institute_id": null,
-                                        "institute_title": "",
-                                        "institute_title_en": "",
-                                        "organization_id": null,
-                                        "organization_title": "",
-                                        "organization_title_en": "",
+                                        "static_page_type_id": 3,
+                                        "show_in": 4,
+                                        "show_in_label": "Organization",
+                                        "institute_id": 2,
+                                        "institute_title": "Prof. Zoie Fahey MD",
+                                        "institute_title_en": "Prof. Zoie Fahey MD",
+                                        "organization_id": 1,
+                                        "organization_title": "Conroy Ltd",
+                                        "organization_title_en": "Conroy Ltd",
                                         "industry_association_id": null,
                                         "title_en": null,
                                         "content_en": null,
-                                        "sub_title_en": null,
-                                        "title": "NATIVE title in content",
-                                        "sub_title": null,
-                                        "content": null,
-                                        "other_language_fields": {
-                                            "hi": {
-                                                "title": "hindi title in content updated",
-                                                "sub_title": "hindi sub_titlein content updated",
-                                                "content": "hindi contentin content updated"
+                                        "attachment_type": 2,
+                                        "template_code": "PBT_LR",
+                                        "static_page_block_template": {
+                                            "page_block_template_code": "PBT_LR",
+                                            "page_block_template_title": "Block with text left and image right",
+                                            "title": {
+                                                "position": "left"
                                             },
-                                            "te": {
-                                                "title": "telegu title in content updated",
-                                                "sub_title": "telegu sub_title in content updated",
-                                                "content": "telegu content in content updated"
+                                            "content": {
+                                                "position": "left"
+                                            },
+                                            "button": {
+                                                "position": "left"
+                                            },
+                                            "image": {
+                                                "position": "right"
                                             }
                                         },
+                                        "is_button_available": 1,
+                                        "link": "lllkkklklkllllkkkklkl",
+                                        "is_attachment_available": 1,
+                                        "image_path": null,
+                                        "video_url": null,
+                                        "video_id": null,
+                                        "image_alt_title_en": null,
+                                        "title": "no tomorrow",
+                                        "content": null,
+                                        "button_text": "shut up",
+                                        "image_alt_title": null,
                                         "row_status": 1,
                                         "created_by": null,
                                         "updated_by": null,
-                                        "created_at": "2021-11-16T20:02:54.000000Z",
-                                        "updated_at": "2021-11-16T20:02:54.000000Z"
+                                        "created_at": "2021-11-18T12:09:24.000000Z",
+                                        "updated_at": "2021-11-18T12:09:24.000000Z"
                                     },
                                     "_response_status": {
                                         "success": true,
@@ -5869,33 +5883,58 @@
                                     "order": "ASC",
                                     "data": {
                                         "id": 1,
-                                        "static_page_type_id": 1,
-                                        "show_in": 1,
-                                        "show_in_label": "Nise3",
-                                        "institute_id": null,
-                                        "institute_title": "",
-                                        "institute_title_en": "",
-                                        "organization_id": null,
-                                        "organization_title": "",
-                                        "organization_title_en": "",
+                                        "static_page_type_id": 3,
+                                        "show_in": 4,
+                                        "show_in_label": "Organization",
+                                        "institute_id": 2,
+                                        "institute_title": "Prof. Zoie Fahey MD",
+                                        "institute_title_en": "Prof. Zoie Fahey MD",
+                                        "organization_id": 1,
+                                        "organization_title": "Conroy Ltd",
+                                        "organization_title_en": "Conroy Ltd",
                                         "industry_association_id": null,
                                         "title_en": null,
                                         "content_en": null,
-                                        "sub_title_en": null,
-                                        "title": "NATIVE title in content",
-                                        "sub_title": null,
+                                        "attachment_type": 2,
+                                        "template_code": "PBT_LR",
+                                        "static_page_block_template": {
+                                            "page_block_template_code": "PBT_LR",
+                                            "page_block_template_title": "Block with text left and image right",
+                                            "title": {
+                                                "position": "left"
+                                            },
+                                            "content": {
+                                                "position": "left"
+                                            },
+                                            "button": {
+                                                "position": "left"
+                                            },
+                                            "image": {
+                                                "position": "right"
+                                            }
+                                        },
+                                        "is_button_available": 1,
+                                        "link": "lllkkklklkllllkkkklkl",
+                                        "is_attachment_available": 1,
+                                        "image_path": null,
+                                        "video_url": null,
+                                        "video_id": null,
+                                        "image_alt_title_en": null,
+                                        "title": "no tomorrow",
                                         "content": null,
+                                        "button_text": "shut up",
+                                        "image_alt_title": null,
                                         "row_status": 1,
                                         "created_by": null,
                                         "updated_by": null,
-                                        "created_at": "2021-11-16T20:02:54.000000Z",
-                                        "updated_at": "2021-11-16T20:02:54.000000Z"
+                                        "created_at": "2021-11-18T12:09:24.000000Z",
+                                        "updated_at": "2021-11-18T12:09:24.000000Z"
                                     },
                                     "_response_status": {
                                         "success": true,
                                         "code": 200,
                                         "message": null,
-                                        "query_time": 6
+                                        "query_time": 0
                                     }
                                 }
                             }
