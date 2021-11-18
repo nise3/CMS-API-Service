@@ -49,7 +49,7 @@ class StaticPageTypeService
         if (!empty($title)) {
             $staticPageTypesBuilder->where('static_page_types.title', 'like', '%' . $title . '%');
         }
-        if (!empty($category)) {
+        if (!is_numeric($category)) {
             $staticPageTypesBuilder->where('static_page_types.category', '=', $category);
         }
 
