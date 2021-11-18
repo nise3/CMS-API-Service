@@ -6031,8 +6031,10 @@
                 "required": false,
                 "description": "1=>Common,2=>Nise3, 3=> Youth, 4=>TSP, 5=>Industry",
                 "schema": {
-                    "type": "integer",
-                    "enum": [1,2,3,4,5]
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
                 }
             },
             "album_type": {
