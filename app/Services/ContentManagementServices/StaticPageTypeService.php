@@ -7,6 +7,7 @@ use App\Models\BaseModel;
 use App\Models\StaticPageType;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Validator;
@@ -20,6 +21,7 @@ class StaticPageTypeService
      */
     public function getStaticPageTypeList(array $request): Collection|LengthAwarePaginator|array
     {
+        $category = $request['category'] ?? " ";
         $titleEn = $request['title_en'] ?? "";
         $title = $request['title'] ?? "";
         $order = $request["order"] ?? "ASC";
@@ -31,6 +33,7 @@ class StaticPageTypeService
             "static_page_types.id",
             "static_page_types.title_en",
             "static_page_types.title",
+            "static_page_types.category",
             "static_page_types.type",
             "static_page_types.page_code",
             "static_page_types.created_at",
@@ -46,6 +49,9 @@ class StaticPageTypeService
         if (!empty($title)) {
             $staticPageTypesBuilder->where('static_page_types.title', 'like', '%' . $title . '%');
         }
+        if (!empty($category)) {
+            $staticPageTypesBuilder->where('static_page_types.category', '=', $category);
+        }
 
         /** @var StaticPageType $staticPageTypes */
         if (is_numeric($paginate) || is_numeric($pageSize)) {
@@ -60,15 +66,16 @@ class StaticPageTypeService
 
     /**
      * @param int $id
-     * @return StaticPageType
+     * @return Model|Builder
      */
-    public function getOneStaticPageType(int $id): StaticPageType
+    public function getOneStaticPageType(int $id): Builder|Model
     {
         /** @var Builder $staticPageTypeBuilder */
         $staticPageTypeBuilder = StaticPageType::select([
             "static_page_types.id",
             "static_page_types.title_en",
             "static_page_types.title",
+            "static_page_types.category",
             "static_page_types.type",
             "static_page_types.page_code",
             "static_page_types.created_at",
@@ -77,9 +84,7 @@ class StaticPageTypeService
         $staticPageTypeBuilder->where("static_page_types.id", $id);
 
         /** @var StaticPageType $staticPageType */
-        $staticPageType = $staticPageTypeBuilder->firstOrFail();
-
-        return $staticPageType;
+        return $staticPageTypeBuilder->firstOrFail();
     }
 
     /**
@@ -97,6 +102,7 @@ class StaticPageTypeService
 
         $rules = [
             "title" => "nullable",
+            "category" => 'nullable|gt:0',
             "title_en" => "nullable",
             'page' => 'numeric|gt:0',
             'page_size' => 'numeric|gt:0',

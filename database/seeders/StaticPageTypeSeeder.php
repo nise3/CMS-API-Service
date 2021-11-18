@@ -25,9 +25,9 @@ class StaticPageTypeSeeder extends Seeder
         DB::table('static_page_types')->truncate();
 
         DB::table('static_page_types')->insert(array(
-            array('id' => '1', 'title_en' => 'About Us', 'title' => 'আমাদের সম্পর্কে', 'type' => 2, 'page_code' => 'about_us', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()),
-            array('id' => '2', 'title_en' => 'Privacy Policy', 'title' => 'গোপনীয়তা নীতি', 'type' => 2, 'page_code' => 'privacy_policy', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()),
-            array('id' => '3', 'title_en' => 'How Nise3 Work', 'title' => 'নাইস-৩ কিভাবে কাজ করে', 'type' => 1, 'page_code' => 'how_nise3_work', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()),
+            array('id' => '1','category'=>1, 'title_en' => 'About Us', 'title' => 'আমাদের সম্পর্কে', 'type' => 2, 'page_code' => 'about_us', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()),
+            array('id' => '2', 'category'=>1,'title_en' => 'Privacy Policy', 'title' => 'গোপনীয়তা নীতি', 'type' => 2, 'page_code' => 'privacy_policy', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()),
+            array('id' => '3', 'category'=>2,'title_en' => 'How Nise3 Work', 'title' => 'নাইস-৩ কিভাবে কাজ করে', 'type' => 1, 'page_code' => 'how_nise3_work', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()),
         ));
 
         Schema::enableForeignKeyConstraints();
