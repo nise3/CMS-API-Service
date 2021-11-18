@@ -140,7 +140,22 @@ class StaticPageContentOrPageBlockService
         $databaseOperationType = null;
         $data['static_page_type_id'] = $staticPageType['id'];
         if (!empty($staticPageType->type) && $staticPageType->type == StaticPageType::TYPE_STATIC_PAGE) {
-            $staticPage = StaticPageContent::where('static_page_type_id',$staticPageType->id)->first();
+
+            /** Find the Static_Page_Content by using User Given Data */
+            $staticPage = StaticPageContent::where('static_page_type_id',$staticPageType->id);
+            if(!empty($data['show_in'])){
+                $staticPage->where('show_in',$data['show_in']);
+                if($data['show_in'] == BaseModel::SHOW_IN_TSP && !empty($data['institute_id'])){
+                    $staticPage->where('institute_id',$data['institute_id']);
+                } else if($data['show_in'] == BaseModel::SHOW_IN_INDUSTRY && !empty($data['organization_id'])){
+                    $staticPage->where('organization_id',$data['organization_id']);
+                } else if($data['show_in'] == BaseModel::SHOW_IN_INDUSTRY_ASSOCIATION && !empty($data['industry_association_id'])){
+                    $staticPage->where('industry_association_id',$data['industry_association_id']);
+                }
+            }
+
+            /** @var StaticPageContent|Builder $staticPage */
+            $staticPage = $staticPage->first();
 
             /**
              * If static_page_content already exist then update the static page content.
@@ -162,7 +177,22 @@ class StaticPageContentOrPageBlockService
             $staticPage->type = StaticPageType::TYPE_STATIC_PAGE;
 
         } else if (!empty($staticPageType->type) && $staticPageType->type == StaticPageType::TYPE_PAGE_BLOCK) {
-            $staticPage = StaticPageBlock::where('static_page_type_id',$staticPageType->id)->first();
+
+            /** Find the Static_Page_Block by using User Given Data */
+            $staticPage = StaticPageBlock::where('static_page_type_id',$staticPageType->id);
+            if(!empty($data['show_in'])){
+                $staticPage->where('show_in',$data['show_in']);
+                if($data['show_in'] == BaseModel::SHOW_IN_TSP && !empty($data['institute_id'])){
+                    $staticPage->where('institute_id',$data['institute_id']);
+                } else if($data['show_in'] == BaseModel::SHOW_IN_INDUSTRY && !empty($data['organization_id'])){
+                    $staticPage->where('organization_id',$data['organization_id']);
+                } else if($data['show_in'] == BaseModel::SHOW_IN_INDUSTRY_ASSOCIATION && !empty($data['industry_association_id'])){
+                    $staticPage->where('industry_association_id',$data['industry_association_id']);
+                }
+            }
+
+            /** @var StaticPageBlock|Builder $staticPage */
+            $staticPage = $staticPage->first();
 
             /**
              * If static_page_block already exist then update the static page block.
@@ -342,7 +372,6 @@ class StaticPageContentOrPageBlockService
                 Rule::in(StaticPageBlock::IS_BUTTON_AVAILABLE)
             ];
             $rules['link'] = [
-                'requiredIf:is_button_available,' . StaticPageBlock::IS_BUTTON_AVAILABLE_YES,
                 'nullable',
                 'string',
                 'max:191',
