@@ -117,22 +117,6 @@ return [
             "image" => [
                 "position" => StaticPageBlock::POSITION_LEFT
             ]
-        ],
-        StaticPageBlock::PBT_CB => [
-            "page_block_template_code" => StaticPageBlock::PBT_CB,
-            "page_block_template_title" => StaticPageBlock::STATIC_PAGE_BLOCK_TEMPLATE_TYPES[StaticPageBlock::PBT_CB],
-            "title" => [
-                "position" => StaticPageBlock::POSITION_CENTER
-            ],
-            "content" => [
-                "position" => StaticPageBlock::POSITION_CENTER
-            ],
-            "button" => [
-                "position" => StaticPageBlock::POSITION_CENTER
-            ],
-            "image" => [
-                "position" => StaticPageBlock::BACKGROUND
-            ]
         ]
     ]
 ];

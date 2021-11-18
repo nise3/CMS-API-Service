@@ -7055,11 +7055,10 @@
                     },
                     "template_code": {
                         "type": "string",
-                        "description": "PBT_LR => Block with text left and image right,\n       PBT_RL => Block with text right and image left,\n        PBT_CB => Block with text center and image background",
+                        "description": "PBT_LR => Block with text left and image right,\n       PBT_RL => Block with text right and image left,\n",
                         "enum": [
                             "PBT_LR",
-                            "PBT_RL",
-                            "PBT_CB"
+                            "PBT_RL"
                         ]
                     },
                     "is_button_available": {
