@@ -5,6 +5,7 @@ namespace App\Services\ContentManagementServices;
 use App\Models\CmsLanguage;
 use App\Models\LanguageConfig;
 use App\Services\Common\LanguageCodeService;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Cache;
@@ -36,7 +37,6 @@ class CmsLanguageService
                 }
             }
         } else {
-
             $response = $model->$languageColumnName;
         }
         return $response;
@@ -86,18 +86,13 @@ class CmsLanguageService
 
     /**
      * @param array $data
+     * @param Model $model
      * @return mixed
      */
-    public function createOrUpdate(array $data): CmsLanguage
+    public function createOrUpdate(array $data, Model $model):bool
     {
-        return CmsLanguage::updateOrCreate(
-            [
-                "key_id" => $data['key_id'],
-                "lang_code" => $data['lang_code'],
-                "column_name" => $data['column_name']
-            ],
-            $data
-        );
+        $cmsLanguage = CmsLanguage::where('key_id', $model->id)->where('table_name', $model->getTable())->delete();
+        return CmsLanguage::insert($data);
     }
 
     /**

@@ -6,9 +6,6 @@ use App\Http\CustomInterfaces\Contract\ResourceInterface;
 use App\Http\Resources\FaqResource;
 use App\Models\BaseModel;
 use App\Models\Faq;
-use App\Models\LanguageCode;
-use App\Models\LanguageConfig;
-use App\Models\Slider;
 use App\Services\Common\CmsGlobalConfigService;
 use App\Services\Common\LanguageCodeService;
 use App\Services\ContentManagementServices\CmsLanguageService;
@@ -53,7 +50,6 @@ class FaqController extends Controller implements ResourceInterface
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
 
-
     /**
      * @param Request $request
      * @return JsonResponse
@@ -64,7 +60,7 @@ class FaqController extends Controller implements ResourceInterface
     {
         $request->offsetSet(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY, BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG);
         $filter = $this->faqService->filterValidator($request)->validate();
-        $filter[BaseModel::IS_CLIENT_SITE_RESPONSE_KEY]=BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG;
+        $filter[BaseModel::IS_CLIENT_SITE_RESPONSE_KEY] = BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG;
         $faqList = $this->faqService->getFaqList($filter);
         $request->offsetSet(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID, CmsGlobalConfigService::getOrganizationOrInstituteOrIndustryAssociationTitle($faqList->toArray()['data'] ?? $faqList->toArray()));
         $response = FaqResource::collection($faqList)->resource;
@@ -167,29 +163,27 @@ class FaqController extends Controller implements ResourceInterface
         $validatedData = $this->faqService->validator($request)->validate();
         $message = "Faq Update Successfully Done";
         $otherLanguagePayload = $validatedData['other_language_fields'] ?? [];
-        $isLanguage = (bool)count(array_intersect(array_keys($otherLanguagePayload), LanguageCodeService::getLanguageCode()));
+
         DB::beginTransaction();
         try {
             $faq = $this->faqService->update($faq, $validatedData);
-            if ($isLanguage) {
+                $languageFillablePayload = [];
                 foreach ($otherLanguagePayload as $key => $value) {
                     $languageValidatedData = $this->faqService->languageFieldValidator($value, $key)->validate();
                     foreach (Faq::FAQ_LANGUAGE_FILLABLE as $fillableColumn) {
-                        if (!empty($languageValidatedData[$fillableColumn])) {
-                            $languageFillablePayload = [
+                        if (isset($languageValidatedData[$fillableColumn])) {
+                            $languageFillablePayload[] = [
                                 "table_name" => $faq->getTable(),
                                 "key_id" => $faq->id,
                                 "lang_code" => $key,
                                 "column_name" => $fillableColumn,
                                 "column_value" => $languageValidatedData[$fillableColumn]
                             ];
-                            app(CmsLanguageService::class)->createOrUpdate($languageFillablePayload);
                             CmsLanguageService::languageCacheClearByKey($faq->getTable(), $faq->id, $key, $fillableColumn);
                         }
                     }
                 }
-
-            }
+                app(CmsLanguageService::class)->createOrUpdate($languageFillablePayload,$faq);
             $response = new FaqResource($faq);
             $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
             DB::commit();

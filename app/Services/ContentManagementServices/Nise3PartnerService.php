@@ -30,6 +30,7 @@ class Nise3PartnerService
         $order = $request["order"] ?? "ASC";
         $paginate = $request['page'] ?? "";
         $pageSize = $request['page_size'] ?? "";
+        $isRequestFromClientSide = !empty($request[BaseModel::IS_CLIENT_SITE_RESPONSE_KEY]);
 
         /** @var Builder $nise3PartnerBuilder */
         $nise3PartnerBuilder = Nise3Partner::select([
@@ -50,6 +51,10 @@ class Nise3PartnerService
         ]);
 
         $nise3PartnerBuilder->orderBy("nise3_partners.id", $order);
+
+        if ($isRequestFromClientSide) {
+            $nise3PartnerBuilder->active();
+        }
 
         if (is_numeric($rowStatus)) {
             $nise3PartnerBuilder->where('nise3_partners.row_status', $rowStatus);
@@ -184,7 +189,7 @@ class Nise3PartnerService
         $rules = [
             "title" => "required|max:500|min:2",
             "main_image_path" => [
-                "nullable",
+                "required",
                 BaseModel::IMAGE_PATH_VALIDATION_RULE
             ],
             "thumb_image_path" => [

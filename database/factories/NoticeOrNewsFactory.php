@@ -23,6 +23,7 @@ class NoticeOrNewsFactory extends Factory
             'organization_id' => $this->faker->numberBetween(1, 10),
             'industry_association_id' => $this->faker->numberBetween(1, 10),
             'details_en' => $this->faker->sentence(40),
+            'main_image_path' => $this->faker->imageUrl(),
             'details' => $this->faker->sentence(40),
             'published_at' => Carbon::now(),
             'file_path' => $this->faker->sentence(),

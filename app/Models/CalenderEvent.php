@@ -12,6 +12,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string|null $title_en
  * @property int|null $youth_id
  * @property int|null $batch_id
+ * @property int|null $program_id
+ * @property int|null $training_center_id
  * @property int|null $institute_id
  * @property int|null $organization_id
  * @property Carbon $start_date

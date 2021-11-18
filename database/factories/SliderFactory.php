@@ -12,16 +12,12 @@ class SliderFactory extends Factory
 
     public function definition(): array
     {
-        $title = $this->faker->jobTitle();
         return [
+            'title' => $this->faker->jobTitle(),
             'show_in' => $this->faker->randomElement(array_keys(BaseModel::SHOW_INS)),
-            'institute_id' => $this->faker->numberBetween(1, 10),
             'organization_id' => $this->faker->numberBetween(1, 10),
+            'institute_id' => $this->faker->numberBetween(1, 10),
             'industry_association_id' => $this->faker->numberBetween(1, 10),
-            'is_button_available' => $this->faker->randomElement([0,1]),
-            'button_text'=>$this->faker->sentence(),
-            'title' => $title,
-            'sub_title' => $title
-    	];
+        ];
     }
 }

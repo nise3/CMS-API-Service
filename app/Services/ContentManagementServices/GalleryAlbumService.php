@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Throwable;
 
+
 /**
  * Class GalleryAlbumService
  * @package App\Services\ContentManagementServices
@@ -30,7 +31,10 @@ class GalleryAlbumService
     public function getAllGalleryAlbums(array $request, $startTime = null): Collection|LengthAwarePaginator|array
     {
         $showIn = $request['show_in'] ?? "";
+        $albumType = $request['album_type'] ?? "";
         $instituteId = $request['institute_id'] ?? "";
+        $parentGalleryAlbumId = $request['parent_gallery_album_id'] ?? "";
+        $onlyParentGalleryAlbum = $request['only_parent_gallery_album'] ?? "";
         $industryAssociationId = $request['industry_association_id'] ?? "";
         $organizationId = $request['organization_id'] ?? "";
         $titleEn = $request['title_en'] ?? "";
@@ -40,6 +44,7 @@ class GalleryAlbumService
         $rowStatus = $request['row_status'] ?? "";
         $order = $request['order'] ?? "ASC";
         $isRequestFromClientSide = !empty($request[BaseModel::IS_CLIENT_SITE_RESPONSE_KEY]);
+
 
         /** @var Builder $galleryAlbumBuilder */
         $galleryAlbumBuilder = GalleryAlbum::select([
@@ -54,7 +59,7 @@ class GalleryAlbumService
             'gallery_albums.organization_id',
             'gallery_albums.industry_association_id',
             'gallery_albums.program_id',
-            'gallery_albums.batch_id',
+            'gallery_albums.course_id',
             'gallery_albums.title',
             'gallery_albums.main_image_path',
             'gallery_albums.thumb_image_path',
@@ -85,11 +90,20 @@ class GalleryAlbumService
         if (is_numeric($instituteId)) {
             $galleryAlbumBuilder->where('gallery_albums.institute_id', $instituteId);
         }
+        if (is_numeric($parentGalleryAlbumId)) {
+            $galleryAlbumBuilder->where('gallery_albums.parent_gallery_album_id', $parentGalleryAlbumId);
+        }
+        if ($onlyParentGalleryAlbum == GalleryAlbum::ONLY_PARENT_GALLERY_ALBUM_TRUE) {
+            $galleryAlbumBuilder->whereNull('gallery_albums.parent_gallery_album_id');
+        }
         if (is_numeric($industryAssociationId)) {
             $galleryAlbumBuilder->where('gallery_albums.industry_association_id', $industryAssociationId);
         }
         if (is_numeric($organizationId)) {
             $galleryAlbumBuilder->where('gallery_albums.organization_id', $organizationId);
+        }
+        if (is_numeric($albumType)) {
+            $galleryAlbumBuilder->where('gallery_albums.album_type', '=', $albumType);
         }
 
         if ($isRequestFromClientSide) {
@@ -98,6 +112,8 @@ class GalleryAlbumService
                 $builder->whereNull('gallery_albums.archived_at');
                 $builder->orWhereDate('gallery_albums.archived_at', '>=', $startTime);
             });
+
+            $galleryAlbumBuilder->active();
         }
 
         /** @var Collection $galleryAlbums */
@@ -122,6 +138,7 @@ class GalleryAlbumService
         $galleryAlbumBuilder = GalleryAlbum::select([
             'gallery_albums.id',
             'gallery_albums.parent_gallery_album_id',
+            'parent_gallery_albums.title as parent_gallery_album_title',
             'gallery_albums.featured',
             'gallery_albums.show_in',
             'gallery_albums.album_type',
@@ -131,7 +148,7 @@ class GalleryAlbumService
             'gallery_albums.organization_id',
             'gallery_albums.industry_association_id',
             'gallery_albums.program_id',
-            'gallery_albums.batch_id',
+            'gallery_albums.course_id',
             'gallery_albums.title',
             'gallery_albums.main_image_path',
             'gallery_albums.thumb_image_path',
@@ -143,7 +160,17 @@ class GalleryAlbumService
             'gallery_albums.created_at',
             'gallery_albums.updated_at'
         ]);
+        $galleryAlbumBuilder->leftjoin('gallery_albums as parent_gallery_albums', function ($join) {
+            $join->on('gallery_albums.parent_gallery_album_id', '=', 'parent_gallery_albums.id')
+                ->whereNull('parent_gallery_albums.deleted_at');
+
+        });
+
         $galleryAlbumBuilder->where('gallery_albums.id', $id);
+
+        $galleryAlbumBuilder->with('galleryImagesVideos');
+        $galleryAlbumBuilder->with('childGalleryAlbums');
+
         /** @var GalleryAlbum $GalleryAlbum */
         return $galleryAlbumBuilder->firstOrFail();
     }
@@ -322,7 +349,7 @@ class GalleryAlbumService
                 'date',
                 'after:published_at'
             ],
-            'batch_id' => [
+            'course_id' => [
                 'nullable',
                 'int',
             ],
@@ -336,9 +363,8 @@ class GalleryAlbumService
                 'max:600',
                 'min:2'
             ],
-
             'main_image_path' => [
-                'nullable',
+                'required',
                 'string',
             ],
             'thumb_image_path' => [
@@ -388,6 +414,20 @@ class GalleryAlbumService
 
         $rules = [
             'title_en' => 'nullable|max:200|min:2',
+            'only_parent_gallery_album' => [
+                'nullable',
+                Rule::in(GalleryAlbum::ONLY_PARENT_GALLERY_ALBUM)
+            ],
+            'parent_gallery_album_id' => [
+                'nullable',
+                'integer',
+                'gt:0'
+            ],
+            'album_type' => [
+                'nullable',
+                'integer',
+                Rule::in(GalleryAlbum::GALLERY_ALBUM_TYPES)
+            ],
             'title' => 'nullable|max:600|min:2',
             'show_in' => 'nullable|integer |gt:0',
             'institute_id' => 'nullable|integer|gt:0',

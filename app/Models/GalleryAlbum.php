@@ -23,7 +23,7 @@ use Illuminate\Support\Collection;
  * @property int|null $institute_id
  * @property int|null $organization_id
  * @property int|null $industry_association_id
- * @property int|null $batch_id
+ * @property int|null $course_id
  * @property int|null $program_id
  * @property string $title
  * @property string|null $title_en
@@ -55,6 +55,13 @@ class GalleryAlbum extends BaseModel
         self::GALLERY_ALBUM_TYPE_VIDEO,
         self::GALLERY_ALBUM_TYPE_MIXED,
     ];
+    public const ONLY_PARENT_GALLERY_ALBUM_TRUE = 1;
+    public const ONLY_PARENT_GALLERY_ALBUM_FALSE = 0;
+
+    public const ONLY_PARENT_GALLERY_ALBUM = [
+        self::ONLY_PARENT_GALLERY_ALBUM_TRUE,
+        self::ONLY_PARENT_GALLERY_ALBUM_FALSE
+    ];
 
     /** GALLERY ALBUM LANGUAGE FILLABLE */
     public const LANGUAGE_ATTR_TITLE = "title";
@@ -68,11 +75,24 @@ class GalleryAlbum extends BaseModel
     /**
      * @return HasMany
      */
+    public function galleryImagesVideos(): HasMany
+    {
+        return $this->hasMany(GalleryImageVideo::class, 'gallery_album_id', 'id');
+    }
+
+    /**
+     * @return HasMany
+     */
     public function cmsLanguages(): HasMany
     {
         return $this->hasMany(CmsLanguage::class, 'key_id', "id");
     }
 
-
-
+    /**
+     * @return HasMany
+     */
+    public function childGalleryAlbums(): HasMany
+    {
+        return $this->hasMany($this, 'parent_gallery_album_id', 'id');
+    }
 }

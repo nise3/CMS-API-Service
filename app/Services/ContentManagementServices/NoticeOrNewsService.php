@@ -23,10 +23,12 @@ class NoticeOrNewsService
 
     /**
      * @param array $request
+     * @param null $startTime
      * @return Collection|LengthAwarePaginator|array
      */
     public function getNoticeOrNewsServiceList(array $request, $startTime = null): Collection|LengthAwarePaginator|array
     {
+        $searchText = $request['search_text'] ?? "";
         $titleEn = $request['title_en'] ?? "";
         $titleBn = $request['title'] ?? "";
         $paginate = $request['page'] ?? "";
@@ -80,12 +82,14 @@ class NoticeOrNewsService
             $noticeOrNewsBuilder->where('notice_or_news.title', 'like', '%' . $titleBn . '%');
         }
 
-        if ($isRequestFromClientSide) {
+        if ($isRequestFromClientSide) { // If request fro client side
             $noticeOrNewsBuilder->whereDate('notice_or_news.published_at', '<=', $startTime);
             $noticeOrNewsBuilder->where(function ($builder) use ($startTime) {
                 $builder->whereNull('notice_or_news.archived_at');
                 $builder->orWhereDate('notice_or_news.archived_at', '>=', $startTime);
             });
+
+            $noticeOrNewsBuilder->active();
         }
 
         if (is_numeric($instituteId)) {
@@ -104,6 +108,14 @@ class NoticeOrNewsService
             $noticeOrNewsBuilder->where('notice_or_news.show_in', '=', $showIn);
         }
 
+        if(!empty($searchText)){
+            $noticeOrNewsBuilder->where(function($builder) use ($searchText){
+                $builder->orWhere('notice_or_news.title', 'like', '%' . $searchText . '%');
+                $builder->orWhere('notice_or_news.title_en', 'like', '%' . $searchText . '%');
+                $builder->orWhere('notice_or_news.details', 'like', '%' . $searchText . '%');
+                $builder->orWhere('notice_or_news.details_en', 'like', '%' . $searchText . '%');
+            });
+        }
 
         /** @var Collection $noticeOrNews */
         if (is_numeric($paginate) || is_numeric($pageSize)) {
@@ -154,8 +166,6 @@ class NoticeOrNewsService
 
         /** @var Collection $noticeOrNews */
         return $noticeOrNewsBuilder->firstOrFail();
-
-
     }
 
 
@@ -299,6 +309,10 @@ class NoticeOrNewsService
                 'string',
                 Rule::in([BaseModel::ROW_ORDER_ASC, BaseModel::ROW_ORDER_DESC])
             ],
+            'search_text' => [
+                'nullable',
+                'string'
+            ],
             'row_status' => [
                 'nullable',
                 "integer",
@@ -371,7 +385,7 @@ class NoticeOrNewsService
                 'string'
             ],
             'main_image_path' => [
-                'nullable',
+                'required',
                 'string',
             ],
             'grid_image_path' => [

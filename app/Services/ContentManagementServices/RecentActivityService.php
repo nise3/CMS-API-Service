@@ -54,9 +54,9 @@ class RecentActivityService
             'recent_activities.title_en',
             'recent_activities.title',
             'recent_activities.content_type',
-            'recent_activities.content_path',
-            'recent_activities.embedded_url',
-            'recent_activities.embedded_id',
+            'recent_activities.image_path',
+            'recent_activities.video_url',
+            'recent_activities.video_id',
             'recent_activities.content_properties',
             'recent_activities.collage_image_path',
             'recent_activities.collage_position',
@@ -66,6 +66,7 @@ class RecentActivityService
             'recent_activities.image_alt_title',
             'recent_activities.description_en',
             'recent_activities.description',
+            'recent_activities.row_status',
             'recent_activities.created_by',
             'recent_activities.updated_by',
             'recent_activities.created_at',
@@ -101,6 +102,8 @@ class RecentActivityService
                 $builder->whereNull('recent_activities.archived_at');
                 $builder->orWhereDate('recent_activities.archived_at', '>=', $startTime);
             });
+
+            $recentActivityBuilder->active();
         }
 
 
@@ -134,9 +137,9 @@ class RecentActivityService
             'recent_activities.title_en',
             'recent_activities.title',
             'recent_activities.content_type',
-            'recent_activities.content_path',
-            'recent_activities.embedded_url',
-            'recent_activities.embedded_id',
+            'recent_activities.image_path',
+            'recent_activities.video_url',
+            'recent_activities.video_id',
             'recent_activities.content_properties',
             'recent_activities.collage_image_path',
             'recent_activities.collage_position',
@@ -146,6 +149,7 @@ class RecentActivityService
             'recent_activities.image_alt_title',
             'recent_activities.description_en',
             'recent_activities.description',
+            'recent_activities.row_status',
             'recent_activities.created_by',
             'recent_activities.updated_by',
             'recent_activities.created_at',
@@ -309,6 +313,7 @@ class RecentActivityService
      */
     public function validator($request, int $id = null): \Illuminate\Contracts\Validation\Validator
     {
+        $request->offsetSet('deleted_at', null);
         $requestData = $request->all();
         $customMessage = [
             'row_status.in' => 'Row status must be within 1 or 0. [30000]'
@@ -358,7 +363,7 @@ class RecentActivityService
                 'integer',
                 Rule::in(RecentActivity::CONTENT_TYPES)
             ],
-            'content_path' => [
+            'image_path' => [
                 'required_if:Content_type,' . RecentActivity::CONTENT_TYPE_IMAGE,
                 'nullable',
                 'string',
@@ -371,15 +376,12 @@ class RecentActivityService
             ],
 
             'collage_image_path' => [
+                Rule::requiredIf(function () use ($requestData) {
+                    return !empty($requestData['collage_position']);
+                }),
                 'nullable',
                 'string',
                 'max:600'
-            ],
-            'collage_position' => [
-                'nullable',
-                'string',
-                'max:600',
-                Rule::in(RecentActivity::AVAILABLE_COLLAGE_POSITIONS)
             ],
             'thumb_image_path' => [
                 'nullable',
@@ -417,14 +419,45 @@ class RecentActivityService
             ]
         ];
 
+        if (!empty($requestData['show_in']) && !empty($requestData['institute_id']) && $requestData['show_in'] == BaseModel::SHOW_IN_TSP) {
+            $rules['collage_position'] = [
+                'nullable',
+                'integer',
+                'unique_with:recent_activities,institute_id,deleted_at,' . $id,
+                Rule::in(RecentActivity::AVAILABLE_COLLAGE_POSITIONS)
+            ];
+        } elseif (!empty($requestData['show_in']) && !empty($requestData['organization_id']) && $requestData['show_in'] == BaseModel::SHOW_IN_INDUSTRY) {
+            $rules['collage_position'] = [
+                'nullable',
+                'integer',
+                'unique_with:recent_activities,organization_id,deleted_at,' . $id,
+                Rule::in(RecentActivity::AVAILABLE_COLLAGE_POSITIONS)
+            ];
+        } elseif (!empty($requestData['show_in']) && !empty($requestData['industry_association_id']) && $requestData['show_in'] == BaseModel::SHOW_IN_INDUSTRY_ASSOCIATION) {
+            $rules['collage_position'] = [
+                'nullable',
+                'integer',
+                'unique_with:recent_activities,industry_association_id,deleted_at,' . $id,
+                Rule::in(RecentActivity::AVAILABLE_COLLAGE_POSITIONS)
+            ];
+        } else {
+            $rules['collage_position'] = [
+                'nullable',
+                'integer',
+                'unique_with:recent_activities,show_in,deleted_at,' . $id,
+                Rule::in(RecentActivity::AVAILABLE_COLLAGE_POSITIONS)
+            ];
+        }
+
+
         if (!empty($requestData['content_type']) &&
             ($requestData['content_type'] == RecentActivity::CONTENT_TYPE_FACEBOOK_VIDEO || $requestData['content_type'] == RecentActivity::CONTENT_TYPE_YOUTUBE_VIDEO)) {
-            $rules['embedded_url'] = [
+            $rules['video_url'] = [
                 'required',
                 'string',
                 'max:800'
             ];
-            $rules['embedded_id'] = [
+            $rules['video_id'] = [
                 'required',
                 'max:300'
             ];

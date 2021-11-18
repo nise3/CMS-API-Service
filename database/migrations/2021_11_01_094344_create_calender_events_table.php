@@ -19,6 +19,8 @@ class CreateCalenderEventsTable extends Migration
             $table->string('title_en', 250)->nullable();
             $table->unsignedInteger('youth_id')->nullable();
             $table->unsignedInteger('batch_id')->nullable();
+            $table->unsignedInteger('program_id')->nullable();
+            $table->unsignedInteger('training_center_id')->nullable();
             $table->unsignedInteger('institute_id')->nullable();
             $table->unsignedInteger('organization_id')->nullable();
             $table->unsignedInteger('industry_association_id')->nullable();

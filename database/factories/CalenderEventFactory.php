@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\CalenderEvent;
+use Exception;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Carbon;
 
@@ -10,6 +11,9 @@ class CalenderEventFactory extends Factory
 {
     protected $model = CalenderEvent::class;
 
+    /**
+     * @throws Exception
+     */
     public function definition(): array
     {
         $date = Carbon::now();

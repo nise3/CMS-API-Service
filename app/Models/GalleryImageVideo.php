@@ -5,6 +5,7 @@ namespace App\Models;
 
 use App\Traits\Scopes\ScopeRowStatusTrait;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -17,24 +18,20 @@ use Illuminate\Support\Collection;
  * @property int $featured
  * @property Carbon|null $published_at
  * @property Carbon|null $archived_at
- * @property int|null $institute_id
- * @property int|null $organization_id
- * @property int|null $industry_association_id
  * @property int $content_type
  * @property int $video_type
- * @property string|null content_title
- * @property string|null content_title_en
- * @property string|null content_description
- * @property string|null content_description_en
- * @property string|null content_path
- * @property string|null embedded_url
- * @property string|null embedded_id
+ * @property string|null title
+ * @property string|null title_en
+ * @property string|null description
+ * @property string|null description_en
+ * @property string|null image_path
+ * @property string|null video_url
+ * @property string|null video_id
  * @property string|null $content_properties_json
- * @property string|null $content_grid_image_url
- * @property string|null $content_cover_image_url
- * @property string|null $content_thumb_image_url
- * @property string|null $alt_title
- * @property string|null $alt_title_en
+ * @property string|null content_grid_image_path
+ * @property string|null content_thumb_image_path
+ * @property string|null image_alt_title
+ * @property string|null image_alt_title_en
  * @property int $row_status
  * @property int|null published_by
  * @property int|null archived_by
@@ -44,7 +41,6 @@ use Illuminate\Support\Collection;
  * @property Carbon|null updated_at
  * @property Carbon|null deleted_at
  * @property  Collection cmsLanguages
-
  */
 class GalleryImageVideo extends BaseModel
 {
@@ -77,14 +73,14 @@ class GalleryImageVideo extends BaseModel
     ];
 
     /** GALLERY_IMAGE_VIDEO_LANGUAGE_FILLABLE */
-    const LANGUAGE_ATTR_CONTENT_TITLE = "content_title";
-    const LANGUAGE_ATTR_CONTENT_DESCRIPTION = "content_description";
-    const LANGUAGE_ATTR_ALT_TITLE = "alt_title";
+    const LANGUAGE_ATTR_TITLE = "title";
+    const LANGUAGE_ATTR_DESCRIPTION = "description";
+    const LANGUAGE_ATTR_IMAGE_ALT_TITLE = "image_alt_title";
 
     public const GALLERY_IMAGE_VIDEO_LANGUAGE_FILLABLE = [
-        self::LANGUAGE_ATTR_ALT_TITLE,
-        self::LANGUAGE_ATTR_CONTENT_TITLE,
-        self::LANGUAGE_ATTR_CONTENT_DESCRIPTION
+        self::LANGUAGE_ATTR_TITLE,
+        self::LANGUAGE_ATTR_DESCRIPTION,
+        self::LANGUAGE_ATTR_IMAGE_ALT_TITLE
     ];
 
     /**
@@ -93,6 +89,11 @@ class GalleryImageVideo extends BaseModel
     public function cmsLanguages(): HasMany
     {
         return $this->hasMany(CmsLanguage::class, 'key_id', "id");
+    }
+
+    public function galleryAlbum(): BelongsTo
+    {
+        return $this->belongsTo(GalleryAlbum::class);
     }
 
 }

@@ -32,6 +32,7 @@ class FaqService
         $answerEn = $request['answer_en'] ?? "";
         $rowStatus = $request['row_status'] ?? "";
         $order = $request['order'] ?? "ASC";
+        $isRequestFromClientSide = !empty($request[BaseModel::IS_CLIENT_SITE_RESPONSE_KEY]);
 
         /** Optional Parameters for Pagination */
         $page = $request['page'] ?? "";
@@ -54,6 +55,10 @@ class FaqService
         ]);
 
         $faqBuilder->orderBy('faqs.id', $order);
+
+        if($isRequestFromClientSide){
+            $faqBuilder->active();
+        }
 
         if (is_numeric($showIn)) {
             $faqBuilder->where('faqs.show_in', $showIn);
@@ -270,7 +275,7 @@ class FaqService
         return Validator::make($request->all(), [
             'question' => 'nullable|max:191|min:2',
             'question_en' => 'nullable|max:191|min:2',
-            'answer' => 'nullable|min:500|min:2',
+            'answer' => 'nullable|max:500|min:2',
             'answer_en' => 'nullable|min:500|min:2',
             'show_in' => 'nullable|int|gt:0',
             'institute_id' => 'nullable|int|gt:0',

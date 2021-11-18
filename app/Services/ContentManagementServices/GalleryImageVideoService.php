@@ -4,6 +4,7 @@
 namespace App\Services\ContentManagementServices;
 
 use App\Models\BaseModel;
+use App\Models\GalleryAlbum;
 use App\Models\GalleryImageVideo;
 use App\Services\Common\LanguageCodeService;
 use Carbon\Carbon;
@@ -28,12 +29,14 @@ class GalleryImageVideoService
      */
     public function getGalleryImageVideoList(array $request, $startTime = null): Collection|LengthAwarePaginator|array
     {
-
+        $searchText = $request['search_text'] ?? "";
+        $albumType = $request['album_type'] ?? "";
         $instituteId = $request['institute_id'] ?? "";
         $industryAssociationId = $request['industry_association_id'] ?? "";
         $organizationId = $request['organization_id'] ?? "";
-        $contentTitle = $request['content_title'] ?? "";
-        $contentTitleEN = $request['content_title_en'] ?? "";
+        $galleryAlbumId = $request['gallery_album_id'] ?? "";
+        $title = $request['title'] ?? "";
+        $titleEn = $request['title_en'] ?? "";
         $paginate = $request['page'] ?? "";
         $pageSize = $request['page_size'] ?? "";
         $rowStatus = $request['row_status'] ?? "";
@@ -49,24 +52,23 @@ class GalleryImageVideoService
             'gallery_images_videos.featured',
             'gallery_images_videos.published_at',
             'gallery_images_videos.archived_at',
-            'gallery_images_videos.institute_id',
-            'gallery_images_videos.organization_id',
-            'gallery_images_videos.industry_association_id',
+            'gallery_albums.institute_id',
+            'gallery_albums.organization_id',
+            'gallery_albums.industry_association_id',
             'gallery_images_videos.content_type',
             'gallery_images_videos.video_type',
-            'gallery_images_videos.content_title',
-            'gallery_images_videos.content_title_en',
-            'gallery_images_videos.content_description',
-            'gallery_images_videos.content_description_en',
-            'gallery_images_videos.content_path',
-            'gallery_images_videos.embedded_url',
-            'gallery_images_videos.embedded_id',
+            'gallery_images_videos.title',
+            'gallery_images_videos.title_en',
+            'gallery_images_videos.description',
+            'gallery_images_videos.description_en',
+            'gallery_images_videos.image_path',
+            'gallery_images_videos.video_url',
+            'gallery_images_videos.video_id',
             'gallery_images_videos.content_properties_json',
-            'gallery_images_videos.content_cover_image_url',
-            'gallery_images_videos.content_grid_image_url',
-            'gallery_images_videos.content_thumb_image_url',
-            'gallery_images_videos.alt_title',
-            'gallery_images_videos.alt_title_en',
+            'gallery_images_videos.content_grid_image_path',
+            'gallery_images_videos.content_thumb_image_path',
+            'gallery_images_videos.image_alt_title',
+            'gallery_images_videos.image_alt_title_en',
             'gallery_images_videos.row_status',
             'gallery_images_videos.published_by',
             'gallery_images_videos.archived_by',
@@ -87,20 +89,23 @@ class GalleryImageVideoService
             $galleryImageVideoBuilder->where('gallery_images_videos.row_status', $rowStatus);
         }
         if (is_numeric($instituteId)) {
-            $galleryImageVideoBuilder->where('gallery_images_videos.institute_id', $instituteId);
+            $galleryImageVideoBuilder->where('gallery_albums.institute_id', $instituteId);
+        }
+        if (is_numeric($galleryAlbumId)) {
+            $galleryImageVideoBuilder->where('gallery_images_videos.gallery_album_id', $galleryAlbumId);
         }
         if (is_numeric($industryAssociationId)) {
-            $galleryImageVideoBuilder->where('gallery_images_videos.industry_association_id', $industryAssociationId);
+            $galleryImageVideoBuilder->where('gallery_albums.industry_association_id', $industryAssociationId);
         }
         if (is_numeric($organizationId)) {
-            $galleryImageVideoBuilder->where('gallery_images_videos.organization_id', $organizationId);
+            $galleryImageVideoBuilder->where('gallery_albums.organization_id', $organizationId);
         }
 
-        if (!empty($contentTitle)) {
-            $galleryImageVideoBuilder->where('gallery_images_videos.content_title', 'like', '%' . $contentTitle . '%');
+        if (!empty($title)) {
+            $galleryImageVideoBuilder->where('gallery_images_videos.title', 'like', '%' . $title . '%');
         }
-        if (!empty($contentTitleEN)) {
-            $galleryImageVideoBuilder->where('gallery_images_videos.content_title_en', 'like', '%' . $contentTitleEN . '%');
+        if (!empty($titleEn)) {
+            $galleryImageVideoBuilder->where('gallery_images_videos.title_en', 'like', '%' . $titleEn . '%');
         }
 
         if ($isRequestFromClientSide) {
@@ -108,6 +113,20 @@ class GalleryImageVideoService
             $galleryImageVideoBuilder->where(function ($builder) use ($startTime) {
                 $builder->whereNull('gallery_images_videos.archived_at');
                 $builder->orWhereDate('gallery_images_videos.archived_at', '>=', $startTime);
+            });
+
+            $galleryImageVideoBuilder->active();
+        }
+        if(is_numeric($albumType)){
+            $galleryImageVideoBuilder->where('gallery_albums.album_type','=',$albumType);
+        }
+
+        if (!empty($searchText)) {
+            $galleryImageVideoBuilder->where(function ($builder) use ($searchText) {
+                $builder->orWhere('gallery_images_videos.title', 'like', '%' . $searchText . '%');
+                $builder->orWhere('gallery_images_videos.title_en', 'like', '%' . $searchText . '%');
+                $builder->orWhere('gallery_images_videos.description', 'like', '%' . $searchText . '%');
+                $builder->orWhere('gallery_images_videos.description_en', 'like', '%' . $searchText . '%');
             });
         }
 
@@ -139,24 +158,23 @@ class GalleryImageVideoService
             'gallery_images_videos.featured',
             'gallery_images_videos.published_at',
             'gallery_images_videos.archived_at',
-            'gallery_images_videos.institute_id',
-            'gallery_images_videos.organization_id',
-            'gallery_images_videos.industry_association_id',
+            'gallery_albums.institute_id',
+            'gallery_albums.organization_id',
+            'gallery_albums.industry_association_id',
             'gallery_images_videos.content_type',
             'gallery_images_videos.video_type',
-            'gallery_images_videos.content_title',
-            'gallery_images_videos.content_title_en',
-            'gallery_images_videos.content_description',
-            'gallery_images_videos.content_description_en',
-            'gallery_images_videos.content_path',
-            'gallery_images_videos.embedded_url',
-            'gallery_images_videos.embedded_id',
+            'gallery_images_videos.title',
+            'gallery_images_videos.title_en',
+            'gallery_images_videos.description',
+            'gallery_images_videos.description_en',
+            'gallery_images_videos.image_path',
+            'gallery_images_videos.video_url',
+            'gallery_images_videos.video_id',
             'gallery_images_videos.content_properties_json',
-            'gallery_images_videos.content_cover_image_url',
-            'gallery_images_videos.content_grid_image_url',
-            'gallery_images_videos.content_thumb_image_url',
-            'gallery_images_videos.alt_title',
-            'gallery_images_videos.alt_title_en',
+            'gallery_images_videos.content_grid_image_path',
+            'gallery_images_videos.content_thumb_image_path',
+            'gallery_images_videos.image_alt_title',
+            'gallery_images_videos.image_alt_title_en',
             'gallery_images_videos.row_status',
             'gallery_images_videos.published_by',
             'gallery_images_videos.archived_by',
@@ -264,17 +282,17 @@ class GalleryImageVideoService
                 "regex:/[a-z]/",
                 Rule::in(LanguageCodeService::getLanguageCode())
             ],
-            'content_title' => [
+            'title' => [
                 "required",
                 "string",
                 "max:600",
                 "min:2"
             ],
-            'content_description' => [
+            'description' => [
                 "nullable",
                 "string"
             ],
-            'alt_title' => [
+            'image_alt_title' => [
                 "nullable",
                 "string",
             ]
@@ -304,18 +322,6 @@ class GalleryImageVideoService
                 'int',
                 Rule::in(BaseModel::FEATURED)
             ],
-            'institute_id' => [
-                'nullable',
-                'int'
-            ],
-            'organization_id' => [
-                'nullable',
-                'int'
-            ],
-            'industry_association_id' => [
-                'nullable',
-                'int'
-            ],
             'content_type' => [
                 'required',
                 'int',
@@ -326,7 +332,7 @@ class GalleryImageVideoService
                 'required_if:content_type,' . GalleryImageVideo::CONTENT_TYPE_VIDEO,
                 Rule::in(GalleryImageVideo::VIDEO_TYPES)
             ],
-            'content_title' => [
+            'title' => [
                 'required',
                 'string',
                 'max:600',
@@ -341,7 +347,7 @@ class GalleryImageVideoService
                 'date',
                 'after:published_at'
             ],
-            'content_description' => [
+            'description' => [
                 'nullable',
                 'string'
             ],
@@ -349,39 +355,34 @@ class GalleryImageVideoService
                 'nullable',
                 'array'
             ],
-            'content_path' => [
+            'image_path' => [
                 'nullable',
                 'required_if:content_type,' . GalleryImageVideo::CONTENT_TYPE_IMAGE
             ],
-            'content_cover_image_url' => [
+            'content_grid_image_path' => [
                 'nullable',
                 'string'
             ],
-            'content_grid_image_url' => [
+            'content_thumb_image_path' => [
                 'nullable',
                 'string'
             ],
-            'content_thumb_image_url' => [
+            'image_alt_title' => [
                 'nullable',
                 'string'
             ],
-            'alt_title' => [
-                'nullable',
-                'string'
-            ],
-            'row_status' => [
+            'image_alt_title_en' => [
                 'required_if:' . $id . ',!=,null',
                 Rule::in([BaseModel::ROW_STATUS_ACTIVE, BaseModel::ROW_STATUS_INACTIVE]),
             ]
         ];
-        if (!empty($requestData['video_type']) &&
-            ($requestData['video_type'] == GalleryImageVideo::VIDEO_TYPE_YOUTUBE || $requestData['video_type'] == GalleryImageVideo::VIDEO_TYPE_FACEBOOK)) {
-            $rules['embedded_url'] = [
+        if (!empty($requestData['content_type']) && $requestData['content_type'] == GalleryImageVideo::CONTENT_TYPE_VIDEO && !empty($requestData['video_type'])) {
+            $rules['video_url'] = [
                 'required',
                 'string',
                 'max:800'
             ];
-            $rules['embedded_id'] = [
+            $rules['video_id'] = [
                 'required',
                 'max:300'
             ];
@@ -410,11 +411,21 @@ class GalleryImageVideoService
         return Validator::make($request->all(), [
             'institute_id' => 'nullable|integer|gt:0',
             'industry_association_id' => 'nullable|integer|gt:0',
+            'gallery_album_id' => 'nullable|integer|gt:0',
             'organization_id' => 'nullable|integer|gt:0',
-            'content_title' => 'nullable|max:500|min:2',
-            'content_title_en' => 'nullable|max:250|min:2',
+            'title' => 'nullable|max:500|min:2',
+            'title_en' => 'nullable|max:250|min:2',
             'page_size' => 'nullable|integer|gt:0',
             'page' => 'nullable|integer|gt:0',
+            'album_type' => [
+                'nullable',
+                'integer',
+                Rule::in(GalleryAlbum::GALLERY_ALBUM_TYPES)
+            ],
+            'search_text' => [
+                'nullable',
+                'string'
+            ],
             'order' => [
                 'string',
                 Rule::in([BaseModel::ROW_ORDER_ASC, BaseModel::ROW_ORDER_DESC])

@@ -29,7 +29,7 @@ class RecentActivityFactory extends Factory
             'description_en' => $this->faker->sentence(40),
             'description' => $this->faker->sentence(40),
             'content_type' => $contentType,
-            "content_path" => $content_path,
+            "image_path" => $content_path,
             "content_properties" => $this->faker->sentence()
         ];
     }

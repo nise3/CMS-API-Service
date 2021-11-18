@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Banner;
 use App\Models\BaseModel;
 use App\Models\Slider;
 use App\Services\ContentManagementServices\CmsLanguageService;
@@ -22,37 +23,39 @@ class SliderResource extends JsonResource
         $response = [
             "id" => $this->id,
             "show_in" => $this->show_in,
+            "title" => $this->title,
             "show_in_label" => BaseModel::SHOW_INS[$this->show_in],
-            "institute_id" => $this->institute_id,
-            "organization_id" => $this->organization_id,
+            "industry_association_id" => $this->industry_association_id,
             "institute_title" => $request->get(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID)[BaseModel::INSTITUTE_SERVICE][$this->institute_id]['title'] ?? "",
             "institute_title_en" => $request->get(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID)[BaseModel::INSTITUTE_SERVICE][$this->institute_id]['title_en'] ?? "",
             "organization_title" => $request->get(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID)[BaseModel::ORGANIZATION_SERVICE][$this->organization_id]['title'] ?? "",
             "organization_title_en" => $request->get(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID)[BaseModel::ORGANIZATION_SERVICE][$this->organization_id]['title_en'] ?? "",
-            "industry_association_id" => $this->industry_association_id,
-            "is_button_available" => $this->is_button_available,
-            "link" => $this->link,
-            "slider_images" => $this->slider_images,
+            "institute_id" => $this->institute_id,
+            "organization_id" => $this->organization_id,
         ];
 
         if ($request->offsetExists(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY) && $request->get(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY)) {
-            $response['title'] = app(CmsLanguageService::class)->getLanguageValue($this, Slider::SLIDER_LANGUAGE_ATTR_TITLE);
-            $response['sub_title'] = app(CmsLanguageService::class)->getLanguageValue($this, Slider::SLIDER_LANGUAGE_ATTR_SUB_TITLE);
-            $response['button_text'] = app(CmsLanguageService::class)->getLanguageValue($this, Slider::SLIDER_LANGUAGE_ATTR_BUTTON_TEXT);
-            $response['alt_title'] = app(CmsLanguageService::class)->getLanguageValue($this, Slider::SLIDER_LANGUAGE_ATTR_ALT_TITLE);
-        } else {
-            $response['title'] = $this->title;
-            $response['sub_title'] = $this->sub_title;
-            $response['alt_title'] = $this->alt_title;
-            $response['button_text'] = $this->button_text;
+            $response['banners'] = $this->banners;
 
-            if (!$request->get(BaseModel::IS_COLLECTION_KEY)) {
-                $response[BaseModel::OTHER_LANGUAGE_FIELDS_KEY] = CmsLanguageService::otherLanguageResponse($this);
+            /** Change Banners Language Fillable fields value as per ACCEPT_LANGUAGE header field value */
+            if($this->banners && is_array(json_decode(json_encode($this->banners))) && count(json_decode(json_encode($this->banners))) > 0){
+                foreach ($response['banners'] as $banner){
+                    if(!empty($banner->title)){
+                        $banner->title = app(CmsLanguageService::class)->getLanguageValue(new BannerResource($banner), Banner::BANNER_LANGUAGE_ATTR_TITLE);
+                    }
+                    if(!empty($banner->sub_title)){
+                        $banner->sub_title = app(CmsLanguageService::class)->getLanguageValue(new BannerResource($banner), Banner::BANNER_LANGUAGE_ATTR_SUB_TITLE);
+                    }
+                    if(!empty($banner->image_alt_title)){
+                        $banner->image_alt_title = app(CmsLanguageService::class)->getLanguageValue(new BannerResource($banner), Banner::BANNER_LANGUAGE_ATTR_IMAGE_ALT_TITLE);
+                    }
+                    if(!empty($banner->button_text)){
+                        $banner->button_text = app(CmsLanguageService::class)->getLanguageValue(new BannerResource($banner), Banner::BANNER_LANGUAGE_ATTR_BUTTON_TEXT);
+                    }
+                }
             }
         }
 
-        $response["banner_template_code"] = $this->banner_template_code;
-        $response["banner_template"] = config("nise3.banner_template." . $this->banner_template_code);
         $response['row_status'] = $this->row_status;
         $response['created_by'] = $this->created_by;
         $response['updated_by'] = $this->updated_by;

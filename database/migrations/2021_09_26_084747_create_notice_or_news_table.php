@@ -36,7 +36,7 @@ class CreateNoticeOrNewsTable extends Migration
             $table->text('details')->nullable();
             $table->text('details_en')->nullable();
 
-            $table->string('main_image_path')->nullable();
+            $table->string('main_image_path');
             $table->string('grid_image_path')->nullable();
             $table->string('thumb_image_path')->nullable();
 

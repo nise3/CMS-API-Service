@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use App\Models\BaseModel;
 use App\Models\Faq;
-use App\Models\Slider;
+use App\Models\Banner;
 use App\Services\ContentManagementServices\CmsLanguageService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;

@@ -31,14 +31,14 @@ class CreateRecentActivitiesTable extends Migration
             $table->unsignedTinyInteger('content_type')
                 ->comment("1 => Image, 2 => Facebook source, 3 => Youtube Source")->nullable();
 
-            $table->string('content_path', 800)->nullable();
-            $table->string('embedded_url', 800)->nullable();
-            $table->string('embedded_id', 300)->nullable();
+            $table->string('image_path', 800)->nullable();
+            $table->string('video_url', 800)->nullable();
+            $table->string('video_id', 300)->nullable();
             $table->string("content_properties", 300)->nullable();
 
             $table->string('collage_image_path', 600)->nullable()->comment('Main Image');
-            $table->string('collage_position')->nullable()
-                ->comment('Available Values: [1.1, 1.2.1, 1.2.2.1, 1.2.2.2]');
+            $table->unsignedTinyInteger('collage_position')->nullable()
+                ->comment('1=> Left, 2=> Right Top, 3=> Right Bottom Left, 4=> Right Bottom Right');
             $table->string('thumb_image_path', 600)->nullable();
             $table->string('grid_image_path', 600)->nullable()->comment('List or Grid Image');
 

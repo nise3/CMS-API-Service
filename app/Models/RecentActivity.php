@@ -3,6 +3,7 @@
 namespace App\Models;
 
 
+use App\Traits\Scopes\ScopeRowStatusTrait;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -22,9 +23,9 @@ use Illuminate\Support\Collection;
  * @property string $title
  * @property string|null $title_en
  * @property int $content_type
- * @property string|null content_path
- * @property string|null embedded_url
- * @property string|null embedded_id
+ * @property string|null image_path
+ * @property string|null video_url
+ * @property string|null video_id
  * @property string|null content_properties
  * @property string|null collage_image_path
  * @property string|null collage_position
@@ -47,7 +48,7 @@ use Illuminate\Support\Collection;
 class RecentActivity extends BaseModel
 {
 
-    use SoftDeletes, HasFactory;
+    use SoftDeletes, HasFactory, ScopeRowStatusTrait;
 
     public const CONTENT_TYPE_IMAGE = 1;
     public const CONTENT_TYPE_FACEBOOK_VIDEO = 2;
@@ -70,17 +71,17 @@ class RecentActivity extends BaseModel
         self::LANGUAGE_ATTR_DESCRIPTION,
     ];
 
-    public const COLLAGE_POSITIONS_FIRST_ROW_FIRST_COLUMN = '1.1';
-    public const COLLAGE_POSITIONS_FIRST_ROW_SECOND_COLUMN_FIRST_COLUMN = '1.2.1';
-    public const COLLAGE_POSITIONS_FIRST_ROW_SECOND_COLUMN_SECOND_ROW_FIRST_COLUMN = '1.2.2.1';
-    public const COLLAGE_POSITIONS_FIRST_ROW_SECOND_COLUMN_SECOND_ROW_SECOND_COLUMN = '1.2.2.2';
+    public const COLLAGE_POSITIONS_LEFT = 1;
+    public const COLLAGE_POSITIONS_RIGHT_TOP = 2;
+    public const COLLAGE_POSITIONS_RIGHT_BOTTOM_LEFT = 3;
+    public const COLLAGE_POSITIONS_RIGHT_BOTTOM_RIGHT = 4;
 
 
     public const AVAILABLE_COLLAGE_POSITIONS = [
-        self::COLLAGE_POSITIONS_FIRST_ROW_FIRST_COLUMN,
-        self::COLLAGE_POSITIONS_FIRST_ROW_SECOND_COLUMN_FIRST_COLUMN,
-        self::COLLAGE_POSITIONS_FIRST_ROW_SECOND_COLUMN_SECOND_ROW_FIRST_COLUMN,
-        self::COLLAGE_POSITIONS_FIRST_ROW_SECOND_COLUMN_SECOND_ROW_SECOND_COLUMN
+        self::COLLAGE_POSITIONS_LEFT,
+        self::COLLAGE_POSITIONS_RIGHT_TOP,
+        self::COLLAGE_POSITIONS_RIGHT_BOTTOM_LEFT,
+        self::COLLAGE_POSITIONS_RIGHT_BOTTOM_RIGHT
     ];
     protected $guarded = BaseModel::COMMON_GUARDED_FIELDS_SIMPLE_SOFT_DELETE;
     protected $table = 'recent_activities';

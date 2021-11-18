@@ -36,9 +36,9 @@ class RecentActivityResource extends JsonResource
             "industry_association_id" => $this->industry_association_id,
             "title" => $this->title,
             "content_type" => $this->content_type,
-            "content_path" => $this->content_path,
-            "embedded_url" => $this->embedded_url,
-            "embedded_id" => $this->embedded_id,
+            "image_path" => $this->image_path,
+            "video_url" => $this->video_url,
+            "video_id" => $this->video_id,
             "content_properties" => $this->content_properties,
 
             "collage_image_path" => $this->collage_image_path,
