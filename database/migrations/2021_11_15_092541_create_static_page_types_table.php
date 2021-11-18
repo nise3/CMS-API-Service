@@ -15,9 +15,10 @@ class CreateStaticPageTypesTable extends Migration
     {
         Schema::create('static_page_types', function (Blueprint $table) {
             $table->id();
-            $table->string('title',500);
-            $table->string('title_en',250)->nullable();
-            $table->string('page_code',300);
+            $table->string('title', 500);
+            $table->string('title_en', 250)->nullable();
+            $table->unsignedTinyInteger('category')->comment('1=>Common,2=>Nise3, 3=> Youth, 4=>TSP, 5=>Industry, 6=>Industry Association');;
+            $table->string('page_code', 300);
             $table->unsignedTinyInteger('type')->comment("1=>Page Block, 2=>Static Page");
             $table->timestamps();
         });
