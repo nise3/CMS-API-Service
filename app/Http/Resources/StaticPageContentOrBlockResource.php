@@ -39,6 +39,7 @@ class StaticPageContentOrBlockResource extends JsonResource
         if($this->type == StaticPageType::TYPE_PAGE_BLOCK){
             $response['attachment_type'] = $this->attachment_type;
             $response['template_code'] = $this->template_code;
+            $response["static_page_block_template"] = config("nise3.page_block_template." . $this->template_code);
             $response['is_button_available'] = $this->is_button_available;
             $response['link'] = $this->link;
             $response['is_attachment_available'] = $this->is_attachment_available;
