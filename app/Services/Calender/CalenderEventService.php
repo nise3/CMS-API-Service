@@ -11,7 +11,6 @@ use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Symfony\Component\HttpFoundation\Response;
@@ -243,6 +242,24 @@ class CalenderEventService
         $calenderEvent->color = BaseModel::CALENDER_DEFAULT_COLOR;
 
         $calenderEvent->save();
+
+        return $calenderEvent;
+    }
+
+    public function updateEventAfterBatchUpdate(array $data, int $batchId)
+    {
+
+        $calenderEvent = CalenderEvent::findOrFail($batchId);
+
+        $calenderEvent->title = $data['title'];
+        $calenderEvent->title_en = $data['title_en'];
+        $calenderEvent->training_center_id = $data['training_center_id'];
+        $calenderEvent->institute_id = $data['institute_id'];
+        $calenderEvent->start_date = $data['batch_start_date'];
+        $calenderEvent->end_date = $data['batch_end_date'];
+        $calenderEvent->color = BaseModel::CALENDER_DEFAULT_COLOR;
+        $calenderEvent->save();
+
 
         return $calenderEvent;
     }

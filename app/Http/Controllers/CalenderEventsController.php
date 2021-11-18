@@ -7,6 +7,7 @@ use App\Services\Calender\CalenderEventService;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
@@ -161,6 +162,21 @@ class CalenderEventsController extends Controller
                 "success" => true,
                 "code" => ResponseAlias::HTTP_CREATED,
                 "message" => "Calender event added successfully",
+                "query_time" => $this->startTime->diffInSeconds(Carbon::now())
+            ]
+        ];
+        return Response::json($response, ResponseAlias::HTTP_CREATED);
+    }
+
+    public function updateEventAfterBatchUpdate(Request $request, int $batchId): JsonResponse
+    {
+        $calenderEvent = $this->calenderEventService->updateEventAfterBatchUpdate($request->toArray(),$batchId);
+        $response = [
+            'data' => $calenderEvent,
+            '_response_status' => [
+                "success" => true,
+                "code" => ResponseAlias::HTTP_CREATED,
+                "message" => "Calender event updated successfully",
                 "query_time" => $this->startTime->diffInSeconds(Carbon::now())
             ]
         ];
