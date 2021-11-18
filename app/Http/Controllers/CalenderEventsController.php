@@ -7,6 +7,7 @@ use App\Services\Calender\CalenderEventService;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
@@ -121,6 +122,27 @@ class CalenderEventsController extends Controller
     {
         $calenderEvent = CalenderEvent::findOrFail($id);
         $this->calenderEventService->destroy($calenderEvent);
+        $response = [
+            '_response_status' => [
+                "success" => true,
+                "code" => ResponseAlias::HTTP_OK,
+                "message" => "Calender Event deleted successfully",
+                "query_time" => $this->startTime->diffInSeconds(Carbon::now()),
+            ]
+        ];
+        return Response::json($response, ResponseAlias::HTTP_OK);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     * @param int $batchId
+     * @return JsonResponse
+     */
+    public function calenderEventDestroyByBatchId(int $id): JsonResponse
+    {
+        dd($id);
+        Log::info('batchId' . $batchId);
+        $this->calenderEventService->destroyByBatchId($batchId);
         $response = [
             '_response_status' => [
                 "success" => true,

@@ -66,7 +66,7 @@ class CalenderEventService
             $now = CarbonImmutable::now();
             if ($type == CalenderEvent::CALENDER_TYPE_YEAR) {
                 $year = $year ?: $now->year;
-                $calenderEventsBuilder->where(function ($builder) use ($year){
+                $calenderEventsBuilder->where(function ($builder) use ($year) {
                     $builder->whereYear('start_date', $year)->orWhereYear('end_date', $year);
                 });
 
@@ -76,22 +76,22 @@ class CalenderEventService
 
                 $startDate = Carbon::createFromDate($year, $month)->startOfMonth();
                 $endDate = Carbon::createFromDate($year, $month)->endOfMonth();
-                $calenderEventsBuilder->where(function ($builder) use ($startDate,$endDate){
+                $calenderEventsBuilder->where(function ($builder) use ($startDate, $endDate) {
                     $builder->whereBetween('start_date', [$startDate, $endDate])->orWhereBetween('end_date', [$startDate, $endDate]);
                 });
 
             } elseif ($type == CalenderEvent::CALENDER_TYPE_DAY) {
                 $date = $date ?: $now;
-                $calenderEventsBuilder->where(function ($builder) use ($date){
+                $calenderEventsBuilder->where(function ($builder) use ($date) {
                     $builder->whereDate('start_date', $date)->orWhereDate('end_date', $date);
                 });
 
             } elseif ($type == CalenderEvent::CALENDER_TYPE_WEEK) {
-                $date =  $date ? CarbonImmutable::createFromDate($date) : $now;
+                $date = $date ? CarbonImmutable::createFromDate($date) : $now;
 
                 $fromDate = $date->startOfWeek();
                 $toDate = $date->endOfWeek();
-                $calenderEventsBuilder->where(function ($builder) use ($fromDate,$toDate){
+                $calenderEventsBuilder->where(function ($builder) use ($fromDate, $toDate) {
                     $builder->whereBetween('start_date', [$fromDate, $toDate])->orWhereBetween('end_date', [$fromDate, $toDate]);
                 });
 
@@ -99,7 +99,7 @@ class CalenderEventService
 
                 $fromDate = $fromDate ?: $now->startOfMonth();
                 $toDate = $toDate ?: $now->endOfMonth();
-                $calenderEventsBuilder->where(function ($builder) use ($fromDate, $toDate){
+                $calenderEventsBuilder->where(function ($builder) use ($fromDate, $toDate) {
                     $builder->whereBetween('start_date', [$fromDate, $toDate])->orWhereBetween('end_date', [$fromDate, $toDate]);
                 });
             }
@@ -225,6 +225,15 @@ class CalenderEventService
     {
         $calenderEvent->deleteOrFail();
         return true;
+    }
+
+    /**
+     * @param int $batchId
+     * @return bool
+     */
+    public function destroyByBatchId(int $batchId): bool
+    {
+        return CalenderEvent::where('batch_id', $batchId)->delete();
     }
 
     /**

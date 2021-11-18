@@ -76,6 +76,13 @@ $router->group(['prefix' => 'api/v1', 'as' => 'api.v1'], function () use ($route
     /** calender */
     $customRouter()->resourceRoute('calender-events', 'CalenderEventsController')->render();
 
+    $router->delete('delete-calender-event-by-batch-id/{id}',
+        [
+            "as" => "calender-events.delete-calender-event-by-batch-id",
+            "uses" => "CalenderEventsController@calenderEventDestroyByBatchId"
+        ]
+    );
+
     /** Language Field Remove From CsmLanguage Table */
     $router->post('delete-other-language',
         [
