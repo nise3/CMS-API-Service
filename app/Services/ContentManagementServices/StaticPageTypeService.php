@@ -50,7 +50,7 @@ class StaticPageTypeService
             $staticPageTypesBuilder->where('static_page_types.title', 'like', '%' . $title . '%');
         }
         if (!empty($category)) {
-            $staticPageTypesBuilder->whereIn('static_page_types.category', '=', $category);
+            $staticPageTypesBuilder->whereIn('static_page_types.category',$category);
         }
 
         /** @var StaticPageType $staticPageTypes */
