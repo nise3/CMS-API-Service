@@ -6030,12 +6030,17 @@
                 "in": "query",
                 "required": false,
                 "description": "1=>Common,2=>Nise3, 3=> Youth, 4=>TSP, 5=>Industry",
-                "schema": {
-                    "type": "array",
-                    "items": {
-                        "type": "integer"
+                "content": {
+                    "multipart/form-data": {
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer"
+                            }
+                        }
                     }
                 }
+
             },
             "album_type": {
                 "name": "album_type",
