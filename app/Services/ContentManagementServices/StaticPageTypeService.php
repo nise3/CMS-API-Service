@@ -21,7 +21,7 @@ class StaticPageTypeService
      */
     public function getStaticPageTypeList(array $request): Collection|LengthAwarePaginator|array
     {
-        $category = $request['category'] ?? " ";
+        $category = $request['category'] ?? [];
         $titleEn = $request['title_en'] ?? "";
         $title = $request['title'] ?? "";
         $order = $request["order"] ?? "ASC";
@@ -49,8 +49,8 @@ class StaticPageTypeService
         if (!empty($title)) {
             $staticPageTypesBuilder->where('static_page_types.title', 'like', '%' . $title . '%');
         }
-        if (is_numeric($category)) {
-            $staticPageTypesBuilder->where('static_page_types.category', '=', $category);
+        if (!empty($category)) {
+            $staticPageTypesBuilder->whereIn('static_page_types.category', '=', $category);
         }
 
         /** @var StaticPageType $staticPageTypes */
@@ -96,13 +96,18 @@ class StaticPageTypeService
         if (!empty($request['order'])) {
             $request['order'] = strtoupper($request['order']);
         }
+        if ($request->filled('category')) {
+            $category = is_array($request->get('category')) ? $request->get('category') : explode(',', $request->get('category'));
+            $request->offsetSet('category', $category);
+        }
         $customMessage = [
             "order.in" => 'The :attribute must be within ASC or DESC.[30000]'
         ];
 
         $rules = [
             "title" => "nullable",
-            "category" => 'nullable|gt:0',
+            "category" => 'nullable|array',
+            "category.*" => 'nullable|integer',
             "title_en" => "nullable",
             'page' => 'numeric|gt:0',
             'page_size' => 'numeric|gt:0',
