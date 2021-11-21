@@ -340,11 +340,11 @@ class CalenderEventService
             ],
             'start_time' => [
                 'nullable',
-                'date_format:H:i'
+                'date_format:H:i:s'
             ],
             'end_time' => [
                 'nullable',
-                'date_format:H:i'
+                'date_format:H:i:s'
             ],
             'color' => [
                 'nullable',
