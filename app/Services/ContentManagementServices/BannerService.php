@@ -47,6 +47,7 @@ class BannerService
             'banners.link',
             'banners.image_alt_title',
             'banners.banner_template_code',
+            'banners.banner_image_path',
             'banners.row_status',
             'banners.created_by',
             'banners.updated_by',
