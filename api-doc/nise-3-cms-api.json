@@ -4270,6 +4270,9 @@
                         }
                     },
                     {
+                        "$ref": "#/components/parameters/training_center_id"
+                    },
+                    {
                         "name": "organization_id",
                         "in": "query",
                         "required": false,
@@ -6064,6 +6067,14 @@
             }
         },
         "parameters": {
+            "training_center_id": {
+                "name": "training_center_id",
+                "in": "query",
+                "required": false,
+                "schema": {
+                    "type": "integer"
+                }
+            },
             "category": {
                 "name": "category",
                 "in": "query",
