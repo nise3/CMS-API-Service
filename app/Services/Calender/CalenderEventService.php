@@ -13,7 +13,6 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
-use phpDocumentor\Reflection\DocBlock\Description;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
@@ -123,7 +122,7 @@ class CalenderEventService
             $calenderEventsBuilder->where('calender_events.institute_id', $instituteId);
         }
 
-        if (!is_numeric($trainingCenterId)) {
+        if (is_numeric($trainingCenterId)) {
             $calenderEventsBuilder->where('calender_events.training_center_id', $trainingCenterId);
         }
 
