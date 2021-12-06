@@ -35,6 +35,7 @@ class CalenderEventService
         $toDate = $request['to_date'] ?? "";
         $youthId = $request['youth_id'] ?? "";
         $instituteId = $request['institute_id'] ?? "";
+        $trainingCenterId = $request['training_center_id'] ?? "";
         $organizationId = $request['organization_id'] ?? "";
         $batchId = $request['batch_id'] ?? "";
         $industryAssociationId = $request['industry_association_id'] ?? "";
@@ -120,6 +121,10 @@ class CalenderEventService
 
         if (!empty($instituteId)) {
             $calenderEventsBuilder->where('calender_events.institute_id', $instituteId);
+        }
+
+        if (!is_numeric($trainingCenterId)) {
+            $calenderEventsBuilder->where('calender_events.training_center_id', $trainingCenterId);
         }
 
         if (!empty($batchId)) {
@@ -403,6 +408,10 @@ class CalenderEventService
                 'int'
             ],
             'institute_id' => [
+                'nullable',
+                'int'
+            ],
+            'training_center_id' => [
                 'nullable',
                 'int'
             ],
