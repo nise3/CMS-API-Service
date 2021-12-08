@@ -113,4 +113,6 @@ abstract class BaseModel extends Model
     public const GET_ORGANIZATION_TITLE_BY_ID_HTTP_CLIENT_ENDPOINT = "get-organization-title-by-ids";
 
     public const CALENDER_DEFAULT_COLOR = '#7db91c';
+
+    public const SELF_EXCHANGE = 'cms';
 }
