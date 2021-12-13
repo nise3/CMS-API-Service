@@ -234,16 +234,13 @@ class CalenderEventService
 
     public function createEventAfterBatchAssign(array $data): CalenderEvent
     {
-        $batch = $data['batch'];
-        $youth_id = $data['youth_id'];
-
         $calenderEvent = app()->make(CalenderEvent::class);
-        $calenderEvent->title = $batch['title'];
-        $calenderEvent->title_en = $batch['title_en'];
-        $calenderEvent->youth_id = $youth_id;
-        $calenderEvent->batch_id = $batch['id'];
-        $calenderEvent->start_date = $batch['batch_start_date'];
-        $calenderEvent->end_date = $batch['batch_end_date'];
+        $calenderEvent->title = $data['batch_title'];
+        $calenderEvent->title_en = $data['batch_title_en'];
+        $calenderEvent->youth_id = $data['youth_id'];
+        $calenderEvent->batch_id = $data['batch_id'];
+        $calenderEvent->start_date = $data['batch_start_date'];
+        $calenderEvent->end_date = $data['batch_end_date'];
         $calenderEvent->color = BaseModel::CALENDER_DEFAULT_COLOR;
 
         $calenderEvent->save();

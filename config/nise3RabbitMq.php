@@ -37,7 +37,13 @@ return [
                     'binding' => 'institute.course.enrollment',
                     'durable' => true,
                     'autoDelete' => false
-                ]
+                ],
+                'batchCalender' => [
+                    'name' => 'institute.batch.calender.q',
+                    'binding' => 'institute.batch.calender',
+                    'durable' => true,
+                    'autoDelete' => false
+                ],
             ],
         ],
         'organization' => [

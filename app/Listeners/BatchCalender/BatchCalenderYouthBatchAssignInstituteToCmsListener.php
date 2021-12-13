@@ -2,6 +2,8 @@
 
 namespace App\Listeners\BatchCalender;
 
+use App\Events\BatchCalender\BatchCalenderBatchAssignRollbackEvent;
+use App\Events\BatchCalender\BatchCalenderBatchAssignSuccessEvent;
 use App\Facade\RabbitMQFacade;
 use App\Models\BaseModel;
 use App\Services\Calender\CalenderEventService;
@@ -30,6 +32,7 @@ class BatchCalenderYouthBatchAssignInstituteToCmsListener implements ShouldQueue
         if (!$alreadyConsumed) {
             $eventData = json_decode(json_encode($event), true);
             $data = $eventData['data'] ?? [];
+            Log::info($data);
 
             try {
                 $this->calenderEventService->createEventAfterBatchAssign($data);
@@ -41,6 +44,9 @@ class BatchCalenderYouthBatchAssignInstituteToCmsListener implements ShouldQueue
                     get_class($this),
                     json_encode($data)
                 );
+                /** Trigger EVENT to Institute Service via RabbitMQ */
+                event(new BatchCalenderBatchAssignSuccessEvent($data));
+
             } catch (\Exception $e) {
                 /** Store the event as an Error event into Database */
                 $this->rabbitMQService->sagaErrorEvent(
@@ -50,7 +56,10 @@ class BatchCalenderYouthBatchAssignInstituteToCmsListener implements ShouldQueue
                     json_encode($data),
                     $e
                 );
+
+                /** Trigger EVENT to Institute Service via RabbitMQ */
                 $data['publisher_service'] = BaseModel::SAGA_CMS_SERVICE;
+                event(new BatchCalenderBatchAssignRollbackEvent($data));
 
             }
         }
