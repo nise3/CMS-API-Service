@@ -36,12 +36,12 @@ class AuthTokenUtilityHandler
      */
     public function getIdpServerUserTypeFromToken($data, bool $verify = false): mixed
     {
-        dd('getIdpServerUserTypeFromToken');
         $sections = explode('.', $data);
 
         throw_if((count($sections) < 3), AuthenticationException::class, 'Invalid number of sections of Auth Tokens (<3)', Response::HTTP_BAD_REQUEST);
 
         list($header, $claims, $signature) = $sections;
+
 
         preg_match("/['\"]userType['\"]:['\"](.*?)['\"][,]/", base64_decode($claims), $matches);
 

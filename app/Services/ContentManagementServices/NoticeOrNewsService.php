@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
@@ -28,6 +29,8 @@ class NoticeOrNewsService
      */
     public function getNoticeOrNewsServiceList(array $request, $startTime = null): Collection|LengthAwarePaginator|array
     {
+        $authUser = Auth::user();
+        dd($authUser->isIndustryAssociationUser());
         $searchText = $request['search_text'] ?? "";
         $titleEn = $request['title_en'] ?? "";
         $titleBn = $request['title'] ?? "";
