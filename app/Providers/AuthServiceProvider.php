@@ -88,7 +88,7 @@ class AuthServiceProvider extends ServiceProvider
 
                 Log::info("userInfoWithIdpId:" . json_encode($authUser));
             }
-            dd($authUser);
+            //dd($authUser);
             return $authUser;
         });
     }
