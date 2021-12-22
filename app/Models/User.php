@@ -22,6 +22,7 @@ use Laravel\Lumen\Auth\Authorizable;
  * @property int $user_type
  * @property int organization_id
  * @property int institute_id
+ * @property int industry_association_id
  * @property int loc_division_id
  * @property int loc_district_id
  * @property int loc_upazila_id
@@ -65,6 +66,26 @@ class User extends BaseModel implements
         }
 
         return $this->permissions->contains($key);
+    }
+
+    public function isSystemUser(): bool
+    {
+        return $this->user_type == BaseModel::SYSTEM_USER;
+    }
+
+    public function isOrganizationUser(): bool
+    {
+        return $this->user_type == BaseModel::ORGANIZATION_USER && $this->organization_id;
+    }
+
+    public function isInstituteUser(): bool
+    {
+        return $this->user_type == BaseModel::INSTITUTE_USER && $this->institute_id;
+    }
+
+    public function isIndustryAssociationUser(): bool
+    {
+        return $this->user_type == BaseModel::INDUSTRY_ASSOCIATION_USER && $this->industry_association_id;
     }
 
 }

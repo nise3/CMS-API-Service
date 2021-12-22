@@ -4,8 +4,10 @@ namespace App\Providers;
 
 use App\Facade\AuthTokenUtility;
 use App\Facade\ServiceToServiceCall;
+use App\Models\BaseModel;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Youth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
@@ -66,10 +68,12 @@ class AuthServiceProvider extends ServiceProvider
             $authUser = null;
             $idpServerUserId = AuthTokenUtility::getIdpServerIdFromToken($token);
             $idpServerUserType = AuthTokenUtility::getIdpServerUserTypeFromToken($token);
+
             Log::info("Auth idp user id-->" . $idpServerUserId);
 
-            if ($idpServerUserId) {
+            if ($idpServerUserId && $idpServerUserType != BaseModel::YOUTH_USER_TYPE) { //for non youth user fetch auth user from core service
                 $userWithRolePermission = ServiceToServiceCall::getAuthUserWithRolePermission($idpServerUserId);
+
                 if ($userWithRolePermission) {
                     $role = app(Role::class);
                     if (isset($userWithRolePermission['role'])) {
@@ -87,8 +91,14 @@ class AuthServiceProvider extends ServiceProvider
                 }
 
                 Log::info("userInfoWithIdpId:" . json_encode($authUser));
+
+            }elseif ($idpServerUserId && $idpServerUserType == BaseModel::YOUTH_USER_TYPE) { //for youth user fetch auth user from youth service
+                $youth = ServiceToServiceCall::getAuthYouthUser($idpServerUserId);
+                if ($youth) {
+                    $authUser = new Youth($youth);
+                }
             }
-            //dd($authUser);
+
             return $authUser;
         });
     }
