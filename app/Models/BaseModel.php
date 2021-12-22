@@ -3,6 +3,7 @@
 namespace App\Models;
 
 
+use App\Traits\Scopes\ScopeAcl;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 abstract class BaseModel extends Model
 {
-    use HasFactory;
+    use HasFactory, ScopeAcl;
 
     /**User Type*/
     public const SYSTEM_USER = 1;

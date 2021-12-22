@@ -52,13 +52,13 @@ class Authenticate
             /** @var User $authUser */
             $authUser = Auth::user();
             if ($authUser instanceof User) { //Backend Users
-                if ($authUser->user_type == BaseModel::INSTITUTE_USER && $authUser->institute_id) {
+                if ($authUser->isInstituteUser()) {
                     $request->offsetSet('institute_id', $authUser->institute_id);
                     $request->offsetSet('show_in', BaseModel::SHOW_IN_TSP);
-                } else if ($authUser->user_type == BaseModel::ORGANIZATION_USER && $authUser->organization_id) {
+                } else if ($authUser->isOrganizationUser()) {
                     $request->offsetSet('organization_id', $authUser->organization_id);
                     $request->offsetSet('show_in', BaseModel::SHOW_IN_INDUSTRY);
-                } else if ($authUser->user_type == BaseModel::INDUSTRY_ASSOCIATION_USER && $authUser->industry_association_id) {
+                } else if ($authUser->isIndustryAssociationUser()) {
                     $request->offsetSet('industry_association_id', $authUser->industry_association_id);
                     $request->offsetSet('show_in', BaseModel::SHOW_IN_INDUSTRY_ASSOCIATION);
                 }
@@ -66,7 +66,6 @@ class Authenticate
                 $request->offsetSet('youth_id', $authUser->id);
                 $request->offsetSet('show_in', BaseModel::SHOW_IN_YOUTH);
             }
-
         }
 
         return $next($request);
