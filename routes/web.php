@@ -31,9 +31,6 @@ $router->group(['prefix' => 'api/v1', 'as' => 'api.v1'], function () use ($route
     $customRouter()->resourceRoute('districts', 'LocDistrictController')->render();
     $customRouter()->resourceRoute('upazilas', 'LocUpazilaController')->render();
 
-    /** calender */
-    $customRouter()->resourceRoute('calender-events', 'CalenderEventsController')->render();
-
     /** Auth routes */
     $router->group(['middleware' => 'auth'], function () use ($customRouter, $router) {
         $customRouter()->resourceRoute('nise3-partners', 'Nise3PartnerController')->render();
@@ -49,6 +46,7 @@ $router->group(['prefix' => 'api/v1', 'as' => 'api.v1'], function () use ($route
         $customRouter()->resourceRoute('faqs', 'FaqController')->render();
         $customRouter()->resourceRoute('visitor-feedback-suggestions', 'VisitorFeedbackSuggestionController')->render();
         $customRouter()->resourceRoute('static-page-types', 'StaticPageTypeController')->render();
+        $customRouter()->resourceRoute('calender-events', 'CalenderEventsController')->render();
 
         /** publish or archive  */
         $router->put('gallery-albums/publish-or-archive/{id}', ["as" => "gallery.albums.publish.archive", "uses" => "GalleryAlbumController@publishOrArchive"]);
