@@ -39,7 +39,6 @@ class SliderService
             'sliders.institute_id',
             'sliders.industry_association_id',
             'sliders.row_status',
-            'sliders.row_status',
             'sliders.created_by',
             'sliders.updated_by',
             'sliders.created_at',
