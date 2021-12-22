@@ -61,7 +61,9 @@ class CalenderEventService
             'calender_events.color',
             'calender_events.created_at',
             'calender_events.updated_at'
-        ]);
+
+        ])->acl();
+
         $calenderEventsBuilder->orderBy('calender_events.id', $order);
 
         if ($type) {

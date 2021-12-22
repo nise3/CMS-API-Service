@@ -44,7 +44,8 @@ class SliderService
             'sliders.updated_by',
             'sliders.created_at',
             'sliders.updated_at'
-        ]);
+
+        ])->acl();
 
         $sliderBuilder->orderBy('sliders.id', $order);
         if (is_numeric($instituteId)) {

@@ -40,7 +40,7 @@ class BannerService
             'sliders.organization_id',
             'sliders.institute_id',
             'sliders.industry_association_id',
-           'sliders.title as slider_title',
+            'sliders.title as slider_title',
             'banners.title',
             'banners.sub_title',
             'banners.is_button_available',
@@ -55,7 +55,8 @@ class BannerService
             'banners.created_at',
             'banners.updated_at',
 
-        ]);
+        ])->acl();
+
         $bannerBuilder->join('sliders', function ($join) {
             $join->on('banners.slider_id', '=', 'sliders.id')
                 ->whereNull('sliders.deleted_at');
