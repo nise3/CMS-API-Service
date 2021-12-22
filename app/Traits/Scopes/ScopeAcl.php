@@ -21,14 +21,6 @@ trait ScopeAcl
         $authUser = Auth::user();
         $tableName = $this->getTable();
 
-        if ($authUser && $authUser->isOrganizationUser()) {  //Organization User
-            if (Schema::hasColumn($tableName, 'organization_id')) {
-                $query = $query->where($tableName . '.organization_id', $authUser->organization_id);
-            }
-        }
-
-        /** @var User $authUser */
-        $authUser = Auth::user();
         if ($authUser instanceof User) { //Backend Users
             if ($authUser->isInstituteUser()) {
                 if (Schema::hasColumn($tableName, 'institute_id')) {
@@ -49,12 +41,6 @@ trait ScopeAcl
                 $query = $query->where($tableName . '.youth_id', $authUser->id);
             }
         }
-
-
-
-
-
-
 
         return $query;
     }
