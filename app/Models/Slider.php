@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int|null industry_association_id
  *
  */
-class Slider extends Model
+class Slider extends BaseModel
 {
     use SoftDeletes, HasFactory, ScopeRowStatusTrait;
 

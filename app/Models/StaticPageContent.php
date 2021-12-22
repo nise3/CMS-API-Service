@@ -28,7 +28,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon|null created_at
  * @property Carbon|null updated_at
  */
-class StaticPageContent extends Model
+class StaticPageContent extends BaseModel
 {
     use HasFactory, ScopeRowStatusTrait;
 
