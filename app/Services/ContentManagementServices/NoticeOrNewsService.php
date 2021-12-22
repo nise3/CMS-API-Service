@@ -29,7 +29,6 @@ class NoticeOrNewsService
      */
     public function getNoticeOrNewsServiceList(array $request, $startTime = null): Collection|LengthAwarePaginator|array
     {
-        dd(Auth::user());
         $searchText = $request['search_text'] ?? "";
         $titleEn = $request['title_en'] ?? "";
         $titleBn = $request['title'] ?? "";
