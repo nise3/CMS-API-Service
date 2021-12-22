@@ -68,7 +68,6 @@ class AuthServiceProvider extends ServiceProvider
             $authUser = null;
             $idpServerUserId = AuthTokenUtility::getIdpServerIdFromToken($token);
             $idpServerUserType = AuthTokenUtility::getIdpServerUserTypeFromToken($token);
-
             Log::info("Auth idp user id-->" . $idpServerUserId);
 
             if ($idpServerUserId && $idpServerUserType != BaseModel::YOUTH_USER_TYPE) { //for non youth user fetch auth user from core service
