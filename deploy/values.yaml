@@ -14,7 +14,7 @@ variables:
   # increase this when you need scale up
   replicaCount: 1
 
-  imagePullPolicy: Always
+  imagePullPolicy: IfNotPresent
 
   serviceType: ClusterIP
 
