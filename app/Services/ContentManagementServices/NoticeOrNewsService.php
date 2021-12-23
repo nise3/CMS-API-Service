@@ -69,7 +69,10 @@ class NoticeOrNewsService
             'notice_or_news.updated_by',
             'notice_or_news.created_at',
             'notice_or_news.created_at',
-        ]);
+
+        ])->acl();
+
+
         $noticeOrNewsBuilder->orderBy('notice_or_news.id', $order);
 
         if (is_numeric($rowStatus)) {
