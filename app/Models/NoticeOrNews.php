@@ -39,7 +39,7 @@ use Illuminate\Support\Collection;
  */
 class NoticeOrNews extends BaseModel
 {
-    use SoftDeletes, HasFactory, ScopeRowStatusTrait;
+    use SoftDeletes, ScopeRowStatusTrait;
 
     protected $guarded = BaseModel::COMMON_GUARDED_FIELDS_SIMPLE_SOFT_DELETE;
     public const TYPE_NOTICE = 1;

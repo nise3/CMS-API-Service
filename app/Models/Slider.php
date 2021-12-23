@@ -20,7 +20,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Slider extends BaseModel
 {
-    use SoftDeletes, HasFactory, ScopeRowStatusTrait;
+    use SoftDeletes, ScopeRowStatusTrait;
 
     protected $guarded = BaseModel::COMMON_GUARDED_FIELDS_SOFT_DELETE;
 

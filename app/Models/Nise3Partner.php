@@ -29,7 +29,7 @@ use Illuminate\Support\Collection;
  */
 class Nise3Partner extends BaseModel
 {
-    use ScopeRowStatusTrait, SoftDeletes, HasFactory;
+    use ScopeRowStatusTrait, SoftDeletes;
 
     protected $guarded = BaseModel::COMMON_GUARDED_FIELDS_SOFT_DELETE;
 

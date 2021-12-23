@@ -26,7 +26,7 @@ use Illuminate\Http\Request;
  */
 class LocDistrict extends BaseModel
 {
-    use SoftDeletes, HasFactory;
+    use SoftDeletes;
 
     public $timestamps = false;
     protected $table = 'loc_districts';

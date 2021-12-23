@@ -54,7 +54,7 @@ class Youth extends BaseModel implements
     AuthenticatableContract,
     AuthorizableContract
 {
-    use SoftDeletes, HasFactory, Authenticatable, Authorizable;
+    use SoftDeletes, Authenticatable, Authorizable;
 
     protected $guarded = [];
 

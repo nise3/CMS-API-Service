@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 abstract class BaseModel extends Model
 {
-    use HasFactory, ScopeAcl;
+    use ScopeAcl, HasFactory;
 
     /**User Type*/
     public const SYSTEM_USER = 1;

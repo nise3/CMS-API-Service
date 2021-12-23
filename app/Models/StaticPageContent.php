@@ -30,7 +30,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class StaticPageContent extends BaseModel
 {
-    use HasFactory, ScopeRowStatusTrait;
+    use ScopeRowStatusTrait;
 
     protected $table = 'static_page_contents';
 

@@ -15,7 +15,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class StaticPageType extends BaseModel
 {
-    use HasFactory;
     protected $table = "static_page_types";
     protected $guarded = BaseModel::COMMON_GUARDED_FIELDS_SOFT_DELETE;
     public const TYPE_PAGE_BLOCK = 1;
