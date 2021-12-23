@@ -1,6 +1,6 @@
 apiVersion: v2
-name: nise3-institute
-description: nise3 institute management API
+name: cms-api
+description: nise3 cms API
 
 # A chart can be either an 'application' or a 'library' chart.
 #
