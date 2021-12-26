@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
@@ -68,7 +69,10 @@ class NoticeOrNewsService
             'notice_or_news.updated_by',
             'notice_or_news.created_at',
             'notice_or_news.created_at',
-        ]);
+
+        ])->acl();
+
+
         $noticeOrNewsBuilder->orderBy('notice_or_news.id', $order);
 
         if (is_numeric($rowStatus)) {

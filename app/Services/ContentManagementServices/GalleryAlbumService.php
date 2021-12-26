@@ -70,7 +70,8 @@ class GalleryAlbumService
             'gallery_albums.updated_by',
             'gallery_albums.created_at',
             'gallery_albums.updated_at'
-        ]);
+
+        ])->acl();
 
         $galleryAlbumBuilder->orderBy('gallery_albums.id', $order);
 

@@ -34,6 +34,7 @@ class CmsGlobalConfigService
     #[ArrayShape([BaseModel::INSTITUTE_SERVICE => "array|mixed", BaseModel::ORGANIZATION_SERVICE => "array|mixed"])]
     public static function getOrganizationOrInstituteOrIndustryAssociationTitle(array $cmsData): array
     {
+        $industryAssociationIds = [];
         $organizationIds = [];
         $instituteIds = [];
         $courseIds = [];
@@ -42,6 +43,7 @@ class CmsGlobalConfigService
         $instituteClientUrl = clientUrl(BaseModel::INSTITUTE_URL_CLIENT_TYPE) . BaseModel::GET_INSTITUTE_TITLE_BY_ID__HTTP_CLIENT_ENDPOINT;
         $instituteClientUrlForCourseAndProgramTitle = clientUrl(BaseModel::INSTITUTE_URL_CLIENT_TYPE) . BaseModel::GET_COURSE_AND_PROGRAM_TITLE_BY_ID_HTTP_CLIENT_ENDPOINT;
         $organizationClientUrl = clientUrl(BaseModel::ORGANIZATION_CLIENT_URL_TYPE) . BaseModel::GET_ORGANIZATION_TITLE_BY_ID_HTTP_CLIENT_ENDPOINT;
+        $organizationClientUrlForIndustryAssociationTitle = clientUrl(BaseModel::ORGANIZATION_CLIENT_URL_TYPE) . BaseModel::GET_INDUSTRY_ASSOCIATION_TITLE_BY_ID_HTTP_CLIENT_ENDPOINT;
 
         /**
          * For get_list request execute IF block.
@@ -61,6 +63,9 @@ class CmsGlobalConfigService
                 if (!empty($cmsDatum['program_id'])) {
                     $programIds[] = $cmsDatum['program_id'];
                 }
+                if (!empty($cmsDatum['industry_association_id'])) {
+                    $industryAssociationIds[] = $cmsDatum['industry_association_id'];
+                }
             }
         } else {
             if (!empty($cmsData['organization_id'])) {
@@ -74,6 +79,9 @@ class CmsGlobalConfigService
             }
             if (!empty($cmsData['program_id'])) {
                 $programIds[] = $cmsData['program_id'];
+            }
+            if (!empty($cmsData['industry_association_id'])) {
+                $industryAssociationIds[] = $cmsData['industry_association_id'];
             }
         }
 
@@ -92,7 +100,7 @@ class CmsGlobalConfigService
             ->json('data');
 
         /** Call to Institute Service for Course and Program Title */
-        if(($courseIds && count($courseIds) > 0) || ($programIds && count($programIds) > 0)){
+        if (($courseIds && count($courseIds) > 0) || ($programIds && count($programIds) > 0)) {
             $courseProgramData = Http::withOptions([
                 'verify' => config("nise3.should_ssl_verify"),
                 'debug' => config('nise3.http_debug'),
@@ -123,6 +131,21 @@ class CmsGlobalConfigService
             return $e;
         })->json('data');
 
+        /** Call to Organization Service for Industry Association Title & Title EN */
+        if ($industryAssociationIds) {
+            $industryAssociationData = Http::withOptions([
+                'verify' => config("nise3.should_ssl_verify"),
+                'debug' => config('nise3.http_debug'),
+                'timeout' => config("nise3.http_timeout")
+            ])->post($organizationClientUrlForIndustryAssociationTitle, [
+                "industry_association_ids" => $industryAssociationIds
+            ])->throw(function ($response, $e) use ($organizationClientUrlForIndustryAssociationTitle) {
+                Log::debug("Http/Curl call error. Destination:: " . $organizationClientUrlForIndustryAssociationTitle . ' and Response:: ' . json_encode($response));
+                return $e;
+            })->json('data');
+
+            $titleResponse[BaseModel::INDUSTRY_ASSOCIATION_TITLE] = $industryAssociationData;
+        }
 
         $titleResponse[BaseModel::INSTITUTE_SERVICE] = $instituteData;
         $titleResponse[BaseModel::ORGANIZATION_SERVICE] = $organizationData;

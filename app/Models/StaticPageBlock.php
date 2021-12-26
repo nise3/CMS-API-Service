@@ -36,7 +36,7 @@ use Illuminate\Support\Collection;
  */
 class StaticPageBlock extends BaseModel
 {
-    use HasFactory, SoftDeletes, ScopeRowStatusTrait;
+    use SoftDeletes, ScopeRowStatusTrait;
 
 
     protected $table = 'static_page_blocks';

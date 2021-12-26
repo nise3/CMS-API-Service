@@ -80,6 +80,8 @@ class SliderController extends Controller
     }
 
     /**
+     * @param Request $request
+     * @return JsonResponse
      * @throws ValidationException
      */
     function store(Request $request): JsonResponse

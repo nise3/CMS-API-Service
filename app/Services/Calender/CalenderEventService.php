@@ -53,6 +53,7 @@ class CalenderEventService
             'calender_events.batch_id',
             'calender_events.institute_id',
             'calender_events.organization_id',
+            'calender_events.industry_association_id',
             'calender_events.start_date',
             'calender_events.end_date',
             'calender_events.start_time',
@@ -60,7 +61,9 @@ class CalenderEventService
             'calender_events.color',
             'calender_events.created_at',
             'calender_events.updated_at'
-        ]);
+
+        ])->acl();
+
         $calenderEventsBuilder->orderBy('calender_events.id', $order);
 
         if ($type) {
@@ -181,6 +184,7 @@ class CalenderEventService
             'calender_events.batch_id',
             'calender_events.institute_id',
             'calender_events.organization_id',
+            'calender_events.industry_association_id',
             'calender_events.start_date',
             'calender_events.end_date',
             'calender_events.start_time',

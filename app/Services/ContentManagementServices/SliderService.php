@@ -37,13 +37,14 @@ class SliderService
             'sliders.show_in',
             'sliders.organization_id',
             'sliders.institute_id',
-            'sliders.row_status',
+            'sliders.industry_association_id',
             'sliders.row_status',
             'sliders.created_by',
             'sliders.updated_by',
             'sliders.created_at',
             'sliders.updated_at'
-        ]);
+
+        ])->acl();
 
         $sliderBuilder->orderBy('sliders.id', $order);
         if (is_numeric($instituteId)) {
@@ -97,6 +98,7 @@ class SliderService
             'sliders.show_in',
             'sliders.organization_id',
             'sliders.institute_id',
+            'sliders.industry_association_id',
             'sliders.row_status',
             'sliders.row_status',
             'sliders.created_by',

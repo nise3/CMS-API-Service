@@ -52,7 +52,8 @@ class FaqService
             'faqs.updated_by',
             'faqs.created_at',
             'faqs.updated_at'
-        ]);
+
+        ])->acl();
 
         $faqBuilder->orderBy('faqs.id', $order);
 

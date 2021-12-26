@@ -64,7 +64,9 @@ class StaticPageContentOrPageBlockService
                 'static_page_blocks.updated_by',
                 'static_page_blocks.created_at',
                 'static_page_blocks.updated_at'
-            ]);
+
+            ])->acl();
+
             $staticPageBuilder->join('static_page_types', function ($join) {
                 $join->on('static_page_types.id', '=', 'static_page_blocks.static_page_type_id',);
             });
@@ -104,7 +106,8 @@ class StaticPageContentOrPageBlockService
                 'static_page_contents.updated_by',
                 'static_page_contents.created_at',
                 'static_page_contents.updated_at'
-            ]);
+
+            ])->acl();
 
             $staticPageBuilder->join('static_page_types', function ($join) {
                 $join->on('static_page_types.id', '=', 'static_page_contents.static_page_type_id',);
