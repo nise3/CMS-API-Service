@@ -16,7 +16,7 @@ class BatchCalenderBatchAssignRollbackCmsToInstituteListener implements ShouldQu
     /** Set rabbitmq config where this event is going to publish */
     private const EXCHANGE_CONFIG_NAME = 'institute';
     private const QUEUE_CONFIG_NAME = 'batchCalender';
-    private const RETRY_MECHANISM = false;
+    private const RETRY_MECHANISM = true;
 
     /**
      * @throws Exception
