@@ -7,6 +7,9 @@
     },
     "servers": [
         {
+            "url": "http://nise-cms.softbd/api/v1"
+        },
+        {
             "url": "https://cms.bus-staging.softbdltd.com/api/v1"
         },
         {
