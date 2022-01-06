@@ -31,7 +31,7 @@ class AuthTokenUtilityHandler
     {
         $payload = $this->decode($data);
 
-        return $payload->userType;
+        return $payload->user_type;
     }
 
     /**
