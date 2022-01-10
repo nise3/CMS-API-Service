@@ -29,12 +29,12 @@ return [
             "id" => BaseModel::SHOW_IN_INDUSTRY,
             "title" => "Industry",
             "title_en" => 'Industry'
+        ],
+        5=>[
+            "id"=>BaseModel::SHOW_IN_INDUSTRY_ASSOCIATION,
+            "title"=>"Industry Association",
+            "title_en"=>'Industry Association'
         ]
-//        5=>[
-//            "id"=>BaseModel::SHOW_IN_INDUSTRY_ASSOCIATION,
-//            "title"=>"Industry Association",
-//            "title_en"=>'Industry Association'
-//        ]
     ],
     "banner_template" => [
         Banner::BT_LR => [
