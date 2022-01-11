@@ -27,6 +27,7 @@ class BannerService
         $subTitleEn = $request['sub_title_en'] ?? "";
         $titleBn = $request['title'] ?? "";
         $subTitleBn = $request['sub_title'] ?? "";
+        $instituteId = $request['institute_id'] ?? "";
         $paginate = $request['page'] ?? "";
         $pageSize = $request['page_size'] ?? "";
         $rowStatus = $request['row_status'] ?? "";
@@ -39,7 +40,7 @@ class BannerService
             'banners.slider_id',
             'sliders.organization_id',
             'sliders.institute_id',
-           'sliders.title as slider_title',
+            'sliders.title as slider_title',
             'banners.title',
             'banners.sub_title',
             'banners.is_button_available',
@@ -64,6 +65,9 @@ class BannerService
 
         if (is_numeric($rowStatus)) {
             $bannerBuilder->where('banners.row_status', $rowStatus);
+        }
+        if (is_numeric($instituteId)) {
+            $bannerBuilder->where('sliders.institute_id', $instituteId);
         }
 
         if (!empty($titleEn)) {
@@ -302,6 +306,7 @@ class BannerService
             'sub_title' => 'nullable|max:500|min:2',
             'page' => 'nullable|numeric|gt:0',
             'page_size' => 'nullable|numeric|gt:0',
+            'institute_id' => 'nullable|numeric|gt:0',
             'order' => [
                 'string',
                 Rule::in([BaseModel::ROW_ORDER_ASC, BaseModel::ROW_ORDER_DESC])
