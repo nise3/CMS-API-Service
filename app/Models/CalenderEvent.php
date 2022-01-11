@@ -27,9 +27,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class CalenderEvent extends BaseModel
 {
-    use SoftDeletes;
 
-    protected $guarded = BaseModel::COMMON_GUARDED_FIELDS_SOFT_DELETE;
+    protected $guarded = BaseModel::COMMON_GUARDED_FIELDS_SIMPLE;
 
     public const CALENDER_TYPE_DAY = 'day';
     public const CALENDER_TYPE_MONTH = 'month';
