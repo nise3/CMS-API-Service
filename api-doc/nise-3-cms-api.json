@@ -4581,6 +4581,201 @@
                 ]
             }
         },
+        "/public/calender-events": {
+            "get": {
+                "summary": "Get public list of Calender Events",
+                "description": "API endpoint to get the public list of Calender Events. A successful request response will show 200 HTTP status code ",
+                "parameters": [
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "day",
+                                "month",
+                                "week",
+                                "year",
+                                "schedule"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "month",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "year",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "date",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "YYYY-MM-DD"
+                        }
+                    },
+                    {
+                        "name": "from_date",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "YYYY-MM-DD"
+                        }
+                    },
+                    {
+                        "name": "to_date",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "YYYY-MM-DD"
+                        }
+                    },
+                    {
+                        "name": "youth_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "institute_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "$ref": "#/components/parameters/training_center_id"
+                    },
+                    {
+                        "name": "organization_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "batch_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "industry_association_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "title",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "page_size",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "order",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "ASC",
+                                "DESC"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "row_status",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "enum": [
+                                1,
+                                0
+                            ]
+                        },
+                        "description": "1=>Active,0=>Inactive"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of Calendar Events",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "data": [
+                                        {
+                                            "id": 300,
+                                            "title": "Ex saepe et non est et et. Est et ut minus explicabo. Magni magni dolor et ut. Repudiandae commodi asperiores cupiditate accusamus.",
+                                            "youth_id": null,
+                                            "batch_id": null,
+                                            "institute_id": null,
+                                            "organization_id": null,
+                                            "start_date": "2021-11-03",
+                                            "end_date": "2022-03-25",
+                                            "start_time": null,
+                                            "end_time": null,
+                                            "color": "#fd6f99",
+                                            "created_at": "2021-11-03T09:31:21.000000Z",
+                                            "updated_at": "2021-11-03T09:31:21.000000Z"
+                                        }
+                                    ],
+                                    "order": "DESC",
+                                    "response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Calendar"
+                ]
+            }
+        },
         "/notice-or-news": {
             "get": {
                 "summary": "Get all notice or news",
