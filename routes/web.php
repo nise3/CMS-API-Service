@@ -60,24 +60,29 @@ $router->group(['prefix' => 'api/v1', 'as' => 'api.v1'], function () use ($route
     });
 
     $router->group(['prefix' => 'public', 'as' => 'public'], function () use ($router) {
+
         $router->get('faqs/{id}', ["as" => "faqs.read", "uses" => "FaqController@clientSideRead"]);
         $router->get('notice-or-news/{id}', ["as" => "notice.news.read", "uses" => "NoticeOrNewsController@clientSideRead"]);
         $router->get('recent-activities/{id}', ["as" => "recent.activities.read", "uses" => "RecentActivityController@clientSideRead"]);
+        $router->get('nise3-partners', ["as" => "nise3.partners.list", "uses" => "Nise3PartnerController@clientSideGetList"]);
         $router->get('nise3-partners/{id}', ["as" => "nise3.partners.read", "uses" => "Nise3PartnerController@clientSideRead"]);
         $router->get('gallery-albums/{id}', ["as" => "gallery.albums.read", "uses" => "GalleryAlbumController@clientSideRead"]);
         $router->get('gallery-images-videos/{id}', ["as" => "gallery.images.videos.read", "uses" => "GalleryImageVideoController@clientSideRead"]);
 
-        $router->get('faqs', ["as" => "faqs.list", "uses" => "FaqController@clientSideGetList"]);
-        $router->get('notice-or-news', ["as" => "notice.news.list", "uses" => "NoticeOrNewsController@clientSideGetList"]);
-        $router->get('recent-activities', ["as" => "recent.activities.list", "uses" => "RecentActivityController@clientSideGetList"]);
-        $router->get('nise3-partners', ["as" => "nise3.partners.list", "uses" => "Nise3PartnerController@clientSideGetList"]);
-        $router->get('gallery-albums', ["as" => "gallery.albums.list", "uses" => "GalleryAlbumController@clientSideGetList"]);
-        $router->get('gallery-images-videos', ["as" => "gallery.images.videos.list", "uses" => "GalleryImageVideoController@clientSideGetList"]);
-        $router->get('sliders', ["as" => "sliders.list", "uses" => "SliderController@clientSideGetList"]);
-        $router->get('calender-events', ["as" => "calender.events", "uses" => "CalenderEventsController@clientSideGetList"]);
+        //public api by domain name identification
+        $router->group(['middleware' => 'public-domain-handle'], function () use ($router) {
+            $router->get('faqs', ["as" => "faqs.list", "uses" => "FaqController@clientSideGetList"]);
+            $router->get('notice-or-news', ["as" => "notice.news.list", "uses" => "NoticeOrNewsController@clientSideGetList"]);
+            $router->get('recent-activities', ["as" => "recent.activities.list", "uses" => "RecentActivityController@clientSideGetList"]);
+            $router->get('gallery-albums', ["as" => "gallery.albums.list", "uses" => "GalleryAlbumController@clientSideGetList"]);
+            $router->get('gallery-images-videos', ["as" => "gallery.images.videos.list", "uses" => "GalleryImageVideoController@clientSideGetList"]);
+            $router->get('sliders', ["as" => "sliders.list", "uses" => "SliderController@clientSideGetList"]);
+            $router->get('calender-events', ["as" => "calender.events", "uses" => "CalenderEventsController@clientSideGetList"]);
+            /** Public Static page & block */
+            $router->get('static-page-blocks/{page_code}', ["as" => "static.page.block", "uses" => "StaticPageContentOrPageBlockController@clientSideGetStaticPageOrBlock"]);
+        });
 
-        /** Public Static page & block */
-        $router->get('static-page-blocks/{page_code}', ["as" => "static.page.block", "uses" => "StaticPageContentOrPageBlockController@clientSideGetStaticPageOrBlock"]);
+
     });
 
     $router->get('countries', ['as' => 'countries.get-list', 'uses' => 'CountryController@getList']);
