@@ -3,7 +3,7 @@ FROM oberd/php-8.1-apache
 
 WORKDIR /app
 COPY . /app
-RUN composer update
+RUN composer update --ignore-platform-req=*
 
 
 
