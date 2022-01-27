@@ -21,7 +21,7 @@ class PublicApiMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if($request->headers->has('Domain')){
+        if ($request->headers->has('Domain')) {
             $domain = $request->headers->get('Domain');
             $url = clientUrl(BaseModel::CORE_CLIENT_URL_TYPE) . 'service-to-service-call/domain-identification/' . $domain;
 
@@ -32,16 +32,22 @@ class PublicApiMiddleware
                 })
                 ->json();
 
-            if(!empty($response['data']['institute_id'])){
+            if (!empty($response['data']['institute_id'])) {
                 $request->offsetSet('institute_id', $response['data']['institute_id']);
-            }
-            else if(!empty($response['data']['organization_id'])){
+                $request->offsetSet('show_in', BaseModel::SHOW_IN_TSP);
+            } else if (!empty($response['data']['organization_id'])) {
                 $request->offsetSet('organization_id', $response['data']['organization_id']);
-            }
-            else if(!empty($response['data']['industry_association_id'])){
+                $request->offsetSet('show_in', BaseModel::SHOW_IN_INDUSTRY);
+            } else if (!empty($response['data']['industry_association_id'])) {
                 $request->offsetSet('industry_association_id', $response['data']['industry_association_id']);
+                $request->offsetSet('show_in', BaseModel::SHOW_IN_INDUSTRY_ASSOCIATION);
+            } else if (str_contains($response['data']['domain'], 'youth')) {
+                $request->offsetSet('show_in', BaseModel::SHOW_IN_YOUTH);
+            } else {
+                $request->offsetSet('show_in', BaseModel::SHOW_IN_NISE3);
             }
-        }else{
+
+        } else {
             return response()->json([
                 "_response_status" => [
                     "success" => false,
