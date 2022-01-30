@@ -24,8 +24,6 @@ class PublicApiMiddleware
     {
         if ($request->headers->has('Domain')) {
             $domain = $request->headers->get('Domain');
-            Log::debug('domain---->');
-            Log::debug($domain);
             $url = clientUrl(BaseModel::CORE_CLIENT_URL_TYPE) . 'service-to-service-call/domain-identification/' . $domain;
 
             $response = Http::withOptions(['debug' => config("nise3.is_dev_mode"), 'verify' => config("nise3.should_ssl_verify")])
@@ -35,8 +33,6 @@ class PublicApiMiddleware
                 })
                 ->json();
 
-            Log::debug('response---->');
-            Log::debug($response);
 
             if (!empty($response['data']['institute_id'])) {
                 $request->offsetSet('institute_id', $response['data']['institute_id']);
