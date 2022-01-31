@@ -63,7 +63,7 @@ variables:
     DB_USERNAME: "core3"
     DB_PASSWORD: "core3"
 
-    RABBITMQ_HOST: "rabbitmqcluster"
+    RABBITMQ_HOST: "rabbitmqcluster.default"
     RABBITMQ_PORT: "5672"
     RABBITMQ_VHOST: "/"
     RABBITMQ_USER: "default_user_8JE9yWDb4fHdn35Ua9w"
