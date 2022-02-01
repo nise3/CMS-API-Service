@@ -36,6 +36,9 @@ variables:
   #app buil image
   imageRepository: "registry.nise3.xyz/nise3-cms-api-service"
 
+  #fetch laravel php artisan or bash command and run on run
+  enableGitCommitCommandFetch: true
+
 
   #auto scaling config
   #autoScalingEnabled: 0
