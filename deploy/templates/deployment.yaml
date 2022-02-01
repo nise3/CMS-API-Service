@@ -109,7 +109,7 @@ spec:
             mountPath: /app/storage
             {{ if .Values.variables.enableGitCommitCommandFetch }}
           - name: cmd-vol
-            emptyDir: {}
+            mountPath: /vol
             {{end}}
       volumes:
       - name: "{{ .Chart.Name }}"
