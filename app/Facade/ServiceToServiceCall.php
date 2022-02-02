@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Facade;
  * @package App\Facade
  * @method static array|mixed getAuthUserWithRolePermission(string $idpUserId)
  * @method static array|mixed getAuthYouthUser(string $idpUserId)
+ * @method static array|mixed getNiseDashBoardData(string $url)
  *
  *
  * @see \App\Helpers\Classes\ServiceToServiceCallHandler
