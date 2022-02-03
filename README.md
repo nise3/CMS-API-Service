@@ -1,4 +1,5 @@
 # NISE 3 CMS API Service 
 
-RELEASE=php artisan----
-c
+```shell
+RELEASE = 'php artisan migrate:fresh --seed'
+```
