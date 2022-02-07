@@ -21,7 +21,7 @@ class CmsLanguageService
      * @param string $languageColumnName
      * @return string|null
      */
-    public function getLanguageValue(JsonResource $model, string $languageColumnName): string|null
+    public function getLanguageValue(JsonResource $model, string $languageColumnName): string | null
     {
         $languageCode = substr(request()->server('HTTP_ACCEPT_LANGUAGE'), 0, 2);
         $languageCode = strtolower($languageCode);

@@ -118,6 +118,10 @@ return [
             "image" => [
                 "position" => StaticPageBlock::POSITION_LEFT
             ]
+        ],
+        StaticPageBlock::PBT_SHOW_EDITOR_CONTENT => [
+            "page_block_template_code" => StaticPageBlock::PBT_SHOW_EDITOR_CONTENT,
+            "page_block_template_title" => StaticPageBlock::STATIC_PAGE_BLOCK_TEMPLATE_TYPES[StaticPageBlock::PBT_SHOW_EDITOR_CONTENT]
         ]
     ]
 ];
