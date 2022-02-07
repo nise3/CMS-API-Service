@@ -2,9 +2,11 @@
 
 namespace App\Http\Middleware;
 
+use App\Exceptions\HttpErrorException;
 use App\Models\BaseModel;
 use Closure;
 use Illuminate\Http\Client\RequestException;
+use Illuminate\Http\Client\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
@@ -26,13 +28,18 @@ class PublicApiMiddleware
             $domain = $request->headers->get('Domain');
             $url = clientUrl(BaseModel::CORE_CLIENT_URL_TYPE) . 'service-to-service-call/domain-identification/' . $domain;
 
-            $response = Http::withOptions(['debug' => config("nise3.is_dev_mode"), 'verify' => config("nise3.should_ssl_verify")])
+            $response = Http::withOptions(
+                [
+                    'debug' => config("nise3.is_dev_mode"),
+                    'verify' => config("nise3.should_ssl_verify")
+                ])
                 ->get($url)
-                ->throw(function ($response, $exception) {
-                    return $exception;
+                ->throw(static function (Response $httpResponse, $httpException) use ($url) {
+                    Log::debug(get_class($httpResponse) . ' - ' . get_class($httpException));
+                    Log::debug("Http/Curl call error. Destination:: " . $url . ' and Response:: ' . $httpResponse->body());
+                    throw new HttpErrorException($httpResponse);
                 })
                 ->json();
-
 
             if (!empty($response['data']['institute_id'])) {
                 $request->offsetSet('institute_id', $response['data']['institute_id']);
