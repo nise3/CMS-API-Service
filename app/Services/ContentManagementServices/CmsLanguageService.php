@@ -24,7 +24,7 @@ class CmsLanguageService
      */
     public function getLanguageValue(JsonResource $model, string $languageColumnName): string|null
     {
-        $languageCode = strtolower(request()->offsetGet('selected-language'));
+        $languageCode = strtolower(request()->offsetGet('selected_language'));
 
         Log::info("Selected Language: " . $languageCode);
 
