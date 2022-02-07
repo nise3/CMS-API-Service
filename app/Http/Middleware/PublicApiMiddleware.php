@@ -48,6 +48,9 @@ class PublicApiMiddleware
                 $request->offsetSet('organization_id', $response['data']['organization_id']);
                 $request->offsetSet('show_in', BaseModel::SHOW_IN_INDUSTRY);
             } else if (!empty($response['data']['industry_association_id'])) {
+                Log::info("jjjjj");
+                Log::info($response['data']['industry_association_id']);
+
                 $request->offsetSet('industry_association_id', $response['data']['industry_association_id']);
                 $request->offsetSet('show_in', BaseModel::SHOW_IN_INDUSTRY_ASSOCIATION);
             } else if (str_contains($response['data']['domain'], 'youth')) {
