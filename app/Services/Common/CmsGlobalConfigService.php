@@ -2,9 +2,11 @@
 
 namespace App\Services\Common;
 
+use App\Exceptions\HttpErrorException;
 use App\Models\BaseModel;
 use App\Models\LanguageConfig;
 use Illuminate\Http\Client\RequestException;
+use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use JetBrains\PhpStorm\ArrayShape;
@@ -85,18 +87,22 @@ class CmsGlobalConfigService
             }
         }
 
-
         /** Call to Institute Service for Institute Title */
-        $instituteData = Http::withOptions([
-            'verify' => config("nise3.should_ssl_verify"),
-            'debug' => config('nise3.http_debug'),
-            'timeout' => config("nise3.http_timeout")
-        ])->post($instituteClientUrl, [
-            "institute_ids" => $instituteIds
-        ])->throw(function ($response, $e) use ($instituteClientUrl) {
-            Log::debug("Http/Curl call error. Destination:: " . $instituteClientUrl . ' and Response:: ' . json_encode($response));
-            return $e;
-        })
+        $instituteData = Http::withOptions(
+            [
+                'verify' => config("nise3.should_ssl_verify"),
+                'debug' => config('nise3.http_debug'),
+                'timeout' => config("nise3.http_timeout")
+            ]
+        )
+            ->post($instituteClientUrl, [
+                "institute_ids" => $instituteIds
+            ])
+            ->throw(static function (Response $httpResponse, $httpException) use ($instituteClientUrl) {
+                Log::debug(get_class($httpResponse) . ' - ' . get_class($httpException));
+                Log::debug("Http/Curl call error. Destination:: " . $instituteClientUrl . ' and Response:: ' . $httpResponse->body());
+                throw new HttpErrorException($httpResponse);
+            })
             ->json('data');
 
         /** Call to Institute Service for Course and Program Title */
@@ -105,13 +111,16 @@ class CmsGlobalConfigService
                 'verify' => config("nise3.should_ssl_verify"),
                 'debug' => config('nise3.http_debug'),
                 'timeout' => config("nise3.http_timeout")
-            ])->post($instituteClientUrlForCourseAndProgramTitle, [
-                "course_ids" => $courseIds,
-                "program_ids" => $programIds
-            ])->throw(function ($response, $e) use ($instituteClientUrlForCourseAndProgramTitle) {
-                Log::debug("Http/Curl call error. Destination:: " . $instituteClientUrlForCourseAndProgramTitle . ' and Response:: ' . json_encode($response));
-                return $e;
-            })
+            ])
+                ->post($instituteClientUrlForCourseAndProgramTitle, [
+                    "course_ids" => $courseIds,
+                    "program_ids" => $programIds
+                ])
+                ->throw(static function (Response $httpResponse, $httpException) use ($instituteClientUrlForCourseAndProgramTitle) {
+                    Log::debug(get_class($httpResponse) . ' - ' . get_class($httpException));
+                    Log::debug("Http/Curl call error. Destination:: " . $instituteClientUrlForCourseAndProgramTitle . ' and Response:: ' . $httpResponse->body());
+                    throw new HttpErrorException($httpResponse);
+                })
                 ->json('data');
 
             $titleResponse = [
@@ -124,12 +133,16 @@ class CmsGlobalConfigService
             'verify' => config("nise3.should_ssl_verify"),
             'debug' => config('nise3.http_debug'),
             'timeout' => config("nise3.http_timeout")
-        ])->post($organizationClientUrl, [
-            "organization_ids" => $organizationIds
-        ])->throw(function ($response, $e) use ($organizationClientUrl) {
-            Log::debug("Http/Curl call error. Destination:: " . $organizationClientUrl . ' and Response:: ' . json_encode($response));
-            return $e;
-        })->json('data');
+        ])
+            ->post($organizationClientUrl, [
+                "organization_ids" => $organizationIds
+            ])
+            ->throw(static function (Response $httpResponse, $httpException) use ($organizationClientUrl) {
+                Log::debug(get_class($httpResponse) . ' - ' . get_class($httpException));
+                Log::debug("Http/Curl call error. Destination:: " . $organizationClientUrl . ' and Response:: ' . $httpResponse->body());
+                throw new HttpErrorException($httpResponse);
+            })
+            ->json('data');
 
         /** Call to Organization Service for Industry Association Title & Title EN */
         if ($industryAssociationIds) {
@@ -137,12 +150,16 @@ class CmsGlobalConfigService
                 'verify' => config("nise3.should_ssl_verify"),
                 'debug' => config('nise3.http_debug'),
                 'timeout' => config("nise3.http_timeout")
-            ])->post($organizationClientUrlForIndustryAssociationTitle, [
-                "industry_association_ids" => $industryAssociationIds
-            ])->throw(function ($response, $e) use ($organizationClientUrlForIndustryAssociationTitle) {
-                Log::debug("Http/Curl call error. Destination:: " . $organizationClientUrlForIndustryAssociationTitle . ' and Response:: ' . json_encode($response));
-                return $e;
-            })->json('data');
+            ])
+                ->post($organizationClientUrlForIndustryAssociationTitle, [
+                    "industry_association_ids" => $industryAssociationIds
+                ])
+                ->throw(static function (Response $httpResponse, $httpException) use ($organizationClientUrlForIndustryAssociationTitle) {
+                    Log::debug(get_class($httpResponse) . ' - ' . get_class($httpException));
+                    Log::debug("Http/Curl call error. Destination:: " . $organizationClientUrlForIndustryAssociationTitle . ' and Response:: ' . $httpResponse->body());
+                    throw new HttpErrorException($httpResponse);
+                })
+                ->json('data');
 
             $titleResponse[BaseModel::INDUSTRY_ASSOCIATION_TITLE] = $industryAssociationData;
         }
