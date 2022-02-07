@@ -7303,10 +7303,11 @@
                     },
                     "template_code": {
                         "type": "string",
-                        "description": "PBT_LR => Block with text left and image right,\n       PBT_RL => Block with text right and image left,\n",
+                        "description": "PBT_LR => Block with text left and image right,\n       PBT_RL => Block with text right and image left,\n      PBT_SHOW_EDITOR_CONTENT => Block with only editor content,\n",
                         "enum": [
                             "PBT_LR",
-                            "PBT_RL"
+                            "PBT_RL",
+                            "PBT_SHOW_EDITOR_CONTENT"
                         ]
                     },
                     "is_button_available": {
