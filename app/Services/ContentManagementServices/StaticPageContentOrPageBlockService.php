@@ -11,6 +11,8 @@ use App\Services\Common\LanguageCodeService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
@@ -36,6 +38,7 @@ class StaticPageContentOrPageBlockService
 
         /** @var Builder $staticPageBuilder */
         if ($type == StaticPageType::TYPE_PAGE_BLOCK) {
+            DB::enableQueryLog();
             $staticPageBuilder = StaticPageBlock::select([
                 'static_page_types.type',
                 'static_page_blocks.id',
@@ -85,6 +88,13 @@ class StaticPageContentOrPageBlockService
                 $staticPageBuilder->where('static_page_blocks.industry_association_id', '=', $industryAssociationId);
             }
             $response = $staticPageBuilder->first();
+
+            Log::info("[[[[[[");
+            Log::info($page_code);
+            Log::info(json_encode($response));
+
+            Log::info(">>>>>>>>>>>>>");
+            Log::info($staticPageBuilder->toSql());
 
         } elseif ($type == StaticPageType::TYPE_STATIC_PAGE) {
             $staticPageBuilder = StaticPageContent::select([
