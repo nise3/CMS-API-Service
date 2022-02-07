@@ -26,7 +26,7 @@ class CmsLanguageService
     {
         $languageCode = strtolower(request()->server('SELECTED_LANGUAGE'));
 
-        Log::info("Selected Language: " . $languageCode);
+        Log::info("Selected Language: " . json_encode(request()->server()));
 
         $response = "";
         if (!LanguageConfig::isNative($languageCode)) {
