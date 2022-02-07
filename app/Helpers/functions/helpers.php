@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
+use JetBrains\PhpStorm\ArrayShape;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
@@ -23,6 +24,7 @@ if (!function_exists('formatApiResponse')) {
      * @param int $statusCode
      * @return array
      */
+    #[ArrayShape(["data" => "mixed|null", "_response_status" => "array"])]
     function formatApiResponse($data, $startTime, int $statusCode = 200): array
     {
         return [
@@ -43,6 +45,7 @@ if (!function_exists("idpUserErrorMessage")) {
      * @param $exception
      * @return array
      */
+    #[ArrayShape(['_response_status' => "array"])]
     function idUserErrorMessage($exception): array
     {
         $statusCode = $exception->getCode();

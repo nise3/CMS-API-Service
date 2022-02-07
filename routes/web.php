@@ -69,6 +69,9 @@ $router->group(['prefix' => 'api/v1', 'as' => 'api.v1'], function () use ($route
         $router->get('gallery-albums/{id}', ["as" => "gallery.albums.read", "uses" => "GalleryAlbumController@clientSideRead"]);
         $router->get('gallery-images-videos/{id}', ["as" => "gallery.images.videos.read", "uses" => "GalleryImageVideoController@clientSideRead"]);
 
+        /** Nise statistics */
+        $router->get("nise-statistics", ["as" => "nise-statistics", "uses" => "NiseDashboardController@getDashboardSummery"]);
+
         //public api by domain name identification
         $router->group(['middleware' => 'public-domain-handle'], function () use ($router) {
             $router->get('faqs', ["as" => "faqs.list", "uses" => "FaqController@clientSideGetList"]);

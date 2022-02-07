@@ -74,10 +74,12 @@ class StaticPageBlock extends BaseModel
     /** Page block Template Type */
     public const PBT_LR = "PBT_LR";
     public const PBT_RL = "PBT_RL";
+    public const PBT_SHOW_EDITOR_CONTENT = "PBT_SHOW_EDITOR_CONTENT";
 
     public const STATIC_PAGE_BLOCK_TEMPLATE_TYPES = [
         self::PBT_LR => "Block with text left and image right",
         self::PBT_RL => "Block with text right and image left",
+        self::PBT_SHOW_EDITOR_CONTENT => "Block with only editor content",
     ];
 
     public const POSITION_LEFT = "left";

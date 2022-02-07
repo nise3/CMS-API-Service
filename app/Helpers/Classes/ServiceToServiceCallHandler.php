@@ -68,4 +68,29 @@ class ServiceToServiceCallHandler
         return $responseData;
     }
 
+
+    /**
+     * @param string $url
+     * @return mixed
+     * @throws RequestException
+     */
+    public function getNiseDashBoardData(string $url): mixed
+    {
+        $responseData = Http::withOptions([
+            'verify' => config('nise3.should_ssl_verify'),
+            'debug' => config('nise3.http_debug'),
+            'timeout' => config('nise3.http_timeout'),
+        ])
+            ->get($url)
+            ->throw(function ($response, $e) use ($url) {
+                Log::debug("Http/Curl call error. Destination:: " . $url . ' and Response:: ' . json_encode($response));
+                throw $e;
+            })
+            ->json('data');
+
+        Log::info("Nise3Dashboard:" . json_encode($responseData));
+
+        return $responseData;
+    }
+
 }
