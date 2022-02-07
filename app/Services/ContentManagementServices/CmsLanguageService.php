@@ -21,9 +21,10 @@ class CmsLanguageService
      * @param string $languageColumnName
      * @return string|null
      */
-    public function getLanguageValue(JsonResource $model, string $languageColumnName): string | null
+    public function getLanguageValue(JsonResource $model, string $languageColumnName): string|null
     {
-        $languageCode = strtolower(request()->server('HTTP_ACCEPT_LANGUAGE'));
+        $languageCode = substr(request()->server('HTTP_ACCEPT_LANGUAGE'), 0, 2);
+        $languageCode = strtolower($languageCode);
         $response = "";
         if (!LanguageConfig::isNative($languageCode)) {
             $languageAttributeKey = getLanguageAttributeKey($model->getTable(), $model->id, $languageCode, $languageColumnName);
@@ -89,7 +90,7 @@ class CmsLanguageService
      * @param Model $model
      * @return mixed
      */
-    public function createOrUpdate(array $data, Model $model):bool
+    public function createOrUpdate(array $data, Model $model): bool
     {
         $cmsLanguage = CmsLanguage::where('key_id', $model->id)->where('table_name', $model->getTable())->delete();
         return CmsLanguage::insert($data);
