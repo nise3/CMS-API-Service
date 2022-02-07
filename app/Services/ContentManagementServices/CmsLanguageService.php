@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
@@ -21,10 +22,12 @@ class CmsLanguageService
      * @param string $languageColumnName
      * @return string|null
      */
-    public function getLanguageValue(JsonResource $model, string $languageColumnName): string | null
+    public function getLanguageValue(JsonResource $model, string $languageColumnName): string|null
     {
-        $languageCode = substr(request()->server('HTTP_ACCEPT_LANGUAGE'), 0, 2);
-        $languageCode = strtolower($languageCode);
+        $languageCode = strtolower(request()->server('SELECTED_LANGUAGE'));
+
+        Log::info("Selected Language: " . $languageCode);
+
         $response = "";
         if (!LanguageConfig::isNative($languageCode)) {
             $languageAttributeKey = getLanguageAttributeKey($model->getTable(), $model->id, $languageCode, $languageColumnName);
