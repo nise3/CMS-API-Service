@@ -83,6 +83,8 @@ $router->group(['prefix' => 'api/v1', 'as' => 'api.v1'], function () use ($route
             $router->get('calender-events', ["as" => "calender.events", "uses" => "CalenderEventsController@clientSideGetList"]);
             /** Public Static page & block */
             $router->get('static-page-blocks/{page_code}', ["as" => "static.page.block", "uses" => "StaticPageContentOrPageBlockController@clientSideGetStaticPageOrBlock"]);
+
+            $router->post('visitor-feedback-suggestions', 'VisitorFeedbackSuggestionController@store');
         });
 
 
