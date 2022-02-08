@@ -71,7 +71,7 @@ class BannerService
         if(!empty($industryAssociationId)){
             $bannerBuilder->where('sliders.industry_association_id',$industryAssociationId);
         }
-        if(!empty($instituteId)){
+        if(!empty($organizationId)){
             $bannerBuilder->where('sliders.organization_id',$organizationId);
         }
         $bannerBuilder->orderBy('banners.id', $order);
