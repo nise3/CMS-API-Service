@@ -92,7 +92,7 @@ class Handler extends ExceptionHandler
             $errors['_response_status']['message'] = $e->getMessage();
         } else if ($e instanceof HttpErrorException) {
             $errors['_response_status']['message'] = $e->getPreparedMessage();
-            $errors['_response_status']['code'] = $e->getCode();
+            $errors['_response_status']['code'] = $e->getCode() ? $e->getCode() : ResponseAlias::HTTP_INTERNAL_SERVER_ERROR;
         } else if ($e instanceof RequestException) {
             $errors = idUserErrorMessage($e);
         } elseif ($e instanceof ModelNotFoundException) {
