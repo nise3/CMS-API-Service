@@ -5649,6 +5649,57 @@
                 ]
             }
         },
+        "/public/visitor-feedback-suggestions": {
+            "post": {
+                "summary": "Create a new visitor-feedback-suggesstion [Public]",
+                "description": "A Public API endpoint to create a visitor-feedback-suggesstion. A successful request response will show 200 HTTP status code",
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/visitor_feedbacks_suggestions"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successfull",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "data": {
+                                        "form_type": "1",
+                                        "institute_id": null,
+                                        "organization_id": null,
+                                        "industry_association_id": null,
+                                        "name": "OldHobbit",
+                                        "mobile": null,
+                                        "email": null,
+                                        "address": null,
+                                        "comment": null,
+                                        "row_status": "1",
+                                        "updated_at": "2021-11-08T04:43:28.000000Z",
+                                        "created_at": "2021-11-08T04:43:28.000000Z",
+                                        "id": 1
+                                    },
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 201,
+                                        "message": "visitor feedback suggestions added successfully.",
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "visitor-feedback-suggestions"
+                ]
+            }
+
+        },
         "/cms-global-config": {
             "get": {
                 "summary": "Get All cms-global-config",
