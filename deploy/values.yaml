@@ -7,7 +7,6 @@ variables:
 
   hostName: "cms-staging.nise3.xyz"
 
-
   # if values is false, then creating ingress will be escape
   enableEngress: false
 
@@ -18,7 +17,7 @@ variables:
   ltsAcme: false
 
   # app version, changing version will auto deploy the app to current version
-  imageAppVersion: "2.0.5"
+  imageAppVersion: "2.0.6"
 
   # increase this when you need scale up
   replicaCount: 3
