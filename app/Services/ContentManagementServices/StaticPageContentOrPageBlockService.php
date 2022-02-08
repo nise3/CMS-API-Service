@@ -22,7 +22,7 @@ class StaticPageContentOrPageBlockService
     /**
      * @param array $request
      * @param string $page_code
-     * @return Builder|Model
+     * @return Model|Builder|null
      */
     public function getStaticPageOrBlock(array $request, string $page_code): Model|Builder|null
     {
@@ -88,13 +88,6 @@ class StaticPageContentOrPageBlockService
                 $staticPageBuilder->where('static_page_blocks.industry_association_id', '=', $industryAssociationId);
             }
             $response = $staticPageBuilder->first();
-
-            Log::info("[[[[[[");
-            Log::info($page_code);
-            Log::info(json_encode($response));
-
-            Log::info(">>>>>>>>>>>>>");
-            Log::info($staticPageBuilder->toSql());
 
         } elseif ($type == StaticPageType::TYPE_STATIC_PAGE) {
             $staticPageBuilder = StaticPageContent::select([

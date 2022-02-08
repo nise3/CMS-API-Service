@@ -72,8 +72,6 @@ class StaticPageContentOrPageBlockController extends Controller
         $request->offsetSet(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY, BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG);
         $filter = $this->staticPageContentOrPageBlockService->filterValidator($request)->validate();
         $filter[BaseModel::IS_CLIENT_SITE_RESPONSE_KEY] = BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG;
-        Log::info("xxxxxxxxxx");
-        Log::info(json_encode($filter));
 
         $staticPageOrBlock = $this->staticPageContentOrPageBlockService->getStaticPageOrBlock($filter, $page_code);
         if(!$staticPageOrBlock){
