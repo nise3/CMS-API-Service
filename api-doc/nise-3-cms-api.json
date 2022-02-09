@@ -3554,6 +3554,44 @@
             }
         },
 
+        "/public/nise-statistics": {
+            "get": {
+                "tags": [ "Nise Statistics" ],
+                "summary": "Get nise statistics",
+                "description": "API endpoint to Get nise statistics.A successful request response will show 200 HTTP status code",
+                "responses": {
+                    "200": {
+                        "description": "successfull",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "data": {
+                                        "total_ministry": 0,
+                                        "total_department": 0,
+                                        "total_industrial_skills_council": 3,
+                                        "total_deputy_commissioner_office": 64,
+                                        "total_youth": 1,
+                                        "total_4_ir_project": 0,
+                                        "total_rto": 0,
+                                        "total_industry": 0,
+                                        "total_job_provider": [],
+                                        "total_popular_job": 0,
+                                        "total_skill_development_center": [],
+                                        "total_popular_courses": []
+                                    },
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 201,
+                                        "message": "Nise Statistics",
+                                        "query_time": 4
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/public/recent-activities": {
             "get": {
                 "summary": "Get All public recent activity",

@@ -31,6 +31,9 @@ class BannerService
         $pageSize = $request['page_size'] ?? "";
         $rowStatus = $request['row_status'] ?? "";
         $order = $request['order'] ?? "ASC";
+        $industryAssociationId = $request['industry_association_id'] ?? "";
+        $instituteId = $request['institute_id'] ?? "";
+        $organizationId = $request['organization_id'] ?? "";
 
         /** @var Builder $bannerBuilder */
 
@@ -61,6 +64,16 @@ class BannerService
             $join->on('banners.slider_id', '=', 'sliders.id')
                 ->whereNull('sliders.deleted_at');
         });
+
+        if(!empty($instituteId)){   //For institute user , institute_id set from auth middleware
+            $bannerBuilder->where('sliders.institute_id',$instituteId);
+        }
+        if(!empty($industryAssociationId)){  //For IndustryAssociation user , industry_association_id set from auth middleware
+            $bannerBuilder->where('sliders.industry_association_id',$industryAssociationId);
+        }
+        if(!empty($organizationId)){    // For Organization user ,  organization_id set from auth middleware
+            $bannerBuilder->where('sliders.organization_id',$organizationId);
+        }
         $bannerBuilder->orderBy('banners.id', $order);
 
 
@@ -305,6 +318,9 @@ class BannerService
             'sub_title' => 'nullable|max:500|min:2',
             'page' => 'nullable|numeric|gt:0',
             'page_size' => 'nullable|numeric|gt:0',
+            'institute_id' => 'nullable|int',
+            'organization_id' => 'nullable|int',
+            'industry_association_id' => 'nullable|int',
             'order' => [
                 'string',
                 Rule::in([BaseModel::ROW_ORDER_ASC, BaseModel::ROW_ORDER_DESC])
