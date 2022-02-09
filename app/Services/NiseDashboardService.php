@@ -12,23 +12,102 @@ class NiseDashboardService
     {
         if (env('IS_RANDOM_STATISTICS')) {
             return [
-                "total_ministry" => 0,
-                "total_department" => 0,
-                "total_industrial_skills_council" => 0,
+                "total_ministry" => 50,
+                "total_department" => 10,
+                "total_industrial_skills_council" => 20,
                 "total_deputy_commissioner_office" => 64,
-                "total_youth" => 0,
-                "total_4_ir_project" => 0,
-                "total_rto" => 0,
-                "total_industry" => 0,
-                "total_job_provider" => 0,
-                "total_popular_job" => 0,
-                "total_skill_development_center" => 0,
-                "total_popular_courses" => 0
+                "total_youth" => 30,
+                "total_4_ir_project" => 100,
+                "total_rto" => 100,
+                "total_industry" => 100,
+                "total_job_provider" => [
+                    [
+                        "industry_associations_title" => "Industry-1",
+                        "industry_associations_title_en" => "Industry-1",
+                        "total_job_provided" => 3
+                    ],
+                    [
+                        "industry_associations_title" => "Industry-2",
+                        "industry_associations_title_en" => "Industry-2",
+                        "total_job_provided" => 2
+                    ],
+                    [
+                        "industry_associations_title" => "Industry-3",
+                        "industry_associations_title_en" => "Industry-3",
+                        "total_job_provided" => 2
+                    ],
+                    [
+                        "industry_associations_title" => "Industry-4",
+                        "industry_associations_title_en" => "Industry-4",
+                        "total_job_provided" => 2
+                    ]
+                ],
+                "total_popular_job" => [
+                    [
+                        "job_title" => "Popular Job-1",
+                        "job_title_en" => "Popular Job-1",
+                        "total_applied" => 15
+                    ],
+                    [
+                        "job_title" => "Popular Job-2",
+                        "job_title_en" => "Popular Job-2",
+                        "total_applied" => 8
+                    ],
+                    [
+                        "job_title" => "Popular Job-3",
+                        "job_title_en" => "Popular Job-3",
+                        "total_applied" => 7
+                    ],
+                    [
+                        "job_title" => "Popular Job-4",
+                        "job_title_en" => "Popular Job-4",
+                        "total_applied" => 6
+                    ]
+                ],
+                "total_skill_development_center" => [
+                    [
+                        "training_center_title" => "Leonardo Bauch",
+                        "training_center_title_en" => "Verona Koss V",
+                        "total_trained" => 8
+                    ],
+                    [
+                        "training_center_title" => "Verona Bahringer MD",
+                        "training_center_title_en" => "Stephania Cremin II",
+                        "total_trained" => 7
+                    ],
+                    [
+                        "training_center_title" => "Nico Koepp",
+                        "training_center_title_en" => "Dr. Adaline Glover II",
+                        "total_trained" => 7
+                    ],
+                    [
+                        "training_center_title" => "Title",
+                        "training_center_title_en" => "Title En",
+                        "total_trained" => 7
+                    ]
+                ],
+                "total_popular_courses" => [
+                    [
+                        "course_title" => "Dr. Barrett Bauch DDS",
+                        "course_title_en" => "Prof. Vincenzo Bernhard DDS",
+                        "total_enrollments" => 16
+                    ],
+                    [
+                        "course_title" => "Juwan Fadel",
+                        "course_title_en" => "Coleman Connelly I",
+                        "total_enrollments" => 10
+                    ],
+                    [
+                        "course_title" => "Josefina Lockman",
+                        "course_title_en" => "Colby Hudson",
+                        "total_enrollments" => 9
+                    ]
+                ]
             ];
         } else {
             $totalYouth = $this->getStatisticsFromYouth();
             [$totalSkillDevelopmentCenter, $totalPopularCourses] = $this->getStatisticsFromSSP();
-            [$totalIndustry, $totalJobProvider, $totalIndustrialSkillsCouncil] = $this->getStatisticsFromIndustryAssociation();
+            [$totalIndustry, $totalJobProvider, $totalIndustrialSkillsCouncil, $totalPopularJob] = $this->getStatisticsFromIndustryAssociation();
             return [
                 "total_ministry" => 0,
                 "total_department" => 0,
@@ -39,7 +118,7 @@ class NiseDashboardService
                 "total_rto" => 0,
                 "total_industry" => $totalIndustry,
                 "total_job_provider" => $totalJobProvider,
-                "total_popular_job" => 0,
+                "total_popular_job" => $totalPopularJob,
                 "total_skill_development_center" => $totalSkillDevelopmentCenter,
                 "total_popular_courses" => $totalPopularCourses
             ];
@@ -69,12 +148,14 @@ class NiseDashboardService
          * Popular job
          */
         $totalIndustry = $industryAssociationStatistics['total_industry'] ?? 0;
-        $totalJobProvider = $industryAssociationStatistics['total_job_provider'] ?? 0;
+        $totalJobProvider = $industryAssociationStatistics['total_job_provider'] ?? [];
         $totalIndustrialSkillsCouncil = $industryAssociationStatistics['total_industry_association'] ?? 0;
+        $totalPopularJob = $industryAssociationStatistics['total_popular_job'] ?? [];
         return [
             $totalIndustry,
             $totalJobProvider,
-            $totalIndustrialSkillsCouncil
+            $totalIndustrialSkillsCouncil,
+            $totalPopularJob
         ];
     }
 
