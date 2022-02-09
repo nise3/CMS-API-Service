@@ -114,6 +114,7 @@ spec:
                     {{ if .Values.variables.enableGitCommitCommandFetch }}
                     cat /vol/cmd.php | bash
                     {{end}}
+                    apt update;
           volumeMounts:
           - name: "{{ .Chart.Name }}"
             mountPath: /app/storage
