@@ -65,13 +65,13 @@ class BannerService
                 ->whereNull('sliders.deleted_at');
         });
 
-        if(!empty($instituteId)){
+        if(!empty($instituteId)){   //For institute user , institute_id set from auth middleware
             $bannerBuilder->where('sliders.institute_id',$instituteId);
         }
-        if(!empty($industryAssociationId)){
+        if(!empty($industryAssociationId)){  //For IndustryAssociation user , industry_association_id set from auth middleware
             $bannerBuilder->where('sliders.industry_association_id',$industryAssociationId);
         }
-        if(!empty($organizationId)){
+        if(!empty($organizationId)){    // For Organization user ,  organization_id set from auth middleware
             $bannerBuilder->where('sliders.organization_id',$organizationId);
         }
         $bannerBuilder->orderBy('banners.id', $order);
