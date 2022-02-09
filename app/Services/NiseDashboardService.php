@@ -12,8 +12,8 @@ class NiseDashboardService
     {
         if (env('IS_RANDOM_STATISTICS')) {
             return [
-                "total_ministry" => 50,
-                "total_department" => 100,
+                "total_ministry" => 54,
+                "total_department" => 500,
                 "total_industrial_skills_council" => 100,
                 "total_deputy_commissioner_office" => 64,
                 "total_youth" => 3000000,
@@ -114,7 +114,7 @@ class NiseDashboardService
             [$totalSkillDevelopmentCenter, $totalPopularCourses] = $this->getStatisticsFromSSP();
             [$totalIndustry, $totalJobProvider, $totalIndustrialSkillsCouncil, $totalPopularJob] = $this->getStatisticsFromIndustryAssociation();
             return [
-                "total_ministry" => 0,
+                "total_ministry" => 25,
                 "total_department" => 0,
                 "total_industrial_skills_council" => $totalIndustrialSkillsCouncil,
                 "total_deputy_commissioner_office" => 64,
