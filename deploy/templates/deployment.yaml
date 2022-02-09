@@ -36,7 +36,7 @@ spec:
         - name:  {{ .Chart.Name }}
           image: "{{ .Values.variables.imageRepository }}:{{ .Values.variables.imageAppVersion  | default .Chart.AppVersion }}"
           args:
-            - sleep 30s && php /app/artisan queue:work --queue=cms.batch.calender.q
+            - service apache2 start && php /app/artisan queue:work --queue=cms.batch.calender.q
           command:
             - sh
             - -c
