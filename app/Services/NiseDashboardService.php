@@ -13,10 +13,10 @@ class NiseDashboardService
         if (env('IS_RANDOM_STATISTICS')) {
             return [
                 "total_ministry" => 50,
-                "total_department" => 10,
-                "total_industrial_skills_council" => 20,
+                "total_department" => 100,
+                "total_industrial_skills_council" => 100,
                 "total_deputy_commissioner_office" => 64,
-                "total_youth" => 30,
+                "total_youth" => 3000000,
                 "total_4_ir_project" => 100,
                 "total_rto" => 100,
                 "total_industry" => 100,
@@ -24,83 +24,83 @@ class NiseDashboardService
                     [
                         "industry_associations_title" => "Industry-1",
                         "industry_associations_title_en" => "Industry-1",
-                        "total_job_provided" => 3
+                        "total_job_provided" => 100
                     ],
                     [
                         "industry_associations_title" => "Industry-2",
                         "industry_associations_title_en" => "Industry-2",
-                        "total_job_provided" => 2
+                        "total_job_provided" => 90
                     ],
                     [
                         "industry_associations_title" => "Industry-3",
                         "industry_associations_title_en" => "Industry-3",
-                        "total_job_provided" => 2
+                        "total_job_provided" => 85
                     ],
                     [
                         "industry_associations_title" => "Industry-4",
                         "industry_associations_title_en" => "Industry-4",
-                        "total_job_provided" => 2
+                        "total_job_provided" => 82
                     ]
                 ],
                 "total_popular_job" => [
                     [
                         "job_title" => "Popular Job-1",
                         "job_title_en" => "Popular Job-1",
-                        "total_applied" => 15
+                        "total_applied" => 100
                     ],
                     [
                         "job_title" => "Popular Job-2",
                         "job_title_en" => "Popular Job-2",
-                        "total_applied" => 8
+                        "total_applied" => 90
                     ],
                     [
                         "job_title" => "Popular Job-3",
                         "job_title_en" => "Popular Job-3",
-                        "total_applied" => 7
+                        "total_applied" => 85
                     ],
                     [
                         "job_title" => "Popular Job-4",
                         "job_title_en" => "Popular Job-4",
-                        "total_applied" => 6
+                        "total_applied" => 82
                     ]
                 ],
                 "total_skill_development_center" => [
                     [
                         "training_center_title" => "Leonardo Bauch",
                         "training_center_title_en" => "Verona Koss V",
-                        "total_trained" => 8
+                        "total_trained" => 80
                     ],
                     [
                         "training_center_title" => "Verona Bahringer MD",
                         "training_center_title_en" => "Stephania Cremin II",
-                        "total_trained" => 7
+                        "total_trained" => 70
                     ],
                     [
                         "training_center_title" => "Nico Koepp",
                         "training_center_title_en" => "Dr. Adaline Glover II",
-                        "total_trained" => 7
+                        "total_trained" => 70
                     ],
                     [
                         "training_center_title" => "Title",
                         "training_center_title_en" => "Title En",
-                        "total_trained" => 7
+                        "total_trained" => 65
                     ]
                 ],
                 "total_popular_courses" => [
                     [
                         "course_title" => "Dr. Barrett Bauch DDS",
                         "course_title_en" => "Prof. Vincenzo Bernhard DDS",
-                        "total_enrollments" => 16
+                        "total_enrollments" => 1600
                     ],
                     [
                         "course_title" => "Juwan Fadel",
                         "course_title_en" => "Coleman Connelly I",
-                        "total_enrollments" => 10
+                        "total_enrollments" => 1000
                     ],
                     [
                         "course_title" => "Josefina Lockman",
                         "course_title_en" => "Colby Hudson",
-                        "total_enrollments" => 9
+                        "total_enrollments" => 900
                     ]
                 ]
             ];
