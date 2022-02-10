@@ -18,8 +18,11 @@ class DatabaseSeeder extends Seeder
         $this->call(CountryTableSeeder::class);
         $this->call(LanguageCodeSeeder::class);
         $this->call(LanguageConfigSeeder::class);
-        $this->call(Nise3PartnerSeeder::class);
+        $this->call(NoticeOrNewsSeeder::class);
+        $this->call(StaticPageBlocksSeeder::class);
+        $this->call(StaticPageContentsSeeder::class);
 
+//        $this->call(Nise3PartnerSeeder::class);
 //        $this->call(GalleryAlbumSeeder::class);
 //        $this->call(GalleryImageVideoSeeder::class);
 //        $this->call(FaqSeeder::class);
