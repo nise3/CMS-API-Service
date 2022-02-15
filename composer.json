@@ -16,7 +16,6 @@
         "ext-pdo": "*",
         "elasticsearch/elasticsearch": "^8.0",
         "laravel/lumen-framework": "^8.0",
-        "elasticsearch/elasticsearch": "^8.0",
         "laravel/tinker": "^2.6",
         "guzzlehttp/guzzle": "7.3",
         "felixkiss/uniquewith-validator": "^3.4",
