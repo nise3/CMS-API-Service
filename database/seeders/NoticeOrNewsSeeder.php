@@ -6,6 +6,7 @@ use App\Models\CmsLanguage;
 use App\Models\NoticeOrNews;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Mockery\Matcher\Not;
 
@@ -19,78 +20,17 @@ class NoticeOrNewsSeeder extends Seeder
     public function run()
     {
         Schema::disableForeignKeyConstraints();
-        NoticeOrNews::query()->truncate();
-        for ($i = 0; $i < 10; $i++) {
-            /** @var NoticeOrNews $noticeOrNews */
-            $noticeOrNews = NoticeOrNews::factory()->create();
-            CmsLanguage::factory()
-                ->state(
-                    new Sequence(
-                        [
-                            'table_name' => $noticeOrNews->getTable(),
-                            "key_id" => $noticeOrNews->id,
-                            'lang_code' => 'hi',
-                            'column_name' => NoticeOrNews::LANGUAGE_ATTR_TITLE,
-                            'column_value' => "अगर आप किसी एग्जाम की तैयारी "
-                        ],
-                        [
-                            'table_name' => $noticeOrNews->getTable(),
-                            "key_id" => $noticeOrNews->id,
-                            'lang_code' => 'hi',
-                            'column_name' => NoticeOrNews::LANGUAGE_ATTR_IMAGE_ALT_TITLE,
-                            'column_value' => "भारत का इतिहासं"
-                        ],
-                        [
-                            'table_name' => $noticeOrNews->getTable(),
-                            "key_id" => $noticeOrNews->id,
-                            'lang_code' => 'hi',
-                            'column_name' => NoticeOrNews::LANGUAGE_ATTR_FILE_ALT_TITLE,
-                            'column_value' => "भारत का इतिहासं"
-                        ],
-
-                        [
-                            'table_name' => $noticeOrNews->getTable(),
-                            "key_id" => $noticeOrNews->id,
-                            'lang_code' => 'hi',
-                            'column_name' => NoticeOrNews::LANGUAGE_ATTR_DETAILS,
-                            'column_value' => "आधुनिक अधिकांश विकास पडता उशकी सभिसमज असक्षम केन्द्रिय लेकिन गटकउसि आशाआपस बनाकर उसके करने गटकउसि संस्थान मुश्किले संसाध तरीके हमेहो। सोफ़्टवेर अन्तरराष्ट्रीयकरन अन्य खरिदे दिशामे सभिसमज पढाए नवंबर आवश्यक आवश्यकत जाता प्रसारन मर्यादित विभाजनक्षमता चुनने एछित संसाध एछित हमेहो। सामूहिक समाज वर्णन अनुकूल स्थापित ढांचामात्रुभाषा करने विशेष परस्पर दर्शाता केन्द्रित
-"
-                        ],
-                        [
-                            'table_name' => $noticeOrNews->getTable(),
-                            "key_id" => $noticeOrNews->id,
-                            'lang_code' => 'te',
-                            'column_name' => NoticeOrNews::LANGUAGE_ATTR_TITLE,
-                            'column_value' => "భారతదేశ చరిత్ర"
-                        ],
-                        [
-                            'table_name' => $noticeOrNews->getTable(),
-                            "key_id" => $noticeOrNews->id,
-                            'lang_code' => 'te',
-                            'column_name' => NoticeOrNews::LANGUAGE_ATTR_IMAGE_ALT_TITLE,
-                            'column_value' => "భారతదేశ చరిత్ర"
-                        ],
-                        [
-                            'table_name' => $noticeOrNews->getTable(),
-                            "key_id" => $noticeOrNews->id,
-                            'lang_code' => 'te',
-                            'column_name' => NoticeOrNews::LANGUAGE_ATTR_FILE_ALT_TITLE,
-                            'column_value' => "భారతదేశ చరిత్ర"
-                        ],
-                        [
-                            'table_name' => $noticeOrNews->getTable(),
-                            "key_id" => $noticeOrNews->id,
-                            'lang_code' => 'te',
-                            'column_name' => NoticeOrNews::LANGUAGE_ATTR_DETAILS,
-                            'column_value' => "ఆధునిక అభివృద్ధిలో ఎక్కువ భాగం కేంద్రంగా అసమర్థతతో సంబంధం కలిగి ఉంటుంది, అయితే ఆ ఆశను మరియు అదే సంస్థలతో దీన్ని చేయడానికి మనకు కష్టమైన మార్గాలు ఉన్నాయి. సాఫ్ట్‌వేర్ యొక్క అంతర్జాతీయీకరణ, ఇతర కొనుగోలు దిశలలో అవగాహనను బోధించడం నవంబర్ అవసరమైన అవసరాలు ప్రసారాన్ని ఎంచుకోవడానికి మాకు సరైన వనరులు ఉన్నాయి, పరిమిత విభజన సామర్థ్యం. సామూహిక సమాజ వివరణ ఏర్పాటు చేయబడిన ఫ్రేమ్‌వర్క్‌కు అనుగుణంగా ఉంటుంది, నిర్దిష్ట పరస్పర భాషను ప్రతిబింబించడంపై దృష్టి పెట్టింది",
-
-                        ]
-                    )
-                )
-                ->count(4)
-                ->create();
-
-        }
+        DB::table('notice_or_news')->truncate();
+        DB::table('notice_or_news')->insert([
+            array('type' => '2','show_in' => '3','published_at' => '2022-01-03 00:00:00','archived_at' => NULL,'title_en' => 'Computer circular has started','title' => 'কম্পিউটার সার্কুলার শুরু হয়েছে','institute_id' => '2','organization_id' => NULL,'industry_association_id' => NULL,'details' => NULL,'details_en' => NULL,'main_image_path' => 'https://file-phase1.nise.gov.bd/uploads/fS3aBIHTUHysbHBhcmlLohdxN8oXSS1641890506.jpg','grid_image_path' => NULL,'thumb_image_path' => NULL,'image_alt_title_en' => NULL,'image_alt_title' => NULL,'file_path' => NULL,'file_alt_title_en' => NULL,'file_alt_title' => NULL,'row_status' => '1','created_by' => NULL,'updated_by' => NULL,'created_at' => '2022-01-11 20:41:57','updated_at' => '2022-01-11 20:43:34','deleted_at' => NULL),
+            array('type' => '1','show_in' => '3','published_at' => '2022-02-01 00:00:00','archived_at' => NULL,'title_en' => 'Notification has been published.','title' => 'বিজ্ঞপ্তি প্রকাশ করা হয়েছে।','institute_id' => '2','organization_id' => NULL,'industry_association_id' => NULL,'details' => NULL,'details_en' => NULL,'main_image_path' => 'https://file-phase1.nise.gov.bd/uploads/w0vU9GIrxZezZwKs7C0yOa6JEETzhM1644215978.jpg','grid_image_path' => NULL,'thumb_image_path' => NULL,'image_alt_title_en' => NULL,'image_alt_title' => 'abc','file_path' => NULL,'file_alt_title_en' => NULL,'file_alt_title' => NULL,'row_status' => '1','created_by' => NULL,'updated_by' => NULL,'created_at' => '2022-02-07 18:39:55','updated_at' => '2022-02-07 18:39:55','deleted_at' => NULL),
+            array('type' => '2','show_in' => '3','published_at' => '2022-02-07 00:00:00','archived_at' => '2022-03-10 00:00:00','title_en' => 'There will be cultural events','title' => 'সাংস্কৃতিক অনুষ্ঠান হবে','institute_id' => '1','organization_id' => NULL,'industry_association_id' => NULL,'details' => NULL,'details_en' => NULL,'main_image_path' => 'https://file-phase1.nise.gov.bd/uploads/rkqXYlkfuKWhiK19voAttUXqe23K8e1644234493.jpg','grid_image_path' => NULL,'thumb_image_path' => NULL,'image_alt_title_en' => NULL,'image_alt_title' => NULL,'file_path' => NULL,'file_alt_title_en' => NULL,'file_alt_title' => NULL,'row_status' => '1','created_by' => NULL,'updated_by' => NULL,'created_at' => '2022-02-07 23:48:25','updated_at' => '2022-02-07 23:48:25','deleted_at' => NULL),
+            array('type' => '1','show_in' => '3','published_at' => '2022-02-07 00:00:00','archived_at' => '2022-03-02 00:00:00','title_en' => 'Notification has been published.','title' => 'বিজ্ঞপ্তি প্রকাশ করা হয়েছে।','institute_id' => '1','organization_id' => NULL,'industry_association_id' => NULL,'details' => NULL,'details_en' => NULL,'main_image_path' => 'https://file-phase1.nise.gov.bd/uploads/LcnNfbzNn4cGB2HX74ly84y1Vlmecv1644234875.jpg','grid_image_path' => NULL,'thumb_image_path' => NULL,'image_alt_title_en' => NULL,'image_alt_title' => NULL,'file_path' => NULL,'file_alt_title_en' => NULL,'file_alt_title' => NULL,'row_status' => '1','created_by' => NULL,'updated_by' => NULL,'created_at' => '2022-02-07 23:54:41','updated_at' => '2022-02-07 23:54:41','deleted_at' => NULL),
+            array('type' => '1','show_in' => '3','published_at' => '2022-02-10 00:00:00','archived_at' => '2022-03-12 00:00:00','title_en' => 'Freelancing courses are no longer available this fiscal year','title' => 'এই অর্থবছরের আর ফ্রিল্যান্সিং কোর্স হচ্ছে না','institute_id' => '1','organization_id' => NULL,'industry_association_id' => NULL,'details' => NULL,'details_en' => NULL,'main_image_path' => 'https://file-phase1.nise.gov.bd/uploads/S5aKWed7wWVueMBHFz4zfHJiGfnVhA1644234920.png','grid_image_path' => NULL,'thumb_image_path' => NULL,'image_alt_title_en' => NULL,'image_alt_title' => NULL,'file_path' => NULL,'file_alt_title_en' => NULL,'file_alt_title' => NULL,'row_status' => '1','created_by' => NULL,'updated_by' => NULL,'created_at' => '2022-02-07 23:55:26','updated_at' => '2022-02-07 23:55:26','deleted_at' => NULL),
+            array('type' => '1','show_in' => '3','published_at' => '2022-02-08 00:00:00','archived_at' => '2022-02-23 00:00:00','title_en' => NULL,'title' => 'কম্পিউটার সার্কুলার','institute_id' => '1','organization_id' => NULL,'industry_association_id' => NULL,'details' => NULL,'details_en' => NULL,'main_image_path' => 'https://file-phase1.nise.gov.bd/uploads/fadWoDkNDVSFVD8vcORPYSgdHZ8z1N1644234974.png','grid_image_path' => NULL,'thumb_image_path' => NULL,'image_alt_title_en' => NULL,'image_alt_title' => NULL,'file_path' => 'https://file.nise3.xyz/uploads/2WYzb6e6E0NqVC0Rsq78L9uK0lYLkE1644234965.pdf','file_alt_title_en' => NULL,'file_alt_title' => NULL,'row_status' => '1','created_by' => NULL,'updated_by' => NULL,'created_at' => '2022-02-07 23:56:21','updated_at' => '2022-02-07 23:56:21','deleted_at' => NULL),
+            array('type' => '2','show_in' => '3','published_at' => '2022-02-07 00:00:00','archived_at' => '2022-02-18 00:00:00','title_en' => 'Allocations are being distributed','title' => 'বরাদ্ধ বিতরণ হচ্ছে','institute_id' => '1','organization_id' => NULL,'industry_association_id' => NULL,'details' => NULL,'details_en' => NULL,'main_image_path' => 'https://file-phase1.nise.gov.bd/uploads/r79dZKLqTT2bB7F2rqSEvFMJITaXWC1644235016.jpg','grid_image_path' => NULL,'thumb_image_path' => NULL,'image_alt_title_en' => NULL,'image_alt_title' => NULL,'file_path' => NULL,'file_alt_title_en' => NULL,'file_alt_title' => NULL,'row_status' => '1','created_by' => NULL,'updated_by' => NULL,'created_at' => '2022-02-07 23:57:01','updated_at' => '2022-02-07 23:57:01','deleted_at' => NULL),
+            array('type' => '1','show_in' => '3','published_at' => '2022-02-08 00:00:00','archived_at' => '2022-03-03 00:00:00','title_en' => 'Computer training is starting','title' => 'কম্পিউটার প্রশিক্ষণ শুরু হচ্ছে','institute_id' => '1','organization_id' => NULL,'industry_association_id' => NULL,'details' => NULL,'details_en' => NULL,'main_image_path' => 'https://file-phase1.nise.gov.bd/uploads/pydUNs9Qk0kZnuy4kb9BaYVjdP7OuM1644235052.jpg','grid_image_path' => NULL,'thumb_image_path' => NULL,'image_alt_title_en' => NULL,'image_alt_title' => NULL,'file_path' => NULL,'file_alt_title_en' => NULL,'file_alt_title' => NULL,'row_status' => '1','created_by' => NULL,'updated_by' => NULL,'created_at' => '2022-02-07 23:57:38','updated_at' => '2022-02-07 23:57:38','deleted_at' => NULL)
+        ]);
         Schema::disableForeignKeyConstraints();
 
     }
