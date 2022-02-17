@@ -244,6 +244,8 @@ class CalenderEventService
         $calenderEvent->youth_id = $data['youth_id'];
         $calenderEvent->start_date = $data['start_date'];
         $calenderEvent->end_date = $data['end_date'];
+        $calenderEvent->start_time = $data['start_time'];
+        $calenderEvent->end_time = $data['end_time'];
         $calenderEvent->color = BaseModel::CALENDER_DEFAULT_COLOR;
 
         $calenderEvent->save();
