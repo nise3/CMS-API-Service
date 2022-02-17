@@ -84,7 +84,11 @@ return [
             "context_path" => [
                 "position" => Banner::BANNER_CONTEXT_POSITION_BACKGROUND
             ]
-        ]
+        ],
+        Banner::BT_OB => [
+            "banner_template_code" => Banner::BT_OB,
+            "banner_template_title" => Banner::BANNER_TEMPLATE_TYPES[Banner::BT_OB]
+        ],
     ],
     "page_block_template" => [
         StaticPageBlock::PBT_LR => [

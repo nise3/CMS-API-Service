@@ -8035,11 +8035,12 @@
                     },
                     "banner_template_code": {
                         "type": "string",
-                        "description": "      BT_LR => \"Banner with text left and image right\",\n        BT_RL => \"Banner with text right and image left\",\n        BT_CB => \"Banner with text center and image background\"",
+                        "description": "      BT_LR => \"Banner with text left and image right\",\n        BT_RL => \"Banner with text right and image left\",\n        BT_CB => \"Banner with text center and image background\",\n        BT_OB => \"Banner with only background\"  ",
                         "enum": [
                             "BT_LR",
                             "BT_RL",
-                            "BT_CB"
+                            "BT_CB",
+                            "BT_OB"
                         ]
                     },
                     "banner_image_path": {

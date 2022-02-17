@@ -32,7 +32,7 @@ class CreateStaticPageBlocksTable extends Migration
             $table->unsignedTinyInteger('attachment_type')
                 ->comment("1 => Image, 2 => Facebook source, 3 => Youtube Source")->nullable();
 
-            $table->string("template_code", 50)->comment("BT_LR,BT_RL,BT_CB")->nullable();
+            $table->string("template_code", 50)->comment("PBT_LR,PBT_RL,PBT_SHOW_EDITOR_CONTENT")->nullable();
             $table->unsignedTinyInteger('is_button_available')->default(0);
             $table->string('button_text', 20)->nullable();
             $table->string('link', 300)->nullable();
