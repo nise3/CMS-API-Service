@@ -54,7 +54,7 @@ class NiseDashboardService
                         "total_applied" => 90
                     ],
                     [
-                        "job_title" => "ম্যানেজার - বিয়োমেডিক্যাল ইঞ্জিনিয়ারিং",
+                        "job_title" => "ম্যানেজার - বায়োমেডিক্যাল ইঞ্জিনিয়ারিং",
                         "job_title_en" => "Manager - Biomedical Engineering",
                         "total_applied" => 85
                     ],
@@ -71,7 +71,7 @@ class NiseDashboardService
                         "total_trained" => 80
                     ],
                     [
-                        "training_center_title" => "ট্রেন্থেনিং ইনক্লুসিভ ডেভেলপমেন্ট ইন চিটাগাং হিল ট্রাক্টস (এসআইডি - সিএইচটি)",
+                        "training_center_title" => "স্ট্রেন্থেনিং ইনক্লুসিভ ডেভেলপমেন্ট ইন চিটাগাং হিল ট্রাক্টস (এসআইডি - সিএইচটি)",
                         "training_center_title_en" => "Strengthening Inclusive Development in Chittagong Hill Tracts (SID-CHT)",
                         "total_trained" => 70
                     ],
@@ -88,7 +88,7 @@ class NiseDashboardService
                 ],
                 "total_popular_courses" => [
                     [
-                        "course_title" => "ডিপ্লোমা কোর্স ইন সিস & ইট",
+                        "course_title" => "ডিপ্লোমা কোর্স ইন সিস & আইটি",
                         "course_title_en" => "Diploma Course in CS & IT",
                         "total_enrollments" => 1600
                     ],
