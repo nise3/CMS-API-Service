@@ -31,7 +31,7 @@ class StaticPageTypeSeeder extends Seeder
             array('id' => '7','title' => 'প্রতিষ্ঠানের বিস্তারিত','title_en' => 'Institute details','category' => '4','page_code' => 'institute-details','type' => '1','created_at' => '2022-01-05 17:31:07','updated_at' => '2022-01-05 17:31:07'),
             array('id' => '8','title' => 'শর্তাবলী','title_en' => 'Terms and conditions','category' => '1','page_code' => 'terms-and-conditions','type' => '2','created_at' => '2022-01-05 17:31:07','updated_at' => '2022-01-05 17:31:07'),
             array('id' => '9','title' => 'ক্যারিয়ার পরামর্শ','title_en' => 'Career Advice ','category' => '1','page_code' => 'career-advice','type' => '2','created_at' => '2022-01-05 17:31:07','updated_at' => '2022-01-05 17:31:07'),
-            array('id' => '10','title' => 'নির্দেশিকা','title_en' => 'Guidelines','category' => '2','page_code' => 'guidelines','type' => '2','created_at' => '2022-01-05 17:31:07','updated_at' => '2022-01-05 17:31:07'),
+            array('id' => '10','title' => 'নির্দেশিকা','title_en' => 'Guidelines','category' => '1','page_code' => 'guidelines','type' => '2','created_at' => '2022-01-05 17:31:07','updated_at' => '2022-01-05 17:31:07'),
             array('id' => '11','title' => 'About Us Page Block','title_en' => 'About Us Page Block','category' => '6','page_code' => 'about-us-block','type' => '1','created_at' => '2022-02-07 11:44:11','updated_at' => '2022-02-07 11:44:11')
         ));
         Schema::enableForeignKeyConstraints();
