@@ -14,7 +14,7 @@ class CreateStaticPageTypesTable extends Migration
     public function up()
     {
         Schema::create('static_page_types', function (Blueprint $table) {
-            $table->unsignedSmallInteger('id');
+            $table->increments('id');
             $table->string('title', 500);
             $table->string('title_en', 250)->nullable();
             $table->unsignedTinyInteger('category')->comment('1=>Common,2=>Nise3, 3=> Youth, 4=>TSP, 5=>Industry, 6=>Industry Association');;
