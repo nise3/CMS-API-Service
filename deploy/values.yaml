@@ -151,7 +151,9 @@ variables:
     DB_USERNAME: "dbmaster"
     DB_PASSWORD: "jR{sadmtbdkrishiqbRj"
 
-    REDIS_HOST: "redis.redis"
+    CACHE_DRIVER: "redis"
+    REDIS_CLIENT: "predis"
+    REDIS_HOST: "redis-headless.redis-node"
     REDIS_PASSWORD: "k?admin"
     REDIS_PORT: 6379
 
