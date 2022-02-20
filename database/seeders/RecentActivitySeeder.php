@@ -2,10 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\CmsLanguage;
-use App\Models\RecentActivity;
-use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class RecentActivitySeeder extends Seeder
@@ -18,60 +16,24 @@ class RecentActivitySeeder extends Seeder
     public function run()
     {
         Schema::disableForeignKeyConstraints();
-        RecentActivity::query()->truncate();
-        for ($i = 0; $i < 10; $i++) {
-            /** @var RecentActivity $recentActivity */
-            $recentActivity = RecentActivity::factory()->create();
-            CmsLanguage::factory()
-                ->state(
-                    new Sequence(
-                        [
-                            'table_name' => $recentActivity->getTable(),
-                            "key_id" => $recentActivity->id,
-                            'lang_code' => 'hi',
-                            'column_name' => RecentActivity::LANGUAGE_ATTR_TITLE,
-                            'column_value' => "अगर आप किसी एग्जाम की तैयारी "
-                        ],
-                        [
-                            'table_name' => $recentActivity->getTable(),
-                            "key_id" => $recentActivity->id,
-                            'lang_code' => 'hi',
-                            'column_name' => RecentActivity::LANGUAGE_ATTR_IMAGE_ALT_TITLE,
-                            'column_value' => "भारत का इतिहासं"
-                        ],
-                        [
-                            'table_name' => $recentActivity->getTable(),
-                            "key_id" => $recentActivity->id,
-                            'lang_code' => 'hi',
-                            'column_name' => RecentActivity::LANGUAGE_ATTR_DESCRIPTION,
-                            'column_value' => "भारत का इतिहासं"
-                        ],
-                        [
-                            'table_name' => $recentActivity->getTable(),
-                            "key_id" => $recentActivity->id,
-                            'lang_code' => 'te',
-                            'column_name' => RecentActivity::LANGUAGE_ATTR_TITLE,
-                            'column_value' => "భారతదేశ చరిత్ర"
-                        ],
-                        [
-                            'table_name' => $recentActivity->getTable(),
-                            "key_id" => $recentActivity->id,
-                            'lang_code' => 'te',
-                            'column_name' => RecentActivity::LANGUAGE_ATTR_IMAGE_ALT_TITLE,
-                            'column_value' => "భారతదేశ చరిత్ర"
-                        ],
-                        [
-                            'table_name' => $recentActivity->getTable(),
-                            "key_id" => $recentActivity->id,
-                            'lang_code' => 'te',
-                            'column_name' => RecentActivity::LANGUAGE_ATTR_DESCRIPTION,
-                            'column_value' => "భారతదేశ చరిత్ర"
-                        ]
-                    )
-                )
-                ->count(6)
-                ->create();
-        }
+
+        DB::table('recent_activities')->truncate();
+
+        DB::table('recent_activities')->insert(array(
+            array('id' => '1','show_in' => '5','activity_date' => NULL,'published_at' => '2022-02-10 00:00:00','archived_at' => '2022-02-15 00:00:00','institute_id' => NULL,'organization_id' => NULL,'industry_association_id' => '1','title_en' => NULL,'title' => 'recent work','content_type' => '1','image_path' => 'https://file-phase1.nise.gov.bd/uploads/W32WwERQ9g50B8SwlLO6YFzba3SpX41644472715.png','video_url' => NULL,'video_id' => NULL,'content_properties' => NULL,'collage_image_path' => NULL,'collage_position' => NULL,'thumb_image_path' => NULL,'grid_image_path' => NULL,'image_alt_title_en' => NULL,'image_alt_title' => NULL,'description_en' => NULL,'description' => NULL,'row_status' => '1','published_by' => NULL,'archived_by' => NULL,'created_by' => NULL,'updated_by' => NULL,'created_at' => '2022-02-10 17:23:02','updated_at' => '2022-02-14 21:27:56','deleted_at' => NULL),
+            array('id' => '2','show_in' => '2','activity_date' => NULL,'published_at' => '2022-02-10 00:00:00','archived_at' => '2023-02-11 00:00:00','institute_id' => NULL,'organization_id' => NULL,'industry_association_id' => NULL,'title_en' => NULL,'title' => 'যুবকদের শক্তি','content_type' => '1','image_path' => 'https://file-phase1.nise.gov.bd/uploads/kr9tTOjlI8VpbJ4UZKjBMSKCa1k6s51644473044.jpeg','video_url' => NULL,'video_id' => NULL,'content_properties' => NULL,'collage_image_path' => 'https://file-phase1.nise.gov.bd/uploads/T2wPqh6LAr4gy68QDbcaiqD7qtE0wR1644473358.jpeg','collage_position' => '1','thumb_image_path' => NULL,'grid_image_path' => 'https://file-phase1.nise.gov.bd/uploads/Is5wCAZTVjvGcFEC71GQnBA2UwxBrY1644473090.jpeg','image_alt_title_en' => NULL,'image_alt_title' => NULL,'description_en' => NULL,'description' => '<p>Here there will be a kind of description about the program, now think of what could happen or being discussed right in this meeting and try to read it right from your subconscious mind, have a good day&nbsp;</p>','row_status' => '1','published_by' => NULL,'archived_by' => NULL,'created_by' => NULL,'updated_by' => NULL,'created_at' => '2022-02-10 18:04:14','updated_at' => '2022-02-16 00:32:26','deleted_at' => NULL),
+            array('id' => '3','show_in' => '1','activity_date' => NULL,'published_at' => '2022-02-10 00:00:00','archived_at' => '2023-02-11 00:00:00','institute_id' => NULL,'organization_id' => NULL,'industry_association_id' => NULL,'title_en' => NULL,'title' => 'জাতীয় যুব দিবস','content_type' => '1','image_path' => 'https://file-phase1.nise.gov.bd/uploads/OHOHTVzFscF9ii1a1rY6hqAUoshZQo1645072856.jpg','video_url' => NULL,'video_id' => NULL,'content_properties' => NULL,'collage_image_path' => 'https://file-phase1.nise.gov.bd/uploads/wWlkzSZmeATEyoPmvr7sOPvKFIrWgP1645072861.jpg','collage_position' => '2','thumb_image_path' => 'https://file-phase1.nise.gov.bd/uploads/r0JzA6t8fNVkSpYjOmeO6p4jvWKI4v1645072870.jpg','grid_image_path' => 'https://file-phase1.nise.gov.bd/uploads/RAa8vXyI3NO7x3u32NU6lWmSrJBRzU1645072865.jpg','image_alt_title_en' => NULL,'image_alt_title' => NULL,'description_en' => NULL,'description' => '<p>Here there will be a kind of description about the program, now think of what could happen or be discussed right in this meeting and try to read it right from your subconscious mind, have a good day&nbsp;</p>','row_status' => '1','published_by' => NULL,'archived_by' => NULL,'created_by' => NULL,'updated_by' => NULL,'created_at' => '2022-02-10 18:14:13','updated_at' => '2022-02-17 16:44:55','deleted_at' => NULL),
+            array('id' => '4','show_in' => '1','activity_date' => NULL,'published_at' => '2022-02-10 00:00:00','archived_at' => '2023-02-11 00:00:00','institute_id' => NULL,'organization_id' => NULL,'industry_association_id' => NULL,'title_en' => NULL,'title' => 'আন্তর্জাতিক মাতৃভাষা দিবসের আলোচনা সভা','content_type' => '1','image_path' => 'https://file-phase1.nise.gov.bd/uploads/PawINgUhJke4UgIBiytraBQwKwZIro1645072782.jpg','video_url' => NULL,'video_id' => NULL,'content_properties' => NULL,'collage_image_path' => 'https://file-phase1.nise.gov.bd/uploads/DcPUy1iaX3gmFy0P1l6ohhEaZP7zPS1645072789.jpg','collage_position' => '3','thumb_image_path' => 'https://file-phase1.nise.gov.bd/uploads/rJXPmwTUwFDRrWgOOQX8771500xsWB1645072802.jpg','grid_image_path' => 'https://file-phase1.nise.gov.bd/uploads/gkr2XruAqeBK5sWs2DxmMclcatwZn21645072795.jpg','image_alt_title_en' => NULL,'image_alt_title' => NULL,'description_en' => NULL,'description' => '<p>Here there will be a kind of description about the program, now think of what could happen or be discussed right in this meeting and try to read it right from your subconscious mind, have a good day&nbsp;</p>','row_status' => '1','published_by' => NULL,'archived_by' => NULL,'created_by' => NULL,'updated_by' => NULL,'created_at' => '2022-02-10 18:31:55','updated_at' => '2022-02-17 16:46:44','deleted_at' => NULL),
+            array('id' => '5','show_in' => '1','activity_date' => NULL,'published_at' => '2022-02-10 00:00:00','archived_at' => '2023-02-11 00:00:00','institute_id' => NULL,'organization_id' => NULL,'industry_association_id' => NULL,'title_en' => NULL,'title' => 'উপস্থাপনা','content_type' => '1','image_path' => 'https://file-phase1.nise.gov.bd/uploads/48cKHkB5QxDzZTsmhqh3rVryuDMYjS1645072640.jpg','video_url' => NULL,'video_id' => NULL,'content_properties' => NULL,'collage_image_path' => 'https://file-phase1.nise.gov.bd/uploads/S2dXOax5nOfodq2fSRMgaUKO2vMm4D1645072644.jpg','collage_position' => '4','thumb_image_path' => 'https://file-phase1.nise.gov.bd/uploads/iakIWDrmvKHzMVLCtjSKCSbAduHzGA1645072653.jpg','grid_image_path' => 'https://file-phase1.nise.gov.bd/uploads/ECnKvCXxk7rRAJhUB0lyOrqUaaOOab1645072647.jpg','image_alt_title_en' => NULL,'image_alt_title' => NULL,'description_en' => NULL,'description' => NULL,'row_status' => '1','published_by' => NULL,'archived_by' => NULL,'created_by' => NULL,'updated_by' => NULL,'created_at' => '2022-02-10 18:33:43','updated_at' => '2022-02-17 16:48:15','deleted_at' => NULL),
+            array('id' => '6','show_in' => '1','activity_date' => NULL,'published_at' => '2022-02-10 00:00:00','archived_at' => '2023-02-11 00:00:00','institute_id' => NULL,'organization_id' => NULL,'industry_association_id' => NULL,'title_en' => NULL,'title' => 'Recent Official Work','content_type' => '1','image_path' => 'https://file-phase1.nise.gov.bd/uploads/qlU7ZRZUkGEeVvGiGkjarJlNKnuxK51644482424.jpg','video_url' => NULL,'video_id' => NULL,'content_properties' => NULL,'collage_image_path' => NULL,'collage_position' => NULL,'thumb_image_path' => NULL,'grid_image_path' => NULL,'image_alt_title_en' => NULL,'image_alt_title' => NULL,'description_en' => NULL,'description' => NULL,'row_status' => '1','published_by' => NULL,'archived_by' => NULL,'created_by' => NULL,'updated_by' => NULL,'created_at' => '2022-02-10 20:40:55','updated_at' => '2022-02-14 14:13:48','deleted_at' => NULL),
+            array('id' => '7','show_in' => '3','activity_date' => NULL,'published_at' => '2022-02-10 00:00:00','archived_at' => '2022-02-11 00:00:00','institute_id' => '1','organization_id' => NULL,'industry_association_id' => NULL,'title_en' => NULL,'title' => 'সম্মানিত সচিব মহোদয়ের প্রধান কার্যালয় পরিদর্শন ও মতবিনিময়','content_type' => '1','image_path' => 'https://file-phase1.nise.gov.bd/uploads/rPyNVdquo69e26D7aSxqRqNzeHlbl91644486699.jpg','video_url' => NULL,'video_id' => NULL,'content_properties' => NULL,'collage_image_path' => NULL,'collage_position' => NULL,'thumb_image_path' => NULL,'grid_image_path' => NULL,'image_alt_title_en' => NULL,'image_alt_title' => NULL,'description_en' => NULL,'description' => NULL,'row_status' => '1','published_by' => NULL,'archived_by' => NULL,'created_by' => NULL,'updated_by' => NULL,'created_at' => '2022-02-10 21:51:51','updated_at' => '2022-02-10 21:51:51','deleted_at' => NULL),
+            array('id' => '8','show_in' => '1','activity_date' => NULL,'published_at' => '2022-02-17 00:00:00','archived_at' => '2022-02-28 00:00:00','institute_id' => '39','organization_id' => NULL,'industry_association_id' => NULL,'title_en' => NULL,'title' => 'স্বেচ্ছাসেবক পুরস্কার','content_type' => '1','image_path' => 'https://file-phase1.nise.gov.bd/uploads/RmO0RB58sDPDXh5wCHOFrFQsy6uuon1644836189.jpg','video_url' => NULL,'video_id' => NULL,'content_properties' => NULL,'collage_image_path' => 'https://file-phase1.nise.gov.bd/uploads/kiM66yXOkzAFfkXJ8gtqgsi1oe4d9n1645072578.jpg','collage_position' => '1','thumb_image_path' => 'https://file-phase1.nise.gov.bd/uploads/hjYQLuC1n2VqQUeP4qPr5oXQCTskT41645072601.jpg','grid_image_path' => 'https://file-phase1.nise.gov.bd/uploads/KTXZ68kc4LTDlwvYHNAehTwHL4VQ5C1645072586.jpg','image_alt_title_en' => NULL,'image_alt_title' => NULL,'description_en' => NULL,'description' => NULL,'row_status' => '1','published_by' => NULL,'archived_by' => NULL,'created_by' => NULL,'updated_by' => NULL,'created_at' => '2022-02-14 22:56:40','updated_at' => '2022-02-17 16:43:58','deleted_at' => NULL),
+            array('id' => '9','show_in' => '2','activity_date' => NULL,'published_at' => '2022-02-15 00:00:00','archived_at' => '2022-02-21 00:00:00','institute_id' => NULL,'organization_id' => NULL,'industry_association_id' => NULL,'title_en' => NULL,'title' => 'জাতীয় যুব দিবস','content_type' => '1','image_path' => 'https://file-phase1.nise.gov.bd/uploads/Z5GehBpVyuPguXPlRnTS7Q4gfyEN8y1644922880.jpg','video_url' => NULL,'video_id' => NULL,'content_properties' => NULL,'collage_image_path' => 'https://file-phase1.nise.gov.bd/uploads/1Vivbqwbp7kqKVSbSsi1XRKkmPMu9S1644923485.jpg','collage_position' => '2','thumb_image_path' => 'https://file-phase1.nise.gov.bd/uploads/whkjXC49pAP33kxJRq0PfLTLQQyaFm1644923137.jpg','grid_image_path' => 'https://file-phase1.nise.gov.bd/uploads/DR1WTXDRjERTunlGEd3CRwh3KMukl41644923130.jpg','image_alt_title_en' => NULL,'image_alt_title' => NULL,'description_en' => NULL,'description' => NULL,'row_status' => '1','published_by' => NULL,'archived_by' => NULL,'created_by' => NULL,'updated_by' => NULL,'created_at' => '2022-02-15 23:02:13','updated_at' => '2022-02-15 23:11:30','deleted_at' => NULL),
+            array('id' => '10','show_in' => '2','activity_date' => NULL,'published_at' => '2022-02-15 00:00:00','archived_at' => '2022-02-17 00:00:00','institute_id' => NULL,'organization_id' => NULL,'industry_association_id' => NULL,'title_en' => NULL,'title' => 'যুব সম্মেলন','content_type' => '1','image_path' => 'https://file-phase1.nise.gov.bd/uploads/HVKPVdemyKIt1pgt3xxXBdsCZ9AHc11644923782.jpg','video_url' => NULL,'video_id' => NULL,'content_properties' => NULL,'collage_image_path' => 'https://file-phase1.nise.gov.bd/uploads/wkK2WE0gGgCDBQPANeo4AXPCS9AsMR1644923806.jpg','collage_position' => '4','thumb_image_path' => 'https://file-phase1.nise.gov.bd/uploads/ra5KRZsq5FjAOeGv3qecyHsKW0srQw1644923814.jpg','grid_image_path' => 'https://file-phase1.nise.gov.bd/uploads/t2cQpNebSpVSmngHB8pQSoSnVDrskQ1644923744.jpg','image_alt_title_en' => NULL,'image_alt_title' => NULL,'description_en' => NULL,'description' => NULL,'row_status' => '1','published_by' => NULL,'archived_by' => NULL,'created_by' => NULL,'updated_by' => NULL,'created_at' => '2022-02-15 23:17:17','updated_at' => '2022-02-15 23:17:17','deleted_at' => NULL),
+            array('id' => '11','show_in' => '2','activity_date' => NULL,'published_at' => '2022-02-15 00:00:00','archived_at' => '2022-02-28 00:00:00','institute_id' => NULL,'organization_id' => NULL,'industry_association_id' => NULL,'title_en' => NULL,'title' => 'যুব সমাবেশ','content_type' => '1','image_path' => 'https://file-phase1.nise.gov.bd/uploads/tp3aLZ5svhQk07d5nGJOPdTZI4GQs81644923924.jpg','video_url' => NULL,'video_id' => NULL,'content_properties' => NULL,'collage_image_path' => 'https://file-phase1.nise.gov.bd/uploads/nLIUaif6nLSu2BDCpLXQ1SnqInJONZ1644923933.jpg','collage_position' => '3','thumb_image_path' => 'https://file-phase1.nise.gov.bd/uploads/MwHBIfr6TEeSGDz3n0W97MEexq7nwE1644923948.jpg','grid_image_path' => 'https://file-phase1.nise.gov.bd/uploads/RSmU6LJvKL7eLLEFJnWsqX7jZOSEKC1644923941.jpg','image_alt_title_en' => NULL,'image_alt_title' => NULL,'description_en' => NULL,'description' => NULL,'row_status' => '1','published_by' => NULL,'archived_by' => NULL,'created_by' => NULL,'updated_by' => NULL,'created_at' => '2022-02-15 23:19:37','updated_at' => '2022-02-15 23:19:37','deleted_at' => NULL),
+            array('id' => '12','show_in' => '2','activity_date' => NULL,'published_at' => '2022-02-15 00:00:00','archived_at' => '2022-02-22 00:00:00','institute_id' => NULL,'organization_id' => NULL,'industry_association_id' => NULL,'title_en' => NULL,'title' => 'যুব পুরস্কার প্রদান অনুষ্ঠান','content_type' => '1','image_path' => 'https://file-phase1.nise.gov.bd/uploads/xYuVwbKjdGs1fTo0UVpVdt7HF1gV9P1644924610.jpg','video_url' => NULL,'video_id' => NULL,'content_properties' => NULL,'collage_image_path' => NULL,'collage_position' => NULL,'thumb_image_path' => 'https://file-phase1.nise.gov.bd/uploads/BuX4s5UQm4RgOrX5Ht1r3vGbiXrvpn1644924632.jpg','grid_image_path' => 'https://file-phase1.nise.gov.bd/uploads/0fjepK4r7tJYIPHCNIZcRCEuPlXiwP1644924628.jpg','image_alt_title_en' => NULL,'image_alt_title' => NULL,'description_en' => NULL,'description' => NULL,'row_status' => '1','published_by' => NULL,'archived_by' => NULL,'created_by' => NULL,'updated_by' => NULL,'created_at' => '2022-02-15 23:30:40','updated_at' => '2022-02-15 23:32:27','deleted_at' => NULL)
+        ));
+
         Schema::enableForeignKeyConstraints();
     }
 }
