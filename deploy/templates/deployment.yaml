@@ -9,10 +9,10 @@ spec:
     matchLabels:
       app:  {{ .Chart.Name }}
   {{ if eq .Values.variables.APP_ENV "DEV" }}
-  replicas: {{ .Values.systemDev.replicaCount }}
+  replicas: {{ .Values.variables.systemDev.replicaCount }}
   {{ end }}
   {{ if eq .Values.variables.APP_ENV "PRODUCTION" }}
-  replicas: {{ .Values.systemProd.replicaCount }}
+  replicas: {{ .Values.variables.systemProd.replicaCount }}
   {{ end }}
 
   strategy:
