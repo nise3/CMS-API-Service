@@ -32,7 +32,7 @@ variables:
     APP_URL: &devHost "cms-dev.nise3.xyz"
 
     LOG_CHANNEL: "elasticsearch"
-    ELASTIC_HOST: "http:\/\/elasticsearch.monitoring:9200"
+    ELASTIC_HOST: http:\/\/elasticsearch.monitoring:9200
     ELASTIC_LOGS_INDEX: cms_file_logs
 
     DB_HOST: "db-service.default"
