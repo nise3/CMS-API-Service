@@ -1,11 +1,11 @@
-{{ if or (and (eq .Values.variables.APP_ENV "DEV") .Values.variables.systenDev.enableEngress) (and (eq .Values.variables.APP_ENV "PRODUCTION") .Values.variables.systemProd.enableEngress) }}
+{{ if or (and (eq .Values.variables.APP_ENV "DEV") .Values.variables.systemDev.enableEngress) (and (eq .Values.variables.APP_ENV "PRODUCTION") .Values.variables.systemProd.enableEngress) }}
 kind: Ingress
 apiVersion: networking.k8s.io/v1
 metadata:
   name: "{{ .Chart.Name }}-ingress"
   annotations:
     {{ if eq .Values.variables.APP_ENV "DEV" }}
-{{ toYaml .Values.variables.systenDev.annotations | indent 4 }}
+{{ toYaml .Values.variables.systemDev.annotations | indent 4 }}
     {{ end }}
     {{ if eq .Values.variables.APP_ENV "PRODUCTION" }}
 {{ toYaml .Values.variables.systemProd.annotations | indent 4 }}

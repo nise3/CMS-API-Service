@@ -46,7 +46,12 @@ spec:
       {{end}}
       containers:
         - name:  {{ .Chart.Name }}
-          image: "{{ .Values.variables.imageRepository }}:{{ .Values.variables.imageAppVersion  | default .Chart.AppVersion }}"
+            {{ if eq .Values.variables.APP_ENV "DEV" }}
+          image: "{{ .Values.variables.imageRepository }}:{{ .Values.variables.systemDev.imageAppVersion  | default .Chart.AppVersion }}"
+            {{ end }}
+            {{ if eq .Values.variables.APP_ENV "PRODUCTION" }}
+          image: "{{ .Values.variables.imageRepository }}:{{ .Values.variables.systemProd.imageAppVersion  | default .Chart.AppVersion }}"
+            {{ end }}
           args:
             - service apache2 start && php /app/artisan queue:work --queue=cms.batch.calender.q
           command:
