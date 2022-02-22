@@ -21,17 +21,9 @@ class DatabaseSeeder extends Seeder
         $this->call(NoticeOrNewsSeeder::class);
         $this->call(StaticPageBlocksSeeder::class);
         $this->call(StaticPageContentsSeeder::class);
-
-//        $this->call(Nise3PartnerSeeder::class);
-//        $this->call(GalleryAlbumSeeder::class);
-//        $this->call(GalleryImageVideoSeeder::class);
-//        $this->call(FaqSeeder::class);
-//        $this->call(CalenderEventSeeder::class);
-//        $this->call(SliderSeeder::class);
-//        $this->call(BannerSeeder::class);
-//        $this->call(NoticeOrNewsSeeder::class);
-//        $this->call(RecentActivitySeeder::class);
-//        $this->call(VisitorFeedbackSuggestionSeeder::class);
-
+        $this->call(RecentActivitySeeder::class);
+        $this->call(SliderSeeder::class);
+        $this->call(BannerSeeder::class);
+        $this->call(FaqSeeder::class);
     }
 }

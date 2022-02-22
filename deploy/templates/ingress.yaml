@@ -1,16 +1,15 @@
-{{ if .Values.variables.enableEngress }}
-
+{{ if or (and (eq .Values.variables.APP_ENV "DEV") .Values.variables.systenDev.enableEngress) (and (eq .Values.variables.APP_ENV "PRODUCTION") .Values.variables.systemProd.enableEngress) }}
 kind: Ingress
 apiVersion: networking.k8s.io/v1
 metadata:
   name: "{{ .Chart.Name }}-ingress"
   annotations:
-    cert-manager.io/cluster-issuer: {{ .Values.variables.ingressClusterIssuer }}
-    kubernetes.io/ingress.class: nginx
-    {{ if .Values.variables.enableEngress }}
-    kubernetes.io/tls-acme: 'true'
-    {{end}}
-    nginx.ingress.kubernetes.io/ssl-passthrough: 'true'
+    {{ if eq .Values.variables.APP_ENV "DEV" }}
+{{ toYaml .Values.variables.systenDev.annotations | indent 4 }}
+    {{ end }}
+    {{ if eq .Values.variables.APP_ENV "PRODUCTION" }}
+{{ toYaml .Values.variables.systemProd.annotations | indent 4 }}
+    {{ end }}
 spec:
   tls:
     - hosts:
