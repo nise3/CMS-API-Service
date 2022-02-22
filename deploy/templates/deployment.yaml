@@ -8,7 +8,13 @@ spec:
   selector:
     matchLabels:
       app:  {{ .Chart.Name }}
-  replicas: {{ .Values.variables.replicaCount }}
+  {{ if eq .Values.variables.APP_ENV "DEV" }}
+  replicas: {{ .Values.systemDev.replicaCount }}
+  {{ end }}
+  {{ if eq .Values.variables.APP_ENV "PRODUCTION" }}
+  replicas: {{ .Values.systemProd.replicaCount }}
+  {{ end }}
+
   strategy:
     type: RollingUpdate
   template:
@@ -16,7 +22,7 @@ spec:
       labels:
         app:  {{ .Chart.Name }}
     spec:
-      {{ if .Values.variables.enableGitCommitCommandFetch }}
+      {{ if .Values.variables.common.enableGitCommitCommandFetch }}
       initContainers:
       - name: git-command-fetch
         image: everpeace/curl-jq
@@ -47,10 +53,10 @@ spec:
       containers:
         - name:  {{ .Chart.Name }}
             {{ if eq .Values.variables.APP_ENV "DEV" }}
-          image: "{{ .Values.variables.imageRepository }}:{{ .Values.variables.systemDev.imageAppVersion  | default .Chart.AppVersion }}"
+          image: "{{ .Values.variables.common.imageRepository }}:{{ .Values.variables.systemDev.imageAppVersion  | default .Chart.AppVersion }}"
             {{ end }}
             {{ if eq .Values.variables.APP_ENV "PRODUCTION" }}
-          image: "{{ .Values.variables.imageRepository }}:{{ .Values.variables.systemProd.imageAppVersion  | default .Chart.AppVersion }}"
+          image: "{{ .Values.variables.common.imageRepository }}:{{ .Values.variables.systemProd.imageAppVersion  | default .Chart.AppVersion }}"
             {{ end }}
           args:
             - service apache2 start && php /app/artisan queue:work --queue=cms.batch.calender.q
@@ -131,13 +137,13 @@ spec:
                     sed -i "s/MAIL_API_BASE_URL=.*$/MAIL_API_BASE_URL=$MAIL_API_BASE_URL/g" /app/.env;
                     chown -R www-data:www-data /app;
                     cd /app;
-                    {{ if .Values.variables.enableGitCommitCommandFetch }}
+                    {{ if .Values.variables.common.enableGitCommitCommandFetch }}
                     cat /vol/cmd.php | bash
                     {{end}}
           volumeMounts:
           - name: "{{ .Chart.Name }}"
             mountPath: /app/storage
-            {{ if .Values.variables.enableGitCommitCommandFetch }}
+            {{ if .Values.variables.common.enableGitCommitCommandFetch }}
           - name: cmd-vol
             mountPath: /vol
             {{end}}
@@ -160,7 +166,7 @@ spec:
       - name: "{{ .Chart.Name }}"
         persistentVolumeClaim:
           claimName: "{{ .Chart.Name }}-pv-claim"
-          {{ if .Values.variables.enableGitCommitCommandFetch }}
+          {{ if .Values.variables.common.enableGitCommitCommandFetch }}
       - name: cmd-vol
         emptyDir: {}
           {{end}}
