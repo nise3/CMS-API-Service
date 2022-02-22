@@ -137,19 +137,19 @@ spec:
             mountPath: /vol
             {{end}}
           {{ if eq .Values.variables.APP_ENV "DEV" }}
-          hostAliases:
-          - ip: "192.168.10.95"
-            hostnames:
-            - "apim-dev.nise3.xyz"
-            - "identity-dev.nise3.xyz"
+      hostAliases:
+      - ip: "192.168.10.95"
+        hostnames:
+        - "apim-dev.nise3.xyz"
+        - "identity-dev.nise3.xyz"
           {{end}}
           {{ if eq .Values.variables.APP_ENV "PRODUCTION" }}
-          hostAliases:
-          - ip: "172.17.177.53"
-            hostnames:
-            - "apim.nise.gov.bd"
-            - "identity.nise.gov.bd"
-            - "registry.nise.gov.bd"
+      hostAliases:
+      - ip: "172.17.177.53"
+        hostnames:
+        - "apim.nise.gov.bd"
+        - "identity.nise.gov.bd"
+        - "registry.nise.gov.bd"
           {{end}}
       volumes:
       - name: "{{ .Chart.Name }}"
