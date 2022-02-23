@@ -53,6 +53,7 @@ class CalenderEventService
             'calender_events.batch_id',
             'calender_events.institute_id',
             'calender_events.organization_id',
+            'calender_events.industry_association_id',
             'calender_events.start_date',
             'calender_events.end_date',
             'calender_events.start_time',
@@ -60,7 +61,9 @@ class CalenderEventService
             'calender_events.color',
             'calender_events.created_at',
             'calender_events.updated_at'
-        ]);
+
+        ])->acl();
+
         $calenderEventsBuilder->orderBy('calender_events.id', $order);
 
         if ($type) {
@@ -181,6 +184,7 @@ class CalenderEventService
             'calender_events.batch_id',
             'calender_events.institute_id',
             'calender_events.organization_id',
+            'calender_events.industry_association_id',
             'calender_events.start_date',
             'calender_events.end_date',
             'calender_events.start_time',
@@ -234,16 +238,13 @@ class CalenderEventService
 
     public function createEventAfterBatchAssign(array $data): CalenderEvent
     {
-        $batch = $data['batch'];
-        $youth_id = $data['youth_id'];
-
         $calenderEvent = app()->make(CalenderEvent::class);
-        $calenderEvent->title = $batch['title'];
-        $calenderEvent->title_en = $batch['title_en'];
-        $calenderEvent->youth_id = $youth_id;
-        $calenderEvent->batch_id = $batch['id'];
-        $calenderEvent->start_date = $batch['batch_start_date'];
-        $calenderEvent->end_date = $batch['batch_end_date'];
+        $calenderEvent->title = $data['batch_title'];
+        $calenderEvent->title_en = $data['batch_title_en'];
+        $calenderEvent->youth_id = $data['youth_id'];
+        $calenderEvent->batch_id = $data['batch_id'];
+        $calenderEvent->start_date = $data['batch_start_date'];
+        $calenderEvent->end_date = $data['batch_end_date'];
         $calenderEvent->color = BaseModel::CALENDER_DEFAULT_COLOR;
 
         $calenderEvent->save();
@@ -340,7 +341,7 @@ class CalenderEventService
             'end_date' => [
                 'required',
                 'date',
-                'after:start_date'
+                'after_or_equal:start_date'
             ],
             'start_time' => [
                 'nullable',

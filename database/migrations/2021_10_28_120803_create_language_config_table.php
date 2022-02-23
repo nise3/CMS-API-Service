@@ -18,7 +18,10 @@ class CreateLanguageConfigTable extends Migration
             $table->char('code', 2);
             $table->string('name', 150);
             $table->string('native_name', 250);
-            $table->unsignedTinyInteger('is_native')->comment('[1=>Yes,0=No]')->default(0);
+            $table->unsignedTinyInteger('is_native')
+                ->comment('[1=>Yes,0=No]')
+                ->default(0);
+
             $table->timestamps();
         });
     }

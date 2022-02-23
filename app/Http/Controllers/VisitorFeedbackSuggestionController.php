@@ -60,7 +60,8 @@ class VisitorFeedbackSuggestionController extends Controller
 
 
     /**
-//     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @param Request $request
+     * @return JsonResponse
      * @throws ValidationException
      */
     function store(Request $request): JsonResponse

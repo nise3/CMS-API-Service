@@ -56,7 +56,9 @@ class VisitorFeedbackSuggestionService
             'visitor_feedbacks_suggestions.row_status',
             'visitor_feedbacks_suggestions.created_at',
             'visitor_feedbacks_suggestions.updated_at'
-        ]);
+
+        ])->acl();
+
         $visitorFeedbackSuggestionBuilder->orderBy('visitor_feedbacks_suggestions.id', $order);
 
         if($isRequestFromClientSide){

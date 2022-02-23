@@ -2,10 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\CmsLanguage;
-use App\Models\Nise3Partner;
-use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class Nise3PartnerSeeder extends Seeder
@@ -18,47 +16,16 @@ class Nise3PartnerSeeder extends Seeder
     public function run()
     {
         Schema::disableForeignKeyConstraints();
-        Nise3Partner::query()->truncate();
-        for ($i = 0; $i < 10; $i++) {
-            /** @var Nise3Partner $nise3Partner */
-            $nise3Partner = Nise3Partner::factory()->create();
-            CmsLanguage::factory()
-                ->state(
-                    new Sequence(
-                        [
-                            'table_name' => $nise3Partner->getTable(),
-                            "key_id" => $nise3Partner->id,
-                            'lang_code' => 'hi',
-                            'column_name' => Nise3Partner::NISE_3_PARTNER_TITLE,
-                            'column_value' => "अगर आप किसी एग्जाम की तैयारी "
-                        ],
-                        [
-                            'table_name' => $nise3Partner->getTable(),
-                            "key_id" => $nise3Partner->id,
-                            'lang_code' => 'hi',
-                            'column_name' => Nise3Partner::NISE_3_PARTNER_ATL_IMAGE,
-                            'column_value' => "भारत का इतिहासं"
-                        ],
 
-                        [
-                            'table_name' => $nise3Partner->getTable(),
-                            "key_id" => $nise3Partner->id,
-                            'lang_code' => 'te',
-                            'column_name' => Nise3Partner::NISE_3_PARTNER_TITLE,
-                            'column_value' => "భారతదేశ చరిత్ర"
-                        ],
-                        [
-                            'table_name' => $nise3Partner->getTable(),
-                            "key_id" => $nise3Partner->id,
-                            'lang_code' => 'te',
-                            'column_name' => Nise3Partner::NISE_3_PARTNER_ATL_IMAGE,
-                            'column_value' => "భారతదేశ చరిత్ర"
-                        ]
-                    )
-                )
-                ->count(5)
-                ->create();
-        }
+        DB::table('nise3_partners')->truncate();
+
+        DB::table('nise3_partners')->insert(array(
+            array('id' => '1','title_en' => NULL,'title' => 'সমাজসাব অধিদফতর','main_image_path' => 'https://file-phase1.nise.gov.bd/uploads/NxD7AROAbDL672P8FpYtjTBZQO5Dbn1644480571.png','thumb_image_path' => NULL,'grid_image_path' => NULL,'domain' => NULL,'image_alt_title_en' => NULL,'image_alt_title' => NULL,'row_status' => '1','created_by' => NULL,'updated_by' => NULL,'created_at' => '2022-02-10 20:09:32','updated_at' => '2022-02-10 20:09:32','deleted_at' => NULL),
+            array('id' => '2','title_en' => NULL,'title' => 'বিটাক','main_image_path' => 'https://file-phase1.nise.gov.bd/uploads/JNgTosuI1YiP5ucrU430e4L3BgiYJf1644480605.jpg','thumb_image_path' => NULL,'grid_image_path' => NULL,'domain' => NULL,'image_alt_title_en' => NULL,'image_alt_title' => NULL,'row_status' => '1','created_by' => NULL,'updated_by' => NULL,'created_at' => '2022-02-10 20:10:10','updated_at' => '2022-02-10 20:10:10','deleted_at' => NULL),
+            array('id' => '3','title_en' => NULL,'title' => 'যুব উন্নয়ন','main_image_path' => 'https://file-phase1.nise.gov.bd/uploads/1UIrTWVjmpZ11Z6ZmRHMfGHfWTL4Oz1644480620.jfif','thumb_image_path' => NULL,'grid_image_path' => NULL,'domain' => 'https://dyd-dev.nise3.xyz','image_alt_title_en' => NULL,'image_alt_title' => NULL,'row_status' => '1','created_by' => NULL,'updated_by' => NULL,'created_at' => '2022-02-10 20:10:28','updated_at' => '2022-02-17 22:44:00','deleted_at' => NULL),
+            array('id' => '4','title_en' => NULL,'title' => 'বিজিএমইএ','main_image_path' => 'https://file-phase1.nise.gov.bd/uploads/cBh2PfNmCKOvRh6ZBvz5vJhi3q9Db91644480638.png','thumb_image_path' => NULL,'grid_image_path' => NULL,'domain' => NULL,'image_alt_title_en' => NULL,'image_alt_title' => NULL,'row_status' => '1','created_by' => NULL,'updated_by' => NULL,'created_at' => '2022-02-10 20:10:44','updated_at' => '2022-02-10 20:10:44','deleted_at' => NULL)
+        ));
+
         Schema::enableForeignKeyConstraints();
     }
 }

@@ -54,10 +54,12 @@ class Banner extends BaseModel
     public const BT_LR = "BT_LR";
     public const BT_RL = "BT_RL";
     public const BT_CB = "BT_CB";
+    public const BT_OB = "BT_OB";
     public const BANNER_TEMPLATE_TYPES = [
         self::BT_LR => "Banner with text left anzd image right",
         self::BT_RL => "Banner with text right and image left",
-        self::BT_CB => "Banner with text center and image background"
+        self::BT_CB => "Banner with text center and image background",
+        self::BT_OB => "Banner with only background",
     ];
     public const BANNER_CONTEXT_POSITION_LEFT = "left";
     public const BANNER_CONTEXT_POSITION_RIGHT = "right";

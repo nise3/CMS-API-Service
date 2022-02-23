@@ -7,9 +7,11 @@ use ErrorException;
 use Exception;
 
 use FastRoute\BadRouteException;
+use GuzzleHttp\Exception\RequestException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Client\RequestException as IlluminateRequestException;
 use Illuminate\Validation\ValidationException;
 use Laravel\Lumen\Exceptions\Handler as ExceptionHandler;
@@ -85,8 +87,14 @@ class Handler extends ExceptionHandler
             $errors['errors'] = $e->errors();
         } elseif ($e instanceof BindingResolutionException) {
             $errors['_response_status']['message'] = "Binding Resolution Error";
-        } else if ($e instanceof IlluminateRequestException || $e instanceof \GuzzleHttp\Exception\RequestException) {
-            $errors['_response_status']['message'] = "External API Call Failed.";
+        } elseif ($e instanceof ConnectionException) {
+            $errors['_response_status']['code'] = ResponseAlias::HTTP_REQUEST_TIMEOUT;
+            $errors['_response_status']['message'] = $e->getMessage();
+        } else if ($e instanceof HttpErrorException) {
+            $errors['_response_status']['message'] = $e->getPreparedMessage();
+            $errors['_response_status']['code'] = $e->getCode() ? $e->getCode() : ResponseAlias::HTTP_INTERNAL_SERVER_ERROR;
+        } else if ($e instanceof RequestException) {
+            $errors = idUserErrorMessage($e);
         } elseif ($e instanceof ModelNotFoundException) {
             $errors['_response_status']['code'] = ResponseAlias::HTTP_NOT_FOUND;
             $errors['_response_status']['message'] = 'Entry or Row for ' . str_replace('App\\', '', $e->getModel()) . ' was not Found'; //$e->getMessage();

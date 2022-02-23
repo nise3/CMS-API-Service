@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\SliderResource;
+use App\Models\BaseModel;
 use App\Models\CalenderEvent;
 use App\Services\Calender\CalenderEventService;
+use App\Services\Common\CmsGlobalConfigService;
 use Carbon\Carbon;
+use Illuminate\Http\Client\RequestException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -63,6 +67,18 @@ class CalenderEventsController extends Controller
             ]
         ];
         return Response::json($response);
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     * @throws ValidationException
+     */
+    public function clientSideGetList(Request $request): JsonResponse
+    {
+        $filter = $this->calenderEventService->filterValidator($request)->validate();
+        $response = $this->calenderEventService->getAllCalenderEvents($filter, $this->startTime);
+        return Response::json($response, ResponseAlias::HTTP_OK);
     }
 
     /**

@@ -48,7 +48,7 @@ use Illuminate\Support\Collection;
 class RecentActivity extends BaseModel
 {
 
-    use SoftDeletes, HasFactory, ScopeRowStatusTrait;
+    use SoftDeletes, ScopeRowStatusTrait;
 
     public const CONTENT_TYPE_IMAGE = 1;
     public const CONTENT_TYPE_FACEBOOK_VIDEO = 2;

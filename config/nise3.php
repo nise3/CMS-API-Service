@@ -5,9 +5,10 @@ use App\Models\Banner;
 use App\Models\StaticPageBlock;
 
 return [
-    "is_dev_mode" => env("IS_DEVELOPMENT_MOOD", false),
+    "is_dev_mode" => env("IS_DEVELOPMENT_MODE", false),
     "should_ssl_verify" => env("IS_SSL_VERIFY", false),
     "default_language_code" => ["BN", "EN"],
+    "user_cache_ttl" => 86400,
     "show_in" => [
         1 => [
             "id" => BaseModel::SHOW_IN_NISE3,
@@ -28,12 +29,12 @@ return [
             "id" => BaseModel::SHOW_IN_INDUSTRY,
             "title" => "Industry",
             "title_en" => 'Industry'
+        ],
+        5=>[
+            "id"=>BaseModel::SHOW_IN_INDUSTRY_ASSOCIATION,
+            "title"=>"Industry Association",
+            "title_en"=>'Industry Association'
         ]
-//        5=>[
-//            "id"=>BaseModel::SHOW_IN_INDUSTRY_ASSOCIATION,
-//            "title"=>"Industry Association",
-//            "title_en"=>'Industry Association'
-//        ]
     ],
     "banner_template" => [
         Banner::BT_LR => [
@@ -83,7 +84,11 @@ return [
             "context_path" => [
                 "position" => Banner::BANNER_CONTEXT_POSITION_BACKGROUND
             ]
-        ]
+        ],
+        Banner::BT_OB => [
+            "banner_template_code" => Banner::BT_OB,
+            "banner_template_title" => Banner::BANNER_TEMPLATE_TYPES[Banner::BT_OB]
+        ],
     ],
     "page_block_template" => [
         StaticPageBlock::PBT_LR => [
@@ -117,6 +122,10 @@ return [
             "image" => [
                 "position" => StaticPageBlock::POSITION_LEFT
             ]
+        ],
+        StaticPageBlock::PBT_SHOW_EDITOR_CONTENT => [
+            "page_block_template_code" => StaticPageBlock::PBT_SHOW_EDITOR_CONTENT,
+            "page_block_template_title" => StaticPageBlock::STATIC_PAGE_BLOCK_TEMPLATE_TYPES[StaticPageBlock::PBT_SHOW_EDITOR_CONTENT]
         ]
     ]
 ];

@@ -65,6 +65,10 @@ $app->configure('services');
 $app->configure('nise3');
 $app->configure('httpclientendpoint');
 $app->configure('languages');
+$app->configure('queue');
+$app->configure('nise3RabbitMq');
+$app->configure('elasticSearchLogConfig');
+$app->configure('lumenDefaultLogConfig');
 
 /*
 |--------------------------------------------------------------------------
@@ -85,6 +89,7 @@ $app->middleware([
 
 $app->routeMiddleware([
     'auth' => App\Http\Middleware\Authenticate::class,
+    'public-domain-handle' => App\Http\Middleware\PublicApiMiddleware::class,
 ]);
 
 
@@ -103,6 +108,13 @@ $app->register(App\Providers\AppServiceProvider::class);
 $app->register(App\Providers\AuthServiceProvider::class);
 $app->register(Flipbox\LumenGenerator\LumenGeneratorServiceProvider::class);
 $app->register(Felixkiss\UniqueWithValidator\ServiceProvider::class);
+
+$app->register(Ixudra\Curl\CurlServiceProvider::class);
+$app->register(Illuminate\Redis\RedisServiceProvider::class);
+
+$app->register(App\Providers\EventServiceProvider::class);
+$app->register(App\Providers\RabbitMQServiceProvider::class);
+$app->register(VladimirYuldashev\LaravelQueueRabbitMQ\LaravelQueueRabbitMQServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------

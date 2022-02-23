@@ -2,9 +2,11 @@
 
 namespace App\Services\Common;
 
+use App\Exceptions\HttpErrorException;
 use App\Models\BaseModel;
 use App\Models\LanguageConfig;
 use Illuminate\Http\Client\RequestException;
+use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use JetBrains\PhpStorm\ArrayShape;
@@ -34,6 +36,7 @@ class CmsGlobalConfigService
     #[ArrayShape([BaseModel::INSTITUTE_SERVICE => "array|mixed", BaseModel::ORGANIZATION_SERVICE => "array|mixed"])]
     public static function getOrganizationOrInstituteOrIndustryAssociationTitle(array $cmsData): array
     {
+        $industryAssociationIds = [];
         $organizationIds = [];
         $instituteIds = [];
         $courseIds = [];
@@ -42,6 +45,7 @@ class CmsGlobalConfigService
         $instituteClientUrl = clientUrl(BaseModel::INSTITUTE_URL_CLIENT_TYPE) . BaseModel::GET_INSTITUTE_TITLE_BY_ID__HTTP_CLIENT_ENDPOINT;
         $instituteClientUrlForCourseAndProgramTitle = clientUrl(BaseModel::INSTITUTE_URL_CLIENT_TYPE) . BaseModel::GET_COURSE_AND_PROGRAM_TITLE_BY_ID_HTTP_CLIENT_ENDPOINT;
         $organizationClientUrl = clientUrl(BaseModel::ORGANIZATION_CLIENT_URL_TYPE) . BaseModel::GET_ORGANIZATION_TITLE_BY_ID_HTTP_CLIENT_ENDPOINT;
+        $organizationClientUrlForIndustryAssociationTitle = clientUrl(BaseModel::ORGANIZATION_CLIENT_URL_TYPE) . BaseModel::GET_INDUSTRY_ASSOCIATION_TITLE_BY_ID_HTTP_CLIENT_ENDPOINT;
 
         /**
          * For get_list request execute IF block.
@@ -61,6 +65,9 @@ class CmsGlobalConfigService
                 if (!empty($cmsDatum['program_id'])) {
                     $programIds[] = $cmsDatum['program_id'];
                 }
+                if (!empty($cmsDatum['industry_association_id'])) {
+                    $industryAssociationIds[] = $cmsDatum['industry_association_id'];
+                }
             }
         } else {
             if (!empty($cmsData['organization_id'])) {
@@ -75,35 +82,45 @@ class CmsGlobalConfigService
             if (!empty($cmsData['program_id'])) {
                 $programIds[] = $cmsData['program_id'];
             }
+            if (!empty($cmsData['industry_association_id'])) {
+                $industryAssociationIds[] = $cmsData['industry_association_id'];
+            }
         }
 
-
         /** Call to Institute Service for Institute Title */
-        $instituteData = Http::withOptions([
-            'verify' => config("nise3.should_ssl_verify"),
-            'debug' => config('nise3.http_debug'),
-            'timeout' => config("nise3.http_timeout")
-        ])->post($instituteClientUrl, [
-            "institute_ids" => $instituteIds
-        ])->throw(function ($response, $e) use ($instituteClientUrl) {
-            Log::debug("Http/Curl call error. Destination:: " . $instituteClientUrl . ' and Response:: ' . json_encode($response));
-            return $e;
-        })
+        $instituteData = Http::withOptions(
+            [
+                'verify' => config("nise3.should_ssl_verify"),
+                'debug' => config('nise3.http_debug'),
+                'timeout' => config("nise3.http_timeout")
+            ]
+        )
+            ->post($instituteClientUrl, [
+                "institute_ids" => $instituteIds
+            ])
+            ->throw(static function (Response $httpResponse, $httpException) use ($instituteClientUrl) {
+                Log::debug(get_class($httpResponse) . ' - ' . get_class($httpException));
+                Log::debug("Http/Curl call error. Destination:: " . $instituteClientUrl . ' and Response:: ' . $httpResponse->body());
+                throw new HttpErrorException($httpResponse);
+            })
             ->json('data');
 
         /** Call to Institute Service for Course and Program Title */
-        if(($courseIds && count($courseIds) > 0) || ($programIds && count($programIds) > 0)){
+        if (($courseIds && count($courseIds) > 0) || ($programIds && count($programIds) > 0)) {
             $courseProgramData = Http::withOptions([
                 'verify' => config("nise3.should_ssl_verify"),
                 'debug' => config('nise3.http_debug'),
                 'timeout' => config("nise3.http_timeout")
-            ])->post($instituteClientUrlForCourseAndProgramTitle, [
-                "course_ids" => $courseIds,
-                "program_ids" => $programIds
-            ])->throw(function ($response, $e) use ($instituteClientUrlForCourseAndProgramTitle) {
-                Log::debug("Http/Curl call error. Destination:: " . $instituteClientUrlForCourseAndProgramTitle . ' and Response:: ' . json_encode($response));
-                return $e;
-            })
+            ])
+                ->post($instituteClientUrlForCourseAndProgramTitle, [
+                    "course_ids" => $courseIds,
+                    "program_ids" => $programIds
+                ])
+                ->throw(static function (Response $httpResponse, $httpException) use ($instituteClientUrlForCourseAndProgramTitle) {
+                    Log::debug(get_class($httpResponse) . ' - ' . get_class($httpException));
+                    Log::debug("Http/Curl call error. Destination:: " . $instituteClientUrlForCourseAndProgramTitle . ' and Response:: ' . $httpResponse->body());
+                    throw new HttpErrorException($httpResponse);
+                })
                 ->json('data');
 
             $titleResponse = [
@@ -116,13 +133,36 @@ class CmsGlobalConfigService
             'verify' => config("nise3.should_ssl_verify"),
             'debug' => config('nise3.http_debug'),
             'timeout' => config("nise3.http_timeout")
-        ])->post($organizationClientUrl, [
-            "organization_ids" => $organizationIds
-        ])->throw(function ($response, $e) use ($organizationClientUrl) {
-            Log::debug("Http/Curl call error. Destination:: " . $organizationClientUrl . ' and Response:: ' . json_encode($response));
-            return $e;
-        })->json('data');
+        ])
+            ->post($organizationClientUrl, [
+                "organization_ids" => $organizationIds
+            ])
+            ->throw(static function (Response $httpResponse, $httpException) use ($organizationClientUrl) {
+                Log::debug(get_class($httpResponse) . ' - ' . get_class($httpException));
+                Log::debug("Http/Curl call error. Destination:: " . $organizationClientUrl . ' and Response:: ' . $httpResponse->body());
+                throw new HttpErrorException($httpResponse);
+            })
+            ->json('data');
 
+        /** Call to Organization Service for Industry Association Title & Title EN */
+        if ($industryAssociationIds) {
+            $industryAssociationData = Http::withOptions([
+                'verify' => config("nise3.should_ssl_verify"),
+                'debug' => config('nise3.http_debug'),
+                'timeout' => config("nise3.http_timeout")
+            ])
+                ->post($organizationClientUrlForIndustryAssociationTitle, [
+                    "industry_association_ids" => $industryAssociationIds
+                ])
+                ->throw(static function (Response $httpResponse, $httpException) use ($organizationClientUrlForIndustryAssociationTitle) {
+                    Log::debug(get_class($httpResponse) . ' - ' . get_class($httpException));
+                    Log::debug("Http/Curl call error. Destination:: " . $organizationClientUrlForIndustryAssociationTitle . ' and Response:: ' . $httpResponse->body());
+                    throw new HttpErrorException($httpResponse);
+                })
+                ->json('data');
+
+            $titleResponse[BaseModel::INDUSTRY_ASSOCIATION_TITLE] = $industryAssociationData;
+        }
 
         $titleResponse[BaseModel::INSTITUTE_SERVICE] = $instituteData;
         $titleResponse[BaseModel::ORGANIZATION_SERVICE] = $organizationData;

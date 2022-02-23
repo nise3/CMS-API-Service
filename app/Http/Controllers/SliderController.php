@@ -19,10 +19,20 @@ use Throwable;
 class SliderController extends Controller
 {
 
+    /**
+     * @var SliderService
+     */
     public SliderService $sliderService;
+    /**
+     * @var Carbon
+     */
     private Carbon $startTime;
 
 
+    /**
+     * SliderController constructor.
+     * @param SliderService $sliderService
+     */
     public function __construct(SliderService $sliderService)
     {
         $this->startTime = Carbon::now();
@@ -64,6 +74,8 @@ class SliderController extends Controller
 
 
     /**
+     * @param Request $request
+     * @return JsonResponse
      * @throws RequestException
      * @throws ValidationException
      */
@@ -72,7 +84,7 @@ class SliderController extends Controller
         $request->offsetSet(BaseModel::IS_CLIENT_SITE_RESPONSE_KEY, BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG);
         $filter = $this->sliderService->filterValidator($request)->validate();
         $filter[BaseModel::IS_CLIENT_SITE_RESPONSE_KEY] = BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG;
-        $sliderList = $this->sliderService->getSliderList($filter, $this->startTime);
+        $sliderList = $this->sliderService->getSliderList($filter);
         $request->offsetSet(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID, CmsGlobalConfigService::getOrganizationOrInstituteOrIndustryAssociationTitle($sliderList->toArray()['data'] ?? $sliderList->toArray()));
         $response = SliderResource::collection($sliderList)->resource;
         $response = getResponse($response->toArray(), $this->startTime, !BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
@@ -80,6 +92,8 @@ class SliderController extends Controller
     }
 
     /**
+     * @param Request $request
+     * @return JsonResponse
      * @throws ValidationException
      */
     function store(Request $request): JsonResponse
@@ -100,6 +114,9 @@ class SliderController extends Controller
 
 
     /**
+     * @param Request $request
+     * @param int $id
+     * @return JsonResponse
      * @throws ValidationException
      */
     function update(Request $request, int $id): JsonResponse
@@ -120,6 +137,10 @@ class SliderController extends Controller
     }
 
 
+    /**
+     * @param int $id
+     * @return JsonResponse
+     */
     public function destroy(int $id): JsonResponse
     {
         $visitorFeedback = Slider::findOrFail($id);

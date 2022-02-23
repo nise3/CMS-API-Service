@@ -11,6 +11,8 @@ use App\Services\Common\LanguageCodeService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
@@ -20,7 +22,7 @@ class StaticPageContentOrPageBlockService
     /**
      * @param array $request
      * @param string $page_code
-     * @return Builder|Model
+     * @return Model|Builder|null
      */
     public function getStaticPageOrBlock(array $request, string $page_code): Model|Builder|null
     {
@@ -36,6 +38,7 @@ class StaticPageContentOrPageBlockService
 
         /** @var Builder $staticPageBuilder */
         if ($type == StaticPageType::TYPE_PAGE_BLOCK) {
+            DB::enableQueryLog();
             $staticPageBuilder = StaticPageBlock::select([
                 'static_page_types.type',
                 'static_page_blocks.id',
@@ -64,7 +67,9 @@ class StaticPageContentOrPageBlockService
                 'static_page_blocks.updated_by',
                 'static_page_blocks.created_at',
                 'static_page_blocks.updated_at'
-            ]);
+
+            ])->acl();
+
             $staticPageBuilder->join('static_page_types', function ($join) {
                 $join->on('static_page_types.id', '=', 'static_page_blocks.static_page_type_id',);
             });
@@ -104,7 +109,8 @@ class StaticPageContentOrPageBlockService
                 'static_page_contents.updated_by',
                 'static_page_contents.created_at',
                 'static_page_contents.updated_at'
-            ]);
+
+            ])->acl();
 
             $staticPageBuilder->join('static_page_types', function ($join) {
                 $join->on('static_page_types.id', '=', 'static_page_contents.static_page_type_id',);

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 
+use App\Traits\Scopes\ScopeAcl;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,7 +13,14 @@ use Illuminate\Database\Eloquent\Model;
  */
 abstract class BaseModel extends Model
 {
-    use HasFactory;
+    use ScopeAcl, HasFactory;
+
+    /**User Type*/
+    public const SYSTEM_USER = 1;
+    public const ORGANIZATION_USER = 2;
+    public const INSTITUTE_USER = 3;
+    public const YOUTH_USER_TYPE = 4;
+    public const INDUSTRY_ASSOCIATION_USER = 5;
 
     public const IMAGE_PATH_VALIDATION_RULE = 'url';
     public const HTTP_URL = 'regex:/^(http|https):\/\/[a-zA-Z-\-\.0-9]+$/';
@@ -54,16 +62,16 @@ abstract class BaseModel extends Model
     public const INSTITUTE_TYPE_NON_GOVT = 2;
     public const INSTITUTE_TYPE_OTHERS_ = 3;
 
-    /** Institute User Type*/
-    public const INSTITUTE_USER = 3;
     public const DEFAULT_PAGE_SIZE = 10;
 
     /** Client Url End Point Type*/
     public const ORGANIZATION_CLIENT_URL_TYPE = "ORGANIZATION";
     public const INSTITUTE_URL_CLIENT_TYPE = "INSTITUTE";
     public const CORE_CLIENT_URL_TYPE = "CORE";
-    public const IDP_SERVER_CLIENT_URL_TYPE = "IDP_SERVER";
-    const INSTITUTE_USER_REGISTRATION_ENDPOINT_LOCAL = '';
+    public const YOUTH_CLIENT_URL_TYPE = "YOUTH";
+    public const CMS_CLIENT_URL_TYPE = "CMS";
+    public const IDP_SERVER_CLIENT_PROFILE_URL_TYPE = "IDP_SERVER_USER";
+    public const IDP_SERVER_CLIENT_BASE_URL_TYPE = "IDP_SERVER";
 
     public const MOBILE_REGEX = 'regex: /^(01[3-9]\d{8})$/';
 
@@ -105,12 +113,33 @@ abstract class BaseModel extends Model
     public const INSTITUTE_SERVICE = "institute";
     public const ORGANIZATION_SERVICE = "organization";
     public const COURSE_AND_PROGRAM_TITLE = "course_program_title";
+    public const INDUSTRY_ASSOCIATION_TITLE = "industry_association_title";
     public const COURSE_TITLE = "course_title";
     public const PROGRAM_TITLE = "program_title";
     public const INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID = "INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID";
     public const GET_INSTITUTE_TITLE_BY_ID__HTTP_CLIENT_ENDPOINT = "get-institute-title-by-ids";
     public const GET_COURSE_AND_PROGRAM_TITLE_BY_ID_HTTP_CLIENT_ENDPOINT = "get-course-program-title-by-ids";
     public const GET_ORGANIZATION_TITLE_BY_ID_HTTP_CLIENT_ENDPOINT = "get-organization-title-by-ids";
+    public const GET_INDUSTRY_ASSOCIATION_TITLE_BY_ID_HTTP_CLIENT_ENDPOINT = "get-industry-association-title-by-ids";
 
     public const CALENDER_DEFAULT_COLOR = '#7db91c';
+
+    public const SELF_EXCHANGE = 'cms';
+
+    /** Saga Status */
+    public const SAGA_STATUS_CREATE_PENDING = 1;
+    public const SAGA_STATUS_UPDATE_PENDING = 2;
+    public const SAGA_STATUS_DESTROY_PENDING = 3;
+    public const SAGA_STATUS_COMMIT = 4;
+    public const SAGA_STATUS_ROLLBACK = 5;
+
+    /** SAGA events Publisher & Consumer */
+    public const SAGA_CORE_SERVICE = 'core_service';
+    public const SAGA_INSTITUTE_SERVICE = 'institute_service';
+    public const SAGA_ORGANIZATION_SERVICE = 'organization_service';
+    public const SAGA_YOUTH_SERVICE = 'youth_service';
+    public const SAGA_CMS_SERVICE = 'cms_service';
+    public const SAGA_MAIL_SMS_SERVICE = 'mail_sms_service';
+
+    public const DATABASE_CONNECTION_ERROR_CODE = 2002;
 }

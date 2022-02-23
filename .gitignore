@@ -3,5 +3,4 @@
 Homestead.json
 Homestead.yaml
 .env
-.phpunit.result.cac/
-/composer.lock
+.phpunit.result.cache

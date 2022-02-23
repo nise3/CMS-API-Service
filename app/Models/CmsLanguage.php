@@ -18,6 +18,7 @@ use Carbon\Carbon;
 class CmsLanguage extends BaseModel
 {
     public $timestamps = false;
+
     protected $guarded = ["id"];
 
 }
