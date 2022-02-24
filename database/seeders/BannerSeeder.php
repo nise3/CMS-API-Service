@@ -2,11 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\CmsLanguage;
-use App\Models\Banner;
-use App\Models\Slider;
-use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class BannerSeeder extends Seeder
@@ -19,82 +16,18 @@ class BannerSeeder extends Seeder
     public function run()
     {
         Schema::disableForeignKeyConstraints();
-        Banner::query()->truncate();
-        $sliders = Slider::all();
 
-        foreach ($sliders as $slider) {
-            /** @var Banner $banner */
-            $banner = Banner::factory()->state(
-                new sequence(
-                    [
-                        'slider_id' => $slider->id
-                    ],
-                )
-            )->create();
-            CmsLanguage::factory()
-                ->state(
-                    new Sequence(
-                        [
-                            'table_name' => $banner->getTable(),
-                            "key_id" => $banner->id,
-                            'lang_code' => 'hi',
-                            'column_name' => Banner::BANNER_LANGUAGE_ATTR_TITLE,
-                            'column_value' => "अगर आप किसी एग्जाम की तैयारी कर रहे हैं, तो जेनरल नॉलेज अच्छी करना बेहद जरूरी। तो चलिए जानते हैं कौन-से सवाल"
-                        ],
-                        [
-                            'table_name' => $banner->getTable(),
-                            "key_id" => $banner->id,
-                            'lang_code' => 'hi',
-                            'column_name' => Banner::BANNER_LANGUAGE_ATTR_SUB_TITLE,
-                            'column_value' => "भारत का इतिहास या फिर भूगोल, यह इतना बड़ा है कि इसको याद करने में बड़ों-बड़ों की रातों की नींद हराम हो जाती है। सभी प्रश्‍नों के उत्‍तर याद करना सभी के लिए लगभग असंभव है, आज हम आपको बता रहे हैं उन खास प्रश्‍नों को उनके उत्‍तर के साथ जो प्रतियोगी परिक्षाओं से लेकर जॉब इंटरव्‍यू में ज्‍यादातर पूछे जाते हैं। अगर आपको इन प्रश्‍नों के उत्‍तर पता हैं तो आपकी मुश्‍किलें हल हो जाएंगी"
-                        ],
-                        [
-                            'table_name' => $banner->getTable(),
-                            "key_id" => $banner->id,
-                            'lang_code' => 'hi',
-                            'column_name' => Banner::BANNER_LANGUAGE_ATTR_IMAGE_ALT_TITLE,
-                            'column_value' => "भारत का इतिहास या फिर भूगोल"
-                        ],
-                        [
-                            'table_name' => $banner->getTable(),
-                            "key_id" => $banner->id,
-                            'lang_code' => 'hi',
-                            'column_name' => Banner::BANNER_LANGUAGE_ATTR_BUTTON_TEXT,
-                            'column_value' => "भारत का इतिहास या फिर भूगोल"
-                        ],
-                        [
-                            'table_name' => $banner->getTable(),
-                            "key_id" => $banner->id,
-                            'lang_code' => 'te',
-                            'column_name' => Banner::BANNER_LANGUAGE_ATTR_TITLE,
-                            'column_value' => "మీరు ఏదైనా పరీక్షకు సిద్ధమవుతున్నట్లయితే, మంచి సాధారణ జ్ఞానం కలిగి ఉండటం చాలా ముఖ్యం. కాబట్టి ఏయే ప్రశ్నలు తెలుసుకుందాం"
-                        ],
-                        [
-                            'table_name' => $banner->getTable(),
-                            "key_id" => $banner->id,
-                            'lang_code' => 'te',
-                            'column_name' => Banner::BANNER_LANGUAGE_ATTR_SUB_TITLE,
-                            'column_value' => "భారతదేశం యొక్క చరిత్ర లేదా భౌగోళికం, ఇది చాలా పెద్దది, దానిని గుర్తుంచుకోవడంలో పెద్దలకు నిద్రలేని రాత్రులు అవుతుంది. ప్రతి ఒక్కరు అన్ని ప్రశ్నలకు సమాధానాలను గుర్తుంచుకోవడం దాదాపు అసాధ్యం, ఈ రోజు మేము వారి సమాధానాలతో ఆ ప్రత్యేక ప్రశ్నలను మీకు చెప్తున్నాము, వీటిని ఎక్కువగా పోటీ పరీక్షల నుండి ఉద్యోగ ఇంటర్వ్యూలలో ఉపయోగిస్తారు."
-                        ],
-                        [
-                            'table_name' => $banner->getTable(),
-                            "key_id" => $banner->id,
-                            'lang_code' => 'te',
-                            'column_name' => Banner::BANNER_LANGUAGE_ATTR_IMAGE_ALT_TITLE,
-                            'column_value' => "భారతదేశ చరిత్ర లేదా భూగోళశాస్త్రం"
-                        ],
-                        [
-                            'table_name' => $banner->getTable(),
-                            "key_id" => $banner->id,
-                            'lang_code' => 'te',
-                            'column_name' => Banner::BANNER_LANGUAGE_ATTR_BUTTON_TEXT,
-                            'column_value' => "భారతదేశ చరిత్ర లేదా భూగోళశాస్త్రం"
-                        ]
-                    )
-                )
-                ->count(8)
-                ->create();
-        }
+        DB::table('banners')->truncate();
+        DB::table('banners')->insert(array(
+            array('id' => '1','slider_id' => '1','title_en' => NULL,'title' => 'উদযাপন অনুষ্ঠান','sub_title_en' => NULL,'sub_title' => NULL,'is_button_available' => '1','button_text' => 'আরো দেখুন','link' => 'http://mcci.nise.gov.bd/contact','image_alt_title_en' => NULL,'image_alt_title' => NULL,'banner_template_code' => 'BT_RL','banner_image_path' => 'https://file-phase1.nise.gov.bd/uploads/K3CPNhT6O9pkjiyMAMqHfXaV661lRw1644470839.jpg','row_status' => '1','created_by' => NULL,'updated_by' => NULL,'created_at' => '2022-02-10 17:29:01','updated_at' => '2022-02-10 23:27:04','deleted_at' => NULL),
+            array('id' => '2','slider_id' => '1','title_en' => 'Inauguration','title' => 'উদ্বোধন','sub_title_en' => NULL,'sub_title' => NULL,'is_button_available' => '0','button_text' => NULL,'link' => NULL,'image_alt_title_en' => NULL,'image_alt_title' => NULL,'banner_template_code' => 'BT_CB','banner_image_path' => 'https://file-phase1.nise.gov.bd/uploads/RCx5sshCZ2uWfPvqRggVkoYrh1x72E1644474842.jpg','row_status' => '1','created_by' => NULL,'updated_by' => NULL,'created_at' => '2022-02-10 17:32:47','updated_at' => '2022-02-10 18:34:07','deleted_at' => NULL),
+            array('id' => '3','slider_id' => '2','title_en' => 'NISE ব্যানার','title' => 'NISE Banner','sub_title_en' => NULL,'sub_title' => NULL,'is_button_available' => '0','button_text' => 'আরো দেখুন','link' => 'http://nise.gov.bd/jobs','image_alt_title_en' => NULL,'image_alt_title' => NULL,'banner_template_code' => 'BT_OB','banner_image_path' => 'https://file-phase1.nise.gov.bd/uploads/ItEDBJGphYHviPMXTG6IT0ihEglKfC1644473510.png','row_status' => '1','created_by' => NULL,'updated_by' => NULL,'created_at' => '2022-02-10 17:39:52','updated_at' => '2022-02-17 20:51:50','deleted_at' => NULL),
+            array('id' => '4','slider_id' => '2','title_en' => 'slider -2','title' => 'slider -2','sub_title_en' => NULL,'sub_title' => NULL,'is_button_available' => '0','button_text' => 'আরো দেখুন','link' => 'http://nise.gov.bd/jobs','image_alt_title_en' => NULL,'image_alt_title' => NULL,'banner_template_code' => 'BT_OB','banner_image_path' => 'https://file-phase1.nise.gov.bd/uploads/mYn9MSJkuxYYYgkZru8crePJXDJVpz1644473528.png','row_status' => '1','created_by' => NULL,'updated_by' => NULL,'created_at' => '2022-02-10 17:49:30','updated_at' => '2022-02-17 20:52:01','deleted_at' => NULL),
+            array('id' => '5','slider_id' => '3','title_en' => 'Department of Youth Development - Government of the People\'s Republic of Bangladesh','title' => 'যুব উন্নয়ন অধিদপ্তর - গণপ্রজাতন্ত্রী বাংলাদেশ সরকার','sub_title_en' => NULL,'sub_title' => NULL,'is_button_available' => '0','button_text' => NULL,'link' => NULL,'image_alt_title_en' => NULL,'image_alt_title' => NULL,'banner_template_code' => NULL,'banner_image_path' => 'https://file-phase1.nise.gov.bd/uploads/flMZYWGmMWSbagKXUmAg7i41Bys2C01644485885.jpg','row_status' => '1','created_by' => NULL,'updated_by' => NULL,'created_at' => '2022-02-10 21:34:44','updated_at' => '2022-02-10 21:38:09','deleted_at' => NULL),
+            array('id' => '6','slider_id' => '3','title_en' => 'Golden Jubilee of Independence','title' => 'স্বাধীনতার সুবর্ণজয়ন্তী','sub_title_en' => NULL,'sub_title' => NULL,'is_button_available' => '0','button_text' => NULL,'link' => NULL,'image_alt_title_en' => NULL,'image_alt_title' => NULL,'banner_template_code' => NULL,'banner_image_path' => 'https://file-phase1.nise.gov.bd/uploads/2NfWMGS0Gu5b3r9j9P23gPhOE52vwa1644486057.jpg','row_status' => '1','created_by' => NULL,'updated_by' => NULL,'created_at' => '2022-02-10 21:41:02','updated_at' => '2022-02-10 21:41:02','deleted_at' => NULL),
+            array('id' => '7','slider_id' => '4','title_en' => 'ins-banner','title' => 'ইন-ব্যানার','sub_title_en' => NULL,'sub_title' => NULL,'is_button_available' => '0','button_text' => NULL,'link' => NULL,'image_alt_title_en' => NULL,'image_alt_title' => NULL,'banner_template_code' => NULL,'banner_image_path' => 'https://file-phase1.nise.gov.bd/uploads/w9xsdJ0gSXa2p2c3PYMiVaVsW6NwiB1644836273.png','row_status' => '1','created_by' => NULL,'updated_by' => NULL,'created_at' => '2022-02-14 22:58:17','updated_at' => '2022-02-14 22:58:17','deleted_at' => NULL)
+        ));
+
         Schema::enableForeignKeyConstraints();
     }
 }
