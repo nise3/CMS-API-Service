@@ -5,3 +5,4 @@
 RELEASE = 'php artisan migrate:fresh --seed'
 RELEASE = 'php artisan list'
 ```
+
