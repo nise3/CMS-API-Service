@@ -5,10 +5,10 @@
 
 variables:
 
-  devImageVersion: &dev_image "2.1.6"
+  devImageVersion: &dev_image "2.1.7"
 
-  productionImageVersion: &prod_image "2.1.6"
-  
+  productionImageVersion: &prod_image "2.1.7"
+
 
   #auto scaling config
   #autoScalingEnabled: 0
@@ -23,7 +23,7 @@ variables:
 
   # application config
   # APP_ENV environment available values are DEV/STAGING/PRODUCTION
-  APP_ENV: "DEV"
+  APP_ENV: "PRODUCTION"
 
   DEV:
 
