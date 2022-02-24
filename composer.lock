@@ -4,8 +4,70 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f3ec71a35f561d0f792ad174843a9c3f",
+    "content-hash": "ae66969e89eecf409047e448adb359a9",
     "packages": [
+        {
+            "name": "anis072/lumen-queue-rabbitmq",
+            "version": "v12.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/anisurrahman072/lumen-queue-rabbitmq.git",
+                "reference": "e71fbfc3c066732312b33e11d41c61c7492880ad"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/anisurrahman072/lumen-queue-rabbitmq/zipball/e71fbfc3c066732312b33e11d41c61c7492880ad",
+                "reference": "e71fbfc3c066732312b33e11d41c61c7492880ad",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "illuminate/queue": "^8.0",
+                "php": "^7.3|^8.0",
+                "php-amqplib/php-amqplib": "^2.12|^3.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.17",
+                "laravel/horizon": "^5.0",
+                "mockery/mockery": "^1.0",
+                "orchestra/testbench": "^6.0",
+                "phpunit/phpunit": "^9.3"
+            },
+            "suggest": {
+                "ext-pcntl": "Required to use all features of the queue consumer."
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "11.0-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "VladimirYuldashev\\LaravelQueueRabbitMQ\\LaravelQueueRabbitMQServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "VladimirYuldashev\\LaravelQueueRabbitMQ\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Vladimir Yuldashev",
+                    "email": "misterio92@gmail.com"
+                }
+            ],
+            "description": "RabbitMQ driver for Laravel Queue. Supports Laravel Horizon.",
+            "support": {
+                "source": "https://github.com/anisurrahman072/lumen-queue-rabbitmq/tree/v12.0.0"
+            },
+            "time": "2022-02-24T06:35:05+00:00"
+        },
         {
             "name": "brick/math",
             "version": "0.9.3",
@@ -6602,87 +6664,6 @@
             "time": "2022-01-17T16:30:37+00:00"
         },
         {
-            "name": "vladimir-yuldashev/laravel-queue-rabbitmq",
-            "version": "dev-feat/give-accessibility-to-access-rabbitmqjob-instance",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/anisurrahman072/laravel-queue-rabbitmq.git",
-                "reference": "817bd4729053da73fdee35252f4b878bdeb71ec9"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/anisurrahman072/laravel-queue-rabbitmq/zipball/817bd4729053da73fdee35252f4b878bdeb71ec9",
-                "reference": "817bd4729053da73fdee35252f4b878bdeb71ec9",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "illuminate/queue": "^8.0",
-                "php": "^7.3|^8.0",
-                "php-amqplib/php-amqplib": "^2.12|^3.0"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "^2.17",
-                "laravel/horizon": "^5.0",
-                "mockery/mockery": "^1.0",
-                "orchestra/testbench": "^6.0",
-                "phpunit/phpunit": "^9.3"
-            },
-            "suggest": {
-                "ext-pcntl": "Required to use all features of the queue consumer."
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "11.0-dev"
-                },
-                "laravel": {
-                    "providers": [
-                        "VladimirYuldashev\\LaravelQueueRabbitMQ\\LaravelQueueRabbitMQServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "VladimirYuldashev\\LaravelQueueRabbitMQ\\": "src/"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "VladimirYuldashev\\LaravelQueueRabbitMQ\\Tests\\": "tests/"
-                }
-            },
-            "scripts": {
-                "test": [
-                    "@test:style",
-                    "@test:unit"
-                ],
-                "test:style": [
-                    "@php vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php --allow-risky=yes --dry-run --diff --verbose"
-                ],
-                "test:unit": [
-                    "@php vendor/bin/phpunit"
-                ],
-                "fix:style": [
-                    "@php vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php --allow-risky=yes --diff --verbose"
-                ]
-            },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Vladimir Yuldashev",
-                    "email": "misterio92@gmail.com"
-                }
-            ],
-            "description": "RabbitMQ driver for Laravel Queue. Supports Laravel Horizon.",
-            "support": {
-                "source": "https://github.com/anisurrahman072/laravel-queue-rabbitmq/tree/feat/give-accessibility-to-access-rabbitmqjob-instance"
-            },
-            "time": "2021-12-04T17:31:00+00:00"
-        },
-        {
             "name": "vlucas/phpdotenv",
             "version": "v5.4.1",
             "source": {
@@ -8989,9 +8970,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "vladimir-yuldashev/laravel-queue-rabbitmq": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
