@@ -108,6 +108,12 @@ $router->group(['prefix' => 'api/v1', 'as' => 'api.v1'], function () use ($route
     ]);
 
     /** Calendar Event Service-to-Service API calling route list */
+
+    $router->post('create-event-after-interview-schedule-assign', [
+        "as" => "calender-events.interview-schedule-assign-event",
+        "uses" => "CalenderEventsController@createEventAfterInterviewScheduleAssign"
+    ]);
+
     $router->post('create-event-after-batch-assign', [
         "as" => "calender-events.bacth-assign-event",
         "uses" => "CalenderEventsController@createEventAfterBatchAssign"
