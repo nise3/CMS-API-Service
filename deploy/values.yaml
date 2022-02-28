@@ -5,9 +5,9 @@
 
 variables:
 
-  devImageVersion: &dev_image "2.1.8"
+  devImageVersion: &dev_image "2.1.9"
 
-  productionImageVersion: &prod_image "2.1.8"
+  productionImageVersion: &prod_image "2.1.9"
 
 
   #auto scaling config
@@ -107,7 +107,7 @@ variables:
 
   PRODUCTION:
     APP_ENV: "local"
-    APP_DEBUG: "false"
+    APP_DEBUG: "true"
     APP_URL: &prodHost "nise3-cms.default"
 
     LOG_CHANNEL: "elasticsearch"
