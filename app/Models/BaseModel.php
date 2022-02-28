@@ -21,6 +21,7 @@ abstract class BaseModel extends Model
     public const INSTITUTE_USER = 3;
     public const YOUTH_USER_TYPE = 4;
     public const INDUSTRY_ASSOCIATION_USER = 5;
+    public const REGISTERED_TRAINING_ORGANIZATION_USER_TYPE = 6;
 
     public const IMAGE_PATH_VALIDATION_RULE = 'url';
     public const HTTP_URL = 'regex:/^(http|https):\/\/[a-zA-Z-\-\.0-9]+$/';
