@@ -29,6 +29,7 @@ class RecentActivityService
     public function getRecentActivityList(array $request, $startTime = null): Collection|LengthAwarePaginator|array
     {
         $showIn = $request['show_in'] ?? "";
+        $contentType = $request['content_type'] ?? "";
         $instituteId = $request['institute_id'] ?? "";
         $industryAssociationId = $request['industry_association_id'] ?? "";
         $organizationId = $request['organization_id'] ?? "";
@@ -38,6 +39,8 @@ class RecentActivityService
         $pageSize = $request['page_size'] ?? "";
         $rowStatus = $request['row_status'] ?? "";
         $order = $request['order'] ?? "ASC";
+        $publishedAt = $request['published_at'] ?? "";
+        $archivedAt = $request['archived_at'] ?? "";
         $isRequestFromClientSide = !empty($request[BaseModel::IS_CLIENT_SITE_RESPONSE_KEY]);
 
 
@@ -91,11 +94,20 @@ class RecentActivityService
         if (is_numeric($organizationId)) {
             $recentActivityBuilder->where('recent_activities.organization_id', $organizationId);
         }
+        if (is_numeric($contentType)) {
+            $recentActivityBuilder->where('recent_activities.content_type', $contentType);
+        }
         if (!empty($titleEn)) {
             $recentActivityBuilder->where('recent_activities.title_en', 'like', '%' . $titleEn . '%');
         }
         if (!empty($titleBn)) {
             $recentActivityBuilder->where('recent_activities.title', 'like', '%' . $titleBn . '%');
+        }
+        if (!empty($publishedAt)) {
+            $recentActivityBuilder->whereDate('recent_activities.published_at', '=', $publishedAt);
+        }
+        if (!empty($archivedAt)) {
+            $recentActivityBuilder->whereDate('recent_activities.archived_at', '=', $archivedAt);
         }
 
         if ($isRequestFromClientSide) {
@@ -259,6 +271,20 @@ class RecentActivityService
             'organization_id' => 'nullable|integer|gt:0',
             'page' => 'nullable|integer|gt:0',
             'page_size' => 'nullable|integer|gt:0',
+            'content_type' => [
+                'nullable',
+                'integer',
+                Rule::in(RecentActivity::CONTENT_TYPES)
+            ],
+
+            'published_at' => [
+                'nullable',
+                'date'
+            ],
+            'archived_at' => [
+                'nullable',
+                'date'
+            ],
             'order' => [
                 'string',
                 Rule::in([BaseModel::ROW_ORDER_ASC, BaseModel::ROW_ORDER_DESC])
