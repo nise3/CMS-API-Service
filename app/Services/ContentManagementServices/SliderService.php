@@ -44,7 +44,12 @@ class SliderService
             'sliders.created_at',
             'sliders.updated_at'
 
-        ])->acl();
+        ]);
+
+        /** If private API */
+        if (!$isRequestFromClientSide) {
+            $sliderBuilder->acl();
+        }
 
         $sliderBuilder->orderBy('sliders.id', $order);
         if (is_numeric($instituteId)) {
