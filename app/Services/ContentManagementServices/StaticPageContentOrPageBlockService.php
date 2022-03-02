@@ -148,15 +148,16 @@ class StaticPageContentOrPageBlockService
         if (!empty($staticPageType->type) && $staticPageType->type == StaticPageType::TYPE_STATIC_PAGE) {
 
             /** Find the Static_Page_Content by using User Given Data */
-            $staticPage = StaticPageContent::where('static_page_type_id',$staticPageType->id);
-            if(!empty($data['show_in'])){
-                $staticPage->where('show_in',$data['show_in']);
-                if($data['show_in'] == BaseModel::SHOW_IN_TSP && !empty($data['institute_id'])){
-                    $staticPage->where('institute_id',$data['institute_id']);
-                } else if($data['show_in'] == BaseModel::SHOW_IN_INDUSTRY && !empty($data['organization_id'])){
-                    $staticPage->where('organization_id',$data['organization_id']);
-                } else if($data['show_in'] == BaseModel::SHOW_IN_INDUSTRY_ASSOCIATION && !empty($data['industry_association_id'])){
-                    $staticPage->where('industry_association_id',$data['industry_association_id']);
+            $staticPage = StaticPageContent::where('static_page_type_id', $staticPageType->id);
+
+            if (!empty($data['show_in'])) {
+                $staticPage->where('show_in', $data['show_in']);
+                if ($data['show_in'] == BaseModel::SHOW_IN_TSP && !empty($data['institute_id'])) {
+                    $staticPage->where('institute_id', $data['institute_id']);
+                } else if ($data['show_in'] == BaseModel::SHOW_IN_INDUSTRY && !empty($data['organization_id'])) {
+                    $staticPage->where('organization_id', $data['organization_id']);
+                } else if ($data['show_in'] == BaseModel::SHOW_IN_INDUSTRY_ASSOCIATION && !empty($data['industry_association_id'])) {
+                    $staticPage->where('industry_association_id', $data['industry_association_id']);
                 }
             }
 
@@ -167,11 +168,11 @@ class StaticPageContentOrPageBlockService
              * If static_page_content already exist then update the static page content.
              * If not then, create new static_page_content.
              */
-            if(!$staticPage) {
+            if (!$staticPage) {
                 $staticPage = new StaticPageContent();
                 $message = "Successfully created Static Page Content";
                 $databaseOperationType = StaticPageType::DB_OPERATION_CREATE;
-            } else{
+            } else {
                 $message = "Successfully updated Static Page Content";
                 $databaseOperationType = StaticPageType::DB_OPERATION_UPDATE;
             }
@@ -185,15 +186,15 @@ class StaticPageContentOrPageBlockService
         } else if (!empty($staticPageType->type) && $staticPageType->type == StaticPageType::TYPE_PAGE_BLOCK) {
 
             /** Find the Static_Page_Block by using User Given Data */
-            $staticPage = StaticPageBlock::where('static_page_type_id',$staticPageType->id);
-            if(!empty($data['show_in'])){
-                $staticPage->where('show_in',$data['show_in']);
-                if($data['show_in'] == BaseModel::SHOW_IN_TSP && !empty($data['institute_id'])){
-                    $staticPage->where('institute_id',$data['institute_id']);
-                } else if($data['show_in'] == BaseModel::SHOW_IN_INDUSTRY && !empty($data['organization_id'])){
-                    $staticPage->where('organization_id',$data['organization_id']);
-                } else if($data['show_in'] == BaseModel::SHOW_IN_INDUSTRY_ASSOCIATION && !empty($data['industry_association_id'])){
-                    $staticPage->where('industry_association_id',$data['industry_association_id']);
+            $staticPage = StaticPageBlock::where('static_page_type_id', $staticPageType->id);
+            if (!empty($data['show_in'])) {
+                $staticPage->where('show_in', $data['show_in']);
+                if ($data['show_in'] == BaseModel::SHOW_IN_TSP && !empty($data['institute_id'])) {
+                    $staticPage->where('institute_id', $data['institute_id']);
+                } else if ($data['show_in'] == BaseModel::SHOW_IN_INDUSTRY && !empty($data['organization_id'])) {
+                    $staticPage->where('organization_id', $data['organization_id']);
+                } else if ($data['show_in'] == BaseModel::SHOW_IN_INDUSTRY_ASSOCIATION && !empty($data['industry_association_id'])) {
+                    $staticPage->where('industry_association_id', $data['industry_association_id']);
                 }
             }
 
@@ -204,11 +205,11 @@ class StaticPageContentOrPageBlockService
              * If static_page_block already exist then update the static page block.
              * If not then,create new static_page_block
              */
-            if(!$staticPage) {
+            if (!$staticPage) {
                 $staticPage = new StaticPageBlock();
                 $message = "Successfully created Static Page Block";
                 $databaseOperationType = StaticPageType::DB_OPERATION_CREATE;
-            }else{
+            } else {
                 $message = "Successfully updated Static Page Block";
                 $databaseOperationType = StaticPageType::DB_OPERATION_UPDATE;
             }
@@ -220,9 +221,9 @@ class StaticPageContentOrPageBlockService
             $staticPage->type = StaticPageType::TYPE_PAGE_BLOCK;
         }
         return [
-            "data"=>$staticPage,
-            "message"=>$message,
-            "databaseOperationType"=>$databaseOperationType
+            "data" => $staticPage,
+            "message" => $message,
+            "databaseOperationType" => $databaseOperationType
         ];
     }
 
@@ -276,7 +277,7 @@ class StaticPageContentOrPageBlockService
                 'nullable',
                 'string'
             ];
-        } else if(!empty($staticPageType->type) && $staticPageType->type == StaticPageType::TYPE_PAGE_BLOCK){
+        } else if (!empty($staticPageType->type) && $staticPageType->type == StaticPageType::TYPE_PAGE_BLOCK) {
             $rules['title'] = [
                 'required',
                 'string',
