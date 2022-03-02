@@ -43,8 +43,9 @@ class GalleryAlbumService
         $pageSize = $request['page_size'] ?? "";
         $rowStatus = $request['row_status'] ?? "";
         $order = $request['order'] ?? "ASC";
+        $publishedAt = $request['published_at'] ?? "";
+        $archivedAt = $request['archived_at'] ?? "";
         $isRequestFromClientSide = !empty($request[BaseModel::IS_CLIENT_SITE_RESPONSE_KEY]);
-
 
         /** @var Builder $galleryAlbumBuilder */
         $galleryAlbumBuilder = GalleryAlbum::select([
@@ -107,6 +108,13 @@ class GalleryAlbumService
             $galleryAlbumBuilder->where('gallery_albums.album_type', '=', $albumType);
         }
 
+        if (!empty($publishedAt)) {
+            $galleryAlbumBuilder->whereDate('gallery_albums.published_at', '=', $publishedAt);
+        }
+        if (!empty($archivedAt)) {
+            $galleryAlbumBuilder->whereDate('gallery_albums.archived_at', '=', $archivedAt);
+        }
+
         if ($isRequestFromClientSide) {
             $galleryAlbumBuilder->whereDate('gallery_albums.published_at', '<=', $startTime);
             $galleryAlbumBuilder->where(function ($builder) use ($startTime) {
@@ -116,7 +124,6 @@ class GalleryAlbumService
 
             $galleryAlbumBuilder->active();
         }
-
         /** @var Collection $galleryAlbums */
         if (is_numeric($paginate) || is_numeric($pageSize)) {
             $pageSize = $pageSize ?: BaseModel::DEFAULT_PAGE_SIZE;
@@ -423,6 +430,14 @@ class GalleryAlbumService
                 'nullable',
                 'integer',
                 'gt:0'
+            ],
+            'published_at' => [
+                'nullable',
+                'date'
+            ],
+            'archived_at' => [
+                'nullable',
+                'date'
             ],
             'album_type' => [
                 'nullable',
