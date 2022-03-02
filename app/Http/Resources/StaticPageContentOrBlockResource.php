@@ -34,8 +34,6 @@ class StaticPageContentOrBlockResource extends JsonResource
             "industry_association_id" => $this->industry_association_id,
             "industry_association_title" => $request->get(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID)[BaseModel::INDUSTRY_ASSOCIATION_TITLE][$this->industry_association_id]['title'] ?? "",
             "industry_association_title_en" => $request->get(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID)[BaseModel::INDUSTRY_ASSOCIATION_TITLE][$this->industry_association_id]['title_en'] ?? "",
-            "title_en" => $this->title_en,
-            "content_en" => $this->content_en,
         ];
 
         if($this->type == StaticPageType::TYPE_PAGE_BLOCK){
