@@ -32,7 +32,7 @@ $router->group(['prefix' => 'api/v1', 'as' => 'api.v1'], function () use ($route
     $customRouter()->resourceRoute('upazilas', 'LocUpazilaController')->render();
 
     /** Auth routes */
-//    $router->group(['middleware' => 'auth'], function () use ($customRouter, $router) {
+    $router->group(['middleware' => 'auth'], function () use ($customRouter, $router) {
         $customRouter()->resourceRoute('nise3-partners', 'Nise3PartnerController')->render();
         $customRouter()->resourceRoute('notice-or-news', 'NoticeOrNewsController')->render();
         $customRouter()->resourceRoute('recent-activities', 'RecentActivityController')->render();
@@ -57,7 +57,7 @@ $router->group(['prefix' => 'api/v1', 'as' => 'api.v1'], function () use ($route
         /** Static page & block */
         $router->get('static-page-blocks/{page_code}', ["as" => "static.page.block", "uses" => "StaticPageContentOrPageBlockController@getStaticPageOrBlock"]);
         $router->put('static-page-blocks/{page_code}', ["as" => "static.page.block", "uses" => "StaticPageContentOrPageBlockController@createOrUpdateStaticPageOrBlock"]);
-   // });
+    });
 
     $router->group(['prefix' => 'public', 'as' => 'public'], function () use ($router) {
 
