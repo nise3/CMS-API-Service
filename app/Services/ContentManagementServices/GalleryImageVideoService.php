@@ -79,7 +79,7 @@ class GalleryImageVideoService
             'gallery_images_videos.created_at',
             'gallery_images_videos.updated_at'
 
-        ])->acl();
+        ]);
 
         $galleryImageVideoBuilder->join('gallery_albums', function ($join) {
             $join->on('gallery_images_videos.gallery_album_id', '=', 'gallery_albums.id')
