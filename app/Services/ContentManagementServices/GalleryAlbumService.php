@@ -72,7 +72,12 @@ class GalleryAlbumService
             'gallery_albums.created_at',
             'gallery_albums.updated_at'
 
-        ])->acl();
+        ]);
+
+        /** If private API */
+        if (!$isRequestFromClientSide) {
+            $galleryAlbumBuilder->acl();
+        }
 
         $galleryAlbumBuilder->orderBy('gallery_albums.id', $order);
 
@@ -115,6 +120,7 @@ class GalleryAlbumService
             $galleryAlbumBuilder->whereDate('gallery_albums.archived_at', '=', $archivedAt);
         }
 
+        /** If public API */
         if ($isRequestFromClientSide) {
             $galleryAlbumBuilder->whereDate('gallery_albums.published_at', '<=', $startTime);
             $galleryAlbumBuilder->where(function ($builder) use ($startTime) {

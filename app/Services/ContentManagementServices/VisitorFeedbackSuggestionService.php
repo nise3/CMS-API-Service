@@ -59,10 +59,16 @@ class VisitorFeedbackSuggestionService
             'visitor_feedbacks_suggestions.created_at',
             'visitor_feedbacks_suggestions.updated_at'
 
-        ])->acl();
+        ]);
+
+        /** If private API */
+        if (!$isRequestFromClientSide) {
+            $visitorFeedbackSuggestionBuilder->acl();
+        }
 
         $visitorFeedbackSuggestionBuilder->orderBy('visitor_feedbacks_suggestions.id', $order);
 
+        /** If public API */
         if($isRequestFromClientSide){
             $visitorFeedbackSuggestionBuilder->active();
         }

@@ -53,10 +53,16 @@ class FaqService
             'faqs.created_at',
             'faqs.updated_at'
 
-        ])->acl();
+        ]);
+
+        /** If private API */
+        if (!$isRequestFromClientSide) {
+            $faqBuilder->acl();
+        }
 
         $faqBuilder->orderBy('faqs.id', $order);
 
+        /** If public API */
         if($isRequestFromClientSide){
             $faqBuilder->active();
         }

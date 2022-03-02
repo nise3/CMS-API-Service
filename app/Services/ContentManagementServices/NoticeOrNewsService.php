@@ -73,8 +73,12 @@ class NoticeOrNewsService
             'notice_or_news.created_at',
             'notice_or_news.created_at',
 
-        ])->acl();
+        ]);
 
+        /** If private API */
+        if (!$isRequestFromClientSide) {
+            $noticeOrNewsBuilder->acl();
+        }
 
         $noticeOrNewsBuilder->orderBy('notice_or_news.id', $order);
 
