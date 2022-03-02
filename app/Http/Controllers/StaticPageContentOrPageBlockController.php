@@ -48,7 +48,7 @@ class StaticPageContentOrPageBlockController extends Controller
         $filter = $this->staticPageContentOrPageBlockService->filterValidator($request)->validate();
         $staticPageOrBlock = $this->staticPageContentOrPageBlockService->getStaticPageOrBlock($filter, $page_code);
 
-        if(!$staticPageOrBlock){
+        if (!$staticPageOrBlock) {
             $response = getResponse(null, $this->startTime, !BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
             return Response::json($response, ResponseAlias::HTTP_OK);
         }
@@ -74,7 +74,7 @@ class StaticPageContentOrPageBlockController extends Controller
         $filter[BaseModel::IS_CLIENT_SITE_RESPONSE_KEY] = BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG;
 
         $staticPageOrBlock = $this->staticPageContentOrPageBlockService->getStaticPageOrBlock($filter, $page_code);
-        if(!$staticPageOrBlock){
+        if (!$staticPageOrBlock) {
             $response = getResponse(null, $this->startTime, !BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
             return Response::json($response, ResponseAlias::HTTP_OK);
         }
@@ -108,51 +108,50 @@ class StaticPageContentOrPageBlockController extends Controller
             $message = $response['message'];
             $databaseOperationType = $response['databaseOperationType'];
 
-            if ($isLanguage) {
-                $languageFillablePayload = [];
-                foreach ($otherLanguagePayload as $key => $value) {
-                    $languageValidatedData = $this->staticPageContentOrPageBlockService->languageFieldValidator($value, $key, $staticPageType)->validate();
+            $languageFillablePayload = [];
+            foreach ($otherLanguagePayload as $key => $value) {
+                $languageValidatedData = $this->staticPageContentOrPageBlockService->languageFieldValidator($value, $key, $staticPageType)->validate();
 
-                    /**
-                     * Decide weather Language Fillable fields are for StaticPageContent Model "OR" for StaticPageBlock Model
-                    */
-                    $languageFillableFields = [];
-                    if (!empty($staticPageType->type) && $staticPageType->type == StaticPageType::TYPE_STATIC_PAGE) {
-                        $languageFillableFields = StaticPageContent::STATIC_PAGE_CONTENT_LANGUAGE_FILLABLE;
-                    } else if(!empty($staticPageType->type) && $staticPageType->type == StaticPageType::TYPE_PAGE_BLOCK){
-                        $languageFillableFields = StaticPageBlock::STATIC_PAGE_BLOCK_LANGUAGE_FILLABLE;
-                    }
+                /**
+                 * Decide weather Language Fillable fields are for StaticPageContent Model "OR" for StaticPageBlock Model
+                 */
+                $languageFillableFields = [];
+                if (!empty($staticPageType->type) && $staticPageType->type == StaticPageType::TYPE_STATIC_PAGE) {
+                    $languageFillableFields = StaticPageContent::STATIC_PAGE_CONTENT_LANGUAGE_FILLABLE;
+                } else if (!empty($staticPageType->type) && $staticPageType->type == StaticPageType::TYPE_PAGE_BLOCK) {
+                    $languageFillableFields = StaticPageBlock::STATIC_PAGE_BLOCK_LANGUAGE_FILLABLE;
+                }
 
-                    foreach ($languageFillableFields as $fillableColumn) {
-                        if (!empty($languageValidatedData[$fillableColumn])) {
-                            $languageFillablePayload[] = [
-                                "table_name" => $responseModel->getTable(),
-                                "key_id" => $responseModel->id,
-                                "lang_code" => $key,
-                                "column_name" => $fillableColumn,
-                                "column_value" => $languageValidatedData[$fillableColumn]
-                            ];
-                            if($databaseOperationType == StaticPageType::DB_OPERATION_UPDATE){
-                                CmsLanguageService::languageCacheClearByKey($responseModel->getTable(), $responseModel->id, $key, $fillableColumn);
-                            }
+                foreach ($languageFillableFields as $fillableColumn) {
+                    if (!empty($languageValidatedData[$fillableColumn])) {
+                        $languageFillablePayload[] = [
+                            "table_name" => $responseModel->getTable(),
+                            "key_id" => $responseModel->id,
+                            "lang_code" => $key,
+                            "column_name" => $fillableColumn,
+                            "column_value" => $languageValidatedData[$fillableColumn]
+                        ];
+                        if ($databaseOperationType == StaticPageType::DB_OPERATION_UPDATE) {
+                            CmsLanguageService::languageCacheClearByKey($responseModel->getTable(), $responseModel->id, $key, $fillableColumn);
                         }
                     }
                 }
-
-                /**
-                 * If CREATE Operation then use store().
-                 * If not then, use createOrUpdate()
-                 */
-                if($databaseOperationType == StaticPageType::DB_OPERATION_CREATE){
-                    app(CmsLanguageService::class)->store($languageFillablePayload);
-                } else if($databaseOperationType == StaticPageType::DB_OPERATION_UPDATE){
-                    app(CmsLanguageService::class)->createOrUpdate($languageFillablePayload,$responseModel);
-                }
             }
+
+            /**
+             * If CREATE Operation then use store().
+             * If not then, use createOrUpdate()
+             */
+            if ($databaseOperationType == StaticPageType::DB_OPERATION_CREATE) {
+                app(CmsLanguageService::class)->store($languageFillablePayload);
+            } else if ($databaseOperationType == StaticPageType::DB_OPERATION_UPDATE) {
+                app(CmsLanguageService::class)->createOrUpdate($languageFillablePayload, $responseModel);
+            }
+
             $response = new StaticPageContentOrBlockResource($responseModel);
             $response = getResponse($response->toArray($request), $this->startTime, BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_CREATED, $message);
             DB::commit();
-        }catch (Throwable $e) {
+        } catch (Throwable $e) {
             DB::rollBack();
             throw $e;
         }
