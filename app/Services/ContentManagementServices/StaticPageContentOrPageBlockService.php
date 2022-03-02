@@ -30,6 +30,7 @@ class StaticPageContentOrPageBlockService
         $instituteId = $request['institute_id'] ?? "";
         $organizationId = $request['organization_id'] ?? "";
         $industryAssociationId = $request['industry_association_id'] ?? "";
+        $isRequestFromClientSide = !empty($request[BaseModel::IS_CLIENT_SITE_RESPONSE_KEY]);
 
         /** @var StaticPageType|Builder $pageType */
         $pageType = StaticPageType::select(['type'])->where('page_code', $page_code)->firstOrFail();
@@ -68,7 +69,12 @@ class StaticPageContentOrPageBlockService
                 'static_page_blocks.created_at',
                 'static_page_blocks.updated_at'
 
-            ])->acl();
+            ]);
+
+            /** If private API */
+            if (!$isRequestFromClientSide) {
+                $staticPageBuilder->acl();
+            }
 
             $staticPageBuilder->join('static_page_types', function ($join) {
                 $join->on('static_page_types.id', '=', 'static_page_blocks.static_page_type_id',);
@@ -110,7 +116,12 @@ class StaticPageContentOrPageBlockService
                 'static_page_contents.created_at',
                 'static_page_contents.updated_at'
 
-            ])->acl();
+            ]);
+
+            /** If private API */
+            if (!$isRequestFromClientSide) {
+                $staticPageBuilder->acl();
+            }
 
             $staticPageBuilder->join('static_page_types', function ($join) {
                 $join->on('static_page_types.id', '=', 'static_page_contents.static_page_type_id',);

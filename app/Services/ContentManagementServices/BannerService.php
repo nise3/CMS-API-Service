@@ -36,7 +36,6 @@ class BannerService
         $organizationId = $request['organization_id'] ?? "";
 
         /** @var Builder $bannerBuilder */
-
         $bannerBuilder = Banner::select([
             'banners.id',
             'banners.slider_id',
@@ -57,8 +56,7 @@ class BannerService
             'banners.updated_by',
             'banners.created_at',
             'banners.updated_at',
-
-        ])->acl();
+        ]);
 
         $bannerBuilder->join('sliders', function ($join) {
             $join->on('banners.slider_id', '=', 'sliders.id')

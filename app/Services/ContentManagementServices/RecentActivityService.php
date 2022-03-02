@@ -75,7 +75,12 @@ class RecentActivityService
             'recent_activities.created_at',
             'recent_activities.updated_at',
 
-        ])->acl();
+        ]);
+
+        /** If private API */
+        if (!$isRequestFromClientSide) {
+            $recentActivityBuilder->acl();
+        }
 
         $recentActivityBuilder->orderBy('recent_activities.id', $order);
 
