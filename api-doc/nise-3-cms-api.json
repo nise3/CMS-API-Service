@@ -353,6 +353,117 @@
                 ]
             }
         },
+        "/unions": {
+            "get": {
+                "summary": "get list of union",
+                "description": "Optional extended description in Markdown.",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/order"
+                    },
+                    {
+                        "$ref": "#/components/parameters/title_optional"
+                    },
+                    {
+                        "$ref": "#/components/parameters/loc_division_id_optional"
+                    },
+                    {
+                        "$ref": "#/components/parameters/loc_district_id_optional"
+                    },
+                    {
+                        "$ref": "#/components/parameters/loc_upazila_id_optional"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/upazila"
+                                },
+                                "example": {
+                                    "total": 494,
+                                    "order": "asc",
+                                    "row_status": 1,
+                                    "data": [
+                                        {
+                                            "id": 1,
+                                            "loc_district_id": 1,
+                                            "loc_division_id": 1,
+                                            "title": "আমতলী ",
+                                            "bbs_code": "09",
+                                            "district_title": "Test Title (Native)",
+                                            "division_title": "Test Title (Native)"
+                                        }
+                                    ],
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "query_time": "1 second before"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error"
+                    }
+                },
+                "tags": [
+                    "Union"
+                ]
+            }
+        },
+        "/unions/{unionId}": {
+            "get": {
+                "summary": "get one Union",
+                "parameters": [
+                    {
+                        "name": "unionId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get one Upazila",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/upazila"
+                                },
+                                "example": {
+                                    "data": {
+                                        "id": 1,
+                                        "loc_district_id": 1,
+                                        "loc_division_id": 1,
+                                        "title": "আমতলী ",
+                                        "bbs_code": "09",
+                                        "district_title": "Test Title (Native)",
+                                        "division_title": "Test Title (Native)"
+                                    },
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "query_time": "1 second before"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error"
+                    }
+                },
+                "tags": [
+                    "Union"
+                ]
+            }
+        },
         "/countries": {
             "get": {
                 "summary": "Get Country List",
@@ -2900,7 +3011,6 @@
                 ]
             }
         },
-
         "/gallery-images-videos": {
             "get": {
                 "summary": "Get all gallery image videos",
@@ -3577,10 +3687,11 @@
                 ]
             }
         },
-
         "/public/nise-statistics": {
             "get": {
-                "tags": [ "Nise Statistics" ],
+                "tags": [
+                    "Nise Statistics"
+                ],
                 "summary": "Get nise statistics",
                 "description": "API endpoint to Get nise statistics.A successful request response will show 200 HTTP status code",
                 "responses": {
@@ -5802,7 +5913,6 @@
                     "visitor-feedback-suggestions"
                 ]
             }
-
         },
         "/cms-global-config": {
             "get": {
@@ -6438,7 +6548,6 @@
                     "format": "Y-m-d"
                 }
             },
-
             "training_center_id": {
                 "name": "training_center_id",
                 "in": "query",
@@ -6462,7 +6571,6 @@
                         }
                     }
                 }
-
             },
             "album_type": {
                 "name": "album_type",
@@ -6477,7 +6585,6 @@
                         3
                     ]
                 }
-
             },
             "pageBlock_page_code": {
                 "name": "pageBlock_page_code",
@@ -7068,6 +7175,15 @@
                     "type": "integer"
                 }
             },
+            "loc_upazila_id_optional": {
+                "name": "loc_upazila_id",
+                "in": "query",
+                "required": false,
+                "style": "form",
+                "schema": {
+                    "type": "integer"
+                }
+            },
             "division_bbs_code": {
                 "name": "division_bbs_code",
                 "in": "query",
@@ -7339,7 +7455,10 @@
                 "required": true,
                 "schema": {
                     "type": "integer",
-                    "enum": [1,2],
+                    "enum": [
+                        1,
+                        2
+                    ],
                     "description": "1=>Notice 2=>News"
                 }
             },
@@ -7524,7 +7643,6 @@
                         ],
                         "description": "ACTIVE_STATUS => 1, INACTIVE_STATUS => 0",
                         "example": "1"
-
                     },
                     "other_language_fields": {
                         "type": "object",
