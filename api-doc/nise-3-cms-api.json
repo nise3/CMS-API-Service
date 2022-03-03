@@ -2356,6 +2356,12 @@
                         "$ref": "#/components/parameters/title_optional"
                     },
                     {
+                        "$ref": "#/components/parameters/published_at"
+                    },
+                    {
+                        "$ref": "#/components/parameters/archived_at"
+                    },
+                    {
                         "$ref": "#/components/parameters/page"
                     },
                     {
@@ -2827,6 +2833,12 @@
                         "$ref": "#/components/parameters/title_optional"
                     },
                     {
+                        "$ref": "#/components/parameters/published_at"
+                    },
+                    {
+                        "$ref": "#/components/parameters/archived_at"
+                    },
+                    {
                         "$ref": "#/components/parameters/page"
                     },
                     {
@@ -2905,6 +2917,12 @@
                     },
                     {
                         "$ref": "#/components/parameters/organization_id"
+                    },
+                    {
+                        "$ref": "#/components/parameters/published_at"
+                    },
+                    {
+                        "$ref": "#/components/parameters/archived_at"
                     },
                     {
                         "$ref": "#/components/parameters/page"
@@ -3450,6 +3468,12 @@
                         "$ref": "#/components/parameters/search_text"
                     },
                     {
+                        "$ref": "#/components/parameters/published_at"
+                    },
+                    {
+                        "$ref": "#/components/parameters/archived_at"
+                    },
+                    {
                         "$ref": "#/components/parameters/page"
                     },
                     {
@@ -3616,6 +3640,15 @@
                         "$ref": "#/components/parameters/title_optional"
                     },
                     {
+                        "$ref": "#/components/parameters/content_type"
+                    },
+                    {
+                        "$ref": "#/components/parameters/published_at"
+                    },
+                    {
+                        "$ref": "#/components/parameters/archived_at"
+                    },
+                    {
                         "$ref": "#/components/parameters/page"
                     },
                     {
@@ -3705,6 +3738,15 @@
                     },
                     {
                         "$ref": "#/components/parameters/title_optional"
+                    },
+                    {
+                        "$ref": "#/components/parameters/content_type"
+                    },
+                    {
+                        "$ref": "#/components/parameters/published_at"
+                    },
+                    {
+                        "$ref": "#/components/parameters/archived_at"
                     },
                     {
                         "$ref": "#/components/parameters/page"
@@ -4835,6 +4877,15 @@
                         "$ref": "#/components/parameters/title_optional"
                     },
                     {
+                        "$ref": "#/components/parameters/type"
+                    },
+                    {
+                        "$ref": "#/components/parameters/published_at"
+                    },
+                    {
+                        "$ref": "#/components/parameters/archived_at"
+                    },
+                    {
                         "$ref": "#/components/parameters/page"
                     },
                     {
@@ -5280,6 +5331,15 @@
                         "$ref": "#/components/parameters/search_text"
                     },
                     {
+                        "$ref": "#/components/parameters/type"
+                    },
+                    {
+                        "$ref": "#/components/parameters/published_at"
+                    },
+                    {
+                        "$ref": "#/components/parameters/archived_at"
+                    },
+                    {
                         "$ref": "#/components/parameters/page"
                     },
                     {
@@ -5465,6 +5525,12 @@
                     },
                     {
                         "$ref": "#/components/parameters/name_optional"
+                    },
+                    {
+                        "$ref": "#/components/parameters/mobile"
+                    },
+                    {
+                        "$ref": "#/components/parameters/archived_at"
                     },
                     {
                         "$ref": "#/components/parameters/page"
@@ -6354,6 +6420,25 @@
             }
         },
         "parameters": {
+            "published_at": {
+                "name": "published_at",
+                "in": "query",
+                "required": false,
+                "schema": {
+                    "type": "string",
+                    "format": "Y-m-d"
+                }
+            },
+            "archived_at": {
+                "name": "archived_at",
+                "in": "query",
+                "required": false,
+                "schema": {
+                    "type": "string",
+                    "format": "Y-m-d"
+                }
+            },
+
             "training_center_id": {
                 "name": "training_center_id",
                 "in": "query",
@@ -6714,7 +6799,7 @@
                 "name": "content_type",
                 "in": "query",
                 "required": true,
-                "description": "image=>1,video=>2",
+                "description": "image=>1,Facebook video=>2 Youtube Video =>3",
                 "schema": {
                     "type": "integer",
                     "enum": [
@@ -7253,7 +7338,9 @@
                 "name": "type",
                 "required": true,
                 "schema": {
-                    "type": "string"
+                    "type": "integer",
+                    "enum": [1,2],
+                    "description": "1=>Notice 2=>News"
                 }
             },
             "code": {
