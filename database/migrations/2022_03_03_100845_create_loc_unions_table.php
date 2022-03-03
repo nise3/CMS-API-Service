@@ -21,10 +21,14 @@ class CreateLocUnionsTable extends Migration
             $table->string('title_en');
             $table->string('title', 500);
             $table->char('bbs_code', 6)->nullable();
+
             $table->unsignedTinyInteger('row_status')
                 ->default(1)
                 ->comment('ACTIVE_STATUS = 1, INACTIVE_STATUS = 0');
+            $table->unsignedInteger('created_by')->nullable();
+            $table->unsignedInteger('updated_by')->nullable();
             $table->softDeletes();
+            $table->timestamps();
         });
     }
 

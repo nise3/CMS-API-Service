@@ -88,10 +88,10 @@ class LocUnionService
         }
 
         /** @var LocUnion $upazilas */
-        $upazilas = $unionBuilder->get();
+        $unions = $unionBuilder->get();
 
         $response['order'] = $order;
-        $response['data'] = $upazilas->toArray()['data'] ?? $upazilas->toArray();
+        $response['data'] = $unions->toArray();
         $response['_response_status'] = [
             "success" => true,
             "code" => Response::HTTP_OK,

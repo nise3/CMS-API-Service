@@ -30,6 +30,7 @@ $router->group(['prefix' => 'api/v1', 'as' => 'api.v1'], function () use ($route
     $customRouter()->resourceRoute('divisions', 'LocDivisionController')->render();
     $customRouter()->resourceRoute('districts', 'LocDistrictController')->render();
     $customRouter()->resourceRoute('upazilas', 'LocUpazilaController')->render();
+    $customRouter()->resourceRoute('unions', 'LocUnionController')->render();
 
     /** Auth routes */
     $router->group(['middleware' => 'auth'], function () use ($customRouter, $router) {
