@@ -30,8 +30,9 @@ class PublicApiMiddleware
 
             $response = Http::withOptions(
                 [
-                    'debug' => config("nise3.is_dev_mode"),
-                    'verify' => config("nise3.should_ssl_verify")
+                    'verify' => config('nise3.should_ssl_verify'),
+                    'debug' => config('nise3.http_debug'),
+                    'timeout' => config('nise3.http_timeout'),
                 ])
                 ->get($url)
                 ->throw(static function (Response $httpResponse, $httpException) use ($url) {
@@ -48,7 +49,6 @@ class PublicApiMiddleware
                 $request->offsetSet('organization_id', $response['data']['organization_id']);
                 $request->offsetSet('show_in', BaseModel::SHOW_IN_INDUSTRY);
             } else if (!empty($response['data']['industry_association_id'])) {
-                Log::info("jjjjj");
                 Log::info($response['data']['industry_association_id']);
 
                 $request->offsetSet('industry_association_id', $response['data']['industry_association_id']);

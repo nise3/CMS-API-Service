@@ -43,6 +43,7 @@ class CalenderEventService
         $paginate = $request['page'] ?? "";
         $pageSize = $request['page_size'] ?? "";
         $order = $request['order'] ?? "ASC";
+        $isRequestFromClientSide = !empty($request[BaseModel::IS_CLIENT_SITE_RESPONSE_KEY]);
 
         /** @var Builder $calenderEventsBuilder */
         $calenderEventsBuilder = CalenderEvent::select([
@@ -62,7 +63,12 @@ class CalenderEventService
             'calender_events.created_at',
             'calender_events.updated_at'
 
-        ])->acl();
+        ]);
+
+        /** If private API */
+        if (!$isRequestFromClientSide) {
+            $calenderEventsBuilder->acl();
+        }
 
         $calenderEventsBuilder->orderBy('calender_events.id', $order);
 

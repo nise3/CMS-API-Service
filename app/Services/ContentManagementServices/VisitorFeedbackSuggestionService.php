@@ -24,6 +24,7 @@ class VisitorFeedbackSuggestionService
      */
     public function getVisitorFeedbackSuggestionList(array $request): Collection|LengthAwarePaginator|array
     {
+        $mobile= $request['mobile'] ?? "";
         $instituteId = $request['institute_id'] ?? "";
         $industryAssociationId = $request['industry_association_id'] ?? "";
         $organizationId = $request['organization_id'] ?? "";
@@ -33,6 +34,7 @@ class VisitorFeedbackSuggestionService
         $pageSize = $request['page_size'] ?? "";
         $rowStatus = $request['row_status'] ?? "";
         $order = $request['order'] ?? "ASC";
+        $archivedAt = $request['archived_at'] ?? "";
         $isRequestFromClientSide = !empty($request[BaseModel::IS_CLIENT_SITE_RESPONSE_KEY]);
 
         /** @var Builder $visitorFeedbackSuggestionBuilder */
@@ -57,10 +59,16 @@ class VisitorFeedbackSuggestionService
             'visitor_feedbacks_suggestions.created_at',
             'visitor_feedbacks_suggestions.updated_at'
 
-        ])->acl();
+        ]);
+
+        /** If private API */
+        if (!$isRequestFromClientSide) {
+            $visitorFeedbackSuggestionBuilder->acl();
+        }
 
         $visitorFeedbackSuggestionBuilder->orderBy('visitor_feedbacks_suggestions.id', $order);
 
+        /** If public API */
         if($isRequestFromClientSide){
             $visitorFeedbackSuggestionBuilder->active();
         }
@@ -77,11 +85,19 @@ class VisitorFeedbackSuggestionService
         if (is_numeric($organizationId)) {
             $visitorFeedbackSuggestionBuilder->where('visitor_feedbacks_suggestions.organization_id', $organizationId);
         }
+        if(!empty($mobile)){
+            $visitorFeedbackSuggestionBuilder->where('visitor_feedbacks_suggestions.mobile', 'like', '%' . $mobile . '%');
+        }
         if (!empty($nameEn)) {
             $visitorFeedbackSuggestionBuilder->where('visitor_feedbacks_suggestions.name_en', 'like', '%' . $nameEn . '%');
         } elseif (!empty($name)) {
             $visitorFeedbackSuggestionBuilder->where('visitor_feedbacks_suggestions.name', 'like', '%' . $name . '%');
         }
+
+        if (!empty($archivedAt)) {
+            $visitorFeedbackSuggestionBuilder->whereDate('visitor_feedbacks_suggestions.archived_at', '=', $archivedAt);
+        }
+
 
 
         /** @var Collection $humanResources */
@@ -178,6 +194,14 @@ class VisitorFeedbackSuggestionService
             'industry_association_id' => 'nullable|integer|gt:0',
             'organization_id' => 'nullable|integer|gt:0',
             'page_size' => 'nullable|integer|gt:0',
+            'mobile' => [
+                'nullable',
+                'string'
+            ],
+            'archived_at' => [
+                'nullable',
+                'date'
+            ],
             'order' => [
                 'nullable',
                 'string',

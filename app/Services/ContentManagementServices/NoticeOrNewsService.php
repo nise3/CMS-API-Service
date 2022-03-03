@@ -29,6 +29,7 @@ class NoticeOrNewsService
      */
     public function getNoticeOrNewsServiceList(array $request, $startTime = null): Collection|LengthAwarePaginator|array
     {
+        $type = $request['type'] ?? "";
         $searchText = $request['search_text'] ?? "";
         $titleEn = $request['title_en'] ?? "";
         $titleBn = $request['title'] ?? "";
@@ -40,6 +41,8 @@ class NoticeOrNewsService
         $organizationId = $request['organization_id'] ?? "";
         $industryAssociationId = $request['industry_association_id'] ?? "";
         $showIn = $request['show_in'] ?? "";
+        $publishedAt = $request['published_at'] ?? "";
+        $archivedAt = $request['archived_at'] ?? "";
         $isRequestFromClientSide = !empty($request[BaseModel::IS_CLIENT_SITE_RESPONSE_KEY]);
 
         /** @var Builder $noticeOrNewsBuilder */
@@ -70,13 +73,21 @@ class NoticeOrNewsService
             'notice_or_news.created_at',
             'notice_or_news.created_at',
 
-        ])->acl();
+        ]);
 
+        /** If private API */
+        if (!$isRequestFromClientSide) {
+            $noticeOrNewsBuilder->acl();
+        }
 
         $noticeOrNewsBuilder->orderBy('notice_or_news.id', $order);
 
         if (is_numeric($rowStatus)) {
             $noticeOrNewsBuilder->where('notice_or_news.row_status', $rowStatus);
+        }
+
+        if (is_numeric($type)) {
+            $noticeOrNewsBuilder->where('notice_or_news.type', $type);
         }
 
         if (!empty($titleEn)) {
@@ -86,7 +97,8 @@ class NoticeOrNewsService
             $noticeOrNewsBuilder->where('notice_or_news.title', 'like', '%' . $titleBn . '%');
         }
 
-        if ($isRequestFromClientSide) { // If request fro client side
+
+        if ($isRequestFromClientSide) { // If request from client side
             $noticeOrNewsBuilder->whereDate('notice_or_news.published_at', '<=', $startTime);
             $noticeOrNewsBuilder->where(function ($builder) use ($startTime) {
                 $builder->whereNull('notice_or_news.archived_at');
@@ -112,8 +124,16 @@ class NoticeOrNewsService
             $noticeOrNewsBuilder->where('notice_or_news.show_in', '=', $showIn);
         }
 
-        if(!empty($searchText)){
-            $noticeOrNewsBuilder->where(function($builder) use ($searchText){
+        if (!empty($publishedAt)) {
+            $noticeOrNewsBuilder->whereDate('notice_or_news.published_at', '=', $publishedAt);
+        }
+        if (!empty($archivedAt)) {
+            $noticeOrNewsBuilder->whereDate('notice_or_news.archived_at', '=', $archivedAt);
+        }
+
+
+        if (!empty($searchText)) {
+            $noticeOrNewsBuilder->where(function ($builder) use ($searchText) {
                 $builder->orWhere('notice_or_news.title', 'like', '%' . $searchText . '%');
                 $builder->orWhere('notice_or_news.title_en', 'like', '%' . $searchText . '%');
                 $builder->orWhere('notice_or_news.details', 'like', '%' . $searchText . '%');
@@ -308,6 +328,18 @@ class NoticeOrNewsService
             'organization_id' => 'nullable|integer|gt:0',
             'industry_association_id' => 'nullable|integer|gt:0',
             'show_in' => 'nullable|integer|gt:0',
+            'type' => [
+                'nullable',
+                Rule::in(NoticeOrNews::TYPES)
+            ],
+            'published_at' => [
+                'nullable',
+                'date'
+            ],
+            'archived_at' => [
+                'nullable',
+                'date'
+            ],
             'order' => [
                 'nullable',
                 'string',

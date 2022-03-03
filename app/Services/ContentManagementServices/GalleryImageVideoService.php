@@ -29,6 +29,8 @@ class GalleryImageVideoService
      */
     public function getGalleryImageVideoList(array $request, $startTime = null): Collection|LengthAwarePaginator|array
     {
+        $publishedAt = $request['published_at'] ?? "";
+        $archivedAt = $request['archived_at'] ?? "";
         $searchText = $request['search_text'] ?? "";
         $albumType = $request['album_type'] ?? "";
         $instituteId = $request['institute_id'] ?? "";
@@ -77,7 +79,7 @@ class GalleryImageVideoService
             'gallery_images_videos.created_at',
             'gallery_images_videos.updated_at'
 
-        ])->acl();
+        ]);
 
         $galleryImageVideoBuilder->join('gallery_albums', function ($join) {
             $join->on('gallery_images_videos.gallery_album_id', '=', 'gallery_albums.id')
@@ -102,6 +104,13 @@ class GalleryImageVideoService
             $galleryImageVideoBuilder->where('gallery_albums.organization_id', $organizationId);
         }
 
+        if (!empty($publishedAt)) {
+            $galleryImageVideoBuilder->whereDate('gallery_images_videos.published_at', '=', $publishedAt);
+        }
+        if (!empty($archivedAt)) {
+            $galleryImageVideoBuilder->whereDate('gallery_images_videos.archived_at', '=', $archivedAt);
+        }
+
         if (!empty($title)) {
             $galleryImageVideoBuilder->where('gallery_images_videos.title', 'like', '%' . $title . '%');
         }
@@ -118,8 +127,8 @@ class GalleryImageVideoService
 
             $galleryImageVideoBuilder->active();
         }
-        if(is_numeric($albumType)){
-            $galleryImageVideoBuilder->where('gallery_albums.album_type','=',$albumType);
+        if (is_numeric($albumType)) {
+            $galleryImageVideoBuilder->where('gallery_albums.album_type', '=', $albumType);
         }
 
         if (!empty($searchText)) {
@@ -418,6 +427,14 @@ class GalleryImageVideoService
             'title_en' => 'nullable|max:250|min:2',
             'page_size' => 'nullable|integer|gt:0',
             'page' => 'nullable|integer|gt:0',
+            'published_at' => [
+                'nullable',
+                'date'
+            ],
+            'archived_at' => [
+                'nullable',
+                'date'
+            ],
             'album_type' => [
                 'nullable',
                 'integer',

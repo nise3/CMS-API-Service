@@ -77,6 +77,7 @@ class CalenderEventsController extends Controller
     public function clientSideGetList(Request $request): JsonResponse
     {
         $filter = $this->calenderEventService->filterValidator($request)->validate();
+        $filter[BaseModel::IS_CLIENT_SITE_RESPONSE_KEY] = BaseModel::IS_CLIENT_SITE_RESPONSE_FLAG;
         $response = $this->calenderEventService->getAllCalenderEvents($filter, $this->startTime);
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
