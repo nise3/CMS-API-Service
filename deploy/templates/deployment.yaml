@@ -53,7 +53,7 @@ spec:
       containers:
         - name:  {{ .Chart.Name }}
             {{ if eq .Values.variables.APP_ENV "DEV" }}
-          image: "{{ .Values.variables.imageRepository }}:{{ .Values.variables.sysdevBuildImageVersiontemDev | default .Chart.AppVersion }}"
+          image: "{{ .Values.variables.imageRepository }}:{{ .Values.variables.devBuildImageVersion | default .Chart.AppVersion }}"
             {{ end }}
             {{ if eq .Values.variables.APP_ENV "PRODUCTION" }}
           image: "{{ .Values.variables.imageRepository }}:{{ .Values.variables.prodBuildImageVersion | default .Chart.AppVersion }}"
