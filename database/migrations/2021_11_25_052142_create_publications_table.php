@@ -17,12 +17,20 @@ class CreatePublicationsTable extends Migration
             $table->id();
             $table->string('title', 800);
             $table->string('title_en', 400)->nullable();
+            $table->unsignedTinyInteger('show_in')
+                ->comment('1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry, 5=>Industry Association');
+
+            $table->unsignedInteger('institute_id')->nullable();
+            $table->unsignedInteger('organization_id')->nullable();
             $table->unsignedInteger('industry_association_id')->nullable();
+
             $table->text('description');
             $table->text('description_en')->nullable();
             $table->string('image_path', 400)->nullable();
             $table->string('author', 300)->nullable();
             $table->string('author_en', 150)->nullable();
+            $table->dateTime('published_at')->nullable();
+            $table->dateTime('archived_at')->nullable();
             $table->unsignedInteger('created_by')->nullable();
             $table->unsignedInteger('updated_by')->nullable();
             $table->unsignedTinyInteger('row_status')->default(1)->comment('0 => inactive, 1 => active');

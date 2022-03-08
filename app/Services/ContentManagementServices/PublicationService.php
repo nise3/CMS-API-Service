@@ -4,6 +4,7 @@ namespace App\Services\ContentManagementServices;
 
 use App\Models\BaseModel;
 use App\Models\Publication;
+use App\Services\Common\LanguageCodeService;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -12,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Symfony\Component\HttpFoundation\Response;
+use Throwable;
 
 /**
  * Class PublicationService
@@ -19,12 +21,13 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class PublicationService
 {
-    /**
+
+    /***
      * @param array $request
-     * @param Carbon $startTime
+     * @param null $startTime
      * @return array
      */
-    public function getPublicationList(array $request, Carbon $startTime): array
+    public function getPublicationList(array $request, $startTime = null): array
     {
         $title = $request['title'] ?? "";
         $titleEn = $request['title_en'] ?? "";
@@ -32,16 +35,27 @@ class PublicationService
         $pageSize = $request['page_size'] ?? "";
         $author = $request['author'] ?? "";
         $authorEn = $request['author_en'] ?? "";
-        $IndustryAssociationId = $request['industry_association_id'] ?? "";
         $order = $request['order'] ?? "ASC";
         $rowStatus = $request['row_status'] ?? "";
-
+        $instituteId = $request['institute_id'] ?? "";
+        $organizationId = $request['organization_id'] ?? "";
+        $industryAssociationId = $request['industry_association_id'] ?? "";
+        $showIn = $request['show_in'] ?? "";
+        $publishedAt = $request['published_at'] ?? "";
+        $archivedAt = $request['archived_at'] ?? "";
+        $isRequestFromClientSide = !empty($request[BaseModel::IS_CLIENT_SITE_RESPONSE_KEY]);
 
 
         /** @var Builder $publicationBuilder */
         $publicationBuilder = Publication::select(
             [
                 'publications.id',
+                'publications.show_in',
+                'publications.institute_id',
+                'publications.organization_id',
+                'publications.industry_association_id',
+                'publications.published_at',
+                'publications.archived_at',
                 'publications.title',
                 'publications.title_en',
                 'publications.author',
@@ -56,8 +70,13 @@ class PublicationService
                 'publications.updated_at',
                 'publications.row_status'
 
-            ]
-        )->acl();
+            ]);
+
+        /** If private API */
+        if (!$isRequestFromClientSide) {
+            $publicationBuilder->acl();
+        }
+
         $publicationBuilder->orderBy('publications.id', $order);
 
         if (!empty($titleEn)) {
@@ -69,8 +88,8 @@ class PublicationService
         if (is_numeric($rowStatus)) {
             $publicationBuilder->where('publications.row_status', $rowStatus);
         }
-        if (is_numeric($IndustryAssociationId)) {
-            $publicationBuilder->where('publications.industry_association_id', $IndustryAssociationId);
+        if (is_numeric($industryAssociationId)) {
+            $publicationBuilder->where('publications.industry_association_id', $industryAssociationId);
         }
         if (!empty($author)) {
             $publicationBuilder->where('publications.author', 'like', '%' . $author . '%');
@@ -78,25 +97,49 @@ class PublicationService
         if (!empty($authorEn)) {
             $publicationBuilder->where('publications.author_en', 'like', '%' . $authorEn . '%');
         }
+        if (is_numeric($industryAssociationId)) {
+            $publicationBuilder->where('publications.industry_association_id', '=', $industryAssociationId);
+        }
+        if (is_numeric($instituteId)) {
+            $publicationBuilder->where('publications.institute_id', '=', $instituteId);
+        }
 
+        if (is_numeric($organizationId)) {
+            $publicationBuilder->where('publications.organization_id', '=', $organizationId);
+        }
+
+        if (is_numeric($showIn)) {
+            $publicationBuilder->where('publications.show_in', '=', $showIn);
+        }
+
+        if (!empty($publishedAt)) {
+            $publicationBuilder->whereDate('publications.published_at', '=', $publishedAt);
+        }
+        if (!empty($archivedAt)) {
+            $publicationBuilder->whereDate('publications.archived_at', '=', $archivedAt);
+        }
+
+        /** If request from client side */
+        if ($isRequestFromClientSide) {
+            $publicationBuilder->whereDate('publications.published_at', '<=', $startTime);
+            $publicationBuilder->where(function ($builder) use ($startTime) {
+                $builder->whereNull('publications.archived_at');
+                $builder->orWhereDate('publications.archived_at', '>=', $startTime);
+            });
+
+            $publicationBuilder->active();
+        }
         /** @var Collection $publications */
 
         if (is_numeric($paginate) || is_numeric($pageSize)) {
             $pageSize = $pageSize ?: BaseModel::DEFAULT_PAGE_SIZE;
             $publications = $publicationBuilder->paginate($pageSize);
-            $paginateData = (object)$publications->toArray();
-            $response['current_page'] = $paginateData->current_page;
-            $response['total_page'] = $paginateData->last_page;
-            $response['page_size'] = $paginateData->per_page;
-            $response['total'] = $paginateData->total;
+
         } else {
             $publications = $publicationBuilder->get();
         }
 
-        $response['order'] = $order;
-        $response['data'] = $publications->toArray()['data'] ?? $publications->toArray();
-        $response['query_time'] = $startTime->diffInSeconds(Carbon::now());
-        return $response;
+        return $publications;
     }
 
     /**
@@ -109,11 +152,16 @@ class PublicationService
         $publicationBuilder = Publication::select(
             [
                 'publications.id',
+                'publications.show_in',
+                'publications.institute_id',
+                'publications.organization_id',
+                'publications.industry_association_id',
+                'publications.published_at',
+                'publications.archived_at',
                 'publications.title',
                 'publications.title_en',
                 'publications.author',
                 'publications.author_en',
-                'publications.title_en',
                 'publications.description',
                 'publications.description_en',
                 'publications.industry_association_id',
@@ -175,7 +223,77 @@ class PublicationService
         return $publication->restore();
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    public function publishOrArchiveValidator(Request $request): \Illuminate\Contracts\Validation\Validator
+    {
+        $rules = [
+            'status' => [
+                'integer',
+                Rule::in(BaseModel::PUBLISH_OR_ARCHIVE_STATUSES)
+            ]
 
+        ];
+        return Validator::make($request->all(), $rules);
+    }
+
+    /**
+     * @param array $data
+     * @param Publication $publication
+     * @return Publication
+     * @throws Throwable
+     */
+    public function publishOrArchivePublication(array $data, Publication $publication): Publication
+    {
+        if ($data['status'] == BaseModel::STATUS_PUBLISH) {
+            $publication->published_at = Carbon::now()->format('Y-m-d H:i:s');
+            $publication->archived_at = null;
+        }
+        if ($data['status'] == BaseModel::STATUS_ARCHIVE) {
+            $publication->archived_at = Carbon::now()->format('Y-m-d H:i:s');
+        }
+        $publication->saveOrFail();
+
+        return $publication;
+    }
+
+    /**
+     * @param array $request
+     * @param string $languageCode
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    public function languageFieldValidator(array $request, string $languageCode): \Illuminate\Contracts\Validation\Validator
+    {
+        $customMessage = [
+            'required' => 'The :attribute_' . strtolower($languageCode) . ' in other language fields is required.[50000]',
+            'max' => 'The :attribute_' . strtolower($languageCode) . ' in other language fields must not be greater than :max characters.[39003]',
+            'min' => 'The :attribute_' . strtolower($languageCode) . ' in other language fields must be at least :min characters.[42003]',
+            'language_code.in' => "The language with code " . $languageCode . " is not allowed",
+            'language_code.regex' => "The language  code " . $languageCode . " must be lowercase"
+        ];
+        $request['language_code'] = $languageCode;
+        $rules = [
+            "language_code" => [
+                "required",
+                "regex:/[a-z]/",
+                Rule::in(LanguageCodeService::getLanguageCode())
+            ],
+            'title' => [
+                'required',
+                'string',
+                'max:500',
+                'min:2'
+            ],
+            'description' => [
+                'required',
+                'string'
+            ],
+
+        ];
+        return Validator::make($request, $rules, $customMessage);
+    }
     /**
      * @param Request $request
      * return use Illuminate\Support\Facades\Validator;
@@ -188,6 +306,11 @@ class PublicationService
             'row_status.in' => 'Row status must be within 1 or 0. [30000]'
         ];
         $rules = [
+            'show_in' => [
+                "required",
+                "integer",
+                Rule::in(array_keys(BaseModel::SHOW_INS))
+            ],
             'title_en' => [
                 'nullable',
                 'string',
@@ -226,9 +349,38 @@ class PublicationService
                 'max: 1000',
                 'min:2'
             ],
+            'institute_id' => [
+                Rule::requiredIf(function () use ($request) {
+                    return $request->input('show_in') == BaseModel::SHOW_IN_TSP;
+                }),
+                "nullable",
+                "integer",
+                "gt:0",
+            ],
             'industry_association_id' => [
-                'required',
-                'integer'
+                Rule::requiredIf(function () use ($request) {
+                    return $request->input('show_in') == BaseModel::SHOW_IN_INDUSTRY_ASSOCIATION;
+                }),
+                "nullable",
+                "integer",
+                "gt:0",
+            ],
+            'organization_id' => [
+                Rule::requiredIf(function () use ($request) {
+                    return $request->input('show_in') == BaseModel::SHOW_IN_INDUSTRY;
+                }),
+                "nullable",
+                "integer",
+                "gt:0",
+            ],
+            'published_at' => [
+                'nullable',
+                'date',
+            ],
+            'archived_at' => [
+                'nullable',
+                'date',
+                'after:published_at'
             ],
             'row_status' => [
                 'required_if:' . $id . ',!=,null',
@@ -254,13 +406,24 @@ class PublicationService
         }
 
         return Validator::make($request->all(), [
+            'show_in' => 'nullable|integer|gt:0',
             'title_en' => 'nullable|max:300|min:2',
             'title' => 'nullable|max:600|min:2',
+            'institute_id' => 'nullable|integer|gt:0',
+            'organization_id' => 'nullable|integer|gt:0',
+            'industry_association_id' => 'nullable|integer|gt:0',
             'author' => 'nullable|max:600|min:2',
             'author_en' => 'nullable|max:600|min:2',
-            'industry_association_id'=>'nullable|integer',
             'page' => 'nullable|integer|gt:0',
             'page_size' => 'nullable|integer|gt:0',
+            'published_at' => [
+                'nullable',
+                'date'
+            ],
+            'archived_at' => [
+                'nullable',
+                'date'
+            ],
             'order' => [
                 'string',
                 'nullable',
@@ -269,7 +432,7 @@ class PublicationService
             'row_status' => [
                 "nullable",
                 "integer",
-                Rule::in(BaseModel::ROW_STATUS_ACTIVE,BaseModel::ROW_STATUS_INACTIVE),
+                Rule::in(BaseModel::ROW_STATUS_ACTIVE, BaseModel::ROW_STATUS_INACTIVE),
             ],
         ], $customMessage);
     }
