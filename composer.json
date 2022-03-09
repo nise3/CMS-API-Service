@@ -1,7 +1,7 @@
 {
-    "name": "laravel/lumen",
-    "description": "The Laravel Lumen Framework.",
-    "keywords": ["framework", "laravel", "lumen"],
+    "name": "nise/cms-api-service",
+    "description": "NISE CMS API Service",
+    "keywords": ["NISE", "CMS", "API"],
     "license": "MIT",
     "type": "project",
     "require": {
