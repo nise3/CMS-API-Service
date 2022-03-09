@@ -51,12 +51,14 @@ abstract class BaseModel extends Model
     public const SHOW_IN_TSP = 3;
     public const SHOW_IN_INDUSTRY = 4;
     public const SHOW_IN_INDUSTRY_ASSOCIATION = 5;
+    public const SHOW_IN_RPL = 6;
     public const SHOW_INS = [
         self::SHOW_IN_NISE3 => "Nise3",
         self::SHOW_IN_YOUTH => "Youth",
         self::SHOW_IN_TSP => "Training Service Provider(TSP)",
         self::SHOW_IN_INDUSTRY => "Organization",
-        self::SHOW_IN_INDUSTRY_ASSOCIATION => "Industry Association"
+        self::SHOW_IN_INDUSTRY_ASSOCIATION => "Industry Association",
+        self::SHOW_IN_RPL => 'Recognition of prior learning(RPL)'
     ];
 
     public const INSTITUTE_TYPE_GOVT = 1;
