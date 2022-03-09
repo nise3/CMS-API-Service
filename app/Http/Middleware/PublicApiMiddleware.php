@@ -55,6 +55,8 @@ class PublicApiMiddleware
                 $request->offsetSet('show_in', BaseModel::SHOW_IN_INDUSTRY_ASSOCIATION);
             } else if (str_contains($response['data']['domain'], 'youth')) {
                 $request->offsetSet('show_in', BaseModel::SHOW_IN_YOUTH);
+            } else if (str_contains($response['data']['domain'], 'rpl')) {
+                $request->offsetSet('show_in', BaseModel::SHOW_IN_RPL);
             } else {
                 $request->offsetSet('show_in', BaseModel::SHOW_IN_NISE3);
             }
