@@ -86,7 +86,7 @@ $router->group(['prefix' => 'api/v1', 'as' => 'api.v1'], function () use ($route
             $router->get('gallery-images-videos', ["as" => "gallery.images.videos.list", "uses" => "GalleryImageVideoController@clientSideGetList"]);
             $router->get('sliders', ["as" => "sliders.list", "uses" => "SliderController@clientSideGetList"]);
             $router->get('calender-events', ["as" => "calender.events", "uses" => "CalenderEventsController@clientSideGetList"]);
-            $router->get('publications', ["as" => "publications", "uses" => "CalenderEventsController@clientSideGetList"]);
+            $router->get('publications', ["as" => "publications", "uses" => "PublicationController@clientSideGetList"]);
             /** Public Static page & block */
             $router->get('static-page-blocks/{page_code}', ["as" => "static.page.block", "uses" => "StaticPageContentOrPageBlockController@clientSideGetStaticPageOrBlock"]);
 

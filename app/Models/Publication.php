@@ -40,10 +40,12 @@ class Publication extends BaseModel
     /** NoticeOrNews LANGUAGE FILLABLE */
     public const LANGUAGE_ATTR_TITLE = "title";
     public const LANGUAGE_ATTR_DESCRIPTION = "description";
+    public const LANGUAGE_ATTR_AUTHOR = "author";
 
 
     public const PUBLICATION_LANGUAGE_FILLABLE = [
         self::LANGUAGE_ATTR_TITLE,
-        self::LANGUAGE_ATTR_DESCRIPTION
+        self::LANGUAGE_ATTR_DESCRIPTION,
+        self::LANGUAGE_ATTR_AUTHOR
     ];
 }

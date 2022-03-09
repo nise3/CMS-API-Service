@@ -6,6 +6,7 @@ use App\Models\BaseModel;
 use App\Models\Publication;
 use App\Services\Common\LanguageCodeService;
 use Carbon\Carbon;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -22,12 +23,12 @@ use Throwable;
 class PublicationService
 {
 
-    /***
+    /**
      * @param array $request
      * @param null $startTime
-     * @return array
+     * @return LengthAwarePaginator|Builder[]|Collection
      */
-    public function getPublicationList(array $request, $startTime = null): array
+    public function getPublicationList(array $request, $startTime = null): Collection|LengthAwarePaginator|array
     {
         $title = $request['title'] ?? "";
         $titleEn = $request['title_en'] ?? "";
@@ -231,6 +232,7 @@ class PublicationService
     {
         $rules = [
             'status' => [
+                'required',
                 'integer',
                 Rule::in(BaseModel::PUBLISH_OR_ARCHIVE_STATUSES)
             ]
@@ -289,6 +291,12 @@ class PublicationService
             'description' => [
                 'required',
                 'string'
+            ],
+            'author' => [
+                'nullable',
+                'string',
+                'max: 600',
+                'min:2'
             ],
 
         ];

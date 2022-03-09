@@ -123,7 +123,6 @@ class PublicationController extends Controller
      */
     function store(Request $request): JsonResponse
     {
-
         $validated = $this->publicationService->validator($request)->validate();
         $message = "Publication successfully added";
         $otherLanguagePayload = $validated['other_language_fields'] ?? [];
