@@ -55,6 +55,7 @@ class PublicationService
                 'publications.institute_id',
                 'publications.organization_id',
                 'publications.industry_association_id',
+                'publications.file_path',
                 'publications.published_at',
                 'publications.archived_at',
                 'publications.title',
@@ -157,6 +158,7 @@ class PublicationService
                 'publications.institute_id',
                 'publications.organization_id',
                 'publications.industry_association_id',
+                'publications.file_path',
                 'publications.published_at',
                 'publications.archived_at',
                 'publications.title',
@@ -236,7 +238,6 @@ class PublicationService
                 'integer',
                 Rule::in(BaseModel::PUBLISH_OR_ARCHIVE_STATUSES)
             ]
-
         ];
         return Validator::make($request->all(), $rules);
     }
@@ -381,6 +382,12 @@ class PublicationService
                 "integer",
                 "gt:0",
             ],
+            'file_path'=>[
+                'nullable',
+                'string',
+                'max:600l'
+            ],
+
             'published_at' => [
                 'nullable',
                 'date',

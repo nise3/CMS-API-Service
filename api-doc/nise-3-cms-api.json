@@ -7976,6 +7976,10 @@
                         "type": "string",
                         "maxLength": 1000
                     },
+                    "file_path": {
+                        "type": "string",
+                        "description": "fiel uplaod path"
+                    },
                     "institute_id": {
                         "type": "integer",
                         "description": "Required when you give show_in = 3"
