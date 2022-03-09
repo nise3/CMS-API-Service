@@ -6519,6 +6519,420 @@
                     "StaticPageType"
                 ]
             }
+        },
+        "/publications": {
+            "get": {
+                "summary": "Get all publication",
+                "description": "API endpoint to get all Publication.A successful request response will show 201 HTTP status code",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/title_optional"
+                    },
+                    {
+                        "$ref": "#/components/parameters/title_en_optional"
+                    },
+                    {
+                        "$ref": "#/components/parameters/industry_association_id_optional"
+                    },
+                    {
+                        "$ref": "#/components/parameters/author"
+                    },
+                    {
+                        "$ref": "#/components/parameters/author_en"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page_size"
+                    },
+                    {
+                        "$ref": "#/components/parameters/order"
+                    },
+                    {
+                        "$ref": "#/components/parameters/row_status_optional"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "data": {
+                                        "id": 1,
+                                        "title": "yahoo",
+                                        "title_en": "yahoo",
+                                        "author": "banana khan",
+                                        "author_en": null,
+                                        "description": "horrorrlust",
+                                        "description_en": "chhikamaruu",
+                                        "industry_association_id": 1,
+                                        "image_path": "lll/lllk..jkkk",
+                                        "created_by": null,
+                                        "updated_by": null,
+                                        "created_at": "2022-01-12T06:23:49.000000Z",
+                                        "updated_at": "2022-01-12T06:23:49.000000Z",
+                                        "row_status": 1
+                                    },
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Publications"
+                ]
+            },
+            "post": {
+                "summary": "Create a publication",
+                "description": "API endpoint to create a publication.A successful request response will show 201 HTTP status code",
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Publication"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successfull",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "data": {
+                                        "title_en": "yahoo",
+                                        "title": "yahoo",
+                                        "author": "FergieNutts",
+                                        "author_en": "Konohamaruu",
+                                        "description": "AsumaSense",
+                                        "description_en": "chhikamaruu",
+                                        "image_path": "lll/lllk..jkkk",
+                                        "industry_association_id": "1",
+                                        "row_status": "1",
+                                        "updated_at": "2022-01-12T06:33:06.000000Z",
+                                        "created_at": "2022-01-12T06:33:06.000000Z",
+                                        "id": 3
+                                    },
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 201,
+                                        "message": "publication added successfully",
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Publications"
+                ]
+            }
+        },
+        "/publications/{publicationId}": {
+            "get": {
+                "summary": "Get a Publication by Id",
+                "description": "API endpoint to get a publication.A successful request response will show 201 HTTP status code",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/publicationId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "example": {
+                                        "data": {
+                                            "id": 4,
+                                            "title": "Cry My Name44444",
+                                            "title_en": "aaaa",
+                                            "description": "Ammon Ammarth",
+                                            "description_en": "Feel the black birds cry",
+                                            "image_path": null
+                                        },
+                                        "_response_status": {
+                                            "success": true,
+                                            "code": 200,
+                                            "query_time": 0
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Publications"
+                ]
+            },
+            "put": {
+                "summary": "Update a publication",
+                "description": "API endpoint to update a publication.A successful request response will show 201 HTTP status code",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/publicationId"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Publication"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "data": {
+                                        "id": 1,
+                                        "title": "aaaaaaaaaaa",
+                                        "title_en": null,
+                                        "description": "ccccccccccccc",
+                                        "description_en": null,
+                                        "image_path": null,
+                                        "author": null,
+                                        "author_en": null,
+                                        "created_by": null,
+                                        "updated_by": null,
+                                        "row_status": "1",
+                                        "deleted_at": null,
+                                        "created_at": "2021-11-28T10:33:27.000000Z",
+                                        "updated_at": "2021-11-28T10:35:31.000000Z"
+                                    },
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "message": "Publication updated successfully",
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Publications"
+                ]
+            },
+            "delete": {
+                "summary": "Delete a publication",
+                "description": "API endpoint to delete a publication.A successful request response will show 201 HTTP status code",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/publicationId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "message": "publication deleted successfully",
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Publications"
+                ]
+            }
+        },
+        "/public/publications": {
+            "get": {
+                "summary": "Get all public publications",
+                "description": "API endpoint to get all Publication publicly .A successful request response will show 201 HTTP status code",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/title_optional"
+                    },
+                    {
+                        "$ref": "#/components/parameters/title_en_optional"
+                    },
+                    {
+                        "$ref": "#/components/parameters/author"
+                    },
+                    {
+                        "$ref": "#/components/parameters/industry_association_id_optional"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page"
+                    },
+                    {
+                        "$ref": "#/components/parameters/page_size"
+                    },
+                    {
+                        "$ref": "#/components/parameters/order"
+                    },
+                    {
+                        "$ref": "#/components/parameters/row_status_optional"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "order": "ASC",
+                                    "data": [
+                                        {
+                                            "id": 11,
+                                            "title": "TestPub",
+                                            "title_en": null,
+                                            "author": null,
+                                            "author_en": null,
+                                            "description": "New Desc",
+                                            "description_en": null,
+                                            "industry_association_id": 2,
+                                            "image_path": null,
+                                            "created_by": null,
+                                            "updated_by": null,
+                                            "created_at": "2021-12-09T11:20:01.000000Z",
+                                            "updated_at": "2021-12-09T11:20:01.000000Z",
+                                            "row_status": 1
+                                        }
+                                    ],
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Publications"
+                ]
+            }
+        },
+        "/public/publications/{publicationId}": {
+            "get": {
+                "summary": "Get a public Publication by Id",
+                "description": "API endpoint to get a publication.A successful request response will show 201 HTTP status code",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/publicationId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "example": {
+                                        "data": {
+                                            "id": 4,
+                                            "title": "Cry My Name44444",
+                                            "title_en": "aaaa",
+                                            "description": "Ammon Ammarth",
+                                            "description_en": "Feel the black birds cry",
+                                            "image_path": null
+                                        },
+                                        "_response_status": {
+                                            "success": true,
+                                            "code": 200,
+                                            "query_time": 0
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Publications"
+                ]
+            }
+        },
+        "/publications/publish-or-archive/{publicationId}": {
+            "put": {
+                "summary": "Archived/Published Publication",
+                "description": "API endpoint to create a new archived/published Publication.A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/publicationId"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PublishOrArchive"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Publication"
+                                },
+                                "example": {
+                                    "data": {
+                                        "id": 1,
+                                        "type": 1,
+                                        "show_in": 3,
+                                        "published_at": "2021-11-10 11:08:04",
+                                        "archived_at": "2021-11-10 11:41:12",
+                                        "title_en": "Ship Mates",
+                                        "title": "Ship Mates",
+                                        "institute_id": 8,
+                                        "organization_id": 8,
+                                        "industry_association_id": 9,
+                                        "description": "Minus ullam ullam et tenetur est in nostrum rerum ipsa animi consequuntur blanditiis officia vitae sit in quos ut aut sit magnam hic voluptas quia doloribus est sit ipsum quia dolor dolor ut beatae nam sapiente soluta a molestias ipsum exercitationem.",
+                                        "description_en": "Omnis et omnis commodi adipisci provident sed eius qui qui tenetur aut eveniet quis et maiores aut eveniet sunt ipsa ut provident cumque facilis corrupti possimus et tenetur eum aperiam provident unde maxime ut quis et tenetur autem magni et sint ipsam laboriosam nisi soluta cumque aliquam et numquam suscipit.",
+                                        "image_path": null,
+                                        "row_status": 1,
+                                        "created_by": null,
+                                        "updated_by": null,
+                                        "created_at": "2021-11-10T10:31:18.000000Z",
+                                        "updated_at": "2021-11-10T11:41:12.000000Z",
+                                        "deleted_at": null
+                                    },
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 201,
+                                        "message": "NoticeOrNews archived successfully",
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Publication"
+                ]
+            }
         }
     },
     "components": {
@@ -6530,6 +6944,14 @@
             }
         },
         "parameters": {
+            "publicationId": {
+                "name": "publicationId",
+                "in": "path",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            },
             "published_at": {
                 "name": "published_at",
                 "in": "query",
@@ -7121,6 +7543,39 @@
                     "type": "string"
                 }
             },
+            "title_en_optional": {
+                "name": "title_en",
+                "in": "query",
+                "required": false,
+                "style": "form",
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "industry_association_id_optional": {
+                "name": "industry_association_id",
+                "in": "query",
+                "required": false,
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "author": {
+                "name": "author",
+                "in": "query",
+                "required": false,
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "author_en": {
+                "name": "author_en",
+                "in": "query",
+                "required": false,
+                "schema": {
+                    "type": "string"
+                }
+            },
             "image_alt_title": {
                 "name": "image_alt_title",
                 "in": "query",
@@ -7480,6 +7935,82 @@
             }
         },
         "schemas": {
+            "Publication": {
+                "type": "object",
+                "description": "Publication management",
+                "properties": {
+                    "show_in": {
+                        "type": "integer",
+                        "description": "1=>Nise3, 2=> Youth, 3=>TSP, 4=>Industry",
+                        "enum": [
+                            1,
+                            2,
+                            3,
+                            4
+                        ]
+                    },
+                    "title": {
+                        "type": "string",
+                        "description": " title in Native",
+                        "minLength": 2,
+                        "maxLength": 1000
+                    },
+                    "title_en": {
+                        "type": "string",
+                        "description": "title in English_En",
+                        "minLength": 2,
+                        "maxLength": 300
+                    },
+                    "author": {
+                        "type": "string"
+                    },
+                    "author_en": {
+                        "type": "string",
+                        "maxLength": 1000
+                    },
+                    "description": {
+                        "type": "string",
+                        "maxLength": 1000
+                    },
+                    "description_en": {
+                        "type": "string",
+                        "maxLength": 1000
+                    },
+                    "institute_id": {
+                        "type": "integer",
+                        "description": "Required when you give show_in = 3"
+                    },
+                    "organization_id": {
+                        "type": "integer",
+                        "description": "Required when you give show_in = 4"
+                    },
+                    "industry_association_id": {
+                        "type": "integer"
+                    },
+                    "image_path": {
+                        "type": "string"
+                    },
+                    "other_language_fields": {
+                        "type": "object",
+                        "example": "  [\n\n\"hi\"=>[\n\"title\"=>\"सामूहिक बाढ़\",\n\"description\"=>\"सामूहिक बाढ़\"]\n\n]"
+                    },
+                    "row_status": {
+                        "type": "integer",
+                        "description": "Activation status .1 => active ,0=>inactive",
+                        "enum": [
+                            0,
+                            1
+                        ],
+                        "example": 1
+                    }
+                },
+                "required": [
+                    "show_in",
+                    "title",
+                    "description"
+                ]
+            },
+
             "StaticPageTypes": {
                 "type": "object",
                 "properties": {
