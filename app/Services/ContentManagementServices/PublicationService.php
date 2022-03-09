@@ -385,7 +385,7 @@ class PublicationService
             'file_path'=>[
                 'nullable',
                 'string',
-                'max:600l'
+                'max:600'
             ],
 
             'published_at' => [
