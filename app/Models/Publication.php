@@ -20,6 +20,9 @@ use Illuminate\Support\Collection;
  * @property string |null description_en
  * @property string |null description
  * @property string |null image_path
+ * @property string |null image_alt_title
+ * @property string |null image_alt_title_en
+ * @property string |null file_path
  * @property string |null author
  * @property string |null author_en
  * @property Carbon|null published_at
@@ -41,11 +44,13 @@ class Publication extends BaseModel
     public const LANGUAGE_ATTR_TITLE = "title";
     public const LANGUAGE_ATTR_DESCRIPTION = "description";
     public const LANGUAGE_ATTR_AUTHOR = "author";
+    public const LANGUAGE_ATTR_IMAGE_ALT_TITLE = "image_alt_title";
 
 
     public const PUBLICATION_LANGUAGE_FILLABLE = [
         self::LANGUAGE_ATTR_TITLE,
         self::LANGUAGE_ATTR_DESCRIPTION,
-        self::LANGUAGE_ATTR_AUTHOR
+        self::LANGUAGE_ATTR_AUTHOR,
+        self::LANGUAGE_ATTR_IMAGE_ALT_TITLE
     ];
 }
