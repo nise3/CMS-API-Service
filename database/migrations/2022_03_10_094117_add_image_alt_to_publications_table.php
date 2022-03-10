@@ -14,8 +14,8 @@ class AddImageAltToPublicationsTable extends Migration
     public function up()
     {
         Schema::table('publications', function (Blueprint $table) {
-            $table->string("image_alt_title", 500)->nullable();
-            $table->string("image_alt_title_en", 250)->nullable();
+            $table->string("image_alt_title", 500)->after('image_path')->nullable();
+            $table->string("image_alt_title_en", 250)->after('image_alt_title')->nullable();
         });
     }
 
