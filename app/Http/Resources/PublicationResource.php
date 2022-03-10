@@ -24,6 +24,8 @@ class PublicationResource extends JsonResource
             "show_in" => $this->show_in,
             "show_in_label" => BaseModel::SHOW_INS[$this->show_in],
             "title" => $this->title,
+            "file_path" => $this->file_path,
+            "image_alt_title" => $this->image_alt_title,
             "institute_id" => $this->institute_id,
             "organization_id" => $this->organization_id,
             "industry_association_id" => $this->industry_association_id,

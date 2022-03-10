@@ -66,6 +66,8 @@ class PublicationService
                 'publications.description_en',
                 'publications.industry_association_id',
                 'publications.image_path',
+                'publications.image_alt_title',
+                'publications.image_alt_title',
                 'publications.created_by',
                 'publications.updated_by',
                 'publications.created_at',
@@ -169,6 +171,8 @@ class PublicationService
                 'publications.description_en',
                 'publications.industry_association_id',
                 'publications.image_path',
+                'publications.image_alt_title',
+                'publications.image_alt_title',
                 'publications.created_by',
                 'publications.updated_by',
                 'publications.created_at',
@@ -299,10 +303,17 @@ class PublicationService
                 'max: 600',
                 'min:2'
             ],
+            'image_alt_title' => [
+                'nullable',
+                'string',
+                'max:500',
+                'min:2'
+            ],
 
         ];
         return Validator::make($request, $rules, $customMessage);
     }
+
     /**
      * @param Request $request
      * return use Illuminate\Support\Facades\Validator;
@@ -382,12 +393,17 @@ class PublicationService
                 "integer",
                 "gt:0",
             ],
-            'file_path'=>[
+            'file_path' => [
                 'nullable',
                 'string',
                 'max:600'
             ],
-
+            'image_alt_title' => [
+                'nullable',
+                'string',
+                'max:500',
+                'min:2'
+            ],
             'published_at' => [
                 'nullable',
                 'date',
