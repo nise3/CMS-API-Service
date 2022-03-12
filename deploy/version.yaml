@@ -1,7 +1,7 @@
 variables:
 
   # app version, changing version will auto deploy the app to current version
-  devBuildImageVersion: "2.1.11"
+  devBuildImageVersion: "2.1.15"
 
   # always add prefix k- before production image version
   prodBuildImageVersion: "prod-2.1.12"
