@@ -6,5 +6,5 @@ variables:
   # always add prefix k- before production image version
   prodBuildImageVersion: "prod-2.1.14"
 
-  #app buil image
+  #app build image
   imageRepository: "registry.nise.gov.bd/nise3-cms-api-service"
