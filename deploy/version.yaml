@@ -3,8 +3,8 @@ variables:
   # app version, changing version will auto deploy the app to current version
   devBuildImageVersion: "2.1.8"
 
-  # always add prefix k- before production image version
-  prodBuildImageVersion: "2.1.11"
+    # always add prefix k- before production image version
+  stagingBuildImageVersion: "2.1.11"
 
   #app buil image
   imageRepository: "registry.nise.gov.bd/nise3-cms-api-service"
