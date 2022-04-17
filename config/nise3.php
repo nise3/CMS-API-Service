@@ -34,6 +34,11 @@ return [
             "id"=>BaseModel::SHOW_IN_INDUSTRY_ASSOCIATION,
             "title"=>"Industry Association",
             "title_en"=>'Industry Association'
+        ],
+        6=>[
+            "id"=>BaseModel::SHOW_IN_RPL,
+            "title"=>"Recognition of prior learning(RPL)",
+            "title_en"=>'Recognition of prior learning(RPL)'
         ]
     ],
     "banner_template" => [
