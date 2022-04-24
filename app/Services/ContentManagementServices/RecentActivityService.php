@@ -318,7 +318,8 @@ class RecentActivityService
         $request->offsetSet('deleted_at', null);
         $requestData = $request->all();
         $customMessage = [
-            'row_status.in' => 'Row status must be within 1 or 0. [30000]'
+            'row_status.in' => 'Row status must be within 1 or 0. [30000]',
+            'unique_with'=>'This combination of :fields already exists.[62001]'
         ];
         $rules = [
             'show_in' => [
