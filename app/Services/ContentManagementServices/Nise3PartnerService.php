@@ -190,15 +190,15 @@ class Nise3PartnerService
             "title" => "required|max:500|min:2",
             "main_image_path" => [
                 "required",
-                BaseModel::IMAGE_PATH_VALIDATION_RULE
+                "string"
             ],
             "thumb_image_path" => [
                 "nullable",
-                BaseModel::IMAGE_PATH_VALIDATION_RULE
+                "string"
             ],
             "grid_image_path" => [
                 "nullable",
-                BaseModel::IMAGE_PATH_VALIDATION_RULE
+                "string"
             ],
             "domain" => [
                 "nullable",

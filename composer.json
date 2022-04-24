@@ -1,14 +1,14 @@
 {
-    "name": "laravel/lumen",
-    "description": "The Laravel Lumen Framework.",
-    "keywords": ["framework", "laravel", "lumen"],
+    "name": "nise/cms-api-service",
+    "description": "NISE CMS API Service",
+    "keywords": ["NISE", "CMS", "API"],
     "license": "MIT",
     "type": "project",
     "require": {
         "php": "^8.0",
         "ext-json": "*",
         "ext-pdo": "*",
-        "elasticsearch/elasticsearch": "^8.0",
+        "elasticsearch/elasticsearch": "^7.0",
         "felixkiss/uniquewith-validator": "^3.4",
         "flipbox/lumen-generator": "^8.2",
         "guzzlehttp/guzzle": "7.3",

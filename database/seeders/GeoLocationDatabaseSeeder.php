@@ -16,5 +16,6 @@ class GeoLocationDatabaseSeeder extends Seeder
         $this->call(LocDivisionsTableSeeder::class);
         $this->call(LocDistrictsTableSeeder::class);
         $this->call(LocUpazilasTableSeeder::class);
+        $this->call(LocUnionsTableSeeder::class);
     }
 }

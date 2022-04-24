@@ -30,6 +30,7 @@ $router->group(['prefix' => 'api/v1', 'as' => 'api.v1'], function () use ($route
     $customRouter()->resourceRoute('divisions', 'LocDivisionController')->render();
     $customRouter()->resourceRoute('districts', 'LocDistrictController')->render();
     $customRouter()->resourceRoute('upazilas', 'LocUpazilaController')->render();
+    $customRouter()->resourceRoute('unions', 'LocUnionController')->render();
 
     /** Auth routes */
     $router->group(['middleware' => 'auth'], function () use ($customRouter, $router) {
@@ -47,12 +48,15 @@ $router->group(['prefix' => 'api/v1', 'as' => 'api.v1'], function () use ($route
         $customRouter()->resourceRoute('visitor-feedback-suggestions', 'VisitorFeedbackSuggestionController')->render();
         $customRouter()->resourceRoute('static-page-types', 'StaticPageTypeController')->render();
         $customRouter()->resourceRoute('calender-events', 'CalenderEventsController')->render();
+        $customRouter()->resourceRoute('publications', 'PublicationController')->render();
+
 
         /** publish or archive  */
         $router->put('gallery-albums/publish-or-archive/{id}', ["as" => "gallery.albums.publish.archive", "uses" => "GalleryAlbumController@publishOrArchive"]);
         $router->put('gallery-images-videos/publish-or-archive/{id}', ["as" => "gallery.images.videos.publish.archive", "uses" => "GalleryImageVideoController@publishOrArchive"]);
         $router->put('notice-or-news/publish-or-archive/{id}', ["as" => "notice.news.publish.archive", "uses" => "NoticeOrNewsController@publishOrArchive"]);
         $router->put('recent-activities/publish-or-archive/{id}', ["as" => "recent.activities.publish.archive", "uses" => "RecentActivityController@publishOrArchive"]);
+        $router->put('publications/publish-or-archive/{id}', ["as" => "publications.publish.archive", "uses" => "PublicationController@publishOrArchive"]);
 
         /** Static page & block */
         $router->get('static-page-blocks/{page_code}', ["as" => "static.page.block", "uses" => "StaticPageContentOrPageBlockController@getStaticPageOrBlock"]);
@@ -68,6 +72,7 @@ $router->group(['prefix' => 'api/v1', 'as' => 'api.v1'], function () use ($route
         $router->get('nise3-partners/{id}', ["as" => "nise3.partners.read", "uses" => "Nise3PartnerController@clientSideRead"]);
         $router->get('gallery-albums/{id}', ["as" => "gallery.albums.read", "uses" => "GalleryAlbumController@clientSideRead"]);
         $router->get('gallery-images-videos/{id}', ["as" => "gallery.images.videos.read", "uses" => "GalleryImageVideoController@clientSideRead"]);
+        $router->get('publications/{id}', ["as" => "PublicationController.read", "uses" => "PublicationController@clientSideRead"]);
 
         /** Nise statistics */
         $router->get("nise-statistics", ["as" => "nise-statistics", "uses" => "NiseDashboardController@getDashboardSummery"]);
@@ -81,6 +86,7 @@ $router->group(['prefix' => 'api/v1', 'as' => 'api.v1'], function () use ($route
             $router->get('gallery-images-videos', ["as" => "gallery.images.videos.list", "uses" => "GalleryImageVideoController@clientSideGetList"]);
             $router->get('sliders', ["as" => "sliders.list", "uses" => "SliderController@clientSideGetList"]);
             $router->get('calender-events', ["as" => "calender.events", "uses" => "CalenderEventsController@clientSideGetList"]);
+            $router->get('publications', ["as" => "publications", "uses" => "PublicationController@clientSideGetList"]);
             /** Public Static page & block */
             $router->get('static-page-blocks/{page_code}', ["as" => "static.page.block", "uses" => "StaticPageContentOrPageBlockController@clientSideGetStaticPageOrBlock"]);
 
