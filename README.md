@@ -10,3 +10,4 @@ RELEASE = 'php artisan list'
 ```shell
 php artisan queue:work --queue=cms.batch.calender.q
 ```
+
