@@ -2,17 +2,17 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class LocUnion extends Model
+class LocUnion extends BaseModel
 {
-    use SoftDeletes;
+    use SoftDeletes, HasFactory;
 
-    public $timestamps = false;
     protected $table = 'loc_unions';
-    protected $guarded = BaseModel::COMMON_GUARDED_FIELDS_SOFT_DELETE;
+    protected $guarded = BaseModel::COMMON_GUARDED_FIELDS_ONLY_SOFT_DELETE;
+    public $timestamps = false;
 
     public function locDistrict(): BelongsTo
     {
@@ -22,10 +22,5 @@ class LocUnion extends Model
     public function locDivision(): BelongsTo
     {
         return $this->belongsTo(LocDivision::class, 'loc_division_id');
-    }
-
-    public function locUpazila(): BelongsTo
-    {
-        return $this->belongsTo(LocDivision::class, 'loc_upazila_id');
     }
 }
