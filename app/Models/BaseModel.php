@@ -22,6 +22,7 @@ abstract class BaseModel extends Model
     public const YOUTH_USER_TYPE = 4;
     public const INDUSTRY_ASSOCIATION_USER = 5;
     public const REGISTERED_TRAINING_ORGANIZATION_USER_TYPE = 6;
+    public const MIGRATION_PORTAL_USER_TYPE = 7;
 
     public const IMAGE_PATH_VALIDATION_RULE = 'url';
     public const HTTP_URL = 'regex:/^(http|https):\/\/[a-zA-Z-\-\.0-9]+$/';
@@ -53,13 +54,16 @@ abstract class BaseModel extends Model
     public const SHOW_IN_INDUSTRY = 4;
     public const SHOW_IN_INDUSTRY_ASSOCIATION = 5;
     public const SHOW_IN_RPL = 6;
+    public const SHOW_IN_MIGRATION_PORTAL = 7;
+
     public const SHOW_INS = [
         self::SHOW_IN_NISE3 => "Nise3",
         self::SHOW_IN_YOUTH => "Youth",
         self::SHOW_IN_TSP => "Training Service Provider(TSP)",
         self::SHOW_IN_INDUSTRY => "Organization",
         self::SHOW_IN_INDUSTRY_ASSOCIATION => "Industry Association",
-        self::SHOW_IN_RPL => 'Recognition of prior learning(RPL)'
+        self::SHOW_IN_RPL => 'Recognition of prior learning(RPL)',
+        self::SHOW_IN_MIGRATION_PORTAL => 'Migration Portal',
     ];
 
     public const INSTITUTE_TYPE_GOVT = 1;
@@ -146,4 +150,5 @@ abstract class BaseModel extends Model
     public const SAGA_MAIL_SMS_SERVICE = 'mail_sms_service';
 
     public const DATABASE_CONNECTION_ERROR_CODE = 2002;
+    public const MIGRATION_PORTAL_DOMAIN_PREFIX = "migration-portal";
 }

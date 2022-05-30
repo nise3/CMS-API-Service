@@ -62,7 +62,7 @@ class Authenticate
                     $request->offsetSet('industry_association_id', $authUser->industry_association_id);
                     $request->offsetSet('show_in', BaseModel::SHOW_IN_INDUSTRY_ASSOCIATION);
                 }
-            } elseif ($authUser instanceof Youth){
+            } elseif ($authUser instanceof Youth) {
                 $request->offsetSet('youth_id', $authUser->id);
                 $request->offsetSet('show_in', BaseModel::SHOW_IN_YOUTH);
             }

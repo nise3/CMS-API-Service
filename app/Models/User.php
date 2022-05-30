@@ -38,7 +38,7 @@ class User extends BaseModel implements
 {
     use Authenticatable, Authorizable;
 
-    protected $guarded=[];
+    protected $guarded = [];
 
     protected Collection $permissions;
     protected Role $role;
@@ -71,6 +71,11 @@ class User extends BaseModel implements
     public function isSystemUser(): bool
     {
         return $this->user_type == BaseModel::SYSTEM_USER;
+    }
+
+    public function isMigrationPortalUser(): bool
+    {
+        return $this->user_type == BaseModel::MIGRATION_PORTAL_USER_TYPE;
     }
 
     public function isOrganizationUser(): bool
