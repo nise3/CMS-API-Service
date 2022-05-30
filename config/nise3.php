@@ -39,6 +39,11 @@ return [
             "id"=>BaseModel::SHOW_IN_RPL,
             "title"=>"Recognition of prior learning(RPL)",
             "title_en"=>'Recognition of prior learning(RPL)'
+        ],
+        7=>[
+            "id"=>BaseModel::SHOW_IN_MIGRATION_PORTAL,
+            "title"=>"Migration Portal",
+            "title_en"=>'Migration Portal'
         ]
     ],
     "banner_template" => [
