@@ -349,7 +349,8 @@ class RecentActivityService
         $request->offsetSet('deleted_at', null);
         $requestData = $request->all();
         $customMessage = [
-            'row_status.in' => 'Row status must be within 1 or 0. [30000]'
+            'row_status.in' => 'Row status must be within 1 or 0. [30000]',
+            'unique_with' => 'The :attribute has already been taken.[62000]'
         ];
         $rules = [
             'show_in' => [
@@ -407,7 +408,6 @@ class RecentActivityService
                 'string',
                 'max:300'
             ],
-
             'collage_image_path' => [
                 Rule::requiredIf(function () use ($requestData) {
                     return !empty($requestData['collage_position']);
