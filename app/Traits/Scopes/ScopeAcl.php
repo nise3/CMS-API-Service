@@ -33,7 +33,7 @@ trait ScopeAcl
                     $query = $query->where($tableName . '.industry_association_id', $authUser->industry_association_id);
                 }
             }
-        } elseif ($authUser instanceof Youth){ //youth user
+        } elseif ($authUser instanceof Youth) { //youth user
 
             if (Schema::hasColumn($tableName, 'youth_id')) {
                 $query = $query->where($tableName . '.youth_id', $authUser->id);

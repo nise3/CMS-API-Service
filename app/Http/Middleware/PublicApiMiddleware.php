@@ -58,7 +58,12 @@ class PublicApiMiddleware
             } else if (str_contains($response['data']['domain'], 'rpl')) {
                 $request->offsetSet('show_in', BaseModel::SHOW_IN_RPL);
             } else {
-                $request->offsetSet('show_in', BaseModel::SHOW_IN_NISE3);
+                if(str_contains($domain,BaseModel::MIGRATION_PORTAL_DOMAIN_PREFIX)){
+                    $request->offsetSet('show_in', BaseModel::SHOW_IN_MIGRATION_PORTAL);
+                }else{
+                    $request->offsetSet('show_in', BaseModel::SHOW_IN_NISE3);
+                }
+
             }
 
         } else {
