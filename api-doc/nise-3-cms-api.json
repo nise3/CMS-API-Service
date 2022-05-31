@@ -1336,7 +1336,7 @@
                                                     "sub_title": "Dentist",
                                                     "is_button_available": 1,
                                                     "button_text": "Est sit sed providen",
-                                                    "link": "http://www.wolf.org/quia-sequi-ab-ut-quam-doloribus-rem-aut.html",
+                                                    "link": "https://www.wolf.org/quia-sequi-ab-ut-quam-doloribus-rem-aut.html",
                                                     "image_alt_title_en": "id",
                                                     "image_alt_title": "ut",
                                                     "banner_template_code": "BT_CB",
@@ -1377,7 +1377,7 @@
                                                     "sub_title": "Epidemiologist",
                                                     "is_button_available": 0,
                                                     "button_text": "Illum quia cum dolor",
-                                                    "link": "http://www.bruen.biz/quibusdam-voluptatem-molestiae-ratione",
+                                                    "link": "https://www.bruen.biz/quibusdam-voluptatem-molestiae-ratione",
                                                     "image_alt_title_en": "enim",
                                                     "image_alt_title": "placeat",
                                                     "banner_template_code": "BT_CB",
@@ -1448,7 +1448,7 @@
                                         {
                                             "id": 1,
                                             "is_button_available": 1,
-                                            "link": "http://www.wolf.org/quia-sequi-ab-ut-quam-doloribus-rem-aut.html",
+                                            "link": "https://www.wolf.org/quia-sequi-ab-ut-quam-doloribus-rem-aut.html",
                                             "slider_id": 1,
                                             "slider_title": "",
                                             "banner_template_code": "BT_CB",
@@ -1489,7 +1489,7 @@
                                         {
                                             "id": 2,
                                             "is_button_available": 0,
-                                            "link": "http://www.bruen.biz/quibusdam-voluptatem-molestiae-ratione",
+                                            "link": "https://www.bruen.biz/quibusdam-voluptatem-molestiae-ratione",
                                             "slider_id": 2,
                                             "slider_title": "",
                                             "banner_template_code": "BT_CB",
@@ -1641,7 +1641,7 @@
                                     "data": {
                                         "id": 1,
                                         "is_button_available": 1,
-                                        "link": "http://www.conroy.com/",
+                                        "link": "https://www.conroy.com/",
                                         "title": "Agricultural Engineer",
                                         "sub_title": "Agricultural Engineer",
                                         "image_alt_title": "quia",
@@ -1705,7 +1705,7 @@
                                     "slider_id": "1",
                                     "slider_title": null,
                                     "banner_template_code": "BT_LR",
-                                    "banner_image_path": "http://newurl.com",
+                                    "banner_image_path": "https://newurl.com",
                                     "institute_id": null,
                                     "organization_id": null,
                                     "industry_association_id": null,
@@ -3775,6 +3775,91 @@
                 "responses": {
                     "200": {
                         "description": "successfull",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "order": "ASC",
+                                    "data": [
+                                        {
+                                            "id": 10,
+                                            "show_in": 2,
+                                            "show_in_label": "Youth",
+                                            "activity_date": null,
+                                            "published_at": "2021-11-10 10:31:18",
+                                            "archived_at": null,
+                                            "institute_id": 1,
+                                            "organization_id": 6,
+                                            "institute_title": "Chester Koss",
+                                            "institute_title_en": "Chester Koss",
+                                            "organization_title": "Kessler-Kirlin",
+                                            "organization_title_en": "Kessler-Kirlin",
+                                            "industry_association_id": null,
+                                            "title": "Inspector",
+                                            "content_type": 1,
+                                            "image_path": "https://via.placeholder.com/640x480.png/002211?text=temporibus",
+                                            "video_url": null,
+                                            "video_id": null,
+                                            "content_properties": "Eos reiciendis maxime quasi nemo sapiente voluptatem.",
+                                            "collage_image_path": null,
+                                            "collage_position": null,
+                                            "thumb_image_path": null,
+                                            "grid_image_path": null,
+                                            "image_alt_title": null,
+                                            "description": "Qui rerum nihil dolor nihil qui aut non et aspernatur quo explicabo et sit itaque quia quaerat aut illo illum voluptatibus omnis eos iusto est atque tempore quos veniam sunt in aut nemo adipisci laborum nesciunt sint corrupti quo dolore impedit officia qui molestias nisi.",
+                                            "row_status": null,
+                                            "published_by": null,
+                                            "archived_by": null,
+                                            "updated_by": null,
+                                            "created_at": "2021-11-10T10:31:18.000000Z",
+                                            "updated_at": "2021-11-10T10:31:18.000000Z"
+                                        }
+                                    ],
+                                    "_response_status": {
+                                        "success": true,
+                                        "code": 200,
+                                        "message": null,
+                                        "query_time": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "recent-activities"
+                ]
+            }
+        },
+        "/public/recent-activities-collages": {
+            "get": {
+                "summary": "Get All public recent activity collage list ",
+                "description": "API endpoint to get all recent activities collage list .A successful request response will show 200 HTTP status code",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/show_in"
+                    },
+                    {
+                        "$ref": "#/components/parameters/institute_id"
+                    },
+                    {
+                        "$ref": "#/components/parameters/industry_association_id"
+                    },
+                    {
+                        "$ref": "#/components/parameters/organization_id"
+                    },
+                    {
+                        "$ref": "#/components/parameters/order"
+                    },
+                    {
+                        "$ref": "#/components/parameters/Accept-Language"
+                    } ,
+                    {
+                        "$ref": "#/components/parameters/Domain"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successfully",
                         "content": {
                             "application/json": {
                                 "example": {
@@ -7124,6 +7209,14 @@
                         "hi",
                         "te"
                     ]
+                }
+            },
+            "Domain": {
+                "name": "Domain",
+                "in": "header",
+                "required": true,
+                "schema": {
+                    "type": "string"
                 }
             },
             "recentActivityId": {

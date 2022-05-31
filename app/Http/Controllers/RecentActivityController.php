@@ -53,6 +53,23 @@ class RecentActivityController extends Controller
         return Response::json($response, ResponseAlias::HTTP_OK);
     }
 
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     * @throws ValidationException
+     * @throws RequestException
+     */
+    public function clientSideRecentActivityCollageList(Request $request): JsonResponse
+    {
+        $request->offsetSet(BaseModel::IS_COLLECTION_KEY, BaseModel::IS_COLLECTION_FLAG);
+        $filter = $this->recentActivityService->filterValidator($request)->validate();
+        $recentActivityCollageList = $this->recentActivityService->getRecentActivityCollageList($filter,$this->startTime);
+        $request->offsetSet(BaseModel::INSTITUTE_ORGANIZATION_INDUSTRY_ASSOCIATION_TITLE_BY_ID, CmsGlobalConfigService::getOrganizationOrInstituteOrIndustryAssociationTitle($recentActivityCollageList->toArray()['data'] ?? $recentActivityCollageList->toArray()));
+        $response = RecentActivityResource::collection($recentActivityCollageList)->resource;
+        $response = getResponse($response->toArray(), $this->startTime, !BaseModel::IS_SINGLE_RESPONSE, ResponseAlias::HTTP_OK);
+        return Response::json($response, ResponseAlias::HTTP_OK);
+    }
+
 
     /**
      * @param Request $request

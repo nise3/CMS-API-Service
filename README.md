@@ -39,3 +39,10 @@ This following command has to be run in the background as a daemon service.
 php artisan queue:work --queue=cms.batch.calender.q
 ```
 
+## Contributing
+
+## Security Vulnerabilities
+
+## License
+Softbd LTD
+

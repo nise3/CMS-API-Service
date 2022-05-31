@@ -82,6 +82,7 @@ $router->group(['prefix' => 'api/v1', 'as' => 'api.v1'], function () use ($route
             $router->get('faqs', ["as" => "faqs.list", "uses" => "FaqController@clientSideGetList"]);
             $router->get('notice-or-news', ["as" => "notice.news.list", "uses" => "NoticeOrNewsController@clientSideGetList"]);
             $router->get('recent-activities', ["as" => "recent.activities.list", "uses" => "RecentActivityController@clientSideGetList"]);
+            $router->get('recent-activities-collages', ["as" => "recent.activities.collage-list", "uses" => "RecentActivityController@clientSideRecentActivityCollageList"]);
             $router->get('gallery-albums', ["as" => "gallery.albums.list", "uses" => "GalleryAlbumController@clientSideGetList"]);
             $router->get('gallery-images-videos', ["as" => "gallery.images.videos.list", "uses" => "GalleryImageVideoController@clientSideGetList"]);
             $router->get('sliders', ["as" => "sliders.list", "uses" => "SliderController@clientSideGetList"]);

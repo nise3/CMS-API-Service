@@ -130,12 +130,102 @@ class RecentActivityService
 
         if (is_numeric($paginate) || is_numeric($pageSize)) {
             $pageSize = $pageSize ?: BaseModel::DEFAULT_PAGE_SIZE;
-            $recentActivity = $recentActivityBuilder->paginate($pageSize);
+            if ($isRequestFromClientSide) {
+                $recentActivity = $recentActivityBuilder->whereNull('recent_activities.collage_position')->paginate($pageSize);
+            } else {
+                $recentActivity = $recentActivityBuilder->paginate($pageSize);
+            }
         } else {
-            $recentActivity = $recentActivityBuilder->get();
+            if ($isRequestFromClientSide) {
+                $recentActivity = $recentActivityBuilder->whereNull('recent_activities.collage_position')->get();
+            } else {
+                $recentActivity = $recentActivityBuilder->get();
+            }
         }
         return $recentActivity;
     }
+
+    /**
+     * @param array $request
+     * @param Carbon $startTime
+     * @return Collection|array
+     */
+    public function getRecentActivityCollageList(array $request, Carbon $startTime): Collection|array
+    {
+        $showIn = $request['show_in'] ?? "";
+        $instituteId = $request['institute_id'] ?? "";
+        $industryAssociationId = $request['industry_association_id'] ?? "";
+        $organizationId = $request['organization_id'] ?? "";
+        $order = $request['order'] ?? "ASC";
+
+        $isRequestFromClientSide = !empty($request[BaseModel::IS_CLIENT_SITE_RESPONSE_KEY]);
+
+        /** @var  Builder $recentActivityCollageBuilder */
+        $recentActivityCollageBuilder = RecentActivity::select([
+            'recent_activities.id',
+            'recent_activities.show_in',
+            'recent_activities.activity_date',
+            'recent_activities.published_at',
+            'recent_activities.archived_at',
+            'recent_activities.institute_id',
+            'recent_activities.organization_id',
+            'recent_activities.industry_association_id',
+            'recent_activities.title_en',
+            'recent_activities.title',
+            'recent_activities.content_type',
+            'recent_activities.image_path',
+            'recent_activities.video_url',
+            'recent_activities.video_id',
+            'recent_activities.content_properties',
+            'recent_activities.collage_image_path',
+            'recent_activities.collage_position',
+            'recent_activities.thumb_image_path',
+            'recent_activities.grid_image_path',
+            'recent_activities.image_alt_title_en',
+            'recent_activities.image_alt_title',
+            'recent_activities.description_en',
+            'recent_activities.description',
+            'recent_activities.row_status',
+            'recent_activities.created_by',
+            'recent_activities.updated_by',
+            'recent_activities.created_at',
+            'recent_activities.updated_at',
+
+        ]);
+
+        /** If private API */
+        if (!$isRequestFromClientSide) {
+            $recentActivityCollageBuilder->acl();
+        }
+        $recentActivityCollageBuilder->orderBy('recent_activities.id', $order);
+
+        $recentActivityCollageBuilder->whereNotNull('recent_activities.collage_position');
+
+        if (is_numeric($showIn)) {
+            $recentActivityCollageBuilder->where('recent_activities.show_in', $showIn);
+        }
+        if (is_numeric($instituteId)) {
+            $recentActivityCollageBuilder->where('recent_activities.institute_id', $instituteId);
+        }
+        if (is_numeric($industryAssociationId)) {
+            $recentActivityCollageBuilder->where('recent_activities.industry_association_id', $industryAssociationId);
+        }
+        if (is_numeric($organizationId)) {
+            $recentActivityCollageBuilder->where('recent_activities.organization_id', $organizationId);
+        }
+
+        if ($isRequestFromClientSide) {
+            $recentActivityCollageBuilder->whereDate('recent_activities.published_at', '<=', $startTime);
+            $recentActivityCollageBuilder->where(function ($builder) use ($startTime) {
+                $builder->whereNull('recent_activities.archived_at');
+                $builder->orWhereDate('recent_activities.archived_at', '>=', $startTime);
+            });
+            $recentActivityCollageBuilder->active();
+        }
+
+        return $recentActivityCollageBuilder->get();
+    }
+
 
     /**
      * @param int $id
