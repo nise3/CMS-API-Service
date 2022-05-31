@@ -34,7 +34,9 @@ class StaticPageTypeSeeder extends Seeder
             array('id' => '10','title' => 'নির্দেশিকা','title_en' => 'Guidelines','category' => '1','page_code' => 'guidelines','type' => '2','created_at' => '2022-01-06 05:31:07','updated_at' => '2022-01-06 05:31:07'),
             array('id' => '11','title' => 'আমাদের সম্পর্কে পেজ ব্লক','title_en' => 'About Us Page Block','category' => '6','page_code' => 'about-us-block','type' => '1','created_at' => '2022-02-07 23:44:11','updated_at' => '2022-02-07 23:44:11'),
             array('id' => '12','title' => 'আর. পি. এল. কি?','title_en' => 'What is RPL?','category' => '7','page_code' => 'what-is-rpl','type' => '2','created_at' => '2022-02-07 23:44:11','updated_at' => '2022-02-07 23:44:11'),
-            array('id' => '13','title' => 'আর. পি. এল. সার্টিফিকেটের সুবিধা','title_en' => 'Benefits of RPL certificate','category' => '7','page_code' => 'rpl-certificate-benefits','type' => '2','created_at' => '2022-02-07 23:44:11','updated_at' => '2022-02-07 23:44:11')
+            array('id' => '13','title' => 'আর. পি. এল. সার্টিফিকেটের সুবিধা','title_en' => 'Benefits of RPL certificate','category' => '7','page_code' => 'rpl-certificate-benefits','type' => '2','created_at' => '2022-02-07 23:44:11','updated_at' => '2022-02-07 23:44:11'),
+            array('id' => '14','title' => 'মাইগ্রেশন পোর্টালের বিস্তারিত','title_en' => 'Migration Portal Details','category' => '8','page_code' => 'migration-portal-details','type' => '1','created_at' => '2022-02-07 23:44:11','updated_at' => '2022-02-07 23:44:11'),
+            array('id' => '15','title' => 'শ্রম কল্যান আতাশে','title_en' => 'Sromo Kalyan Atashe','category' => '8','page_code' => 'sromo-kalyan-atashe','type' => '2','created_at' => '2022-02-07 23:44:11','updated_at' => '2022-02-07 23:44:11'),
         ));
         Schema::enableForeignKeyConstraints();
     }

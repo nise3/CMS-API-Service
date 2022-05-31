@@ -29,6 +29,8 @@ class StaticPageType extends BaseModel
     public const STATIC_PAGE_TYPE_CATEGORY_TSP = 4;
     public const STATIC_PAGE_TYPE_CATEGORY_INDUSTRY = 5;
     public const STATIC_PAGE_TYPE_CATEGORY_INDUSTRY_ASSOCIATION = 6;
+    public const STATIC_PAGE_TYPE_RPL = 7;
+    public const STATIC_PAGE_TYPE_MIGRATION_PORTAL = 8;
 
     public const STATIC_PAGE_TYPE_CATEGORIES= [
         self::STATIC_PAGE_TYPE_CATEGORY_COMMON => "Common",
@@ -36,7 +38,9 @@ class StaticPageType extends BaseModel
         self::STATIC_PAGE_TYPE_CATEGORY_YOUTH => "Youth",
         self::STATIC_PAGE_TYPE_CATEGORY_TSP => "Training Service Provider(TSP)",
         self::STATIC_PAGE_TYPE_CATEGORY_INDUSTRY => "Organization",
-        self::STATIC_PAGE_TYPE_CATEGORY_INDUSTRY_ASSOCIATION => "Industry Association"
+        self::STATIC_PAGE_TYPE_CATEGORY_INDUSTRY_ASSOCIATION => "Industry Association",
+        self::STATIC_PAGE_TYPE_RPL => "Rpl",
+        self::STATIC_PAGE_TYPE_MIGRATION_PORTAL => "Migration Portal",
     ];
 
 
