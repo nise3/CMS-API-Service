@@ -360,7 +360,7 @@ class RecentActivityService
         $rules = [
             "title_en" => "nullable|string",
             "title" => "nullable|string",
-            'show_in' => 'nullable|integer |gt:0',
+            'show_in' => 'nullable|integer|gt:0',
             'institute_id' => 'nullable|integer|gt:0',
             'industry_association_id' => 'nullable|integer|gt:0',
             'organization_id' => 'nullable|integer|gt:0',
