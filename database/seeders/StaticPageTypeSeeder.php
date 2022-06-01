@@ -37,6 +37,7 @@ class StaticPageTypeSeeder extends Seeder
             array('id' => '13','title' => 'আর. পি. এল. সার্টিফিকেটের সুবিধা','title_en' => 'Benefits of RPL certificate','category' => '7','page_code' => 'rpl-certificate-benefits','type' => '2','created_at' => '2022-02-07 23:44:11','updated_at' => '2022-02-07 23:44:11'),
             array('id' => '14','title' => 'মাইগ্রেশন পোর্টালের বিস্তারিত','title_en' => 'Migration Portal Details','category' => '8','page_code' => 'migration-portal-details','type' => '1','created_at' => '2022-02-07 23:44:11','updated_at' => '2022-02-07 23:44:11'),
             array('id' => '15','title' => 'শ্রম কল্যান আতাশে','title_en' => 'Sromo Kalyan Atashe','category' => '8','page_code' => 'sromo-kalyan-atashe','type' => '2','created_at' => '2022-02-07 23:44:11','updated_at' => '2022-02-07 23:44:11'),
+            array('id' => '16','title' => 'ইন্ডাস্ট্রি আমাদের সম্পর্কে পেইজ ব্লক','title_en' => 'Industry About Us Page Block','category' => '5','page_code' => 'industry-about-us-page-block','type' => '1','created_at' => '2022-02-07 23:44:11','updated_at' => '2022-02-07 23:44:11'),
         ));
         Schema::enableForeignKeyConstraints();
     }
